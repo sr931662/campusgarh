@@ -626,8 +626,8 @@ export const useImportExcel = () => {
 export const useExportExcel = () => {
   return useMutation({
     mutationFn: ({ model, params }) => importExportService.exportExcel(model, params),
-    onSuccess: (blob, variables) => {
-      const url = window.URL.createObjectURL(blob);
+    onSuccess: (response, variables) => {
+      const url = window.URL.createObjectURL(response.data);
       const a = document.createElement('a');
       a.href = url;
       a.download = `${variables.model}_export.xlsx`;

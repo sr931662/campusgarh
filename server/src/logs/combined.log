@@ -875,3 +875,5 @@
 {"level":"info","message":"GET /api/v1/colleges/featured?limit=3 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:50:14"}
 {"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 00:13:22"}
 {"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 00:18:05"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 01:30:47"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 01:56:35"}

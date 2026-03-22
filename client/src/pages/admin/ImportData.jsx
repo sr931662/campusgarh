@@ -5,6 +5,52 @@ import Button from '../../components/common/Button/Button';
 import Card from '../../components/common/Card/Card';
 import styles from './ImportData.module.css';
 
+const COLUMN_GUIDE = {
+  College: {
+    required: ['College Name'],
+    optional: [
+      'Short Name', 'Description', 'Established Year',
+      'Discipline (College Type)', 'Institute Type (Funding Type)', 'Affiliation',
+      'NAAC Grade', 'NIRF Rank', 'NBA Status (Yes/No)',
+      'Phone', 'Email', 'Website', 'Address', 'City', 'State', 'Pincode',
+      'Admission Mode', 'Application Fee (₹)', 'Application Link',
+      'Average Package (LPA)', 'Highest Package (LPA)', 'Placement Rate (%)',
+      'Tuition Fee (₹/yr)', 'Hostel Fee (₹/yr)', 'Total Fees (₹/yr)',
+      'Hostel Available (Yes/No)', 'Boys Capacity', 'Girls Capacity',
+      'Total Area (Acres)', 'Campus Type', 'Total Students', 'Total Faculty',
+      'Top Recruiters', 'Approved By', 'Featured (Yes/No)', 'Verified (Yes/No)',
+      'Facebook', 'Twitter', 'Instagram', 'LinkedIn', 'YouTube',
+    ],
+  },
+  Course: {
+    required: ['Course Name'],
+    optional: [
+      'Level (UG/PG/Diploma/Doctorate/Certificate)', 'Discipline', 'Duration',
+      'Mode (Full-time/Part-time/Online/Distance)', 'Description', 'Eligibility Criteria',
+      'Specializations', 'Job Roles', 'Skills',
+      'Minimum Fee (INR/Year)', 'Maximum Fee (INR/Year)',
+    ],
+  },
+  Exam: {
+    required: ['Exam Name'],
+    optional: [
+      'Category (UG/PG/PhD/Diploma)', 'Conducting Body', 'Overview', 'Eligibility',
+      'Official Website', 'Exam Level (National/State/University-Level)',
+      'Exam Mode (Online (CBT)/Offline (OMR)/Online + Offline)',
+      'Languages', 'Frequency (Annual/Twice a Year/Multiple Times)',
+      'Registration Fee', 'Total Applications',
+    ],
+  },
+  Blog: {
+    required: ['Title'],
+    optional: ['Content', 'Excerpt', 'Status (draft/published)', 'Tags'],
+  },
+  AdmissionEnquiry: {
+    required: ['Student Name', 'Phone', 'Email'],
+    optional: ['Message', 'Preferred City', 'Source'],
+  },
+};
+
 const MODELS = [
   { value: 'College',          label: 'Colleges' },
   { value: 'Course',           label: 'Courses' },
@@ -173,6 +219,31 @@ export default function ImportData() {
           💡 Tip: Export existing data first to see the correct column names.
           Headers are matched case-insensitively with many accepted variations.
         </p>
+
+        {/* Column guide */}
+        {COLUMN_GUIDE[model] && (
+          <details className={styles.colGuide}>
+            <summary className={styles.colGuideSummary}>View accepted column names for {modelLabel}</summary>
+            <div className={styles.colGuideBody}>
+              <div className={styles.colGuideGroup}>
+                <span className={styles.colGuideLabel}>Required</span>
+                <div className={styles.colGuideTags}>
+                  {COLUMN_GUIDE[model].required.map(c => (
+                    <code key={c} className={styles.colTagRequired}>{c}</code>
+                  ))}
+                </div>
+              </div>
+              <div className={styles.colGuideGroup}>
+                <span className={styles.colGuideLabel}>Optional</span>
+                <div className={styles.colGuideTags}>
+                  {COLUMN_GUIDE[model].optional.map(c => (
+                    <code key={c} className={styles.colTagOptional}>{c}</code>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </details>
+        )}
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
           <Button

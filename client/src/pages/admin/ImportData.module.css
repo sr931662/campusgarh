@@ -183,7 +183,60 @@
   border: 1px solid var(--border, #E8E3DB);
   border-radius: 8px;
   padding: 0.6rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Column Guide ── */
+.colGuide {
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: 8px;
+  overflow: hidden;
   margin-bottom: 0;
+}
+.colGuideSummary {
+  padding: 0.65rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gold, #C9A84C);
+  cursor: pointer;
+  user-select: none;
+  background: rgba(201, 168, 76, 0.05);
+}
+.colGuideSummary:hover { background: rgba(201, 168, 76, 0.1); }
+.colGuideBody {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  background: var(--cream, #FAF7F2);
+  border-top: 1px solid var(--border, #E8E3DB);
+}
+.colGuideGroup { display: flex; flex-direction: column; gap: 0.4rem; }
+.colGuideLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted, #8A8A8E);
+}
+.colGuideTags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.colTagRequired {
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #dc2626;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+}
+.colTagOptional {
+  background: rgba(0,0,0,0.04);
+  border: 1px solid var(--border, #E8E3DB);
+  color: var(--charcoal, #1C1C1E);
+  font-size: 0.75rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
 }
 
 /* ── Export ── */

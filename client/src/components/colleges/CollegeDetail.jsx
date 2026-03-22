@@ -18,6 +18,7 @@ import CollegeFacilities from './CollegeFacilities';
 import CollegeAdmission from './CollegeAdmission';
 import CollegeCutoffs from './CollegeCutoffs';
 import CollegeHostelCampus from './CollegeHostelCampus';
+import CollegeEnquiryForm from './CollegeEnquiryForm';
 import styles from './CollegeDetail.module.css';
 
 const TABS = [
@@ -103,6 +104,17 @@ export default function CollegeDetail() {
             <span>/</span>
             <span>{college.name}</span>
           </nav>
+
+          {/* College logo */}
+          <div className={styles.collegeLogo}>
+            {college.images?.[0]?.url ? (
+              <img src={college.images[0].url} alt={college.name} className={styles.collegeLogoImg} />
+            ) : (
+              <span className={styles.collegeLogoInitials}>
+                {(college.shortName || college.name).split(' ').filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('')}
+              </span>
+            )}
+          </div>
 
           {/* Badges row */}
           <div className={styles.heroBadges}>
@@ -207,6 +219,7 @@ export default function CollegeDetail() {
 
       {/* ── TAB CONTENT ───────────────────────────────────────────────────────── */}
       <div className={styles.contentWrap}>
+        <div className={styles.contentLayout}>
         <div className={styles.content}>
 
           {/* INFO ────────────────────────────────────────────────────── */}
@@ -379,6 +392,12 @@ export default function CollegeDetail() {
               <CollegeReviews collegeId={college._id} />
             </div>
           )}
+        </div>
+
+        {/* ── SIDEBAR: Lead capture form ─────────────────────────────── */}
+        <aside className={styles.sidebar}>
+          <CollegeEnquiryForm college={college} />
+        </aside>
         </div>
       </div>
     </div>
