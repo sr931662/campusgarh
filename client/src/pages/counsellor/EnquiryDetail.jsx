@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaInbox } from 'react-icons/fa';
 import { useParams, Link } from 'react-router-dom';
 import {
   useEnquiry,
@@ -73,7 +74,7 @@ export default function EnquiryDetail() {
 
   if (error || !enq) return (
     <div className={styles.errorWrap}>
-      <span className={styles.errorIcon}>📭</span>
+      <span className={styles.errorIcon}><FaInbox /></span>
       <h2>Enquiry not found</h2>
       <Link to="/dashboard/counsellor"><Button variant="primary">Back to Dashboard</Button></Link>
     </div>

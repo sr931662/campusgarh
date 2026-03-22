@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { FaSearch, FaGraduationCap, FaBook, FaBookOpen, FaCheck, FaBriefcase } from 'react-icons/fa';
 import { useCourses } from '../../hooks/queries';
 import CourseCard from './CourseCard';
 import CourseFilters from './CourseFilters';
@@ -93,19 +94,19 @@ const CourseList = () => {
 
           {Object.entries(filters).some(([k, v]) => v && k !== 'sort') && (
             <div className={styles.activeFilters}>
-              {filters.search && <span className={styles.filterChip}>🔍 "{filters.search}" <button onClick={() => handleFilterChange({ ...filters, search: '' })}>×</button></span>}
-              {filters.category && <span className={styles.filterChip}>🎓 {filters.category} <button onClick={() => handleFilterChange({ ...filters, category: '' })}>×</button></span>}
-              {filters.discipline && <span className={styles.filterChip}>📚 {filters.discipline} <button onClick={() => handleFilterChange({ ...filters, discipline: '' })}>×</button></span>}
-              {filters.mode && <span className={styles.filterChip}>📖 {filters.mode} <button onClick={() => handleFilterChange({ ...filters, mode: '' })}>×</button></span>}
-              {filters.admissionType && <span className={styles.filterChip}>✅ {filters.admissionType} <button onClick={() => handleFilterChange({ ...filters, admissionType: '' })}>×</button></span>}
-              {filters.minSalary && <span className={styles.filterChip}>💼 Salary {(Number(filters.minSalary)/100000).toFixed(0)}L+ <button onClick={() => handleFilterChange({ ...filters, minSalary: '' })}>×</button></span>}
+              {filters.search && <span className={styles.filterChip}><FaSearch /> "{filters.search}" <button onClick={() => handleFilterChange({ ...filters, search: '' })}>×</button></span>}
+              {filters.category && <span className={styles.filterChip}><FaGraduationCap /> {filters.category} <button onClick={() => handleFilterChange({ ...filters, category: '' })}>×</button></span>}
+              {filters.discipline && <span className={styles.filterChip}><FaBook /> {filters.discipline} <button onClick={() => handleFilterChange({ ...filters, discipline: '' })}>×</button></span>}
+              {filters.mode && <span className={styles.filterChip}><FaBookOpen /> {filters.mode} <button onClick={() => handleFilterChange({ ...filters, mode: '' })}>×</button></span>}
+              {filters.admissionType && <span className={styles.filterChip}><FaCheck /> {filters.admissionType} <button onClick={() => handleFilterChange({ ...filters, admissionType: '' })}>×</button></span>}
+              {filters.minSalary && <span className={styles.filterChip}><FaBriefcase /> Salary {(Number(filters.minSalary)/100000).toFixed(0)}L+ <button onClick={() => handleFilterChange({ ...filters, minSalary: '' })}>×</button></span>}
             </div>
           )}
         </div>
 
         {courses.length === 0 ? (
           <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>📚</div>
+            <div className={styles.emptyIcon}><FaBook /></div>
             <h3 className={styles.emptyTitle}>No courses found</h3>
             <p className={styles.emptyText}>Try adjusting your filters or search terms.</p>
             <button className={styles.emptyReset} onClick={handleResetFilters}>Clear all filters</button>

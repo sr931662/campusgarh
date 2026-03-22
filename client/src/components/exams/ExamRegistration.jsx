@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaFileAlt } from 'react-icons/fa';
 import styles from './ExamRegistration.module.css';
 import { formatDate } from '../../utils/formatters';
 
@@ -83,7 +84,7 @@ const ExamRegistration = ({ exam }) => {
           <h3 className={styles.subTitle}>Documents Required</h3>
           <div className={styles.tagRow}>
             {documentsRequired.map((doc, idx) => (
-              <span key={idx} className={styles.docTag}>📄 {doc}</span>
+              <span key={idx} className={styles.docTag}><FaFileAlt /> {doc}</span>
             ))}
           </div>
         </div>

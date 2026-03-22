@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaClock, FaBook, FaRupeeSign, FaBriefcase } from 'react-icons/fa';
 import Card from '../common/Card/Card';
 import styles from './CourseCard.module.css';
 
@@ -17,17 +18,17 @@ const CourseCard = ({ course }) => {
         {discipline && <div className={styles.discipline}>{discipline}</div>}
 
         <div className={styles.details}>
-          <span className={styles.detail}>⏱️ {duration}</span>
-          {mode && <span className={styles.detail}>📚 {mode}</span>}
+          <span className={styles.detail}><FaClock /> {duration}</span>
+          {mode && <span className={styles.detail}><FaBook /> {mode}</span>}
           {(feeRange?.min || feeRange?.max) && (
             <span className={styles.detail}>
-              💰 {feeRange.min ? `₹${(feeRange.min / 100000).toFixed(1)}L` : ''}
+              <FaRupeeSign /> {feeRange.min ? `${(feeRange.min / 100000).toFixed(1)}L` : ''}
               {feeRange.min && feeRange.max ? '–' : ''}
-              {feeRange.max ? `₹${(feeRange.max / 100000).toFixed(1)}L` : ''}
+              {feeRange.max ? `${(feeRange.max / 100000).toFixed(1)}L` : ''}
             </span>
           )}
           {careerProspects?.averageStartingSalary && (
-            <span className={styles.detail}>💼 Avg ₹{(careerProspects.averageStartingSalary / 100000).toFixed(1)}L/yr</span>
+            <span className={styles.detail}><FaBriefcase /> Avg ₹{(careerProspects.averageStartingSalary / 100000).toFixed(1)}L/yr</span>
           )}
         </div>
 

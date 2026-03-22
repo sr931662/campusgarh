@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { FaGraduationCap, FaBook, FaRupeeSign, FaClipboardList, FaBullseye, FaClock } from 'react-icons/fa';
 import { useCourseBySlug, useCollegesForCourse } from '../../hooks/queries';
 import Loader from '../common/Loader/Loader';
 import Button from '../common/Button/Button';
@@ -31,7 +32,7 @@ const CourseDetail = () => {
   if (error || !course) {
     return (
       <div className={styles.errorWrap}>
-        <span className={styles.errorIcon}>🎓</span>
+        <span className={styles.errorIcon}><FaGraduationCap /></span>
         <h2>Course not found</h2>
         <p>We couldn't find a course at this URL.</p>
         <Link to="/courses"><Button variant="primary">Browse Courses</Button></Link>
@@ -72,19 +73,19 @@ const CourseDetail = () => {
           <div className={styles.heroStats}>
             {course.duration && (
               <div className={styles.heroStat}>
-                <span className={styles.heroStatIcon}>⏱</span>
+                <span className={styles.heroStatIcon}><FaClock /></span>
                 <span>{course.duration}</span>
               </div>
             )}
             {course.mode && (
               <div className={styles.heroStat}>
-                <span className={styles.heroStatIcon}>📖</span>
+                <span className={styles.heroStatIcon}><FaBook /></span>
                 <span>{course.mode}</span>
               </div>
             )}
             {(course.feeRange?.min || course.feeRange?.max) && (
               <div className={styles.heroStat}>
-                <span className={styles.heroStatIcon}>💰</span>
+                <span className={styles.heroStatIcon}><FaRupeeSign /></span>
                 <span>
                   {course.feeRange.min && course.feeRange.max
                     ? `${formatCurrency(course.feeRange.min)} – ${formatCurrency(course.feeRange.max)}`
@@ -96,7 +97,7 @@ const CourseDetail = () => {
             )}
             {course.admissionType && (
               <div className={styles.heroStat}>
-                <span className={styles.heroStatIcon}>📋</span>
+                <span className={styles.heroStatIcon}><FaClipboardList /></span>
                 <span>{course.admissionType}</span>
               </div>
             )}
@@ -218,7 +219,7 @@ const CourseDetail = () => {
                   <div className={styles.specializationsGrid}>
                     {course.specializations.map((spec, idx) => (
                       <div key={idx} className={styles.specializationCard}>
-                        <span className={styles.specIcon}>🎯</span>
+                        <span className={styles.specIcon}><FaBullseye /></span>
                         <span className={styles.specName}>{spec}</span>
                       </div>
                     ))}

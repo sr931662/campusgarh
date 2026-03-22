@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { FaBook } from 'react-icons/fa';
 import { useExams } from '../../hooks/queries';
 import ExamCard from './ExamCard';
 import ExamFilters from './ExamFilters';
@@ -134,7 +135,7 @@ const ExamList = () => {
 
         {exams.length === 0 ? (
           <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>📚</div>
+            <div className={styles.emptyIcon}><FaBook /></div>
             <h3 className={styles.emptyTitle}>No exams found</h3>
             <p className={styles.emptyText}>Try adjusting your filters or search term.</p>
             <button className={styles.emptyReset} onClick={handleReset}>Clear Filters</button>

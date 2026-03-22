@@ -4,7 +4,7 @@ import {
   FaGears, FaStethoscope, FaScaleBalanced, FaLaptopCode, FaBuilding,
   FaGraduationCap, FaTrophy, FaNewspaper, FaStar, FaBookOpen,
 } from 'react-icons/fa6';
-import { FaBriefcase, FaPalette, FaFlask } from 'react-icons/fa';
+import { FaBriefcase, FaPalette, FaFlask, FaMapMarkerAlt, FaBullseye, FaHandshake, FaClipboardList } from 'react-icons/fa';
 import HeroCanvas from '../components/home/HeroCanvas';
 import { useFeaturedColleges } from '../hooks/queries';
 import styles from './Home.module.css';
@@ -223,7 +223,7 @@ export default function Home() {
                       <h3 className={styles.instName}>{college.name}</h3>
                       {(college.contact?.city || college.contact?.state) && (
                         <p className={styles.instLocation}>
-                          📍 {[college.contact.city, college.contact.state].filter(Boolean).join(', ')}
+                          <FaMapMarkerAlt /> {[college.contact.city, college.contact.state].filter(Boolean).join(', ')}
                         </p>
                       )}
                       {meta.length > 0 && (
@@ -349,10 +349,10 @@ export default function Home() {
             viewport={{ once: true, amount: 0.2 }} variants={stagger}
           >
             {[
-              { icon: '🎯', title: 'Curated Data',      desc: 'Verified college info, rankings, and placement records.' },
-              { icon: '⭐', title: 'Student Reviews',   desc: 'Honest, ground-level reviews from verified students and alumni.' },
-              { icon: '📋', title: 'Exam Tracker',      desc: 'Stay on top of every entrance exam with dates and eligibility.' },
-              { icon: '🤝', title: 'Expert Counselling',desc: 'Connect with certified counsellors for personalised guidance.' },
+              { icon: <FaBullseye />,      title: 'Curated Data',      desc: 'Verified college info, rankings, and placement records.' },
+              { icon: <FaStar />,          title: 'Student Reviews',   desc: 'Honest, ground-level reviews from verified students and alumni.' },
+              { icon: <FaClipboardList />, title: 'Exam Tracker',      desc: 'Stay on top of every entrance exam with dates and eligibility.' },
+              { icon: <FaHandshake />,     title: 'Expert Counselling',desc: 'Connect with certified counsellors for personalised guidance.' },
             ].map((item) => (
               <motion.div key={item.title} className={styles.whyCard} variants={fadeUp}>
                 <span className={styles.whyIcon}>{item.icon}</span>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaNewspaper } from 'react-icons/fa';
 import Card from '../common/Card/Card';
 import styles from './BlogCard.module.css';
 import { formatDate, truncateText } from '../../utils/formatters';
@@ -21,7 +22,7 @@ const BlogCard = ({ blog }) => {
             <img src={featuredImage.url} alt={title} className={styles.image} />
           </div>
         ) : (
-          <div className={styles.imagePlaceholder}>📰</div>
+          <div className={styles.imagePlaceholder}><FaNewspaper /></div>
         )}
         <div className={styles.content}>
           <div className={styles.topRow}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import Card from '../common/Card/Card';
 import RatingStars from '../common/RatingStars/RatingStars';
 import styles from './CollegeCard.module.css';
@@ -31,7 +32,7 @@ const CollegeCard = ({ college }) => {
         </div>
 
         <div className={styles.location}>
-          📍 {contact?.city}, {contact?.state}
+          <FaMapMarkerAlt /> {contact?.city}, {contact?.state}
         </div>
 
         {/* Accreditation & Approvals row */}

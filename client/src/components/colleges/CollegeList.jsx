@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { FaSearch, FaMapMarkerAlt, FaCity, FaGraduationCap, FaUniversity, FaCheck } from 'react-icons/fa';
 import { useColleges } from '../../hooks/queries';
 import CollegeCard from './CollegeCard';
 import CollegeFilters from './CollegeFilters';
@@ -109,13 +110,13 @@ const CollegeList = () => {
           {/* Active filter chips */}
           {Object.entries(filters).some(([k, v]) => v && k !== 'sort') && (
             <div className={styles.activeFilters}>
-              {filters.search && <span className={styles.filterChip}>🔍 "{filters.search}" <button onClick={() => handleFilterChange({ ...filters, search: '' })}>×</button></span>}
-              {filters.state && <span className={styles.filterChip}>📍 {filters.state} <button onClick={() => handleFilterChange({ ...filters, state: '' })}>×</button></span>}
-              {filters.city && <span className={styles.filterChip}>🏙️ {filters.city} <button onClick={() => handleFilterChange({ ...filters, city: '' })}>×</button></span>}
-              {filters.type && <span className={styles.filterChip}>🎓 {filters.type} <button onClick={() => handleFilterChange({ ...filters, type: '' })}>×</button></span>}
-              {filters.fundingType && <span className={styles.filterChip}>🏦 {filters.fundingType} <button onClick={() => handleFilterChange({ ...filters, fundingType: '' })}>×</button></span>}
+              {filters.search && <span className={styles.filterChip}><FaSearch /> "{filters.search}" <button onClick={() => handleFilterChange({ ...filters, search: '' })}>×</button></span>}
+              {filters.state && <span className={styles.filterChip}><FaMapMarkerAlt /> {filters.state} <button onClick={() => handleFilterChange({ ...filters, state: '' })}>×</button></span>}
+              {filters.city && <span className={styles.filterChip}><FaCity /> {filters.city} <button onClick={() => handleFilterChange({ ...filters, city: '' })}>×</button></span>}
+              {filters.type && <span className={styles.filterChip}><FaGraduationCap /> {filters.type} <button onClick={() => handleFilterChange({ ...filters, type: '' })}>×</button></span>}
+              {filters.fundingType && <span className={styles.filterChip}><FaUniversity /> {filters.fundingType} <button onClick={() => handleFilterChange({ ...filters, fundingType: '' })}>×</button></span>}
               {filters.naacGrade && <span className={styles.filterChip}>NAAC {filters.naacGrade} <button onClick={() => handleFilterChange({ ...filters, naacGrade: '' })}>×</button></span>}
-              {filters.approvedBy && <span className={styles.filterChip}>✅ {filters.approvedBy.split(',').join(' + ')} <button onClick={() => handleFilterChange({ ...filters, approvedBy: '' })}>×</button></span>}
+              {filters.approvedBy && <span className={styles.filterChip}><FaCheck /> {filters.approvedBy.split(',').join(' + ')} <button onClick={() => handleFilterChange({ ...filters, approvedBy: '' })}>×</button></span>}
               {filters.minPlacement && <span className={styles.filterChip}>Placement {filters.minPlacement}%+ <button onClick={() => handleFilterChange({ ...filters, minPlacement: '' })}>×</button></span>}
               {filters.minPackage && <span className={styles.filterChip}>Pkg {(Number(filters.minPackage)/100000).toFixed(0)}L+ <button onClick={() => handleFilterChange({ ...filters, minPackage: '' })}>×</button></span>}
               {filters.campusType && <span className={styles.filterChip}>{filters.campusType} Campus <button onClick={() => handleFilterChange({ ...filters, campusType: '' })}>×</button></span>}
@@ -126,7 +127,7 @@ const CollegeList = () => {
 
         {colleges.length === 0 ? (
           <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>🎓</div>
+            <div className={styles.emptyIcon}><FaGraduationCap /></div>
             <h3 className={styles.emptyTitle}>No colleges found</h3>
             <p className={styles.emptyText}>Try adjusting your filters or search terms.</p>
             <button className={styles.emptyReset} onClick={handleResetFilters}>Clear all filters</button>

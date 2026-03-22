@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaPhone, FaClock } from 'react-icons/fa';
 import { useMyEnquiries } from '../../hooks/queries';
 import Loader from '../common/Loader/Loader';
 import StatsCard from './StatsCard';
@@ -11,8 +12,8 @@ const CounsellorDashboard = () => {
 
   const enquiries = enquiriesData?.data?.data || [];
   const stats = [
-    { title: 'Active Leads', value: enquiries.length, icon: '📞', color: 'primary' },
-    { title: 'Follow-up Today', value: enquiries.filter(e => e.followUpDate && new Date(e.followUpDate).toDateString() === new Date().toDateString()).length, icon: '⏰', color: 'warning' },
+    { title: 'Active Leads',   value: enquiries.length, icon: <FaPhone />, color: 'primary' },
+    { title: 'Follow-up Today', value: enquiries.filter(e => e.followUpDate && new Date(e.followUpDate).toDateString() === new Date().toDateString()).length, icon: <FaClock />, color: 'warning' },
   ];
 
   return (

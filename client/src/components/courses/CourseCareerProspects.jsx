@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaRupeeSign, FaChartLine, FaBriefcase } from 'react-icons/fa';
 import styles from './CourseCareerProspects.module.css';
 import { formatCurrency } from '../../utils/formatters';
 
@@ -25,14 +26,14 @@ const CourseCareerProspects = ({ course }) => {
           <div className={styles.statsRow}>
             {careerProspects.averageStartingSalary && (
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>💰</div>
+                <div className={styles.statIcon}><FaRupeeSign /></div>
                 <div className={styles.statLabel}>Avg Starting Salary</div>
                 <div className={styles.statValue}>{formatCurrency(careerProspects.averageStartingSalary)} / year</div>
               </div>
             )}
             {careerProspects.growthRate && (
               <div className={styles.statCard}>
-                <div className={styles.statIcon}>📈</div>
+                <div className={styles.statIcon}><FaChartLine /></div>
                 <div className={styles.statLabel}>Industry Growth</div>
                 <div className={styles.statValue}>{careerProspects.growthRate}</div>
               </div>
@@ -68,7 +69,7 @@ const CourseCareerProspects = ({ course }) => {
           <h3 className={styles.subTitle}>Common Job Roles</h3>
           <div className={styles.tagGrid}>
             {jobRoles.map((role, idx) => (
-              <span key={idx} className={styles.jobTag}>💼 {role}</span>
+              <span key={idx} className={styles.jobTag}><FaBriefcase /> {role}</span>
             ))}
           </div>
         </div>

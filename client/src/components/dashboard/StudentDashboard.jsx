@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaUniversity, FaBook, FaStar, FaChartBar } from 'react-icons/fa';
 import { useUserProfile } from '../../hooks/queries';
 import Loader from '../common/Loader/Loader';
 import StatsCard from './StatsCard';
@@ -17,10 +18,10 @@ const StudentDashboard = () => {
   if (!user) return <Loader fullScreen />;
 
   const stats = [
-    { title: 'Saved Colleges', value: user.savedColleges?.length || 0, icon: '🏛️', color: 'primary' },
-    { title: 'Saved Courses', value: user.savedCourses?.length || 0, icon: '📚', color: 'success' },
-    { title: 'Reviews Written', value: user.reviewsCount || 0, icon: '⭐', color: 'warning' },
-    { title: 'Comparisons', value: user.comparisonsCount || 0, icon: '📊', color: 'danger' },
+    { title: 'Saved Colleges', value: user.savedColleges?.length || 0, icon: <FaUniversity />, color: 'primary' },
+    { title: 'Saved Courses',  value: user.savedCourses?.length  || 0, icon: <FaBook />,       color: 'success' },
+    { title: 'Reviews Written',value: user.reviewsCount          || 0, icon: <FaStar />,        color: 'warning' },
+    { title: 'Comparisons',    value: user.comparisonsCount      || 0, icon: <FaChartBar />,    color: 'danger'  },
   ];
 
   return (

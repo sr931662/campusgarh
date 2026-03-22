@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { FaNewspaper } from 'react-icons/fa';
 import { useBlogBySlug } from '../../hooks/queries';
 import Loader from '../common/Loader/Loader';
 import Button from '../common/Button/Button';
@@ -90,7 +91,7 @@ const BlogDetail = () => {
   if (error || !blog) {
     return (
       <div className={styles.errorWrap}>
-        <span className={styles.errorIcon}>📰</span>
+        <span className={styles.errorIcon}><FaNewspaper /></span>
         <h2>Article not found</h2>
         <p>We couldn't find this article.</p>
         <Link to="/blogs"><Button variant="primary">Browse Blogs</Button></Link>

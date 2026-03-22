@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaBook } from 'react-icons/fa';
 import styles from './ExamPreparation.module.css';
 
 const SUBJECT_COLORS = ['#ebf5fb', '#fef9e7', '#eafaf1', '#f3e5f5', '#fce4ec', '#e8f5e9'];
@@ -47,7 +48,7 @@ const ExamPreparation = ({ preparationTips = [], recommendedBooks = [] }) => {
           <div className={styles.booksGrid}>
             {recommendedBooks.map((book, idx) => (
               <div key={idx} className={styles.bookCard}>
-                <div className={styles.bookIcon}>📚</div>
+                <div className={styles.bookIcon}><FaBook /></div>
                 <div className={styles.bookInfo}>
                   <div className={styles.bookTitle}>{book.title}</div>
                   {book.author && <div className={styles.bookAuthor}>by {book.author}</div>}

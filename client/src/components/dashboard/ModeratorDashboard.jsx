@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import { FaHourglassHalf, FaFlag, FaStar, FaCheckCircle } from 'react-icons/fa';
 import { reviewService } from '../../services/reviewService';
 import Loader from '../common/Loader/Loader';
 import StatsCard from './StatsCard';
@@ -22,8 +23,8 @@ const ModeratorDashboard = () => {
   if (isLoading) return <Loader />;
 
   const stats = [
-    { title: 'Pending Reviews', value: pendingCount, icon: '⏳', color: 'warning' },
-    { title: 'Flagged Reviews', value: flaggedCount, icon: '🚩', color: 'danger' },
+    { title: 'Pending Reviews', value: pendingCount, icon: <FaHourglassHalf />, color: 'warning' },
+    { title: 'Flagged Reviews', value: flaggedCount, icon: <FaFlag />,          color: 'danger'  },
   ];
 
   return (
@@ -43,7 +44,7 @@ const ModeratorDashboard = () => {
         <h2>Quick Actions</h2>
         <div className={styles.actionsGrid}>
           <Link to="/admin/reviews/moderation" className={styles.actionCard}>
-            <span className={styles.actionIcon}>⭐</span>
+            <span className={styles.actionIcon}><FaStar /></span>
             <span className={styles.actionLabel}>Review Queue</span>
             <span className={styles.actionDesc}>Approve, reject, or flag student reviews</span>
             {pendingCount > 0 && (
@@ -51,7 +52,7 @@ const ModeratorDashboard = () => {
             )}
           </Link>
           <Link to="/admin/reviews/moderation?status=flagged" className={styles.actionCard}>
-            <span className={styles.actionIcon}>🚩</span>
+            <span className={styles.actionIcon}><FaFlag /></span>
             <span className={styles.actionLabel}>Flagged Content</span>
             <span className={styles.actionDesc}>Review content reported by users</span>
             {flaggedCount > 0 && (
@@ -59,7 +60,7 @@ const ModeratorDashboard = () => {
             )}
           </Link>
           <Link to="/admin/reviews/moderation?status=approved" className={styles.actionCard}>
-            <span className={styles.actionIcon}>✅</span>
+            <span className={styles.actionIcon}><FaCheckCircle /></span>
             <span className={styles.actionLabel}>Approved Reviews</span>
             <span className={styles.actionDesc}>Browse all live published reviews</span>
           </Link>

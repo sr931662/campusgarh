@@ -4,6 +4,7 @@ import {
   FaTrophy, FaCalendarAlt, FaUsers, FaBriefcase, FaRupeeSign, FaGraduationCap, FaMapMarkerAlt,
   FaFacebook, FaInstagram, FaLinkedinIn, FaYoutube,
 } from 'react-icons/fa';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useCollegeBySlug, useAverageRating, useToggleSavedCollege } from '../../hooks/queries';
 import { useAuth } from '../../hooks/useAuth';
@@ -182,7 +183,7 @@ export default function CollegeDetail() {
                 className={`${styles.btnSecondary} ${isSaved ? styles.btnSaved : ''}`}
                 onClick={() => toggleSaved(college._id)}
               >
-                {isSaved ? '❤️ Saved' : '🤍 Save'}
+                {isSaved ? <><FaHeart /> Saved</> : <><FaRegHeart /> Save</>}
               </button>
             )}
           </div>

@@ -1,3 +1,4 @@
+import { FaMale, FaFemale, FaUtensils, FaMapMarkerAlt } from 'react-icons/fa';
 import { formatCurrency } from '../../utils/formatters';
 import styles from './CollegeHostelCampus.module.css';
 
@@ -20,28 +21,28 @@ export default function CollegeHostelCampus({ college }) {
           <div className={styles.hostelGrid}>
             {hostel.boysCapacity > 0 && (
               <div className={styles.hostelCard}>
-                <p className={styles.hostelCardHeader}>🧑 Boys Hostel</p>
+                <p className={styles.hostelCardHeader}><FaMale /> Boys Hostel</p>
                 <p>Capacity: {hostel.boysCapacity} seats</p>
                 {hostel.annualFee > 0 && <p>Annual Fee: {formatCurrency(hostel.annualFee)}</p>}
               </div>
             )}
             {hostel.girlsCapacity > 0 && (
               <div className={styles.hostelCard}>
-                <p className={styles.hostelCardHeader}>👩 Girls Hostel</p>
+                <p className={styles.hostelCardHeader}><FaFemale /> Girls Hostel</p>
                 <p>Capacity: {hostel.girlsCapacity} seats</p>
                 {hostel.annualFee > 0 && <p>Annual Fee: {formatCurrency(hostel.annualFee)}</p>}
               </div>
             )}
             {hostel.messCharges > 0 && (
               <div className={styles.hostelCard}>
-                <p className={styles.hostelCardHeader}>🍽️ Mess</p>
+                <p className={styles.hostelCardHeader}><FaUtensils /> Mess</p>
                 <p>Charges: {formatCurrency(hostel.messCharges)}</p>
               </div>
             )}
           </div>
 
           {hostel.distanceFromCampus && (
-            <p className={styles.distanceNote}>📍 Distance from campus: {hostel.distanceFromCampus}</p>
+            <p className={styles.distanceNote}><FaMapMarkerAlt /> Distance from campus: {hostel.distanceFromCampus}</p>
           )}
 
           {hostel.facilities?.length > 0 && (

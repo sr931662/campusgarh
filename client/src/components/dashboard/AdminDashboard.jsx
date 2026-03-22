@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaUsers, FaUniversity, FaBook, FaPhone, FaStar } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import { adminService } from '../../services/adminService';
 import Loader from '../common/Loader/Loader';
@@ -15,11 +16,11 @@ const AdminDashboard = () => {
   const stats = statsRes?.data?.data;
 
   const statItems = [
-    { title: 'Total Users', value: stats?.totalUsers || 0, icon: '👥', color: 'primary' },
-    { title: 'Colleges', value: stats?.totalColleges || 0, icon: '🏛️', color: 'success' },
-    { title: 'Courses', value: stats?.totalCourses || 0, icon: '📚', color: 'warning' },
-    { title: 'Enquiries', value: stats?.totalEnquiries || 0, icon: '📞', color: 'danger' },
-    { title: 'Pending Reviews', value: stats?.pendingReviews || 0, icon: '⭐', color: 'warning' },
+    { title: 'Total Users',     value: stats?.totalUsers      || 0, icon: <FaUsers />,      color: 'primary' },
+    { title: 'Colleges',        value: stats?.totalColleges   || 0, icon: <FaUniversity />, color: 'success' },
+    { title: 'Courses',         value: stats?.totalCourses    || 0, icon: <FaBook />,        color: 'warning' },
+    { title: 'Enquiries',       value: stats?.totalEnquiries  || 0, icon: <FaPhone />,       color: 'danger'  },
+    { title: 'Pending Reviews', value: stats?.pendingReviews  || 0, icon: <FaStar />,        color: 'warning' },
   ];
 
   return (

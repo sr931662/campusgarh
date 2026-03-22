@@ -5,7 +5,7 @@ import { formatDate, formatCurrency } from '../../utils/formatters';
 import Loader from '../common/Loader/Loader';
 import Button from '../common/Button/Button';
 import styles from './ExamDetail.module.css';
-import { FaBook, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaBook, FaExternalLinkAlt, FaFileAlt, FaUniversity, FaLaptop, FaCalendarAlt, FaMapPin } from 'react-icons/fa';
 
 const TABS = ['Overview', 'Eligibility', 'Pattern & Syllabus', 'Dates & Cutoffs', 'Preparation', 'Registration'];
 
@@ -34,7 +34,7 @@ const ExamDetail = () => {
   if (error || !exam) {
     return (
       <div className={styles.errorWrap}>
-        <span className={styles.errorIcon}>📝</span>
+        <span className={styles.errorIcon}><FaFileAlt /></span>
         <h2>Exam not found</h2>
         <p>We couldn't find an exam at this URL.</p>
         <Link to="/exams"><Button variant="primary">Browse Exams</Button></Link>
@@ -405,25 +405,25 @@ const ExamDetail = () => {
           <div className={styles.heroStats}>
             {exam.conductingBody && (
               <div className={styles.heroStat}>
-                <span>🏛️</span>
+                <span><FaUniversity /></span>
                 <span>{exam.conductingBody}</span>
               </div>
             )}
             {exam.examMode && (
               <div className={styles.heroStat}>
-                <span>💻</span>
+                <span><FaLaptop /></span>
                 <span>{exam.examMode}</span>
               </div>
             )}
             {exam.frequency && (
               <div className={styles.heroStat}>
-                <span>📅</span>
+                <span><FaCalendarAlt /></span>
                 <span>{exam.frequency}</span>
               </div>
             )}
             {exam.importantDates?.find(d => d.event === 'Exam Date') && (
               <div className={styles.heroStat}>
-                <span>📌</span>
+                <span><FaMapPin /></span>
                 <span>{formatDate(exam.importantDates.find(d => d.event === 'Exam Date').date)}</span>
               </div>
             )}
