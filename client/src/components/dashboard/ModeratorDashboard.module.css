@@ -1,0 +1,106 @@
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border, #E8E3DB);
+}
+
+.header h1 {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.25rem;
+}
+
+.header p {
+  font-size: 0.9rem;
+  color: var(--muted, #8A8A8E);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.actionsSection h2 {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.015em;
+}
+
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.actionCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: var(--warm-white, #FFFEF9);
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-decoration: none;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+}
+
+.actionCard:hover {
+  border-color: var(--gold, #C9A84C);
+  box-shadow: 0 4px 24px rgba(201, 168, 76, 0.12);
+  transform: translateY(-3px);
+}
+
+.actionIcon {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.actionLabel {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  letter-spacing: -0.01em;
+}
+
+.actionDesc {
+  font-size: 0.825rem;
+  color: var(--muted, #8A8A8E);
+  line-height: 1.5;
+}
+
+.actionBadge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 50px;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--gold, #C9A84C);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 1.5rem 1rem; }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .actionsGrid { grid-template-columns: 1fr; }
+}

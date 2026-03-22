@@ -1,0 +1,52 @@
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.starFull {
+  color: #fbbf24;
+}
+.starHalf {
+  color: #fbbf24;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  width: 0.9em;
+}
+.starHalf:before {
+  content: '★';
+  position: absolute;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+}
+.starEmpty {
+  color: #e5e7eb;
+}
+
+.ratingNumber {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.sm .starFull,
+.sm .starHalf,
+.sm .starEmpty {
+  font-size: 0.875rem;
+}
+.sm .starHalf {
+  width: 0.75em;
+}
+.md .starFull,
+.md .starHalf,
+.md .starEmpty {
+  font-size: 1rem;
+}
+.lg .starFull,
+.lg .starHalf,
+.lg .starEmpty {
+  font-size: 1.25rem;
+}

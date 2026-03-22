@@ -1,0 +1,617 @@
+/* ══════════════════════════════════════
+   COLLEGE DETAIL — CAMPUSGARH THEME
+   ══════════════════════════════════════ */
+
+/* ── Loading / Error states ─────────────────────────────────────────────────── */
+.loadingWrap {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.errorWrap {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.errorIcon { font-size: 3.5rem; }
+.errorWrap h2 {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--charcoal);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.errorWrap p { color: var(--muted); font-size: 0.95rem; margin: 0; }
+
+/* ── PAGE WRAPPER ────────────────────────────────────────────────────────────── */
+.page {
+  background: var(--cream);
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════════════
+   HERO
+   ══════════════════════════════════════ */
+.hero {
+  position: relative;
+  background: var(--deep, #0A0A0F);
+  overflow: hidden;
+  padding: 4rem 0 3rem;
+}
+
+/* Noise / grain texture */
+.heroNoise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 15% 60%, rgba(201, 168, 76, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(26, 107, 74, 0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 100%, rgba(201, 168, 76, 0.05) 0%, transparent 40%);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.78rem;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.04em;
+}
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb span { opacity: 0.4; }
+
+/* Badges */
+.heroBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.verifiedBadge {
+  background: rgba(26, 107, 74, 0.2);
+  border: 1px solid rgba(26, 107, 74, 0.4);
+  color: #6ee7b7;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+
+.fundingBadge {
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--gold, #C9A84C);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-family: var(--font-mono);
+}
+
+.typeBadge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-family: var(--font-mono);
+}
+
+/* Name */
+.heroName {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--warm-white, #FFFEF9);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 0.3rem;
+}
+
+.heroShort {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 0 0.75rem;
+  font-style: italic;
+  font-family: var(--font-display);
+}
+
+/* Location */
+.heroLocation {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0 0 0.875rem;
+}
+.pinIcon { font-size: 0.85rem; }
+
+/* Rating */
+.heroRating {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.reviewCount {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.38);
+  font-family: var(--font-mono);
+}
+
+/* Stats strip */
+.statsStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.statChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 0.35rem 0.875rem;
+  backdrop-filter: blur(6px);
+}
+.statIcon  { font-size: 0.85rem; }
+.statLabel {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.statValue {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold, #C9A84C);
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Accreditations */
+.heroAccred {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.75rem;
+}
+.naacChip {
+  background: rgba(250, 204, 21, 0.12);
+  border: 1px solid rgba(250, 204, 21, 0.3);
+  color: #fde68a;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.22rem 0.6rem;
+  border-radius: 50px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+.approvalChip {
+  background: rgba(110, 231, 183, 0.1);
+  border: 1px solid rgba(110, 231, 183, 0.2);
+  color: #6ee7b7;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.22rem 0.6rem;
+  border-radius: 50px;
+  font-family: var(--font-mono);
+}
+
+/* Hero action buttons */
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: linear-gradient(135deg, var(--gold, #C9A84C), var(--gold-light, #E8C97A));
+  color: var(--deep, #0A0A0F);
+  padding: 0.65rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: var(--font-body);
+  letter-spacing: -0.01em;
+}
+.btnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 0.65rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+  backdrop-filter: blur(8px);
+}
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+.btnSaved {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: rgba(201, 168, 76, 0.4);
+  color: var(--gold);
+}
+
+/* ══════════════════════════════════════
+   STICKY TAB BAR
+   ══════════════════════════════════════ */
+.tabBarWrap {
+  position: sticky;
+  top: 76px;
+  z-index: 100;
+  background: var(--warm-white, #FFFEF9);
+  border-bottom: 1.5px solid var(--border, #E8E3DB);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.tabBar {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 0;
+}
+.tabBar::-webkit-scrollbar { display: none; }
+
+.tabBtn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  padding: 1rem 1.125rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted, #8A8A8E);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  letter-spacing: -0.005em;
+}
+.tabBtn:hover { color: var(--charcoal); }
+
+.tabBtnActive {
+  color: var(--charcoal, #1C1C1E);
+  border-bottom-color: var(--gold, #C9A84C);
+  font-weight: 700;
+}
+
+/* ══════════════════════════════════════
+   CONTENT AREA
+   ══════════════════════════════════════ */
+.contentWrap {
+  background: var(--cream, #FAF7F2);
+  min-height: 60vh;
+  padding: 2.5rem 0 5rem;
+}
+
+.content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Cards ────────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--warm-white, #FFFEF9);
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: var(--radius, 16px);
+  padding: 2rem;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: rgba(201, 168, 76, 0.35); }
+
+.cardTitle {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.cardSubTitle {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  letter-spacing: -0.015em;
+  margin: 0 0 1rem;
+}
+
+.desc {
+  color: var(--muted, #8A8A8E);
+  line-height: 1.8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.empty {
+  color: var(--muted, #8A8A8E);
+  font-style: italic;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* ── Info Grid ─────────────────────────────────────────────────────────────── */
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 700px) { .infoGrid { grid-template-columns: 1fr; } }
+
+/* ── Definition list ───────────────────────────────────────────────────────── */
+.dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1.25rem;
+  font-size: 0.875rem;
+}
+.dl dt {
+  font-weight: 600;
+  color: var(--charcoal);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  align-self: start;
+  padding-top: 0.1rem;
+  white-space: nowrap;
+}
+.dl dd {
+  color: var(--muted);
+  margin: 0;
+  word-break: break-word;
+}
+.dl dd a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.dl dd a:hover { text-decoration: underline; }
+
+/* ── Accreditation cards ───────────────────────────────────────────────────── */
+.accredGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.accredCard {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm, 8px);
+  padding: 0.875rem 1.25rem;
+  min-width: 100px;
+  text-align: center;
+}
+.accredLabel {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin-bottom: 0.3rem;
+}
+.accredValue {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Rankings table */
+.rankingTitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin: 1rem 0 0.5rem;
+}
+.rankTable { display: flex; flex-direction: column; gap: 0; }
+.rankRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 60px 60px;
+  align-items: center;
+  padding: 0.55rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  gap: 0.5rem;
+}
+.rankRow:nth-child(odd) { background: var(--cream); }
+.rankSource { font-weight: 600; color: var(--charcoal); }
+.rankCat    { color: var(--muted); font-size: 0.78rem; }
+.rankYear   { color: var(--muted); font-size: 0.75rem; font-family: var(--font-mono); text-align: center; }
+.rankVal    { font-weight: 700; color: var(--gold); font-family: var(--font-display); text-align: right; }
+
+/* ── Campus stats ──────────────────────────────────────────────────────────── */
+.statsGridSmall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.875rem;
+}
+
+/* ── Courses grid ──────────────────────────────────────────────────────────── */
+.coursesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+.courseChip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.875rem 1rem;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm, 8px);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.courseChip:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.courseCategory {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  font-family: var(--font-mono);
+}
+.courseName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  line-height: 1.35;
+}
+.courseDuration {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+/* ── Scholarships ──────────────────────────────────────────────────────────── */
+.scholarGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.scholarCard {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm, 8px);
+  padding: 1rem 1.125rem;
+  border-left: 4px solid var(--gold);
+}
+.scholarName {
+  font-weight: 700;
+  color: var(--charcoal);
+  font-size: 0.9rem;
+  margin: 0 0 0.3rem;
+}
+.scholarAmt {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gold);
+  font-family: var(--font-display);
+  margin: 0 0 0.3rem;
+}
+.scholarElig {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Social media ──────────────────────────────────────────────────────────── */
+.socialRow { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.socialLink {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  color: var(--charcoal);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.875rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+  font-family: var(--font-mono);
+}
+.socialLink:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .heroInner { padding: 0 1.25rem; }
+  .hero { padding: 2.5rem 0 2rem; }
+  .heroName { font-size: 2rem; }
+  .statsStrip { gap: 0.5rem; }
+  .statChip { padding: 0.3rem 0.65rem; }
+  .contentWrap { padding: 1.5rem 0 3rem; }
+  .content { padding: 0 1.25rem; }
+  .card { padding: 1.25rem; }
+  .tabBarWrap { top: 0; }
+  .rankRow { grid-template-columns: 1fr 1fr; }
+  .rankCat, .rankYear { display: none; }
+}

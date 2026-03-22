@@ -1,0 +1,14 @@
+.wrapper { padding: 1.5rem 0; }
+.sectionTitle { font-size: 1.375rem; font-weight: 700; color: #1a202c; margin-bottom: 1.25rem; }
+.tipsGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.tipCard { border-radius: 0.5rem; padding: 1.25rem; }
+.tipCategory { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; }
+.tipList { margin: 0; padding-left: 1.25rem; }
+.tipList li { font-size: 0.85rem; color: #2d3748; margin-bottom: 0.5rem; line-height: 1.5; }
+.booksGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.bookCard { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 1rem; display: flex; gap: 0.875rem; align-items: flex-start; }
+.bookIcon { font-size: 1.5rem; flex-shrink: 0; }
+.bookTitle { font-weight: 600; color: #1a202c; font-size: 0.875rem; margin-bottom: 0.2rem; }
+.bookAuthor { font-size: 0.8rem; color: #718096; margin-bottom: 0.35rem; }
+.bookSubject { background: #e2e8f0; color: #4a5568; padding: 0.15rem 0.5rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 500; }
+.emptyMsg { color: #718096; font-style: italic; }

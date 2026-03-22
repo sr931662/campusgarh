@@ -1,0 +1,155 @@
+.section {
+  margin-bottom: 3rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.summary {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ratingSummary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.averageRating {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.totalReviews {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.reviewCard {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.userName {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.reviewDate {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.reviewTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.reviewContent {
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.courseStudied {
+  font-size: 0.875rem;
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.reviewFooter {
+  display: flex;
+  gap: 1rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+.helpfulBtn, .flagBtn {
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  transition: background 0.2s;
+}
+.helpfulBtn {
+  color: #667eea;
+}
+.helpfulBtn:hover {
+  background: #f3f4f6;
+}
+.flagBtn {
+  color: #ef4444;
+}
+.flagBtn:hover {
+  background: #fef2f2;
+}
+.helpfulBtn:disabled, .flagBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.formContainer {
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.noReviews {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 0.75rem;
+  color: #6b7280;
+}
+
+.viewMore {
+  text-align: center;
+  margin-top: 2rem;
+}

@@ -1,0 +1,263 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+}
+
+.loadingWrap,
+.errorWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 50vh;
+  text-align: center;
+}
+
+.errorIcon { font-size: 3rem; }
+
+.topBar {
+  margin-bottom: 2rem;
+}
+
+.back {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gold, #C9A84C);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.back:hover { opacity: 0.75; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.left, .right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--warm-white, #FFFEF9);
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.cardTitle {
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  letter-spacing: -0.015em;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border, #E8E3DB);
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.infoLabel {
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--muted, #8A8A8E);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+
+.infoValue {
+  font-size: 0.9rem;
+  color: var(--charcoal, #1C1C1E);
+  text-align: right;
+}
+
+.messageBox {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border, #E8E3DB);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.messageText {
+  font-size: 0.875rem;
+  color: var(--charcoal, #1C1C1E);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.statusRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.statusItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.statusBadge {
+  display: inline-block;
+  color: #fff;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+
+/* Notes */
+.notesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.noteItem {
+  background: var(--cream, #FAF7F2);
+  border: 1px solid var(--border, #E8E3DB);
+  border-radius: 10px;
+  padding: 0.875rem 1rem;
+}
+
+.noteText {
+  font-size: 0.875rem;
+  color: var(--charcoal, #1C1C1E);
+  line-height: 1.5;
+  margin: 0 0 0.35rem 0;
+}
+
+.noteDate {
+  font-size: 0.72rem;
+  color: var(--muted, #8A8A8E);
+  font-family: var(--font-mono, 'DM Mono', monospace);
+}
+
+.noteForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border, #E8E3DB);
+}
+
+.noteInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--charcoal, #1C1C1E);
+  background: var(--warm-white, #FFFEF9);
+  resize: vertical;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.noteInput:focus {
+  outline: none;
+  border-color: var(--gold, #C9A84C);
+}
+
+/* Action forms */
+.actionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.select {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--charcoal, #1C1C1E);
+  background: var(--warm-white, #FFFEF9);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.select:focus {
+  outline: none;
+  border-color: var(--gold, #C9A84C);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.label {
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--muted, #8A8A8E);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dateInput {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--charcoal, #1C1C1E);
+  background: var(--warm-white, #FFFEF9);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.dateInput:focus {
+  outline: none;
+  border-color: var(--gold, #C9A84C);
+}
+
+.empty {
+  font-size: 0.875rem;
+  color: var(--muted, #8A8A8E);
+  text-align: center;
+  padding: 1rem 0;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .right {
+    order: -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .right .card {
+    flex: 1 1 280px;
+  }
+}

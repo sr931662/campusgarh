@@ -1,0 +1,427 @@
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import HeroCanvas from '../components/home/HeroCanvas';
+import { useFeaturedColleges } from '../hooks/queries';
+import styles from './Home.module.css';
+
+const stats = [
+  { num: '500+', label: 'Colleges' },
+  { num: '1,200+', label: 'Courses' },
+  { num: '80+', label: 'Entrance Exams' },
+  { num: '25K+', label: 'Students Helped' },
+];
+
+// URL param: `type` — must match COLLEGE_TYPES constants exactly (URL-encoded)
+const streamCategories = [
+  { icon: '⚙️', label: 'Engineering',  path: '/colleges?type=Engineering%20%26%20Technology' },
+  { icon: '🩺', label: 'Medical',       path: '/colleges?type=Medical%20%26%20Health%20Sciences' },
+  { icon: '📊', label: 'Management',    path: '/colleges?type=Management%20%26%20Business' },
+  { icon: '⚖️', label: 'Law',           path: '/colleges?type=Law' },
+  { icon: '🎨', label: 'Design',        path: '/colleges?type=Design%20%26%20Fine%20Arts' },
+  { icon: '🔬', label: 'Science',       path: '/colleges?type=Arts%20%26%20Science' },
+];
+
+// URL param: `discipline` — must match COURSE_DISCIPLINES constants exactly (URL-encoded)
+const courseTypes = [
+  { icon: '⚙️', label: 'B.Tech / BE',   count: 'Engineering & Technology', path: '/courses?discipline=Engineering%20%26%20Technology' },
+  { icon: '🩺', label: 'MBBS / MD',      count: 'Medical & Health Sciences', path: '/courses?discipline=Medical%20%26%20Health%20Sciences' },
+  { icon: '📊', label: 'MBA / PGDM',     count: 'Management & Business',     path: '/courses?discipline=Management%20%26%20Business' },
+  { icon: '⚖️', label: 'LLB / LLM',     count: 'Law',                       path: '/courses?discipline=Law' },
+  { icon: '🎨', label: 'B.Des / M.Des',  count: 'Design & Fine Arts',        path: '/courses?discipline=Design%20%26%20Fine%20Arts' },
+  { icon: '💻', label: 'BCA / MCA',      count: 'Technical',                 path: '/courses?discipline=Technical' },
+  { icon: '🔬', label: 'B.Sc / M.Sc',   count: 'Arts & Science',            path: '/courses?discipline=Arts%20%26%20Science' },
+  { icon: '🏗️', label: 'Architecture',   count: 'Architecture & Planning',   path: '/courses?discipline=Architecture%20%26%20Planning' },
+];
+
+// URL params: `category` (UG/PG/PhD/Diploma) + `examLevel` (National/State/University-Level)
+// ExamList has no name-search filter, so we link to filtered list pages
+const popularExams = [
+  { name: 'JEE Main',  category: 'UG',  examLevel: 'National', desc: 'B.Tech / BE admissions at NITs, IIITs & GFTIs', dates: 'Jan & Apr', path: '/exams?category=UG&examLevel=National' },
+  { name: 'NEET UG',   category: 'UG',  examLevel: 'National', desc: 'MBBS, BDS & allied health undergraduate admissions', dates: 'May',   path: '/exams?category=UG&examLevel=National' },
+  { name: 'CAT',       category: 'PG',  examLevel: 'National', desc: 'IIM & top B-school MBA / PGDM admissions', dates: 'Nov',             path: '/exams?category=PG&examLevel=National' },
+  { name: 'CLAT',      category: 'UG',  examLevel: 'National', desc: 'National Law University LLB admissions', dates: 'Dec',               path: '/exams?category=UG&examLevel=National' },
+  { name: 'GATE',      category: 'PG',  examLevel: 'National', desc: 'Graduate engineering, M.Tech & PSU recruitment', dates: 'Feb',        path: '/exams?category=PG&examLevel=National' },
+  { name: 'CUET UG',   category: 'UG',  examLevel: 'National', desc: 'Central university admissions — all streams', dates: 'May',           path: '/exams?category=UG&examLevel=National' },
+];
+
+const blogTopics = [
+  { icon: '🏆', label: 'College Rankings',  count: '48 articles',  path: '/blogs?contentType=Ranking',             accent: '#8b5cf6' },
+  { icon: '📖', label: 'Exam Guides',        count: '92 guides',    path: '/blogs?contentType=Guide',               accent: '#3b82f6' },
+  { icon: '💼', label: 'Career Advice',      count: '64 articles',  path: '/blogs?contentType=Career%20Advice',     accent: '#0891b2' },
+  { icon: '📰', label: 'Latest News',        count: '120+ posts',   path: '/blogs?contentType=News',                accent: '#f59e0b' },
+  { icon: '🎓', label: 'Scholarship Info',   count: '35 articles',  path: '/blogs?contentType=Scholarship',         accent: '#f97316' },
+  { icon: '⭐', label: 'College Reviews',    count: '80+ reviews',  path: '/blogs?contentType=College%20Review',    accent: '#10b981' },
+];
+
+const CATEGORY_COLORS = {
+  Engineering: 'rgba(59,130,246,0.12)',
+  Medical:     'rgba(16,185,129,0.12)',
+  Management:  'rgba(245,158,11,0.12)',
+  Law:         'rgba(139,92,246,0.12)',
+  'All Streams': 'rgba(201,168,76,0.12)',
+};
+
+const fadeUp = {
+  hidden:  { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: 'easeOut' } },
+};
+
+const stagger = {
+  hidden:  { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+};
+
+const getRankBadge = (college) => {
+  const r = college.rankings?.[0];
+  if (r?.rank) return `#${r.rank} ${r.source || 'Ranked'}`;
+  if (college.accreditation?.naacGrade) return `NAAC ${college.accreditation.naacGrade}`;
+  return 'Featured';
+};
+
+const getCollegeMeta = (college) => {
+  const parts = [];
+  if (college.accreditation?.naacGrade) parts.push(`NAAC ${college.accreditation.naacGrade}`);
+  if (college.placementStats?.placementPercentage) parts.push(`${college.placementStats.placementPercentage}% Placement`);
+  if (college.accreditation?.nbaStatus) parts.push('NBA');
+  return parts;
+};
+
+export default function Home() {
+  const { data: featuredData, isLoading: featuredLoading } = useFeaturedColleges({ limit: 3 });
+  const featuredColleges = featuredData?.data?.data || [];
+
+  return (
+    <div className={styles.homeWrapper}>
+
+      {/* ── HERO ────────────────────────────────────────────────────────────── */}
+      <section className={styles.heroSection}>
+        <HeroCanvas />
+        <div className={styles.heroBgGradient} />
+
+        <div className={styles.heroContent}>
+          <motion.div initial="hidden" animate="visible" variants={stagger}>
+
+            <motion.p className={styles.heroEyebrow} variants={fadeUp}>
+              India's Premier Education Portal
+            </motion.p>
+
+            <motion.h1 className={styles.heroTitle} variants={fadeUp}>
+              Find Your{' '}
+              <em>Perfect</em>{' '}
+              Campus
+            </motion.h1>
+
+            <motion.p className={styles.heroSubtitle} variants={fadeUp}>
+              Discover elite institutions, track competitive exams, and get honest
+              ground-level reviews from real students across India.
+            </motion.p>
+
+            <motion.div className={styles.heroActions} variants={fadeUp}>
+              <Link to="/colleges" className={styles.btnPrimary}>Explore Colleges</Link>
+              <Link to="/courses"  className={styles.btnSecondary}>Browse Courses</Link>
+              <Link to="/exams"    className={styles.btnSecondary}>View Exams</Link>
+            </motion.div>
+
+            <motion.div className={styles.heroStats} variants={fadeUp}>
+              {stats.map((s) => (
+                <div key={s.label} className={styles.heroStat}>
+                  <span className={styles.heroStatNum}>{s.num}</span>
+                  <span className={styles.heroStatLabel}>{s.label}</span>
+                </div>
+              ))}
+            </motion.div>
+
+          </motion.div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className={styles.scrollIndicator}>
+          <div className={styles.scrollMouse}><div className={styles.scrollWheel} /></div>
+          <span className={styles.scrollText}>Scroll</span>
+        </div>
+      </section>
+
+      {/* ── BROWSE BY STREAM ────────────────────────────────────────────────── */}
+      <section className={styles.categoriesSection}>
+        <div className={styles.container}>
+          <motion.p
+            className={styles.sectionLabel}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true }} variants={fadeUp}
+          >
+            Browse by Stream
+          </motion.p>
+          <motion.div
+            className={styles.categoryGrid}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }} variants={stagger}
+          >
+            {streamCategories.map((cat) => (
+              <motion.div key={cat.label} variants={fadeUp}>
+                <Link to={cat.path} className={styles.categoryCard}>
+                  <span className={styles.categoryIcon}>{cat.icon}</span>
+                  <span className={styles.categoryLabel}>{cat.label}</span>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── FEATURED INSTITUTIONS ───────────────────────────────────────────── */}
+      <section className={styles.featuredSection}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.sectionHeader}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true }} variants={fadeUp}
+          >
+            <div>
+              <p className={styles.sectionLabel}>Top Rated</p>
+              <h2 className={styles.sectionTitle}>Featured <span>Institutions</span></h2>
+            </div>
+            <Link to="/colleges" className={styles.viewAll}>View All Colleges →</Link>
+          </motion.div>
+
+          <motion.div
+            className={styles.institutionsGrid}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }} variants={stagger}
+          >
+            {featuredLoading ? (
+              [1, 2, 3].map((i) => (
+                <div key={i} className={styles.instSkeletonCard}>
+                  <div className={styles.instSkeletonImg} />
+                  <div className={styles.instSkeletonBody}>
+                    <div className={styles.instSkeletonLine} style={{ width: '40%' }} />
+                    <div className={styles.instSkeletonLine} style={{ width: '75%', height: 18 }} />
+                    <div className={styles.instSkeletonLine} style={{ width: '60%' }} />
+                    <div className={styles.instSkeletonLine} style={{ width: '30%' }} />
+                  </div>
+                </div>
+              ))
+            ) : featuredColleges.length > 0 ? (
+              featuredColleges.map((college) => {
+                const meta = getCollegeMeta(college);
+                return (
+                  <motion.div
+                    key={college._id}
+                    className={styles.institutionCard}
+                    variants={fadeUp}
+                    whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                  >
+                    <div className={styles.instCardImage}>
+                      <span className={styles.instRank}>{getRankBadge(college)}</span>
+                    </div>
+                    <div className={styles.instCardBody}>
+                      <span className={styles.instTag}>{college.collegeType || 'Institution'}</span>
+                      <h3 className={styles.instName}>{college.name}</h3>
+                      {(college.contact?.city || college.contact?.state) && (
+                        <p className={styles.instLocation}>
+                          📍 {[college.contact.city, college.contact.state].filter(Boolean).join(', ')}
+                        </p>
+                      )}
+                      {meta.length > 0 && (
+                        <div className={styles.instMeta}>
+                          {meta.map((m) => (
+                            <span key={m} className={styles.instMetaBadge}>{m}</span>
+                          ))}
+                        </div>
+                      )}
+                      <Link to={`/colleges/${college.slug}`} className={styles.instLink}>View Details →</Link>
+                    </div>
+                  </motion.div>
+                );
+              })
+            ) : (
+              <p style={{ color: 'var(--muted)', gridColumn: '1/-1' }}>No featured colleges yet.</p>
+            )}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── EXPLORE COURSES ─────────────────────────────────────────────────── */}
+      <section className={styles.coursesSection}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.sectionHeader}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true }} variants={fadeUp}
+          >
+            <div>
+              <p className={styles.sectionLabelLight}>1,200+ Programmes</p>
+              <h2 className={styles.sectionTitleLight}>
+                Explore <span>Courses</span>
+              </h2>
+              <p className={styles.sectionSubLight}>
+                From undergraduate to postgraduate — find the right programme for your ambitions.
+              </p>
+            </div>
+            <Link to="/courses" className={styles.viewAllLight}>View All Courses →</Link>
+          </motion.div>
+
+          <motion.div
+            className={styles.courseTypesGrid}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }} variants={stagger}
+          >
+            {courseTypes.map((ct) => (
+              <motion.div key={ct.label} variants={fadeUp}>
+                <Link to={ct.path} className={styles.courseTypeCard}>
+                  <span className={styles.courseTypeIcon}>{ct.icon}</span>
+                  <span className={styles.courseTypeLabel}>{ct.label}</span>
+                  <span className={styles.courseTypeCount}>{ct.count}</span>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── ENTRANCE EXAMS ──────────────────────────────────────────────────── */}
+      <section className={styles.examsSection}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.examsSplit}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }} variants={stagger}
+          >
+            {/* Left — heading */}
+            <motion.div className={styles.examsLeft} variants={fadeUp}>
+              <p className={styles.sectionLabel}>80+ Exams Tracked</p>
+              <h2 className={styles.sectionTitle}>
+                Ace Your <span>Entrance Exams</span>
+              </h2>
+              <p className={styles.examsDesc}>
+                Stay updated on exam dates, eligibility, syllabus, cutoffs, and preparation tips
+                — all in one place.
+              </p>
+              <Link to="/exams" className={styles.btnGold}>
+                Explore All Exams →
+              </Link>
+            </motion.div>
+
+            {/* Right — exam cards */}
+            <motion.div className={styles.examsRight} variants={stagger}>
+              {popularExams.map((exam) => (
+                <motion.div key={exam.name} variants={fadeUp}>
+                  <Link to={exam.path} className={styles.examRow}>
+                    <div className={styles.examRowLeft}>
+                      <span
+                        className={styles.examCatBadge}
+                        style={{ background: CATEGORY_COLORS[exam.category] || 'rgba(201,168,76,0.12)' }}
+                      >
+                        {exam.category}
+                      </span>
+                      <span className={styles.examRowName}>{exam.name}</span>
+                      <span className={styles.examRowDesc}>{exam.desc}</span>
+                    </div>
+                    <span className={styles.examRowDates}>{exam.dates}</span>
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── WHY CAMPUSGARH ──────────────────────────────────────────────────── */}
+      <section className={styles.whySection}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.sectionHeader}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true }} variants={fadeUp}
+          >
+            <div>
+              <p className={styles.sectionLabel}>Why Choose Us</p>
+              <h2 className={styles.sectionTitle}>Built for <span>Students</span></h2>
+            </div>
+          </motion.div>
+          <motion.div
+            className={styles.whyGrid}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }} variants={stagger}
+          >
+            {[
+              { icon: '🎯', title: 'Curated Data',      desc: 'Verified college info, rankings, and placement records.' },
+              { icon: '⭐', title: 'Student Reviews',   desc: 'Honest, ground-level reviews from verified students and alumni.' },
+              { icon: '📋', title: 'Exam Tracker',      desc: 'Stay on top of every entrance exam with dates and eligibility.' },
+              { icon: '🤝', title: 'Expert Counselling',desc: 'Connect with certified counsellors for personalised guidance.' },
+            ].map((item) => (
+              <motion.div key={item.title} className={styles.whyCard} variants={fadeUp}>
+                <span className={styles.whyIcon}>{item.icon}</span>
+                <h3 className={styles.whyTitle}>{item.title}</h3>
+                <p className={styles.whyDesc}>{item.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── BLOG / INSIGHTS ─────────────────────────────────────────────────── */}
+      <section className={styles.blogsSection}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.sectionHeader}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true }} variants={fadeUp}
+          >
+            <div>
+              <p className={styles.sectionLabel}>Knowledge Hub</p>
+              <h2 className={styles.sectionTitle}>Insights &amp; <span>Guides</span></h2>
+              <p className={styles.blogsSub}>
+                Expert articles on admissions, rankings, career paths, and everything in between.
+              </p>
+            </div>
+            <Link to="/blogs" className={styles.viewAll}>Read All Articles →</Link>
+          </motion.div>
+
+          <motion.div
+            className={styles.blogTopicsGrid}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }} variants={stagger}
+          >
+            {blogTopics.map((topic) => (
+              <motion.div key={topic.label} variants={fadeUp}>
+                <Link to={topic.path} className={styles.blogTopicCard}>
+                  <span
+                    className={styles.blogTopicIconWrap}
+                    style={{ background: `${topic.accent}18`, border: `1.5px solid ${topic.accent}30` }}
+                  >
+                    <span className={styles.blogTopicIcon}>{topic.icon}</span>
+                  </span>
+                  <span className={styles.blogTopicLabel}>{topic.label}</span>
+                  <span className={styles.blogTopicCount}>{topic.count}</span>
+                  <span className={styles.blogTopicArrow} style={{ color: topic.accent }}>→</span>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── CTA ─────────────────────────────────────────────────────────────── */}
+      <section className={styles.ctaSection}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.ctaCard}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }} variants={fadeUp}
+          >
+            <p className={styles.ctaEyebrow}>Start Today — It's Free</p>
+            <h2 className={styles.ctaTitle}>Ready to begin your journey?</h2>
+            <p className={styles.ctaText}>
+              Join 25,000+ students making informed decisions about their future.
+            </p>
+            <div className={styles.ctaActions}>
+              <Link to="/register" className={styles.btnPrimary}>Create Free Account</Link>
+              <Link to="/blogs"    className={styles.btnSecondary}>Read Our Blog</Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+    </div>
+  );
+}

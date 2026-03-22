@@ -1,0 +1,83 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem 5rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 4rem 2rem;
+  background: var(--deep, #0A0A0F);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(201, 168, 76, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero h1 {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--warm-white, #FFFEF9);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.025em;
+  position: relative;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.45);
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card h2 {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  color: var(--charcoal, #1C1C1E);
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.card p,
+.card ul {
+  color: var(--muted, #8A8A8E);
+  line-height: 1.75;
+  font-size: 0.95rem;
+}
+
+.card ul {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.card li {
+  position: relative;
+}
+
+.card li::marker {
+  color: var(--gold, #C9A84C);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1.25rem 3rem;
+  }
+  .hero {
+    padding: 3rem 1.5rem;
+  }
+}

@@ -1,0 +1,869 @@
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 02:04:37"}
+{"level":"info","message":"GET / - ::1","service":"campusgarh-api","timestamp":"2026-03-21 02:05:18"}
+{"level":"info","message":"GET /favicon.ico - ::1","service":"campusgarh-api","timestamp":"2026-03-21 02:05:18"}
+{"level":"info","message":"GET /health - ::1","service":"campusgarh-api","timestamp":"2026-03-21 02:05:29"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 03:07:50"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:23:19"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:23:19"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:23:19"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:23:22"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:23:22"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:23:22"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:23:36"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:23:36"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:23:36"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:24:39"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:24:39"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:24:39"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:26:12"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:26:12"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:26:12"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:26:17"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-21 03:26:24"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:22:22"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:22:40"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:22:40"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:22:40"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:22:44"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:22:50"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:22:50"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:22:50"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:23:08"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:23:34"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:31:38"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:31:47"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:31:57"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:32:06"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:32:18"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:32:22"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:32:36"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:32:50"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:33:05"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:33:17"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:33:33"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:33:46"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:33:53"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:33:58"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:34:05"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:34:35"}
+{"level":"info","message":"POST /api/v1/auth/register - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:36:03"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:38:58"}
+{"level":"info","message":"POST /api/v1/auth/register - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:40:58"}
+{"level":"info","message":"POST /api/v1/auth/register - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:41:02"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:42:19"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:43:43"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:44:54"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:47:03"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:47:15"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:47:45"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:47:52"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-21 22:50:23"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:51:47"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:51:48"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:51:54"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:54:00"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-21 22:59:20"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:13"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:14"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:14"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:14"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:15"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:18"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:20"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:21"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:30"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:00:31"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:01:27"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:01:27"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-21 23:01:27"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:08"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:09"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:09"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:09"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:12"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:15"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:16"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:16"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:17"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:00:17"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:41:52"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:41:52"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:41:52"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:41:54"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:41:55"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:41:56"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:41:56"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:41:57"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 00:46:10"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:46:16"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:46:16"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 00:46:16"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:46:17"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 00:47:27"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:47:30"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:47:30"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:47:31"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 00:47:45"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:47:52"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:47:52"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:47:53"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:48:40"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:48:41"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:48:42"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:48:45"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:48:53"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:48:59"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 00:49:55"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:50:05"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:50:08"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:50:08"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:56:53"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:56:53"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 00:57:05"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 00:57:18"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 00:57:59"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:58:07"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 00:58:07"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:00:44"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:00:53"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:00:53"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:00:53"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:00:56"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:00:57"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=6 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:05:54"}
+{"level":"info","message":"GET /api/v1/exams/upcoming - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:05:54"}
+{"level":"info","message":"GET /api/v1/blogs?limit=3&status=published - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:05:54"}
+{"level":"info","message":"GET / - ::ffff:127.0.0.1","service":"campusgarh-api","timestamp":"2026-03-22 01:18:55"}
+{"level":"info","message":"GET /favicon.ico - ::ffff:127.0.0.1","service":"campusgarh-api","timestamp":"2026-03-22 01:18:56"}
+{"level":"info","message":"GET / - ::ffff:127.0.0.1","service":"campusgarh-api","timestamp":"2026-03-22 01:19:14"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:19:55"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:37:38"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:37:47"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:37:47"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:49:48"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:49:49"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:50:50"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:50:50"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:50:51"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:50:51"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:55:57"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:58:58"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:59:00"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:59:00"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:59:01"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:59:03"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 01:59:41"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:04:51"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:04:53"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:04:53"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:04:55"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:04:55"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:04:56"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:13:20"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:13:22"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:13:23"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:13:24"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:13:24"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:13:25"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:24:11"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:24:15"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:25:35"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:27:20"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:27:31"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:27:35"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:28:51"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:40:17"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:40:18"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:40:25"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:43:12"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:43:15"}
+{"level":"info","message":"GET /api/v1/colleges - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:44:11"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:45:19"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:45:25"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:47:46"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 02:51:08"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 02:51:12"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 02:51:29"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:56:10"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:56:17"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:57:36"}
+{"level":"info","message":"GET /api/v1/import-export/export/College - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:57:58"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 02:59:48"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:06:57"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:07:04"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:07:09"}
+{"level":"info","message":"GET /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:07:30"}
+{"level":"info","message":"GET /favicon.ico - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:07:30"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:08:07"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:08:07"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:08:14"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:11:04"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:11:09"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:11:17"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:13:53"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:20:07"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:20:14"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:20:19"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:20:28"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:20:35"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:22:02"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:22:21"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:23:07"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:26:17"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:26:25"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:26:29"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:26:34"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:26:42"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:30:07"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:30:14"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:32:48"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:33:00"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:33:06"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:33:11"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:33:32"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:35:24"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:35:28"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:35:54"}
+{"level":"info","message":"GET /api/v1/colleges?page=2&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:36:07"}
+{"level":"info","message":"GET /api/v1/colleges/slug/nit-trichy - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:36:12"}
+{"level":"info","message":"GET /api/v1/colleges/slug/nit-trichy - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:36:13"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aligarh-muslim-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:36:18"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aligarh-muslim-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:36:19"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aligarh-muslim-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:36:29"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aligarh-muslim-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:36:30"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:39:28"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:42:22"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aligarh-muslim-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:42:28"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf16285a61af1ed2cce46b/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:42:28"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf16285a61af1ed2cce46b?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:42:28"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:42:39"}
+{"level":"info","message":"GET /api/v1/colleges/slug/amity-university-noida - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:42:41"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf16285a61af1ed2cce45d/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:42:41"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf16285a61af1ed2cce45d?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:42:41"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:48:14"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:48:23"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:48:43"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:53:33"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:53:40"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:55:19"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:55:37"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 03:59:34"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 03:59:46"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:03:49"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:04:15"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:04:21"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:05:37"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:05:47"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:21:11"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:21:27"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:21:42"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:21:56"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:22:12"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:24:45"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:24:51"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:24:56"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:28:27"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:28:54"}
+{"level":"info","message":"GET /api/v1/colleges?page=2&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:29:07"}
+{"level":"info","message":"GET /api/v1/colleges/slug/banaras-hindu-university-69 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:29:13"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf22993b647287c962bfd3/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:29:13"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf22993b647287c962bfd3?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:29:13"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bf22993b647287c962bfd3 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:29:13"}
+{"level":"info","message":"GET /api/v1/colleges?page=3&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:29:30"}
+{"level":"info","message":"GET /api/v1/colleges?page=4&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:29:31"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:30:08"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:39:36"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:44:59"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:46:45"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:48:47"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:49:02"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:49:06"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:49:17"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:49:37"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:51:02"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:53:03"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 04:53:56"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:54:30"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:57:29"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:57:35"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:57:40"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:57:51"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:58:13"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Government&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:58:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Private&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:58:38"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Public-Private&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:58:41"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-narendra-dev-college-delhi - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:58:45"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf29781b9a1d342bd88f4b/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:58:45"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf29781b9a1d342bd88f4b?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:58:45"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bf29781b9a1d342bd88f4b - ::1","service":"campusgarh-api","timestamp":"2026-03-22 04:58:45"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:00:28"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:19:42"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:19:44"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:20:08"}
+{"level":"info","message":"GET /api/v1/import-export/export/College - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:20:46"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:08"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:11"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:11"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:11"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bf2eb31b9a1d342bd89084 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:11"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Private&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:16"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Government&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:17"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Public-Private&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:18"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=D&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:30"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=De&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:30"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Del&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:30"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Delh&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:30"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Delhi&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:30"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=L&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Lu&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Luc&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Luck&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Luckn&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Luckno&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Lucknow&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=N&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:39"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=No&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:40"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Noi&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:40"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Noid&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:40"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=Noida&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:40"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=8&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:57"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=85&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:21:58"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=6&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:00"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=60&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:00"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=1&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:01"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=0&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:08"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=4&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:11"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=B&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:17"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=BI&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:18"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=BIT&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:18"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=BIT&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:19"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=BIT&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:23"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=BIT&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:24"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:27"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:22:30"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=1&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:25:11"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=0&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:25:12"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:25:21"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:25:21"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:25:21"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bf2eb31b9a1d342bd89084 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:25:21"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:25:27"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 05:25:33"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:13:44"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:13:51"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:13:52"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:14:12"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:14:13"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:14:13"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bf2eb31b9a1d342bd89084 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:14:13"}
+{"level":"info","message":"GET /api/v1/colleges/slug/amrita-vishwa-vidyapeetham - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:14:22"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb41b9a1d342bd890ae/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:14:22"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb41b9a1d342bd890ae?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:14:22"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bf2eb41b9a1d342bd890ae - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:14:22"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:15:17"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:19:21"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:19:40"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:21:16"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:21:18"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:21:18"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:21:18"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bf2eb31b9a1d342bd89084 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:21:18"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:22:40"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 07:23:02"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:37:32"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:37:37"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:37:44"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:37:51"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:38:05"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:38:10"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:38:16"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:38:20"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 07:38:26"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 16:43:17"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 16:45:37"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 16:45:38"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 16:45:38"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bf2eb31b9a1d342bd89084?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 16:45:38"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bf2eb31b9a1d342bd89084 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 16:45:38"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 16:46:01"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 16:47:22"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 16:47:38"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 16:57:09"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:00:43"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:01:40"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:03:28"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:09:45"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:09:53"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:10:00"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:10:07"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:10:27"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:10:56"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:10:57"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:11:02"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:11:16"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:11:16"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:11:16"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfd552241618ceaa80d593 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:11:16"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Private&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:11:46"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Government&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:11:47"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Public-Private&ranking=&feesMin=&feesMax= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:11:49"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:16:49"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:16:49"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:16:49"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfd552241618ceaa80d593 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:16:49"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:17:07"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:22:45"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Private+University&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:22:47"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Government&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:22:49"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Management&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:22:52"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:22:54"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering&ranking=&feesMin=&feesMax=&naacGrade=B%2B%2B&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:22:57"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:00"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=B%2B%2B - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:01"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:02"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=A - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:02"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=A%2B - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:03"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=A%2B%2B - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:05"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=C - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:07"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=B - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:07"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=B%2B - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:08"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=A%2B%2B&nbaStatus=true - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:17"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=A%2B%2B&nbaStatus= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:18"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:19"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=true - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:19"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy=AICTE - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:27"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:27"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy=UGC - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:28"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy=NBA - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:31"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:23:31"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy=MCI - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:32"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy=BCI - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:37"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:23:38"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:23:42"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy=&ranking=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:44"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy=&ranking= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:45"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy=&ranking=100 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:46"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&nbaStatus=&approvedBy=&ranking=200 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:23:47"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:24:01"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:24:01"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:24:01"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfd552241618ceaa80d593 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:24:01"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:25:30"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:29:01"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:33:48"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:41:11"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Law&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:16"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:19"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Technical&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:21"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Pharmacy&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:23"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=Central+University&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:27"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=Private&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:29"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=Government&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:31"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=A%2B - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:37"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:38"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&minPlacement=70 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:42"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&minPlacement=80 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:43"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&minPlacement=90 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:44"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&minPlacement=95 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:45"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&naacGrade=&minPlacement=95&campusType=Urban - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:43:47"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:48:00"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:48:01"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:48:01"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:48:01"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfd552241618ceaa80d593 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:48:01"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:48:24"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:48:32"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 17:48:40"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:10"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:10"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:10"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfd552241618ceaa80d593 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:10"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aiims-bhopal - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:12"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:12"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfd552241618ceaa80d593?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:12"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfd552241618ceaa80d593 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:12"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:14"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:18"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 17:57:37"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:19:25"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:19:56"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:19:56"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:19:58"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:02"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:17"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Commerce+%26+Finance&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:20"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Architecture+%26+Planning&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:22"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Law&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:24"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:27"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Private&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:31"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Government&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:33"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Public-Private+Partnership&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:35"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Semi-Government&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:38"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Autonomous&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:40"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Central+University&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:42"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Central+University&ranking=&feesMin=&feesMax=&naacGrade=A&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:47"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Central+University&ranking=&feesMin=&feesMax=&naacGrade=B%2B%2B&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:49"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Central+University&ranking=&feesMin=&feesMax=&naacGrade=A%2B&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:51"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=Central+University&ranking=&feesMin=&feesMax=&naacGrade=A%2B%2B&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:52"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:56"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=Diploma&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:20:58"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:26:30"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=placement - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:26:50"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=fees_desc - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:26:52"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=fees_asc - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:27:01"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:27:13"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:27:14"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:27:14"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfe5829650b2164f716da2 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:27:14"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:18"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:19"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:21"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:27"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:51"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:52"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=PG&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:54"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=UG&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:55"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=Diploma&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:56"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=Doctorate&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:57"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=Certificate&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:58"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=Certificate&mode=Full-time&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:34:59"}
+{"level":"info","message":"GET /api/v1/exams?page=1&limit=12&search=&category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:35:00"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:35:48"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:35:59"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:43:19"}
+{"level":"info","message":"POST /api/v1/auth/register - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:45:23"}
+{"level":"info","message":"GET / - ::ffff:127.0.0.1","service":"campusgarh-api","timestamp":"2026-03-22 18:46:48"}
+{"level":"info","message":"GET /favicon.ico - ::ffff:127.0.0.1","service":"campusgarh-api","timestamp":"2026-03-22 18:46:48"}
+{"level":"info","message":"GET / - ::ffff:127.0.0.1","service":"campusgarh-api","timestamp":"2026-03-22 18:46:50"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:50:26"}
+{"level":"info","message":"POST /api/v1/auth/register - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:51:33"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:51:49"}
+{"level":"info","message":"POST /api/v1/auth/register - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:52:05"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:52:44"}
+{"level":"info","message":"POST /api/v1/auth/register - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:54:03"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:54:26"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:54:42"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:54:58"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:55:04"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:55:14"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:55:16"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:55:26"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 18:55:26"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:58:45"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:58:53"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 18:59:00"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:00:11"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:02:54"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:02:59"}
+{"level":"info","message":"GET /api/v1/users/me - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:16"}
+{"level":"info","message":"GET /api/v1/users/me - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:18"}
+{"level":"info","message":"GET /api/v1/users/me - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:22"}
+{"level":"info","message":"GET /api/v1/reviews/mine - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:30"}
+{"level":"info","message":"GET /api/v1/users/me - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:49"}
+{"level":"info","message":"GET /api/v1/reviews/mine - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:49"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:54"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:55"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:56"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:56"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfe5829650b2164f716da2 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:03:56"}
+{"level":"info","message":"POST /api/v1/reviews - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:05:44"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:07:00"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:07:04"}
+{"level":"info","message":"POST /api/v1/reviews - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:07:36"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:07:36"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:07:36"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:07:41"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:07:41"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:07:41"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfe5829650b2164f716da2 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:07:41"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:07:56"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:07:56"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:09:27"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:09:32"}
+{"level":"info","message":"GET /api/v1/reviews?status=pending&page=1&limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:09:43"}
+{"level":"info","message":"PATCH /api/v1/reviews/69bff0a04c6a07fba1dcede2/moderate - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:07"}
+{"level":"info","message":"GET /api/v1/reviews?status=pending&page=1&limit=20 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:07"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:14"}
+{"level":"info","message":"GET /api/v1/users/me - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:25"}
+{"level":"info","message":"GET /api/v1/reviews/mine - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:25"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:31"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:33"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:33"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:33"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfe5829650b2164f716da2 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:10:33"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:15:24"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:15:24"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:15:24"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfe5829650b2164f716da2 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:15:24"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:15:35"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:15:35"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:38:35"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:38:41"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:38:43"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:38:50"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:38:51"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:38:52"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:40:01"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:40:42"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:43:04"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:43:54"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:43:56"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:44:28"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:45:40"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:46:31"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:51:12"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:51:19"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:51:21"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:51:24"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:51:24"}
+{"level":"info","message":"POST /api/v1/auth/register - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:55:42"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:55:59"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:56:26"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:56:59"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:57:02"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:57:10"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 19:57:11"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:57:17"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:57:18"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:57:19"}
+{"level":"info","message":"GET /api/v1/courses/slug/bachelor-of-architecture-barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:57:23"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69bfe8de9650b2164f716e93 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 19:57:23"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:00:15"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:00:16"}
+{"level":"info","message":"GET /api/v1/reviews/college/69bfe5829650b2164f716da2?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:00:16"}
+{"level":"info","message":"GET /api/v1/college-courses/college/69bfe5829650b2164f716da2 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:00:16"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:03:48"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:08:27"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:08:36"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:08:50"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:09:02"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:12:11"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:12:19"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:12:20"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:12:25"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:12:31"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:14:10"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:16:11"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:16:35"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:16:53"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:17:01"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:17:18"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:18:37"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:18:37"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:18:39"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:18:42"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:18:43"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:19:22"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:19:25"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:19:26"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:20:18"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:20:45"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:21:04"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:21:12"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:21:13"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:22:07"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:22:11"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:22:13"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:22:28"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:22:32"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:22:33"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:23:45"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:23:53"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:24:01"}
+{"level":"info","message":"GET /api/v1/colleges/slug/acharya-ng-ranga-agricultural-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:24:02"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:24:22"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:24:30"}
+{"level":"info","message":"GET /api/v1/colleges/slug/all-india-institute-of-medical-sciences-delhi - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:24:31"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:31:38"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:31:38"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:35:44"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:36:07"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:36:08"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:36:20"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:36:39"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:37:20"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=250 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:37:39"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:37:39"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:37:43"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:46:26"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:47:09"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 20:47:42"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:58:08"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:58:14"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:58:15"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:58:20"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:58:23"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 20:58:25"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:08:16"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:08:17"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:08:19"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:08:21"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:08:32"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:08:32"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 21:10:22"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 21:11:46"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 21:13:18"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:13:26"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:13:31"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:13:34"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:13:36"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aligarh-muslim-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:13:38"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aligarh-muslim-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:20:31"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:20:54"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:21:08"}
+{"level":"info","message":"GET /api/v1/colleges/slug/all-india-institute-of-medical-sciences-delhi - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:21:09"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:21:15"}
+{"level":"info","message":"GET /api/v1/colleges/slug/aligarh-muslim-university - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:23:27"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:23:37"}
+{"level":"info","message":"GET /api/v1/colleges/slug/all-india-institute-of-medical-sciences-delhi - ::1","service":"campusgarh-api","timestamp":"2026-03-22 21:23:38"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-22 22:12:38"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:13:01"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:13:05"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:13:08"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:13:15"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:13:25"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:13:29"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:17:16"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:17:18"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:17:20"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:17:23"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:17:23"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:17:27"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:17:32"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:23:27"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:23:27"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:24:01"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:27:32"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:27:32"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:29:27"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:29:32"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:29:34"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:29:36"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:29:37"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:29:38"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:29:38"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:38:42"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:38:44"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:38:55"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:38:58"}
+{"level":"info","message":"POST /api/v1/import-export/import - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:42:52"}
+{"level":"info","message":"GET /api/v1/import-export/logs?limit=10 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:42:57"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:00"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:01"}
+{"level":"info","message":"GET /api/v1/exams/slug/aiapget - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:02"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:40"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:42"}
+{"level":"info","message":"GET /api/v1/colleges/slug/indian-institute-of-technology-madras - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:44"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:45"}
+{"level":"info","message":"GET /api/v1/exams/slug/aiapget - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:47"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:50"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:43:50"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:47:17"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:47:17"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:47:28"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:49:52"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:49:53"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:50:39"}
+{"level":"info","message":"GET /api/v1/colleges/slug/indian-institute-of-technology-madras - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:50:42"}
+{"level":"info","message":"POST /api/v1/users/saved-colleges/69c02228b810d1896b9a4ad5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:50:45"}
+{"level":"info","message":"POST /api/v1/users/saved-colleges/69c02228b810d1896b9a4ad5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:50:51"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:02"}
+{"level":"info","message":"GET /api/v1/users/me - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:09"}
+{"level":"info","message":"GET /api/v1/reviews/mine - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:09"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:11"}
+{"level":"info","message":"GET /api/v1/colleges/slug/indian-institute-of-technology-madras - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:12"}
+{"level":"info","message":"POST /api/v1/users/saved-colleges/69c02228b810d1896b9a4ad5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:13"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:19"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:37"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:38"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:39"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:51:39"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:52:03"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:52:04"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:52:05"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:52:05"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:52:07"}
+{"level":"info","message":"GET /api/v1/colleges/slug/indian-institute-of-technology-madras - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:52:08"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:40"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:41"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:41"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:44"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:44"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:46"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:46"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:47"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:48"}
+{"level":"info","message":"GET /api/v1/colleges/slug/indian-institute-of-technology-madras - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:51"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:57:59"}
+{"level":"info","message":"GET /api/v1/exams/slug/aiapget - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:58:00"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:06"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:06"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:08"}
+{"level":"info","message":"GET /api/v1/courses/slug/bcom - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:09"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a64 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:09"}
+{"level":"info","message":"GET /api/v1/courses/slug/bcom - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:11"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a64 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:11"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:17"}
+{"level":"info","message":"GET /api/v1/colleges/slug/indian-institute-of-technology-madras - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:18"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:19"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:20"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:20"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:21"}
+{"level":"info","message":"GET /api/v1/exams/slug/aiapget - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:22"}
+{"level":"info","message":"GET /api/v1/exams/slug/aiapget - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:25"}
+{"level":"info","message":"GET /api/v1/exams/slug/aiapget - ::1","service":"campusgarh-api","timestamp":"2026-03-22 22:59:26"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:00:16"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:00:16"}
+{"level":"info","message":"GET /api/v1/courses/slug/barch - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:00:17"}
+{"level":"info","message":"GET /api/v1/college-courses/course/69c01ff5b810d1896b9a4a60 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:00:17"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:00:19"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:06:32"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:06:33"}
+{"level":"info","message":"GET /api/v1/exams?category=&examLevel=&examMode=&conductingBody=&upcoming=&sort=date_asc&page=1&limit=12 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:06:49"}
+{"level":"info","message":"GET /api/v1/exams/slug/aiapget - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:06:49"}
+{"level":"info","message":"GET /api/v1/courses?examId=69c02317b810d1896b9a4b87&examId=69c02317b810d1896b9a4b87&limit=50 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:06:49"}
+{"level":"info","message":"GET /api/v1/exams/slug/bitsat - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:07:08"}
+{"level":"info","message":"GET /api/v1/courses?examId=69c02316b810d1896b9a4b79&examId=69c02316b810d1896b9a4b79&limit=50 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:07:08"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:07:31"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:07:31"}
+{"level":"info","message":"GET /api/v1/users/me - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:07:34"}
+{"level":"info","message":"GET /api/v1/reviews/mine - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:07:34"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:07:40"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:07:40"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:12:04"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:12:23"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:12:44"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:15:49"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:15:49"}
+{"level":"info","message":"GET /api/v1/blogs?page=1&limit=9&category=&tag= - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:15:53"}
+{"level":"info","message":"GET /api/v1/blogs/categories - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:15:53"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Engineering+%26+Technology&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:21:06"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Law&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:21:16"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=Arts+%26+Science&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:21:25"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:21:31"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=Engineering+%26+Technology&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:21:41"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=Engineering+%26+Technology&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:21:59"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:22:03"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=Deemed+University&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:22:12"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=Technical&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:22:32"}
+{"level":"info","message":"GET /api/v1/courses?page=1&limit=12&search=&category=&mode=&discipline=Arts+%26+Science&admissionType=&feesMin=&feesMax=&minSalary=&sort=name - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:22:39"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=3 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:25:10"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=3 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:25:25"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:25:29"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=true&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:27:28"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=3 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:35:57"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:35:59"}
+{"level":"info","message":"GET /api/v1/colleges/slug/manipal-academy-of-higher-education - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:36:01"}
+{"level":"info","message":"GET /api/v1/reviews/college/69c02229b810d1896b9a4af3/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:36:01"}
+{"level":"info","message":"GET /api/v1/reviews/college/69c02229b810d1896b9a4af3?page=1&limit=5 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:36:03"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:36:09"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:38:02"}
+{"level":"info","message":"GET /api/v1/users/me - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:38:10"}
+{"level":"info","message":"GET /api/v1/reviews/mine - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:38:10"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:38:19"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=3 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:38:19"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=3 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:47:41"}
+{"level":"info","message":"GET /api/v1/colleges/featured?limit=3 - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:48:58"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:49:00"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"campusgarh-api","timestamp":"2026-03-22 23:49:26"}

@@ -1,0 +1,115 @@
+.footer {
+  background: var(--deep, #0A0A0F);
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--warm-white, #FFFEF9);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.title em {
+  font-style: normal;
+  color: var(--gold, #C9A84C);
+}
+
+.description {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.38);
+  max-width: 280px;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+}
+.links li {
+  margin-bottom: 0.65rem;
+}
+.links a {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+.links a:hover {
+  color: var(--gold, #C9A84C);
+}
+
+.social {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.social a {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+  transition: border-color 0.2s, color 0.2s;
+}
+.social a:hover {
+  border-color: var(--gold, #C9A84C);
+  color: var(--gold, #C9A84C);
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .container {
+    padding: 3rem 1.25rem 1.5rem;
+  }
+}

@@ -1,0 +1,258 @@
+import { useEffect, useRef, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { useBlogBySlug } from '../../hooks/queries';
+import Loader from '../common/Loader/Loader';
+import Button from '../common/Button/Button';
+import styles from './BlogDetail.module.css';
+import { formatDate } from '../../utils/formatters';
+
+const CONTENT_TYPE_COLORS = {
+  Guide: '#3b82f6', News: '#f59e0b', Ranking: '#8b5cf6',
+  'College Review': '#10b981', 'Exam Update': '#ef4444',
+  'Career Advice': '#0891b2', Scholarship: '#f97316', Comparison: '#64748b',
+};
+
+const TableOfContents = ({ items, bodyRef }) => {
+  const [active, setActive] = useState(items[0]?.id || '');
+
+  useEffect(() => {
+    if (!bodyRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: '-20% 0% -70% 0%' }
+    );
+    items.forEach(({ id }) => {
+      const el = bodyRef.current?.querySelector(`#${id}`);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [items, bodyRef]);
+
+  if (!items.length) return null;
+
+  return (
+    <nav className={styles.toc}>
+      <div className={styles.tocTitle}>Contents</div>
+      <ul className={styles.tocList}>
+        {items.map((item) => (
+          <li key={item.id} className={item.level === 3 ? styles.tocSubItem : styles.tocItem}>
+            <a
+              href={`#${item.id}`}
+              className={`${styles.tocLink} ${active === item.id ? styles.tocLinkActive : ''}`}
+            >
+              {item.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+const BlogDetail = () => {
+  const { slug } = useParams();
+  const { data, isLoading, error } = useBlogBySlug(slug);
+  const bodyRef = useRef(null);
+  const [tocItems, setTocItems] = useState([]);
+
+  const blog = data?.data?.data;
+
+  useEffect(() => {
+    if (!blog) return;
+    if (blog.tableOfContents?.length > 0) {
+      setTocItems(blog.tableOfContents);
+      return;
+    }
+    // Auto-generate TOC from rendered headings
+    if (bodyRef.current) {
+      const headings = bodyRef.current.querySelectorAll('h2, h3');
+      const items = Array.from(headings).map((h, idx) => {
+        if (!h.id) h.id = `heading-${idx}`;
+        return { id: h.id, title: h.textContent, level: parseInt(h.tagName[1]) };
+      });
+      setTocItems(items);
+    }
+  }, [blog]);
+
+  if (isLoading) {
+    return (
+      <div className={styles.loadingWrap}>
+        <Loader size="lg" />
+        <p>Loading article…</p>
+      </div>
+    );
+  }
+
+  if (error || !blog) {
+    return (
+      <div className={styles.errorWrap}>
+        <span className={styles.errorIcon}>📰</span>
+        <h2>Article not found</h2>
+        <p>We couldn't find this article.</p>
+        <Link to="/blogs"><Button variant="primary">Browse Blogs</Button></Link>
+      </div>
+    );
+  }
+
+  const ctColor = CONTENT_TYPE_COLORS[blog.contentType] || '#64748b';
+  const hasSidebar = tocItems.length > 0
+    || blog.relatedColleges?.length > 0
+    || blog.relatedCourses?.length > 0
+    || blog.relatedExams?.length > 0;
+
+  return (
+    <div className={styles.page}>
+      {/* ── HERO ──────────────────────────────────────────────────────────────── */}
+      <section className={styles.hero}>
+        <div className={styles.heroNoise} />
+        <div className={styles.heroInner}>
+          {/* Breadcrumb */}
+          <nav className={styles.breadcrumb}>
+            <Link to="/blogs">Blogs</Link>
+            {blog.categories?.[0] && (
+              <>
+                <span>/</span>
+                <Link to={`/blogs?category=${blog.categories[0]._id}`}>
+                  {blog.categories[0].name}
+                </Link>
+              </>
+            )}
+            <span>/</span>
+            <span>{blog.title}</span>
+          </nav>
+
+          {/* Meta badges */}
+          <div className={styles.metaBadges}>
+            {blog.contentType && (
+              <span className={styles.contentTypeBadge} style={{ background: ctColor }}>
+                {blog.contentType}
+              </span>
+            )}
+            {blog.difficulty && (
+              <span className={styles.difficultyBadge}>{blog.difficulty}</span>
+            )}
+            {blog.series?.name && (
+              <span className={styles.seriesBadge}>
+                Part {blog.series.partNumber} of {blog.series.totalParts}: {blog.series.name}
+              </span>
+            )}
+          </div>
+
+          {/* Title */}
+          <h1 className={styles.title}>{blog.title}</h1>
+
+          {/* Meta info */}
+          <div className={styles.meta}>
+            <span className={styles.date}>{formatDate(blog.publishedAt, 'dd MMM yyyy')}</span>
+            {blog.readingTime && <span className={styles.readTime}>· {blog.readingTime} min read</span>}
+            <span className={styles.author}>· By {blog.author?.name || 'Admin'}</span>
+            {blog.lastReviewedAt && (
+              <span className={styles.reviewed}>
+                · Reviewed {formatDate(blog.lastReviewedAt, 'dd MMM yyyy')}
+              </span>
+            )}
+          </div>
+
+          {/* Categories */}
+          {blog.categories?.length > 0 && (
+            <div className={styles.categories}>
+              {blog.categories.map((cat) => (
+                <Link key={cat._id} to={`/blogs?category=${cat._id}`} className={styles.category}>
+                  {cat.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Tags */}
+          {blog.tags?.length > 0 && (
+            <div className={styles.tags}>
+              {blog.tags.map((tag) => (
+                <Link key={tag} to={`/blogs?tag=${tag}`} className={styles.tag}>#{tag}</Link>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Featured Image — inside hero, below text */}
+        {blog.featuredImage && (
+          <div className={styles.heroImage}>
+            <img src={blog.featuredImage.url} alt={blog.title} />
+          </div>
+        )}
+      </section>
+
+      {/* ── CONTENT ───────────────────────────────────────────────────────────── */}
+      <div className={styles.contentWrap}>
+        <div className={styles.contentInner}>
+          <div className={`${styles.layout} ${hasSidebar ? styles.withSidebar : ''}`}>
+            {/* Main Article */}
+            <article className={styles.main}>
+              <div ref={bodyRef} className={styles.body} dangerouslySetInnerHTML={{ __html: blog.content }} />
+
+              {blog.relatedBlogs?.length > 0 && (
+                <div className={styles.related}>
+                  <h3>Related Articles</h3>
+                  <div className={styles.relatedGrid}>
+                    {blog.relatedBlogs.map((related) => (
+                      <Link key={related._id} to={`/blogs/${related.slug}`} className={styles.relatedCard}>
+                        <h4>{related.title}</h4>
+                        <span>{formatDate(related.publishedAt, 'dd MMM yyyy')}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </article>
+
+            {/* Sidebar */}
+            {hasSidebar && (
+              <aside className={styles.sidebar}>
+                {tocItems.length > 0 && <TableOfContents items={tocItems} bodyRef={bodyRef} />}
+
+                {blog.relatedColleges?.length > 0 && (
+                  <div className={styles.sideSection}>
+                    <div className={styles.sideSectionTitle}>Related Colleges</div>
+                    {blog.relatedColleges.map((c) => (
+                      <Link key={c._id} to={`/colleges/${c.slug}`} className={styles.sideLink}>
+                        🏛️ {c.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {blog.relatedCourses?.length > 0 && (
+                  <div className={styles.sideSection}>
+                    <div className={styles.sideSectionTitle}>Related Courses</div>
+                    {blog.relatedCourses.map((c) => (
+                      <Link key={c._id} to={`/courses/${c.slug}`} className={styles.sideLink}>
+                        🎓 {c.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {blog.relatedExams?.length > 0 && (
+                  <div className={styles.sideSection}>
+                    <div className={styles.sideSectionTitle}>Related Exams</div>
+                    {blog.relatedExams.map((e) => (
+                      <Link key={e._id} to={`/exams/${e.slug}`} className={styles.sideLink}>
+                        📝 {e.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </aside>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BlogDetail;

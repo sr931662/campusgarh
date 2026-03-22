@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusGarh — Your Gateway to the Right Campus</title>
+  <meta name="description" content="Discover colleges, courses, and entrance exams. Get genuine reviews and ground reports from students across India.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Additional homepage-specific styles */
+    .partner-logos {
+      display: flex; gap: 2.5rem; align-items: center;
+      flex-wrap: wrap;
+    }
+    .partner-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--muted); opacity: 0.5;
+      transition: opacity 0.3s;
+      letter-spacing: -0.02em;
+    }
+    .partner-logo:hover { opacity: 0.9; }
+    .partner-sep { width: 1px; height: 24px; background: var(--border); }
+
+    .section-header-row {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 3rem;
+      flex-wrap: wrap; gap: 1rem;
+    }
+
+    .floating-card {
+      position: absolute;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-lg);
+      z-index: 3;
+    }
+    .floating-card-1 {
+      bottom: 3rem; right: 2rem;
+      min-width: 200px;
+    }
+    .floating-card-2 {
+      top: 50%; left: 2rem; transform: translateY(-50%);
+      min-width: 180px;
+    }
+    .fc-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.25rem; }
+    .fc-val { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--charcoal); }
+    .fc-sub { font-size: 0.75rem; color: var(--emerald-light); font-weight: 600; }
+
+    .features-img-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      height: 100%;
+    }
+    .feature-img-box {
+      border-radius: 16px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      min-height: 160px;
+      position: relative;
+    }
+    .feature-img-box:first-child { grid-row: span 2; font-size: 5rem; background: var(--deep); }
+    .feature-img-box:first-child .fib-label { color: rgba(255,255,255,0.5); font-size: 0.8rem; font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.75rem; }
+    .fib-inner { display: flex; flex-direction: column; align-items: center; }
+
+    /* Counter section */
+    .counters-strip {
+      background: var(--warm-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem;
+    }
+    .counters-inner {
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; text-align: center;
+    }
+    .counter-item {}
+    .counter-num {
+      font-family: var(--font-display);
+      font-size: 3rem; font-weight: 700;
+      color: var(--charcoal); letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .counter-num span { color: var(--gold); }
+    .counter-label {
+      font-size: 0.85rem; color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 768px) {
+      .counters-inner { grid-template-columns: repeat(2, 1fr); }
+      .section-header-row { flex-direction: column; align-items: flex-start; }
+      .partner-logos { gap: 1.5rem; }
+      .features-img-grid { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- Preloader -->
+<div id="preloader">
+  <div class="preloader-logo">
+    <span>C</span><span>a</span><span>m</span><span>p</span><span>u</span><span>s</span>
+    <span style="color:rgba(201,168,76,0.3)">&nbsp;</span>
+    <span>G</span><span>a</span><span>r</span><span>h</span>
+  </div>
+  <div class="preloader-bar">
+    <div class="preloader-bar-fill" id="preloader-fill"></div>
+  </div>
+  <div class="preloader-num" id="preloader-num">0%</div>
+</div>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <a href="index.html">Home</a>
+  <a href="colleges.html">Colleges</a>
+  <a href="courses.html">Courses</a>
+  <a href="exams.html">Exams</a>
+<!--  <a href="about.html">About</a> -->
+  <a href="login.html" style="color:var(--gold)">Login →</a>
+</nav>
+
+<!-- Header -->
+<header id="site-header">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">🎓</div>
+      <div class="logo-text">Campus<em>Garh</em></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="colleges.html">Colleges</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="exams.html">Exams</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <!-- Rendered by JS -->
+    </div>
+    <button class="nav-hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-bg-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="hero-eyebrow">
+      India's Student-First Campus Discovery Platform
+    </div>
+    <h1 class="hero-title" id="hero-title">
+      Find Your<br>
+      <em>Right Campus.</em>
+    </h1>
+    <p class="hero-subtitle" id="hero-subtitle">
+      Genuine college reviews, verified data and unbiased guidance — helping students across India make confident decisions. Zero pressure. Zero commission.
+    </p>
+    <div class="hero-actions" id="hero-actions">
+      <a href="colleges.html" class="btn-hero-primary">Explore Colleges ✦</a>
+      <a href="about.html" class="btn-hero-secondary">Our Mission →</a>
+    </div>
+    <div class="hero-stats" id="hero-stats">
+      <div>
+        <span class="hero-stat-num" data-count="500" data-suffix="+">0+</span>
+        <span class="hero-stat-label">Colleges</span>
+      </div>
+      <div>
+        <span class="hero-stat-num" data-count="120000" data-suffix="+">0+</span>
+        <span class="hero-stat-label">Students Helped</span>
+      </div>
+      <div>
+        <span class="hero-stat-num" data-count="8500" data-suffix="+">0+</span>
+        <span class="hero-stat-label">Verified Reviews</span>
+      </div>
+      <div>
+        <span class="hero-stat-num" data-count="100" data-suffix="% Free">0%</span>
+        <span class="hero-stat-label">Always Free</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator" id="scroll-indicator">
+    <div class="scroll-mouse"><div class="scroll-mouse-wheel"></div></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ═══ SEARCH ═══ -->
+<section class="search-section">
+  <div class="search-wrap">
+    <div class="search-label">Search anything</div>
+    <div class="search-bar-main" id="main-search-bar">
+      <input type="text" id="global-search" placeholder="Search colleges, courses, exams, cities..." autocomplete="off">
+      <button onclick="handleGlobalSearch()">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Search
+      </button>
+    </div>
+    <div class="search-tags">
+      <a href="colleges.html?type=Engineering" class="search-tag">⚡ Engineering Colleges</a>
+      <a href="colleges.html?type=Medical" class="search-tag">🩺 Medical Colleges</a>
+      <a href="colleges.html?type=Management" class="search-tag">📊 MBA Colleges</a>
+      <a href="exams.html" class="search-tag">📝 JEE Main</a>
+      <a href="exams.html" class="search-tag">🔬 NEET</a>
+      <a href="courses.html" class="search-tag">💻 B.Tech CSE</a>
+      <a href="colleges.html?city=Delhi" class="search-tag">📍 Delhi</a>
+      <a href="colleges.html?city=Mumbai" class="search-tag">📍 Mumbai</a>
+    </div>
+    <!-- Search results dropdown -->
+    <div id="search-dropdown" class="hidden" style="
+      background: var(--warm-white); border: 1px solid var(--border);
+      border-radius: 16px; margin-top: 0.75rem; overflow: hidden;
+      box-shadow: var(--shadow-lg); max-width: 800px;
+    "></div>
+  </div>
+</section>
+
+<!-- ═══ TRUST STRIP ═══ -->
+<div class="trust-strip">
+  <div class="trust-strip-inner" id="trust-strip">
+    <!-- rendered by JS -->
+  </div>
+</div>
+
+<!-- ═══ FEATURED COLLEGES ═══ -->
+<section class="section" style="background: var(--cream);">
+  <div class="section-inner">
+    <div class="featured-banner" data-reveal>
+      <div class="featured-banner-bg"></div>
+      <div>
+        <span class="featured-banner-eyebrow">✦ Top Ranked</span>
+        <h2>India's Most Trusted Institutions</h2>
+        <p>Curated from NIRF rankings, student feedback and verified placement data — not paid listings.</p>
+        <a href="colleges.html" class="btn-gold" style="margin-top: 1.5rem; display: inline-flex;">View All Colleges →</a>
+      </div>
+      <div class="featured-banner-stats">
+        <div class="featured-stat">
+          <div class="featured-stat-num" data-count="500">500</div>
+          <div class="featured-stat-label">Colleges Listed</div>
+        </div>
+        <div class="featured-stat">
+          <div class="featured-stat-num" data-count="28">28</div>
+          <div class="featured-stat-label">States Covered</div>
+        </div>
+        <div class="featured-stat">
+          <div class="featured-stat-num" data-count="12">12</div>
+          <div class="featured-stat-label">Disciplines</div>
+        </div>
+        <div class="featured-stat">
+          <div class="featured-stat-num" data-count="100">100%</div>
+          <div class="featured-stat-label">Verified Data</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header-row" data-reveal>
+      <div>
+        <span class="section-eyebrow">Discover</span>
+        <h2 class="section-title">Featured <em>Colleges</em></h2>
+      </div>
+      <a href="colleges.html" class="section-link">View all colleges →</a>
+    </div>
+
+    <div class="colleges-grid" id="featured-colleges">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COUNTERS ═══ -->
+<div class="counters-strip" data-reveal>
+  <div class="counters-inner">
+    <div class="counter-item">
+      <div class="counter-num"><span id="c1">0</span><span>+</span></div>
+      <div class="counter-label">Colleges Listed</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-num"><span id="c2">0</span><span>K+</span></div>
+      <div class="counter-label">Students Helped</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-num"><span id="c3">0</span><span>K+</span></div>
+      <div class="counter-label">Reviews & Reports</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-num"><span id="c4">0</span><span>%</span></div>
+      <div class="counter-label">Free Forever</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COURSES ═══ -->
+<section class="section" style="background: var(--warm-white);">
+  <div class="section-inner">
+    <div class="section-header-row" data-reveal>
+      <div>
+        <span class="section-eyebrow">Explore</span>
+        <h2 class="section-title">Popular <em>Courses</em></h2>
+        <p class="section-subtitle">From engineering to law — find the course that fits your future.</p>
+      </div>
+      <a href="courses.html" class="section-link">View all courses →</a>
+    </div>
+    <div class="courses-scroll" id="courses-scroll" data-reveal>
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY CAMPUSGARH ═══ -->
+<section class="section" style="background: var(--cream);">
+  <div class="section-inner">
+    <div class="features-layout">
+      <div data-reveal>
+        <span class="section-eyebrow">Why us</span>
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">Built Different.<br><em>Student First.</em></h2>
+        <p class="section-subtitle" style="margin-bottom: 3rem;">We're not a consultancy. We don't sell admissions. We simply give you the truth — verified, unbiased, and free.</p>
+
+        <div class="features-list">
+          <div class="feature-item" data-reveal data-delay="0">
+            <div class="feature-icon" style="background: var(--gold-pale);">🔍</div>
+            <div>
+              <div class="feature-title">Genuine Ground Reports</div>
+              <div class="feature-desc">Our reviewers visit campuses in person. No manufactured testimonials. Real students, real experiences.</div>
+            </div>
+          </div>
+          <div class="feature-item" data-reveal data-delay="100">
+            <div class="feature-icon" style="background: #DCFCE7;">⚖️</div>
+            <div>
+              <div class="feature-title">Zero Bias, Zero Commission</div>
+              <div class="feature-desc">Colleges cannot pay to rank higher. Our rankings are based purely on data, NIRF scores and student feedback.</div>
+            </div>
+          </div>
+          <div class="feature-item" data-reveal data-delay="200">
+            <div class="feature-icon" style="background: #E0F2FE;">🎯</div>
+            <div>
+              <div class="feature-title">Career-Aligned Guidance</div>
+              <div class="feature-desc">We help you match your strengths, aptitude and goals with the right college — not just the most famous one.</div>
+            </div>
+          </div>
+          <div class="feature-item" data-reveal data-delay="300">
+            <div class="feature-icon" style="background: #FDF4FF;">🛡️</div>
+            <div>
+              <div class="feature-title">Ethical Counsellors On Demand</div>
+              <div class="feature-desc">Access certified counsellors only when you need them. No cold calls. No pushy salespeople. Ever.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="features-visual" data-reveal>
+        <div class="features-img-grid" style="padding: 1.5rem;">
+          <div class="feature-img-box" style="background: var(--deep);">
+            <div class="fib-inner">
+              <span>🎓</span>
+              <span class="fib-label">Campus Reports</span>
+            </div>
+          </div>
+          <div class="feature-img-box">
+            <span>📊</span>
+          </div>
+          <div class="feature-img-box">
+            <span>🌟</span>
+          </div>
+        </div>
+        <!-- Stats overlay -->
+        <div class="floating-card floating-card-1">
+          <div class="fc-label">Avg Placement</div>
+          <div class="fc-val">₹18 LPA</div>
+          <div class="fc-sub">↑ 24% from last year</div>
+        </div>
+        <div class="floating-card floating-card-2">
+          <div class="fc-label">Reviews Today</div>
+          <div class="fc-val">47</div>
+          <div class="fc-sub">✓ Verified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXAMS ═══ -->
+<section class="section" style="background: var(--warm-white);">
+  <div class="section-inner">
+    <div class="section-header-row" data-reveal>
+      <div>
+        <span class="section-eyebrow">Entrance Exams</span>
+        <h2 class="section-title">Know Your <em>Exams</em></h2>
+        <p class="section-subtitle">Complete information on dates, fees, eligibility and syllabi.</p>
+      </div>
+      <a href="exams.html" class="section-link">View all exams →</a>
+    </div>
+    <div class="exams-grid" id="home-exams" data-reveal>
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REVIEWS ═══ -->
+<section class="section" style="background: var(--cream);">
+  <div class="section-inner">
+    <div class="section-header-row" data-reveal>
+      <div>
+        <span class="section-eyebrow">Student Voices</span>
+        <h2 class="section-title">What Students <em>Say</em></h2>
+        <p class="section-subtitle">Unfiltered reviews from students who've been there.</p>
+      </div>
+    </div>
+    <div class="reviews-grid" id="home-reviews" data-reveal>
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PARTNER LOGOS ═══ -->
+<section style="background: var(--warm-white); padding: 3rem; border-top: 1px solid var(--border);">
+  <div style="max-width: 1400px; margin: 0 auto;">
+    <p style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; margin-bottom: 2rem; font-family: var(--font-mono);">Students from top institutions trust us</p>
+    <div class="partner-logos">
+      <div class="partner-logo">IIT Delhi</div>
+      <div class="partner-sep"></div>
+      <div class="partner-logo">IIM Ahmedabad</div>
+      <div class="partner-sep"></div>
+      <div class="partner-logo">AIIMS</div>
+      <div class="partner-sep"></div>
+      <div class="partner-logo">BITS Pilani</div>
+      <div class="partner-sep"></div>
+      <div class="partner-logo">Delhi University</div>
+      <div class="partner-sep"></div>
+      <div class="partner-logo">NLSIU</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<div class="cta-section" data-reveal>
+  <div class="cta-tag">✦ Start Your Journey</div>
+  <h2 class="cta-title">Your Right Campus<br>is Waiting for You</h2>
+  <p class="cta-subtitle">Join 1.2 lakh+ students who found their path with CampusGarh. Free, unbiased, student-first.</p>
+  <div class="cta-actions">
+    <a href="colleges.html" class="btn-hero-primary">Explore Colleges ✦</a>
+    <a href="register.html" class="btn-hero-secondary">Create Free Account</a>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">🎓 CampusGarh</a>
+      <p class="footer-desc">Your gateway to the right campus. Genuine reviews, verified data, zero bias — helping students across India make confident decisions.</p>
+      <div class="footer-social">
+        <a href="#" title="Twitter">𝕏</a>
+        <a href="#" title="Instagram">📸</a>
+        <a href="#" title="LinkedIn">in</a>
+        <a href="#" title="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Discover</h5>
+      <a href="colleges.html">Browse Colleges</a>
+      <a href="courses.html">Explore Courses</a>
+      <a href="exams.html">Entrance Exams</a>
+      <a href="colleges.html?type=Engineering">Engineering</a>
+      <a href="colleges.html?type=Medical">Medical</a>
+      <a href="colleges.html?type=Management">Management</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="about.html">About Us</a>
+      <a href="about.html#mission">Our Mission</a>
+      <a href="about.html#team">Team</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Policy</a>
+      <a href="#">Review Guidelines</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 CampusGarh. All rights reserved.</span>
+    <span>Made with ❤️ for Indian students · Founded by Priyanshu Saraswat</span>
+    <a href="#">↑ Back to top</a>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+// ═══════════════ PRELOADER ═══════════════
+(function() {
+  const fill = document.getElementById('preloader-fill');
+  const num = document.getElementById('preloader-num');
+  const letters = document.querySelectorAll('.preloader-logo span');
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 15 + 5;
+    if (progress >= 100) { progress = 100; clearInterval(interval); }
+    fill.style.width = progress + '%';
+    num.textContent = Math.floor(progress) + '%';
+  }, 120);
+
+  // Animate letters
+  letters.forEach((l, i) => {
+    setTimeout(() => {
+      l.style.transition = `transform 0.5s cubic-bezier(0.4,0,0.2,1)`;
+      l.style.transform = 'translateY(0)';
+    }, i * 60);
+  });
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      progress = 100; fill.style.width = '100%'; num.textContent = '100%';
+      setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        preloader.style.transition = 'opacity 0.8s, transform 0.8s';
+        preloader.style.opacity = '0';
+        preloader.style.transform = 'translateY(-20px)';
+        setTimeout(() => preloader.style.display = 'none', 800);
+        initHero();
+      }, 300);
+    }, 400);
+  });
+})();
+
+// ═══════════════ THREE.JS PARTICLE FIELD ═══════════════
+function initHero() {
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000);
+  camera.position.z = 30;
+
+  function resize() {
+    renderer.setSize(canvas.offsetParent.offsetWidth, canvas.offsetParent.offsetHeight);
+    camera.aspect = canvas.offsetParent.offsetWidth / canvas.offsetParent.offsetHeight;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Particle geometry
+  const count = 800;
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(count * 3);
+  const col = new Float32Array(count * 3);
+  const sizes = new Float32Array(count);
+
+  for (let i = 0; i < count; i++) {
+    pos[i*3]   = (Math.random() - 0.5) * 100;
+    pos[i*3+1] = (Math.random() - 0.5) * 60;
+    pos[i*3+2] = (Math.random() - 0.5) * 40;
+    const t = Math.random();
+    col[i*3]   = t > 0.6 ? 0.79 : 0.11;
+    col[i*3+1] = t > 0.6 ? 0.66 : 0.31;
+    col[i*3+2] = t > 0.6 ? 0.30 : 0.85;
+    sizes[i] = Math.random() * 2 + 0.5;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+  const mat = new THREE.PointsMaterial({
+    size: 0.18, vertexColors: true, transparent: true, opacity: 0.5,
+    sizeAttenuation: true
+  });
+  const particles = new THREE.Points(geo, mat);
+  scene.add(particles);
+
+  // Lines connecting nearby particles
+  const lineMat = new THREE.LineBasicMaterial({ color: 0xC9A84C, transparent: true, opacity: 0.05 });
+
+  let mouse = { x: 0, y: 0 };
+  document.addEventListener('mousemove', e => {
+    mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouse.y = -(e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  let t = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.003;
+    particles.rotation.y = t * 0.05 + mouse.x * 0.02;
+    particles.rotation.x = mouse.y * 0.01;
+
+    // Float particles
+    const ppos = geo.attributes.position.array;
+    for (let i = 0; i < count; i++) {
+      ppos[i*3+1] += Math.sin(t + i * 0.5) * 0.005;
+    }
+    geo.attributes.position.needsUpdate = true;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // GSAP Hero Animations
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  tl.to('#hero-eyebrow', { opacity: 1, y: 0, duration: 0.8 }, 0.2)
+    .to('#hero-title', { opacity: 1, y: 0, duration: 1 }, 0.4)
+    .to('#hero-subtitle', { opacity: 1, y: 0, duration: 0.8 }, 0.7)
+    .to('#hero-actions', { opacity: 1, y: 0, duration: 0.7 }, 0.9)
+    .to('#hero-stats', { opacity: 1, y: 0, duration: 0.7 }, 1.1)
+    .to('#scroll-indicator', { opacity: 1, duration: 0.7 }, 1.5);
+
+  // Counter animation on hero stats
+  setTimeout(() => {
+    document.querySelectorAll('.hero-stat-num[data-count]').forEach(el => {
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      animateCounter(el, target, suffix);
+    });
+    // Page counters
+    animateCounter(document.getElementById('c1'), 500, '');
+    animateCounter(document.getElementById('c2'), 120, '');
+    animateCounter(document.getElementById('c3'), 8, '');
+    animateCounter(document.getElementById('c4'), 100, '');
+  }, 1400);
+}
+
+// ═══════════════ RENDER TRUST STRIP ═══════════════
+(function() {
+  const strip = document.getElementById('trust-strip');
+  if (!strip) return;
+  const items = [...CG_DATA.trustItems, ...CG_DATA.trustItems]; // duplicate for infinite scroll
+  strip.innerHTML = items.map(item => `
+    <div class="trust-item">
+      <span class="trust-item-icon">✦</span>
+      <span>${item}</span>
+    </div>
+    <div class="trust-dot"></div>
+  `).join('');
+})();
+
+// ═══════════════ RENDER FEATURED COLLEGES ═══════════════
+(function() {
+  const container = document.getElementById('featured-colleges');
+  if (!container) return;
+  container.innerHTML = CG_DATA.colleges.map(c => `
+    <a href="college.html?slug=${c.slug}" class="college-card" data-reveal>
+      <div class="college-card-img" style="background: linear-gradient(135deg, ${c.color}22, ${c.color}44);">
+        <span style="font-size:4rem; position:relative; z-index:1;">${c.emoji}</span>
+        <div class="college-card-img-overlay"></div>
+        <div class="college-card-badge">#${c.ranking} ${c.type}</div>
+      </div>
+      <div class="college-card-body">
+        <div class="college-card-name">${c.name}</div>
+        <div class="college-card-location">
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+          ${c.city}, ${c.state}
+        </div>
+        <div class="college-card-tags">
+          ${c.tags.map(t => `<span class="college-card-tag">${t}</span>`).join('')}
+          <span class="college-card-tag">${c.ownership}</span>
+        </div>
+        <div class="college-card-footer">
+          <div class="college-card-rating">
+            <span class="stars">${renderStars(c.rating)}</span>
+            ${c.rating} <span style="font-weight:400; color:var(--muted)">(${c.reviews.toLocaleString()})</span>
+          </div>
+          <div class="college-card-fee">Fees: <strong>${c.fees}</strong></div>
+        </div>
+      </div>
+    </a>
+  `).join('');
+})();
+
+// ═══════════════ RENDER COURSES ═══════════════
+(function() {
+  const container = document.getElementById('courses-scroll');
+  if (!container) return;
+  container.innerHTML = CG_DATA.courses.map(c => `
+    <a href="courses.html" class="course-card">
+      <div class="course-icon" style="background:${c.color}; color:${c.iconColor}">${c.icon}</div>
+      <div class="course-name">${c.name}</div>
+      <div class="course-meta">
+        <span>⏱ ${c.duration}</span>
+        <div class="course-divider"></div>
+        <span>📚 ${c.level}</span>
+      </div>
+      <div class="course-colleges">
+        <strong>${c.colleges.toLocaleString()}</strong> colleges · Avg ${c.avgFees}
+      </div>
+    </a>
+  `).join('');
+})();
+
+// ═══════════════ RENDER EXAMS ═══════════════
+(function() {
+  const container = document.getElementById('home-exams');
+  if (!container) return;
+  container.innerHTML = CG_DATA.exams.slice(0,3).map(e => `
+    <a href="exams.html" class="exam-card">
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
+        <div style="width:44px;height:44px;border-radius:12px;background:${e.color}18;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">${e.icon}</div>
+        <div>
+          <div class="exam-name" style="margin-bottom:0">${e.name}</div>
+          <div style="font-size:0.72rem; color:var(--muted)">${e.category}</div>
+        </div>
+      </div>
+      <div class="exam-desc">${e.desc}</div>
+      <div class="exam-details">
+        <div class="exam-detail-item">
+          <div class="exam-detail-label">Exam Date</div>
+          <div class="exam-detail-val">${e.examDate}</div>
+        </div>
+        <div class="exam-detail-item">
+          <div class="exam-detail-label">Mode</div>
+          <div class="exam-detail-val">${e.mode}</div>
+        </div>
+      </div>
+      <div class="exam-link">Full details →</div>
+    </a>
+  `).join('');
+})();
+
+// ═══════════════ RENDER REVIEWS ═══════════════
+(function() {
+  const container = document.getElementById('home-reviews');
+  if (!container) return;
+  container.innerHTML = CG_DATA.reviews.map(r => `
+    <div class="review-card" data-reveal>
+      <div class="review-quote">"</div>
+      <div class="review-text">${r.text}</div>
+      <div class="review-author">
+        <div class="review-avatar">${r.avatar}</div>
+        <div>
+          <div class="review-author-name">${r.author}</div>
+          <div class="review-college">${r.college} · ${r.batch}</div>
+        </div>
+        <div class="review-rating">
+          <div class="stars-display">${renderStars(r.rating)}</div>
+          <div class="review-score">${r.rating}.0</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+})();
+
+// ═══════════════ GLOBAL SEARCH ═══════════════
+const searchInput = document.getElementById('global-search');
+const searchDropdown = document.getElementById('search-dropdown');
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim();
+  if (q.length < 2) { searchDropdown.classList.add('hidden'); return; }
+  const colleges = searchColleges(q).slice(0,4);
+  const courses = searchCourses(q).slice(0,3);
+  if (!colleges.length && !courses.length) {
+    searchDropdown.innerHTML = '<div style="padding:1.5rem; text-align:center; color:var(--muted); font-size:0.875rem;">No results found</div>';
+    searchDropdown.classList.remove('hidden');
+    return;
+  }
+  let html = '';
+  if (colleges.length) {
+    html += `<div style="padding:0.75rem 1rem; font-size:0.7rem; letter-spacing:0.12em; color:var(--muted); text-transform:uppercase; border-bottom:1px solid var(--border); font-family:var(--font-mono)">Colleges</div>`;
+    html += colleges.map(c => `
+      <a href="college.html?slug=${c.slug}" style="display:flex; align-items:center; gap:1rem; padding:0.85rem 1.25rem; text-decoration:none; color:var(--charcoal); border-bottom:1px solid var(--border); transition:background 0.2s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='none'">
+        <span style="font-size:1.5rem">${c.emoji}</span>
+        <div>
+          <div style="font-weight:600; font-size:0.9rem">${c.name}</div>
+          <div style="font-size:0.78rem; color:var(--muted)">${c.city} · ${c.type}</div>
+        </div>
+        <div style="margin-left:auto; font-size:0.78rem; color:var(--gold); font-weight:600">${c.rating}★</div>
+      </a>
+    `).join('');
+  }
+  if (courses.length) {
+    html += `<div style="padding:0.75rem 1rem; font-size:0.7rem; letter-spacing:0.12em; color:var(--muted); text-transform:uppercase; border-bottom:1px solid var(--border); font-family:var(--font-mono)">Courses</div>`;
+    html += courses.map(c => `
+      <a href="courses.html" style="display:flex; align-items:center; gap:1rem; padding:0.85rem 1.25rem; text-decoration:none; color:var(--charcoal); border-bottom:1px solid var(--border); transition:background 0.2s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='none'">
+        <span style="font-size:1.4rem">${c.icon}</span>
+        <div>
+          <div style="font-weight:600; font-size:0.9rem">${c.name}</div>
+          <div style="font-size:0.78rem; color:var(--muted)">${c.duration} · ${c.colleges} colleges</div>
+        </div>
+      </a>
+    `).join('');
+  }
+  searchDropdown.innerHTML = html;
+  searchDropdown.classList.remove('hidden');
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#main-search-bar') && !e.target.closest('#search-dropdown')) {
+    searchDropdown.classList.add('hidden');
+  }
+});
+
+function handleGlobalSearch() {
+  const q = searchInput.value.trim();
+  if (q) window.location.href = `colleges.html?search=${encodeURIComponent(q)}`;
+}
+searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleGlobalSearch(); });
+
+// Mobile nav
+document.getElementById('hamburger')?.addEventListener('click', () => {
+  document.getElementById('mobile-nav')?.classList.add('open');
+});
+document.getElementById('mobile-nav-close')?.addEventListener('click', () => {
+  document.getElementById('mobile-nav')?.classList.remove('open');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+.container {
+  min-height: calc(100vh - 76px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background: var(--cream, #FAF7F2);
+}
+
+.card {
+  max-width: 460px;
+  width: 100%;
+  box-shadow: var(--shadow-md, 0 8px 32px rgba(0,0,0,0.10));
+}
+
+.title {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.4rem;
+  color: var(--charcoal, #1C1C1E);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--muted, #8A8A8E);
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: var(--charcoal, #1C1C1E);
+  font-size: 0.825rem;
+  letter-spacing: -0.005em;
+}
+
+.formGroup input {
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: var(--radius-sm, 8px);
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  color: var(--charcoal, #1C1C1E);
+  background: var(--warm-white, #FFFEF9);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: var(--gold, #C9A84C);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+}
+
+.formGroup input.error {
+  border-color: #ef4444;
+}
+
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordWrapper input {
+  width: 100%;
+  padding-right: 2.75rem;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted, #8A8A8E);
+  font-size: 1rem;
+  padding: 0;
+}
+
+.errorMsg {
+  color: #ef4444;
+  font-size: 0.75rem;
+}
+
+.forgotPassword {
+  text-align: right;
+}
+
+.forgotPassword a {
+  color: var(--gold, #C9A84C);
+  text-decoration: none;
+  font-size: 0.825rem;
+  font-weight: 500;
+}
+
+.forgotPassword a:hover {
+  text-decoration: underline;
+}
+
+.registerLink {
+  text-align: center;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--muted, #8A8A8E);
+}
+
+.registerLink a {
+  color: var(--gold, #C9A84C);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.registerLink a:hover {
+  text-decoration: underline;
+}
+
+.successBanner {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}

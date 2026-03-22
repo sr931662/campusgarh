@@ -1,0 +1,347 @@
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted, #8A8A8E);
+  text-decoration: none;
+  margin-bottom: 1.75rem;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: var(--charcoal, #1C1C1E);
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border, #E8E3DB);
+}
+
+.header h1 {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.25rem;
+}
+
+.header p {
+  font-size: 0.875rem;
+  color: var(--muted, #8A8A8E);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section {
+  background: var(--warm-white, #FFFEF9);
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: var(--radius, 16px);
+  padding: 1.75rem;
+}
+
+.sectionTitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted, #8A8A8E);
+  margin-bottom: 1.25rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.row3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--charcoal, #1C1C1E);
+}
+
+.field label span {
+  color: var(--gold, #C9A84C);
+  margin-left: 2px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--charcoal, #1C1C1E);
+  background: var(--cream, #FAF7F2);
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: var(--radius-sm, 8px);
+  padding: 0.65rem 0.9rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--gold, #C9A84C);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.checkboxField {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+}
+
+.checkboxField input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--gold, #C9A84C);
+  cursor: pointer;
+}
+
+.checkboxField label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--charcoal, #1C1C1E);
+  cursor: pointer;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: var(--muted, #8A8A8E);
+}
+
+.error {
+  background: #FEF2F2;
+  border: 1.5px solid #FECACA;
+  border-radius: var(--radius-sm, 8px);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #DC2626;
+}
+
+.success {
+  background: #F0FDF4;
+  border: 1.5px solid #BBF7D0;
+  border-radius: var(--radius-sm, 8px);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: #16A34A;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+.submitBtn {
+  background: var(--charcoal, #1C1C1E);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm, 8px);
+  padding: 0.75rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--gold, #C9A84C);
+  transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.cancelLink {
+  font-size: 0.875rem;
+  color: var(--muted, #8A8A8E);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.cancelLink:hover {
+  color: var(--charcoal, #1C1C1E);
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+  .row,
+  .row3 {
+    grid-template-columns: 1fr;
+  }
+}
+/* Add these to existing AdminForm.module.css */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field label {
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+}
+
+.checkboxField {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.addBtn {
+  background: none;
+  border: 1px dashed var(--gold);
+  color: var(--gold);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.addBtn:hover {
+  background: rgba(201, 168, 76, 0.1);
+}
+
+.card {
+  background: var(--cream);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.submitBtn {
+  background: var(--gold);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background: var(--gold-light);
+}
+
+.cancelLink {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.errorMsg {
+  color: #ef4444;
+  font-size: 0.75rem;
+}

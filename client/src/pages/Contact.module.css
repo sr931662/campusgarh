@@ -1,0 +1,82 @@
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 4rem 2.5rem 5rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.hero h1 {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--charcoal, #1C1C1E);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+}
+
+.hero p {
+  color: var(--muted, #8A8A8E);
+  font-size: 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  /* inherits Card component styles */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: var(--charcoal, #1C1C1E);
+  font-size: 0.825rem;
+}
+
+.formGroup input,
+.formGroup textarea {
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: var(--radius-sm, 8px);
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  color: var(--charcoal, #1C1C1E);
+  background: var(--warm-white, #FFFEF9);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  resize: vertical;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--gold, #C9A84C);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+}
+
+.formGroup span {
+  color: #ef4444;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 2.5rem 1.25rem 3rem;
+  }
+}

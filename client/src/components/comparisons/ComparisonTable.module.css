@@ -1,0 +1,23 @@
+.tableWrapper {
+  overflow-x: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 0.5rem;
+}
+.table th,
+.table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+.table th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+.paramLabel {
+  font-weight: 500;
+  background: #f9fafb;
+}

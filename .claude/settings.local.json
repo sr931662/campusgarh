@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find '/d/Shivam folder/Mavicode/Projects/CampusGarh/client/src' -type f \\\\\\(-name api.js -o -name axios.js -o -name *Route*.jsx -o -name *route*.jsx \\\\\\))",
+      "Bash(find '/d/Shivam folder/Mavicode/Projects/CampusGarh/server/src' -type f -name *email* -o -name *Email*)",
+      "Bash(find 'd:\\\\Shivam folder\\\\Mavicode\\\\Projects\\\\CampusGarh\\\\client\\\\src\\\\pages' -type f -name *.jsx)",
+      "Bash(find 'd:\\\\Shivam folder\\\\Mavicode\\\\Projects\\\\CampusGarh\\\\server\\\\src' -name *college* -type f)"
+    ]
+  }
+}

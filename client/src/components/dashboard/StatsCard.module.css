@@ -1,0 +1,55 @@
+.card {
+  background: var(--warm-white, #FFFEF9);
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: var(--radius, 16px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.card:hover {
+  border-color: var(--gold, #C9A84C);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  transform: translateY(-3px);
+}
+
+.icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.label {
+  font-size: 0.72rem;
+  color: var(--muted, #8A8A8E);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+}
+
+.value {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.trend {
+  font-size: 0.775rem;
+  font-weight: 500;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  color: var(--muted, #8A8A8E);
+}
+
+.change {
+  font-size: 0.775rem;
+  font-weight: 500;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+}
+
+.change.positive { color: var(--emerald, #1A6B4A); }
+.change.negative { color: #ef4444; }

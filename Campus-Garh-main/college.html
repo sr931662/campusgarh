@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Details — CampusGarh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .rating-bar-row { display:flex; align-items:center; gap:1rem; margin-bottom:0.75rem; }
+    .rating-bar-label { font-size:0.82rem; color:var(--muted); width:80px; }
+    .rating-bar-track { flex:1; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .rating-bar-fill { height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-light)); border-radius:3px; transition:width 1s cubic-bezier(0.4,0,0.2,1); }
+    .rating-bar-val { font-size:0.82rem; font-weight:600; width:28px; text-align:right; }
+    .placement-stat { text-align:center; padding:1.25rem; background:var(--cream); border-radius:12px; }
+    .placement-stat-num { font-family:var(--font-display); font-size:1.6rem; font-weight:700; color:var(--emerald); }
+    .placement-stat-label { font-size:0.75rem; color:var(--muted); margin-top:0.25rem; }
+    .facility-chip { display:inline-flex; align-items:center; gap:0.4rem; padding:0.45rem 0.85rem; background:var(--cream); border:1px solid var(--border); border-radius:50px; font-size:0.8rem; color:var(--charcoal); margin:0.3rem; }
+    .course-row { display:flex; justify-content:space-between; align-items:center; padding:0.85rem 0; border-bottom:1px solid var(--border); font-size:0.875rem; }
+    .course-row:last-child { border-bottom:none; }
+    .enquiry-form { background:linear-gradient(135deg,var(--deep),#0f1530); border-radius:var(--radius); padding:2rem; color:white; }
+    .enquiry-form h3 { font-family:var(--font-display); font-size:1.25rem; color:var(--warm-white); margin-bottom:0.5rem; }
+    .enquiry-form p { color:rgba(255,255,255,0.5); font-size:0.85rem; margin-bottom:1.5rem; }
+    .enquiry-form .form-input { background:rgba(255,255,255,0.07); border-color:rgba(255,255,255,0.12); color:white; }
+    .enquiry-form .form-input:focus { border-color:var(--gold); }
+    .enquiry-form .form-input::placeholder { color:rgba(255,255,255,0.3); }
+    .enquiry-form .form-label { color:rgba(255,255,255,0.7); }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+    .highlight-item { display:flex; align-items:center; gap:0.75rem; padding:0.75rem; background:var(--cream); border-radius:10px; margin-bottom:0.5rem; font-size:0.875rem; }
+    .highlight-icon { width:28px; height:28px; background:var(--gold-pale); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0; }
+  </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<nav class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+  <a href="index.html">Home</a>
+  <a href="colleges.html">Colleges</a>
+  <a href="courses.html">Courses</a>
+  <a href="exams.html">Exams</a>
+</nav>
+
+<header id="site-header" class="scrolled">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">🎓</div>
+      <div class="logo-text">Campus<em>Garh</em></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="colleges.html" class="active">Colleges</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="exams.html">Exams</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta"></div>
+    <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- College Hero -->
+<div class="college-detail-hero" id="college-hero">
+  <div class="college-detail-bg" id="college-bg">🏛️</div>
+  <div class="college-detail-overlay"></div>
+  <div class="college-detail-content">
+    <div class="page-hero-breadcrumb">
+      <a href="index.html">Home</a> <span>›</span>
+      <a href="colleges.html">Colleges</a> <span>›</span>
+      <span style="color:rgba(255,255,255,0.7)" id="breadcrumb-name">Loading...</span>
+    </div>
+    <div class="college-detail-meta" id="college-meta"></div>
+    <h1 class="college-detail-name" id="college-name">Loading...</h1>
+    <div class="college-detail-location" id="college-location"></div>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="detail-tabs">
+  <div class="detail-tabs-inner">
+    <button class="detail-tab active" onclick="switchTab('overview')">Overview</button>
+    <button class="detail-tab" onclick="switchTab('courses')">Courses</button>
+    <button class="detail-tab" onclick="switchTab('placements')">Placements</button>
+    <button class="detail-tab" onclick="switchTab('reviews')">Reviews</button>
+    <button class="detail-tab" onclick="switchTab('facilities')">Facilities</button>
+  </div>
+</div>
+
+<main style="background:var(--cream); padding-bottom:4rem;">
+  <div class="detail-layout">
+    <div class="detail-main">
+
+      <!-- OVERVIEW TAB -->
+      <div id="tab-overview" class="tab-content active">
+        <div class="info-card" data-reveal>
+          <h3>About</h3>
+          <p id="college-about" style="font-size:0.9rem; color:var(--muted); line-height:1.8"></p>
+          <div id="college-highlights" style="margin-top:1.25rem;"></div>
+        </div>
+
+        <div class="info-card" data-reveal>
+          <h3>Key Information</h3>
+          <div id="college-keyinfo"></div>
+        </div>
+
+        <div class="info-card" data-reveal>
+          <h3>Exams Accepted</h3>
+          <div id="college-exams" style="display:flex; gap:0.75rem; flex-wrap:wrap;"></div>
+        </div>
+
+        <div class="info-card" data-reveal>
+          <h3>Overall Rating</h3>
+          <div id="college-rating-bars"></div>
+        </div>
+      </div>
+
+      <!-- COURSES TAB -->
+      <div id="tab-courses" class="tab-content">
+        <div class="info-card" data-reveal>
+          <h3>Courses Offered</h3>
+          <div id="courses-list"></div>
+        </div>
+      </div>
+
+      <!-- PLACEMENTS TAB -->
+      <div id="tab-placements" class="tab-content">
+        <div class="info-card" data-reveal>
+          <h3>Placement Statistics</h3>
+          <div id="placement-stats" style="display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; margin-bottom:1.5rem;"></div>
+          <p style="font-size:0.82rem; color:var(--muted); line-height:1.7">Placement data is based on official college reports and verified student feedback. CampusGarh independently cross-checks placement claims through alumni surveys.</p>
+        </div>
+        <div class="info-card" data-reveal>
+          <h3>Top Recruiters</h3>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-top:0.5rem;" id="recruiters-list"></div>
+        </div>
+      </div>
+
+      <!-- REVIEWS TAB -->
+      <div id="tab-reviews" class="tab-content">
+        <div class="info-card" data-reveal>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+            <h3 style="border:none; margin:0; padding:0">Student Reviews</h3>
+            <button class="btn-gold" id="write-review-btn" onclick="openReviewModal()">Write a Review ✦</button>
+          </div>
+          <div id="reviews-list"></div>
+        </div>
+      </div>
+
+      <!-- FACILITIES TAB -->
+      <div id="tab-facilities" class="tab-content">
+        <div class="info-card" data-reveal>
+          <h3>Campus Facilities</h3>
+          <div id="facilities-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="detail-sidebar">
+      <!-- Enquiry Form -->
+      <div class="enquiry-form" id="enquiry-form" data-reveal>
+        <h3>Submit Admission Enquiry</h3>
+        <p>Get free guidance from our counsellors — no spam, no pressure.</p>
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" placeholder="Your name" id="eq-name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="your@email.com" id="eq-email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX" id="eq-phone">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Course Interested In</label>
+          <select class="form-input" id="eq-course" style="background:rgba(255,255,255,0.07); border-color:rgba(255,255,255,0.12); color:white;">
+            <option value="">Select course</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message (Optional)</label>
+          <textarea class="form-input" placeholder="Any specific questions?" style="min-height:80px; resize:none" id="eq-msg"></textarea>
+        </div>
+        <button class="btn-full" onclick="submitEnquiry()">Submit Enquiry →</button>
+        <p style="font-size:0.72rem; color:rgba(255,255,255,0.25); margin-top:1rem; text-align:center;">🔒 Your data is safe. We never sell it.</p>
+      </div>
+
+      <!-- Quick Info -->
+      <div class="info-card" data-reveal>
+        <h3>Quick Stats</h3>
+        <div id="quick-stats"></div>
+      </div>
+
+      <!-- Save College -->
+      <div class="info-card" style="text-align:center;" data-reveal>
+        <button class="btn-full" id="save-btn" onclick="toggleSave()">🔖 Save College</button>
+        <a href="colleges.html" class="btn-ghost" style="display:block; margin-top:0.75rem; text-align:center;">← Back to Colleges</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Review Modal -->
+<div class="modal-overlay" id="review-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Write a Review</div>
+      <button class="modal-close" onclick="closeReviewModal()">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Your Rating</label>
+      <div class="star-input" id="star-input">
+        <span data-val="1">★</span>
+        <span data-val="2">★</span>
+        <span data-val="3">★</span>
+        <span data-val="4">★</span>
+        <span data-val="5">★</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Review Title</label>
+      <input type="text" class="form-input" placeholder="e.g. Amazing research culture" id="review-title">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Your Experience</label>
+      <textarea class="form-input" placeholder="Share your honest experience..." id="review-text" style="min-height:120px; resize:vertical"></textarea>
+    </div>
+    <button class="btn-full" onclick="submitReview()">Publish Review ✦</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">🎓 CampusGarh</a>
+      <p class="footer-desc">Your gateway to the right campus.</p>
+    </div>
+    <div class="footer-col"><h5>Discover</h5><a href="colleges.html">Browse Colleges</a><a href="courses.html">Explore Courses</a><a href="exams.html">Entrance Exams</a></div>
+    <div class="footer-col"><h5>Company</h5><a href="about.html">About Us</a><a href="#">Contact</a></div>
+    <div class="footer-col"><h5>Account</h5><a href="login.html">Login</a><a href="register.html">Register</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 CampusGarh. All rights reserved.</span>
+    <a href="#">↑ Back to top</a>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+const slug = new URLSearchParams(window.location.search).get('slug');
+const college = slug ? getCollege(slug) : CG_DATA.colleges[0];
+
+if (!college) { window.location.href = 'colleges.html'; }
+
+// Populate hero
+document.title = `${college.name} — CampusGarh`;
+document.getElementById('breadcrumb-name').textContent = college.shortName;
+document.getElementById('college-bg').textContent = college.emoji;
+document.getElementById('college-bg').style.color = college.color;
+document.getElementById('college-name').textContent = college.name;
+document.getElementById('college-location').innerHTML = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg> ${college.city}, ${college.state}`;
+document.getElementById('college-meta').innerHTML = `
+  <div class="detail-badge">${college.type}</div>
+  <div class="detail-badge">${college.ownership}</div>
+  <div class="detail-badge">Est. ${college.established}</div>
+  <div class="detail-badge">NAAC ${college.naacGrade}</div>
+  <div class="detail-badge" style="background:rgba(201,168,76,0.2);border-color:rgba(201,168,76,0.4)">⭐ ${college.rating} (${college.reviews.toLocaleString()} reviews)</div>
+`;
+
+// About tab
+document.getElementById('college-about').textContent = college.about;
+document.getElementById('college-highlights').innerHTML = college.highlights.map(h => `
+  <div class="highlight-item">
+    <div class="highlight-icon">✦</div>
+    <span style="font-size:0.875rem">${h}</span>
+  </div>
+`).join('');
+
+document.getElementById('college-keyinfo').innerHTML = `
+  <div class="info-row"><span class="info-row-label">Founded</span><span class="info-row-val">${college.established}</span></div>
+  <div class="info-row"><span class="info-row-label">Ownership</span><span class="info-row-val">${college.ownership}</span></div>
+  <div class="info-row"><span class="info-row-label">Affiliation</span><span class="info-row-val">${college.affiliatedTo}</span></div>
+  <div class="info-row"><span class="info-row-label">NAAC Grade</span><span class="info-row-val" style="color:var(--emerald)">${college.naacGrade}</span></div>
+  <div class="info-row"><span class="info-row-label">Annual Fees</span><span class="info-row-val">${college.fees}</span></div>
+  <div class="info-row"><span class="info-row-label">Website</span><span class="info-row-val"><a href="https://${college.website}" target="_blank" style="color:var(--gold);text-decoration:none">${college.website}</a></span></div>
+`;
+
+document.getElementById('college-exams').innerHTML = college.examsAccepted.map(e => `<span class="badge-pill badge-gold" style="padding:0.5rem 1rem; font-size:0.82rem;">${e}</span>`).join('');
+
+// Rating bars
+const ratings = [
+  { label: 'Faculty', val: 4.7 },
+  { label: 'Campus', val: 4.5 },
+  { label: 'Placement', val: college.rating },
+  { label: 'Infra', val: 4.3 },
+  { label: 'Overall', val: college.rating }
+];
+document.getElementById('college-rating-bars').innerHTML = `
+  <div style="display:flex; align-items:center; gap:2rem; margin-bottom:1.5rem; flex-wrap:wrap;">
+    <div style="text-align:center;">
+      <div style="font-family:var(--font-display); font-size:3.5rem; font-weight:700; color:var(--charcoal); line-height:1">${college.rating}</div>
+      <div style="font-size:0.75rem; color:var(--muted); margin-top:0.25rem">${college.reviews.toLocaleString()} reviews</div>
+    </div>
+    <div style="flex:1">
+      ${ratings.map(r => `
+        <div class="rating-bar-row">
+          <div class="rating-bar-label">${r.label}</div>
+          <div class="rating-bar-track"><div class="rating-bar-fill" style="width:${(r.val/5)*100}%"></div></div>
+          <div class="rating-bar-val">${r.val}</div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+`;
+
+// Courses tab
+const courseSelect = document.getElementById('eq-course');
+college.courses.forEach(c => {
+  courseSelect.innerHTML += `<option value="${c}">${c}</option>`;
+});
+document.getElementById('courses-list').innerHTML = college.courses.map(c => `
+  <div class="course-row">
+    <div>
+      <div style="font-weight:600">${c}</div>
+      <div style="font-size:0.78rem; color:var(--muted)">Regular Program</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:0.82rem; color:var(--emerald); font-weight:600">${college.fees}</div>
+      <div style="font-size:0.72rem; color:var(--muted)">per year</div>
+    </div>
+  </div>
+`).join('');
+
+// Placements
+document.getElementById('placement-stats').innerHTML = `
+  <div class="placement-stat"><div class="placement-stat-num">${college.placements.avg}</div><div class="placement-stat-label">Average Package</div></div>
+  <div class="placement-stat"><div class="placement-stat-num">${college.placements.highest}</div><div class="placement-stat-label">Highest Package</div></div>
+  <div class="placement-stat"><div class="placement-stat-num">${college.placements.companies}+</div><div class="placement-stat-label">Recruiters</div></div>
+`;
+
+const topRecruiters = ['Google', 'Microsoft', 'Amazon', 'Goldman Sachs', 'McKinsey', 'Deloitte', 'Infosys', 'TCS', 'Wipro', 'Flipkart'];
+document.getElementById('recruiters-list').innerHTML = topRecruiters.map(r => `
+  <span class="facility-chip">${r}</span>
+`).join('');
+
+// Facilities
+const facilityIcons = { Library:'📚', Hostel:'🏠', Sports:'⚽', Labs:'🔬', Cafeteria:'☕', Gym:'💪', Hospital:'🏥', 'Research Labs':'🧪', 'Moot Court':'⚖️', 'Case Room':'📊', 'Food Court':'🍜' };
+document.getElementById('facilities-list').innerHTML = `
+  <div style="display:flex; flex-wrap:wrap;">
+    ${college.facilities.map(f => `<span class="facility-chip">${facilityIcons[f]||'✦'} ${f}</span>`).join('')}
+  </div>
+`;
+
+// Quick stats
+document.getElementById('quick-stats').innerHTML = `
+  <div class="info-row"><span class="info-row-label">Type</span><span class="info-row-val">${college.type}</span></div>
+  <div class="info-row"><span class="info-row-label">Location</span><span class="info-row-val">${college.city}</span></div>
+  <div class="info-row"><span class="info-row-label">Avg Fees</span><span class="info-row-val" style="color:var(--emerald)">${college.fees}</span></div>
+  <div class="info-row"><span class="info-row-label">Avg Placement</span><span class="info-row-val">${college.placements.avg}</span></div>
+  <div class="info-row"><span class="info-row-label">Rating</span><span class="info-row-val">${college.rating} ★</span></div>
+`;
+
+// Save button
+function updateSaveBtn() {
+  const saved = CG_AUTH.isSaved(college.id);
+  const btn = document.getElementById('save-btn');
+  btn.textContent = saved ? '✓ Saved' : '🔖 Save College';
+  btn.style.background = saved ? 'var(--emerald)' : '';
+}
+updateSaveBtn();
+
+function toggleSave() {
+  if (!CG_AUTH.isLoggedIn()) { showToast('Please login to save colleges', 'warning'); window.location.href='login.html'; return; }
+  if (CG_AUTH.isSaved(college.id)) {
+    CG_AUTH.unsaveCollege(college.id);
+    showToast('College removed from saved list', 'default');
+  } else {
+    CG_AUTH.saveCollege(college.id);
+    showToast('College saved! View in your profile.', 'success');
+  }
+  updateSaveBtn();
+}
+
+// Reviews
+function loadReviews() {
+  const reviews = CG_AUTH.getReviews(college.id);
+  const container = document.getElementById('reviews-list');
+  if (!reviews.length) {
+    container.innerHTML = '<p style="text-align:center; color:var(--muted); padding:2rem">No reviews yet. Be the first to write one!</p>';
+    return;
+  }
+  container.innerHTML = reviews.map(r => `
+    <div class="review-card" style="margin-bottom:1rem">
+      <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem;">
+        <div style="display:flex; align-items:center; gap:0.75rem">
+          <div class="review-avatar">${r.avatar}</div>
+          <div>
+            <div class="review-author-name">${r.author}</div>
+            <div class="review-college">${r.college||college.shortName} · ${r.batch||'Student'}</div>
+          </div>
+        </div>
+        <div class="review-rating">
+          <div class="stars-display">${renderStars(r.rating)}</div>
+          <div class="review-score">${r.rating}.0</div>
+        </div>
+      </div>
+      ${r.title ? `<div style="font-weight:700; margin-bottom:0.5rem;">${r.title}</div>` : ''}
+      <div class="review-text">"${r.text}"</div>
+      <div style="font-size:0.72rem; color:var(--muted); margin-top:0.75rem">${r.date}</div>
+    </div>
+  `).join('');
+}
+loadReviews();
+
+// Tab switching
+function switchTab(name) {
+  document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// Review modal
+let selectedRating = 0;
+function openReviewModal() {
+  if (!CG_AUTH.isLoggedIn()) { showToast('Please login to write a review', 'warning'); window.location.href='login.html'; return; }
+  document.getElementById('review-modal').classList.add('open');
+}
+function closeReviewModal() {
+  document.getElementById('review-modal').classList.remove('open');
+}
+
+document.querySelectorAll('.star-input span').forEach(star => {
+  star.addEventListener('click', function() {
+    selectedRating = parseInt(this.dataset.val);
+    document.querySelectorAll('.star-input span').forEach((s, i) => {
+      s.classList.toggle('active', i < selectedRating);
+    });
+  });
+  star.addEventListener('mouseenter', function() {
+    const val = parseInt(this.dataset.val);
+    document.querySelectorAll('.star-input span').forEach((s, i) => {
+      s.style.color = i < val ? '#F5A623' : 'var(--border)';
+    });
+  });
+});
+document.querySelector('.star-input')?.addEventListener('mouseleave', () => {
+  document.querySelectorAll('.star-input span').forEach((s, i) => {
+    s.style.color = i < selectedRating ? '#F5A623' : 'var(--border)';
+  });
+});
+
+function submitReview() {
+  if (!selectedRating) { showToast('Please select a rating', 'warning'); return; }
+  const title = document.getElementById('review-title').value.trim();
+  const text = document.getElementById('review-text').value.trim();
+  if (!text) { showToast('Please write your review', 'warning'); return; }
+
+  CG_AUTH.addReview({ collegeId: college.id, college: college.shortName, rating: selectedRating, title, text });
+  closeReviewModal();
+  showToast('Review published! Thank you.', 'success');
+  loadReviews();
+  document.querySelector('[onclick="switchTab(\'reviews\')"]')?.click();
+}
+
+// Enquiry
+function submitEnquiry() {
+  const name = document.getElementById('eq-name').value.trim();
+  const email = document.getElementById('eq-email').value.trim();
+  const phone = document.getElementById('eq-phone').value.trim();
+  const course = document.getElementById('eq-course').value;
+  if (!name || !email || !phone) { showToast('Please fill all required fields', 'warning'); return; }
+
+  if (!CG_AUTH.isLoggedIn()) {
+    CG_AUTH.addEnquiry({ collegeName: college.name, collegeId: college.id, course, name, email, phone });
+  } else {
+    CG_AUTH.addEnquiry({ collegeName: college.name, collegeId: college.id, course });
+  }
+  showToast('Enquiry submitted! Our team will reach out shortly.', 'success');
+  document.getElementById('eq-name').value = '';
+  document.getElementById('eq-email').value = '';
+  document.getElementById('eq-phone').value = '';
+}
+
+// Close modal on backdrop
+document.getElementById('review-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeReviewModal();
+});
+
+document.getElementById('hamburger')?.addEventListener('click', () => document.getElementById('mobile-nav')?.classList.add('open'));
+document.getElementById('mobile-nav-close')?.addEventListener('click', () => document.getElementById('mobile-nav')?.classList.remove('open'));
+</script>
+</body>
+</html>
