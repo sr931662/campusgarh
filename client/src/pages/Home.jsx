@@ -394,7 +394,7 @@ export default function Home() {
                     className={styles.blogTopicIconWrap}
                     style={{ background: `${topic.accent}18`, border: `1.5px solid ${topic.accent}30` }}
                   >
-                    <span className={styles.blogTopicIcon}>{topic.icon}</span>
+                    <span className={styles.blogTopicIcon} style={{ color: topic.accent }}>{topic.icon}</span>
                   </span>
                   <span className={styles.blogTopicLabel}>{topic.label}</span>
                   <span className={styles.blogTopicCount}>{topic.count}</span>

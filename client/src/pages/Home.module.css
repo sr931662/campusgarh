@@ -265,8 +265,23 @@
 }
 
 .categoryIcon {
-  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.5rem;
   line-height: 1;
+  color: var(--gold);
+  background: var(--gold-pale);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background 0.25s var(--transition), color 0.25s var(--transition);
+}
+
+.categoryCard:hover .categoryIcon {
+  background: var(--gold);
+  color: var(--warm-white);
 }
 
 .categoryLabel {
@@ -493,9 +508,18 @@
 }
 
 .whyIcon {
-  font-size: 2rem;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--gold);
+  background: var(--gold-pale);
+  border-radius: 50%;
   margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .whyTitle {
@@ -610,9 +634,24 @@
 }
 
 .courseTypeIcon {
-  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.25rem;
   line-height: 1;
+  color: var(--gold);
+  background: rgba(201, 168, 76, 0.12);
+  border-radius: 50%;
   margin-bottom: 0.25rem;
+  flex-shrink: 0;
+  transition: background 0.25s var(--transition), color 0.25s var(--transition);
+}
+
+.courseTypeCard:hover .courseTypeIcon {
+  background: rgba(201, 168, 76, 0.25);
+  color: var(--gold-light);
 }
 
 .courseTypeLabel {
