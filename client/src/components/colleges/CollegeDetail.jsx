@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import {
+  FaTrophy, FaCalendarAlt, FaUsers, FaBriefcase, FaRupeeSign, FaGraduationCap, FaMapMarkerAlt,
+  FaFacebook, FaInstagram, FaLinkedinIn, FaYoutube,
+} from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { useCollegeBySlug, useAverageRating, useToggleSavedCollege } from '../../hooks/queries';
 import { useAuth } from '../../hooks/useAuth';
 import { formatCurrency } from '../../utils/formatters';
@@ -54,7 +59,7 @@ export default function CollegeDetail() {
   if (error || !college) {
     return (
       <div className={styles.errorWrap}>
-        <span className={styles.errorIcon}>🎓</span>
+        <span className={styles.errorIcon}><FaGraduationCap /></span>
         <h2>College not found</h2>
         <p>We couldn't find a college at this URL.</p>
         <Link to="/colleges"><Button variant="primary">Browse Colleges</Button></Link>
@@ -76,12 +81,12 @@ export default function CollegeDetail() {
     || college.placementStats?.averagePackage;
 
   const quickStats = [
-    nirfRank       && { icon: '🏆', label: 'NIRF Rank',  value: `#${nirfRank}` },
-    college.establishmentYear && { icon: '📅', label: 'Est.',      value: college.establishmentYear },
-    college.campusInfo?.totalStudents && { icon: '👥', label: 'Students', value: college.campusInfo.totalStudents.toLocaleString('en-IN') },
-    placementPct   && { icon: '💼', label: 'Placement',  value: `${placementPct}%` },
-    avgPackage     && { icon: '💰', label: 'Avg Package', value: formatCurrency(avgPackage) },
-    college.fees?.total && { icon: '🎓', label: 'Annual Fees', value: formatCurrency(college.fees.total) },
+    nirfRank       && { icon: <FaTrophy />,       label: 'NIRF Rank',   value: `#${nirfRank}` },
+    college.establishmentYear && { icon: <FaCalendarAlt />, label: 'Est.',       value: college.establishmentYear },
+    college.campusInfo?.totalStudents && { icon: <FaUsers />, label: 'Students', value: college.campusInfo.totalStudents.toLocaleString('en-IN') },
+    placementPct   && { icon: <FaBriefcase />,    label: 'Placement',   value: `${placementPct}%` },
+    avgPackage     && { icon: <FaRupeeSign />,    label: 'Avg Package', value: formatCurrency(avgPackage) },
+    college.fees?.total && { icon: <FaGraduationCap />, label: 'Annual Fees', value: formatCurrency(college.fees.total) },
   ].filter(Boolean);
 
   return (
@@ -120,7 +125,7 @@ export default function CollegeDetail() {
           {/* Location */}
           {location && (
             <p className={styles.heroLocation}>
-              <span className={styles.pinIcon}>📍</span> {location}
+              <span className={styles.pinIcon}><FaMapMarkerAlt /></span> {location}
               {college.contact?.address && ` · ${college.contact.address}`}
             </p>
           )}
@@ -331,11 +336,11 @@ export default function CollegeDetail() {
                 <div className={styles.card}>
                   <h3 className={styles.cardSubTitle}>Social Media</h3>
                   <div className={styles.socialRow}>
-                    {college.socialMedia.facebook  && <a href={college.socialMedia.facebook}  target="_blank" rel="noopener noreferrer" className={styles.socialLink}>Facebook</a>}
-                    {college.socialMedia.twitter   && <a href={college.socialMedia.twitter}   target="_blank" rel="noopener noreferrer" className={styles.socialLink}>Twitter</a>}
-                    {college.socialMedia.instagram && <a href={college.socialMedia.instagram} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>Instagram</a>}
-                    {college.socialMedia.linkedin  && <a href={college.socialMedia.linkedin}  target="_blank" rel="noopener noreferrer" className={styles.socialLink}>LinkedIn</a>}
-                    {college.socialMedia.youtube   && <a href={college.socialMedia.youtube}   target="_blank" rel="noopener noreferrer" className={styles.socialLink}>YouTube</a>}
+                    {college.socialMedia.facebook  && <a href={college.socialMedia.facebook}  target="_blank" rel="noopener noreferrer" className={styles.socialLink}><FaFacebook /> Facebook</a>}
+                    {college.socialMedia.twitter   && <a href={college.socialMedia.twitter}   target="_blank" rel="noopener noreferrer" className={styles.socialLink}><FaXTwitter /> Twitter</a>}
+                    {college.socialMedia.instagram && <a href={college.socialMedia.instagram} target="_blank" rel="noopener noreferrer" className={styles.socialLink}><FaInstagram /> Instagram</a>}
+                    {college.socialMedia.linkedin  && <a href={college.socialMedia.linkedin}  target="_blank" rel="noopener noreferrer" className={styles.socialLink}><FaLinkedinIn /> LinkedIn</a>}
+                    {college.socialMedia.youtube   && <a href={college.socialMedia.youtube}   target="_blank" rel="noopener noreferrer" className={styles.socialLink}><FaYoutube /> YouTube</a>}
                   </div>
                 </div>
               )}

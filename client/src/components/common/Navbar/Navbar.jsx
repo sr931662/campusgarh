@@ -4,6 +4,8 @@ import { useAuth } from '../../../store/authStore';
 import Button from '../Button/Button';
 import styles from './Navbar.module.css';
 import { FiMenu, FiX } from 'react-icons/fi';
+import logo_on_light from "../../../assets/Campus png transparent-01.png"
+import logo_on_dark from "../../../assets/Campus white color logo png-01.png"
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -47,8 +49,11 @@ const Navbar = () => {
       <div className={styles.container}>
         {/* Logo */}
         <Link to="/" className={styles.logo}>
-          <span className={styles.logoIcon}>🎓</span>
-          Campus<em>Garh</em>
+          <img
+            src={isOpaque ? logo_on_light : logo_on_dark}
+            alt="CampusGarh"
+            className={styles.logoIcon}
+          />
         </Link>
 
         {/* Hamburger */}

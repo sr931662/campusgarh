@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import {
+  FaGears, FaStethoscope, FaScaleBalanced, FaLaptopCode, FaBuilding,
+  FaGraduationCap, FaTrophy, FaNewspaper, FaStar, FaBookOpen,
+} from 'react-icons/fa6';
+import { FaBriefcase, FaPalette, FaFlask } from 'react-icons/fa';
 import HeroCanvas from '../components/home/HeroCanvas';
 import { useFeaturedColleges } from '../hooks/queries';
 import styles from './Home.module.css';
@@ -13,24 +18,24 @@ const stats = [
 
 // URL param: `type` — must match COLLEGE_TYPES constants exactly (URL-encoded)
 const streamCategories = [
-  { icon: '⚙️', label: 'Engineering',  path: '/colleges?type=Engineering%20%26%20Technology' },
-  { icon: '🩺', label: 'Medical',       path: '/colleges?type=Medical%20%26%20Health%20Sciences' },
-  { icon: '📊', label: 'Management',    path: '/colleges?type=Management%20%26%20Business' },
-  { icon: '⚖️', label: 'Law',           path: '/colleges?type=Law' },
-  { icon: '🎨', label: 'Design',        path: '/colleges?type=Design%20%26%20Fine%20Arts' },
-  { icon: '🔬', label: 'Science',       path: '/colleges?type=Arts%20%26%20Science' },
+  { icon: <FaGears />,         label: 'Engineering',  path: '/colleges?type=Engineering%20%26%20Technology' },
+  { icon: <FaStethoscope />,   label: 'Medical',       path: '/colleges?type=Medical%20%26%20Health%20Sciences' },
+  { icon: <FaBriefcase />,     label: 'Management',    path: '/colleges?type=Management%20%26%20Business' },
+  { icon: <FaScaleBalanced />, label: 'Law',           path: '/colleges?type=Law' },
+  { icon: <FaPalette />,       label: 'Design',        path: '/colleges?type=Design%20%26%20Fine%20Arts' },
+  { icon: <FaFlask />,         label: 'Science',       path: '/colleges?type=Arts%20%26%20Science' },
 ];
 
 // URL param: `discipline` — must match COURSE_DISCIPLINES constants exactly (URL-encoded)
 const courseTypes = [
-  { icon: '⚙️', label: 'B.Tech / BE',   count: 'Engineering & Technology', path: '/courses?discipline=Engineering%20%26%20Technology' },
-  { icon: '🩺', label: 'MBBS / MD',      count: 'Medical & Health Sciences', path: '/courses?discipline=Medical%20%26%20Health%20Sciences' },
-  { icon: '📊', label: 'MBA / PGDM',     count: 'Management & Business',     path: '/courses?discipline=Management%20%26%20Business' },
-  { icon: '⚖️', label: 'LLB / LLM',     count: 'Law',                       path: '/courses?discipline=Law' },
-  { icon: '🎨', label: 'B.Des / M.Des',  count: 'Design & Fine Arts',        path: '/courses?discipline=Design%20%26%20Fine%20Arts' },
-  { icon: '💻', label: 'BCA / MCA',      count: 'Technical',                 path: '/courses?discipline=Technical' },
-  { icon: '🔬', label: 'B.Sc / M.Sc',   count: 'Arts & Science',            path: '/courses?discipline=Arts%20%26%20Science' },
-  { icon: '🏗️', label: 'Architecture',   count: 'Architecture & Planning',   path: '/courses?discipline=Architecture%20%26%20Planning' },
+  { icon: <FaGears />,         label: 'B.Tech / BE',   count: 'Engineering & Technology', path: '/courses?discipline=Engineering%20%26%20Technology' },
+  { icon: <FaStethoscope />,   label: 'MBBS / MD',      count: 'Medical & Health Sciences', path: '/courses?discipline=Medical%20%26%20Health%20Sciences' },
+  { icon: <FaBriefcase />,     label: 'MBA / PGDM',     count: 'Management & Business',     path: '/courses?discipline=Management%20%26%20Business' },
+  { icon: <FaScaleBalanced />, label: 'LLB / LLM',     count: 'Law',                       path: '/courses?discipline=Law' },
+  { icon: <FaPalette />,       label: 'B.Des / M.Des',  count: 'Design & Fine Arts',        path: '/courses?discipline=Design%20%26%20Fine%20Arts' },
+  { icon: <FaLaptopCode />,    label: 'BCA / MCA',      count: 'Technical',                 path: '/courses?discipline=Technical' },
+  { icon: <FaFlask />,         label: 'B.Sc / M.Sc',   count: 'Arts & Science',            path: '/courses?discipline=Arts%20%26%20Science' },
+  { icon: <FaBuilding />,      label: 'Architecture',   count: 'Architecture & Planning',   path: '/courses?discipline=Architecture%20%26%20Planning' },
 ];
 
 // URL params: `category` (UG/PG/PhD/Diploma) + `examLevel` (National/State/University-Level)
@@ -45,12 +50,12 @@ const popularExams = [
 ];
 
 const blogTopics = [
-  { icon: '🏆', label: 'College Rankings',  count: '48 articles',  path: '/blogs?contentType=Ranking',             accent: '#8b5cf6' },
-  { icon: '📖', label: 'Exam Guides',        count: '92 guides',    path: '/blogs?contentType=Guide',               accent: '#3b82f6' },
-  { icon: '💼', label: 'Career Advice',      count: '64 articles',  path: '/blogs?contentType=Career%20Advice',     accent: '#0891b2' },
-  { icon: '📰', label: 'Latest News',        count: '120+ posts',   path: '/blogs?contentType=News',                accent: '#f59e0b' },
-  { icon: '🎓', label: 'Scholarship Info',   count: '35 articles',  path: '/blogs?contentType=Scholarship',         accent: '#f97316' },
-  { icon: '⭐', label: 'College Reviews',    count: '80+ reviews',  path: '/blogs?contentType=College%20Review',    accent: '#10b981' },
+  { icon: <FaTrophy />,         label: 'College Rankings',  count: '48 articles',  path: '/blogs?contentType=Ranking',             accent: '#8b5cf6' },
+  { icon: <FaBookOpen />,       label: 'Exam Guides',        count: '92 guides',    path: '/blogs?contentType=Guide',               accent: '#3b82f6' },
+  { icon: <FaBriefcase />,      label: 'Career Advice',      count: '64 articles',  path: '/blogs?contentType=Career%20Advice',     accent: '#0891b2' },
+  { icon: <FaNewspaper />,      label: 'Latest News',        count: '120+ posts',   path: '/blogs?contentType=News',                accent: '#f59e0b' },
+  { icon: <FaGraduationCap />,  label: 'Scholarship Info',   count: '35 articles',  path: '/blogs?contentType=Scholarship',         accent: '#f97316' },
+  { icon: <FaStar />,           label: 'College Reviews',    count: '80+ reviews',  path: '/blogs?contentType=College%20Review',    accent: '#10b981' },
 ];
 
 const CATEGORY_COLORS = {

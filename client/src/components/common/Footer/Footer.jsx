@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { FaXTwitter, FaYoutube } from 'react-icons/fa6';
 import styles from './Footer.module.css';
+// import logo_on_light from "../../../assets/Campus png transparent-01.png"
+import logo from "../../../assets/Campus white color logo png-01.png"
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,7 +14,9 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.grid}>
           <div className={styles.section}>
-            <h3 className={styles.title}>Campus<em>Garh</em></h3>
+            <Link to="/" className={styles.footerLogo}>
+              <img src={logo} alt="CampusGarh" className={styles.footerLogoIcon} />
+            </Link>
             <p className={styles.description}>
               Your trusted partner in education discovery and admission guidance across India.
             </p>
@@ -39,10 +45,11 @@ const Footer = () => {
           <div className={styles.section}>
             <h4 className={styles.subtitle}>Connect</h4>
             <div className={styles.social}>
-              <a href="#" aria-label="Facebook">📘</a>
-              <a href="#" aria-label="Twitter">🐦</a>
-              <a href="#" aria-label="LinkedIn">🔗</a>
-              <a href="#" aria-label="Instagram">📷</a>
+              <a href="#" aria-label="Facebook" className={styles.socialIcon}><FaFacebook /></a>
+              <a href="#" aria-label="X / Twitter" className={styles.socialIcon}><FaXTwitter /></a>
+              <a href="#" aria-label="LinkedIn" className={styles.socialIcon}><FaLinkedinIn /></a>
+              <a href="#" aria-label="Instagram" className={styles.socialIcon}><FaInstagram /></a>
+              <a href="#" aria-label="YouTube" className={styles.socialIcon}><FaYoutube /></a>
             </div>
           </div>
         </div>

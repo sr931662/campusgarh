@@ -89,6 +89,10 @@
   color: var(--gold, #C9A84C);
 }
 
+.footerLogoIcon{
+  height: 200px;
+}
+
 .copyright {
   text-align: center;
   padding-top: 2rem;
