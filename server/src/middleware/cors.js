@@ -1,15 +1,17 @@
 const cors = require('cors');
 
-const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:3000',
-  'http://localhost:3000',
-  'http://localhost:5173', // Vite default dev port
-];
+const getOrigins = () => {
+  const origins = ['http://localhost:3000', 'http://localhost:5173'];
+  if (process.env.CLIENT_URL) {
+    process.env.CLIENT_URL.split(',').forEach(o => origins.push(o.trim()));
+  }
+  return origins;
+};
 
 const corsOptions = {
   origin: (origin, callback) => {
     // Allow requests with no origin (mobile apps, curl, Postman)
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || getOrigins().includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error(`CORS: origin ${origin} not allowed`));
