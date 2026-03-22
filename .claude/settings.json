@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(grep -r \"getCategories\\\\|getBlogCategories\\\\|/blogs/categories\" '/d/Shivam folder/Mavicode/Projects/CampusGarh/server/src' --include=*.js)"
-    ]
-  }
-}
