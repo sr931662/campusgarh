@@ -50,11 +50,19 @@ class ReviewService extends BaseService {
     return review;
   }
 
-  // Mark helpful
-  async markHelpful(reviewId) {
-    const review = await Review.findByIdAndUpdate(reviewId, { $inc: { helpfulCount: 1 } }, { new: true });
+  // Mark helpful (toggle — one user one vote)
+  async markHelpful(reviewId, userId) {
+    const review = await Review.findById(reviewId);
     if (!review) throw new AppError('Review not found', 404);
-    return review;
+    const alreadyMarked = review.helpfulBy.some(id => id.toString() === userId.toString());
+    if (alreadyMarked) {
+      review.helpfulBy = review.helpfulBy.filter(id => id.toString() !== userId.toString());
+    } else {
+      review.helpfulBy.push(userId);
+    }
+    review.helpfulCount = review.helpfulBy.length;
+    await review.save();
+    return { helpful: !alreadyMarked, helpfulCount: review.helpfulCount };
   }
 }
 

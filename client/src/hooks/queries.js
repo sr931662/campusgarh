@@ -94,7 +94,17 @@ export const useToggleSavedCollege = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: userService.toggleSavedCollege,
-    onSuccess: () => {
+    onSuccess: (response, collegeId) => {
+      const saved = response?.data?.data?.saved;
+      // Sync Zustand store so isSaved updates instantly (no refetch needed)
+      const currentUser = useAuthStore.getState().user;
+      if (currentUser) {
+        const existing = currentUser.savedColleges || [];
+        const updated = saved
+          ? [...existing, collegeId]
+          : existing.filter(id => String(id) !== String(collegeId));
+        useAuthStore.getState().updateUser({ savedColleges: updated });
+      }
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },
   });
@@ -356,10 +366,9 @@ export const useCreateReview = () => {
 export const useMarkHelpful = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: reviewService.markHelpful,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['reviews'] });
-      toast.success('Thanks for your feedback');
+    mutationFn: ({ reviewId }) => reviewService.markHelpful(reviewId),
+    onSuccess: (_, { collegeId }) => {
+      queryClient.invalidateQueries({ queryKey: ['reviews', collegeId] });
     },
   });
 };

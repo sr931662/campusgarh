@@ -57,6 +57,15 @@ const useAuthStore = create(
         }
       },
 
+      // Merge partial updates into user (e.g. after toggle saved)
+      updateUser: (updates) => {
+        const currentUser = get().user;
+        if (!currentUser) return;
+        const updated = { ...currentUser, ...updates };
+        setUserInStorage(updated);
+        set({ user: updated });
+      },
+
       // Set loading state
       setLoading: (loading) => set({ isLoading: loading }),
     }),

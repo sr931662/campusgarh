@@ -21,7 +21,7 @@ class EmailService {
       const templatePath = path.join(__dirname, '../templates/emails', `${template}.ejs`);
       const html = await ejs.renderFile(templatePath, context);
       const mailOptions = {
-        from: `"CampusGarh" <${process.env.EMAIL_FROM}>`,
+        from: `"CampusGarh" <${process.env.SMTP_USER}>`,
         to,
         subject,
         html,

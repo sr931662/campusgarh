@@ -108,6 +108,9 @@
 }
 
 .helpfulBtn, .flagBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
   background: none;
   border: none;
   font-size: 0.875rem;
@@ -131,6 +134,11 @@
 .helpfulBtn:disabled, .flagBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+.helpfulActive {
+  color: #4f46e5;
+  font-weight: 600;
+  background: #eef2ff;
 }
 
 .formContainer {

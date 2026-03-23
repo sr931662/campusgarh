@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FaThumbsUp, FaFlag } from 'react-icons/fa';
 import { useAuth } from '../../store/authStore';
 import {
   useCollegeReviews,
@@ -89,18 +90,18 @@ const CollegeReviews = ({ collegeId }) => {
                 )}
                 <div className={styles.reviewFooter}>
                   <button
-                    className={styles.helpfulBtn}
-                    onClick={() => isAuthenticated && markHelpfulMutation.mutate(review._id)}
-                    disabled={!isAuthenticated}
+                    className={`${styles.helpfulBtn} ${review.helpfulBy?.some(id => String(id) === String(user?._id)) ? styles.helpfulActive : ''}`}
+                    onClick={() => isAuthenticated && markHelpfulMutation.mutate({ reviewId: review._id, collegeId })}
+                    disabled={!isAuthenticated || markHelpfulMutation.isPending}
                   >
-                    👍 Helpful ({review.helpfulCount || 0})
+                    <FaThumbsUp /> {review.helpfulCount || 0}
                   </button>
                   <button
                     className={styles.flagBtn}
                     onClick={() => isAuthenticated && flagReviewMutation.mutate(review._id)}
                     disabled={!isAuthenticated}
                   >
-                    🚩 Report
+                    <FaFlag /> Report
                   </button>
                 </div>
               </div>

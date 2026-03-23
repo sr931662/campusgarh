@@ -69,11 +69,11 @@ class ReviewController {
     ResponseHandler.success(res, review);
   });
 
-  // Mark review as helpful
+  // Mark review as helpful (toggle)
   markHelpful = catchAsync(async (req, res) => {
     const { reviewId } = req.params;
-    const review = await reviewService.markHelpful(reviewId);
-    ResponseHandler.success(res, review);
+    const result = await reviewService.markHelpful(reviewId, req.user.id);
+    ResponseHandler.success(res, result);
   });
 }
 

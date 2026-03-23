@@ -77,28 +77,11 @@ router.get('/college/:collegeId/rating', reviewController.getAverageRating);
  *       200:
  *         description: Review marked helpful
  */
-router.post('/:reviewId/helpful', reviewController.markHelpful);
-
-/**
- * @swagger
- * /reviews/{reviewId}/flag:
- *   post:
- *     summary: Flag a review
- *     tags: [Reviews]
- *     parameters:
- *       - in: path
- *         name: reviewId
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Review flagged
- */
-router.post('/:reviewId/flag', reviewController.flagReview);
-
 // Authenticated routes
 router.use(protect);
+
+router.post('/:reviewId/helpful', reviewController.markHelpful);
+router.post('/:reviewId/flag', reviewController.flagReview);
 
 router.get('/mine', reviewController.getMyReviews);
 

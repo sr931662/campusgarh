@@ -36,6 +36,7 @@ const reviewSchema = new mongoose.Schema(
     pros: [String],
     cons: [String],
     isVerified: { type: Boolean, default: false }, // student verified?
+    helpfulBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     helpfulCount: { type: Number, default: 0 },
     reportedCount: { type: Number, default: 0 },
     status: {
