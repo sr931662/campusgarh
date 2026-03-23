@@ -59,16 +59,20 @@ class AuthService extends BaseService {
     await user.save({ validateBeforeSave: false });
 
     // Send verification email (fire-and-forget — don't block the response)
-    const verificationUrl = `${process.env.CLIENT_URL}/verify-email/${verificationToken}`;
-    if (process.env.NODE_ENV !== 'production') {
-      console.log(`\n[DEV] ✉ Verify email for ${user.email}:\n  ${verificationUrl}\n`);
-    }
+    const clientUrl = process.env.CLIENT_URL || 'https://campusgarh.onrender.com';
+    const verificationUrl = `${clientUrl}/verify-email/${verificationToken}`;
+    console.log(`[AUTH] ✉ Verification URL for ${user.email}: ${verificationUrl}`);
+
     emailService.sendEmail({
       to: user.email,
       subject: 'Verify your email - CampusGarh',
       template: 'verification',
       context: { name: user.name, url: verificationUrl },
-    }).catch(() => {/* SMTP not configured — safe to ignore */});
+    }).then(() => {
+      console.log(`[AUTH] ✅ Verification email sent to ${user.email}`);
+    }).catch((err) => {
+      console.error(`[AUTH] ❌ Email send failed for ${user.email}:`, err.message);
+    });
 
     return { user: user.toObject(), message: 'Registration successful. Please verify your email.' };
   }
@@ -84,8 +88,10 @@ class AuthService extends BaseService {
     // Check if account is active
     if (!user.isActive) throw new AppError('Account deactivated. Contact support.', 401);
 
-    // Check if email is verified
-    if (!user.emailVerified) throw new AppError('Please verify your email before logging in.', 401);
+    // Check if email is verified (only enforced when ENFORCE_EMAIL_VERIFICATION=true in env)
+    if (process.env.ENFORCE_EMAIL_VERIFICATION === 'true' && !user.emailVerified) {
+      throw new AppError('Please verify your email before logging in.', 401);
+    }
 
     // Update last login
     user.lastLogin = new Date();
