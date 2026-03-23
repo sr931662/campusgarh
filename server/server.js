@@ -45,8 +45,7 @@ app.use(cookieParser());
 app.use(requestLogger);
 
 // Rate limiting
-app.use('/api', limiter);    // General rate limit
-app.use('/api/v1/auth', authLimiter); // Stricter for auth endpoints
+app.use('/api', limiter); // General rate limit (authLimiter applied per-route in authRoutes.js)
 
 // API Routes
 app.use('/api', routes);

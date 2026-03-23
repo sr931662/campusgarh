@@ -9,10 +9,10 @@ const limiter = rateLimit({
 });
 
 const authLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5, // limit each IP to 5 requests per hour (for login/register)
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // limit each IP to 20 requests per 15 minutes
   skipSuccessfulRequests: true,
-  message: 'Too many login attempts, please try again after an hour',
+  message: 'Too many attempts, please try again after 15 minutes',
 });
 
 module.exports = { limiter, authLimiter };
