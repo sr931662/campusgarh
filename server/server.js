@@ -27,6 +27,9 @@ const Blog = require('./src/models/Blog');
 // Initialize express
 const app = express();
 
+// Trust Render/proxy X-Forwarded-For headers (required for rate limiting behind a proxy)
+app.set('trust proxy', 1);
+
 // Create necessary directories if they don't exist
 const directories = ['logs', 'uploads'];
 directories.forEach(dir => {
