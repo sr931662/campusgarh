@@ -107,13 +107,20 @@ export default function CollegeDetail() {
 
           {/* College logo */}
           <div className={styles.collegeLogo}>
-            {college.images?.[0]?.url ? (
-              <img src={college.images[0].url} alt={college.name} className={styles.collegeLogoImg} />
-            ) : (
-              <span className={styles.collegeLogoInitials}>
-                {(college.shortName || college.name).split(' ').filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('')}
-              </span>
-            )}
+            {college.logoUrl ? (
+              <img
+                src={college.logoUrl}
+                alt={college.name}
+                className={styles.collegeLogoImg}
+                onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = ''; }}
+              />
+            ) : null}
+            <span
+              className={styles.collegeLogoInitials}
+              style={college.logoUrl ? { display: 'none' } : undefined}
+            >
+              {(college.shortName || college.name).split(' ').filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('')}
+            </span>
           </div>
 
           {/* Badges row */}

@@ -28,6 +28,15 @@ class ImportExportController {
     res.send(buffer);
   });
 
+  // Download blank template
+  downloadTemplate = catchAsync(async (req, res) => {
+    const { model } = req.params;
+    const buffer = importExportService.generateTemplate(model);
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename=${model}_template.xlsx`);
+    res.send(buffer);
+  });
+
   // Get import logs
   getImportLogs = catchAsync(async (req, res) => {
     const { page = 1, limit = 10, model: modelFilter, status } = req.query;

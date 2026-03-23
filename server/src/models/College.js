@@ -6,6 +6,7 @@ const collegeSchema = new mongoose.Schema(
     name: { type: String, required: true, unique: true, trim: true },
     slug: { type: String, unique: true, lowercase: true },
     shortName: String,
+    logoUrl: String,
     description: String,
     establishmentYear: Number,
     collegeType: {

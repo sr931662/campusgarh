@@ -362,7 +362,23 @@
   background: linear-gradient(135deg, var(--deep) 0%, #1C1C1E 100%);
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
   padding: 1.25rem;
+  position: relative;
+}
+
+.instLogo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 5px;
+  backdrop-filter: blur(4px);
 }
 
 .instRank {

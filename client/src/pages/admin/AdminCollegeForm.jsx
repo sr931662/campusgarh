@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useCollegeBySlug, useCreateCollege, useUpdateCollege } from '../../hooks/queries';
+import { useCollegeBySlug, useCreateCollege, useUpdateCollege, useUploadCollegeLogo } from '../../hooks/queries';
 import Button from '../../components/common/Button/Button';
 import Loader from '../../components/common/Loader/Loader';
 import styles from './AdminForm.module.css';
@@ -20,6 +20,7 @@ import {
 const schema = yup.object().shape({
   name: yup.string().required('College name required'),
   shortName: yup.string(),
+  logoUrl: yup.string().url('Must be a valid URL').nullable(),
   description: yup.string(),
   establishmentYear: yup.number().min(1800).max(new Date().getFullYear()),
   collegeType: yup.string().oneOf(COLLEGE_TYPES).required(),
@@ -166,12 +167,14 @@ const AdminCollegeForm = () => {
   const { data: collegeData, isLoading: loadingCollege } = useCollegeBySlug(slug, { enabled: isEditing });
   const createMutation = useCreateCollege();
   const updateMutation = useUpdateCollege();
+  const { mutate: uploadLogo, isPending: uploadingLogo } = useUploadCollegeLogo();
 
   const { register, control, handleSubmit, formState: { errors }, setValue, watch } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       name: '',
       shortName: '',
+      logoUrl: '',
       description: '',
       establishmentYear: '',
       collegeType: '',
@@ -312,6 +315,45 @@ const AdminCollegeForm = () => {
               </select>
             </div>
           </div>
+          {/* Logo */}
+          <div className={styles.field}>
+            <label>College Logo URL</label>
+            <input {...register('logoUrl')} placeholder="https://cdn.example.com/logo.png" />
+            {errors.logoUrl && <span className={styles.errorMsg}>{errors.logoUrl.message}</span>}
+            <small style={{ color: 'var(--muted)', fontSize: '0.75rem', marginTop: '0.25rem' }}>
+              Paste a direct image URL, or upload below (available after saving the college)
+            </small>
+          </div>
+
+          {isEditing && collegeData && (
+            <div className={styles.field}>
+              <label>Upload Logo Image</label>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                {collegeData.logoUrl && (
+                  <img
+                    src={collegeData.logoUrl}
+                    alt="Current logo"
+                    style={{ width: 64, height: 64, objectFit: 'contain', border: '1px solid var(--border)', borderRadius: 8, padding: 4, background: '#fff' }}
+                  />
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  disabled={uploadingLogo}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (!file || !collegeData?._id) return;
+                    const fd = new FormData();
+                    fd.append('logo', file);
+                    uploadLogo({ id: collegeData._id, formData: fd, slug });
+                    e.target.value = '';
+                  }}
+                />
+                {uploadingLogo && <span style={{ fontSize: '0.82rem', color: 'var(--muted)' }}>Uploading…</span>}
+              </div>
+            </div>
+          )}
+
           <div className={styles.field}>
             <label>Description</label>
             <textarea {...register('description')} rows="4" />

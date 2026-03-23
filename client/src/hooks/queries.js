@@ -177,6 +177,19 @@ export const useDeleteCollege = () => {
   });
 };
 
+export const useUploadCollegeLogo = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, formData }) => collegeService.uploadCollegeLogo(id, formData),
+    onSuccess: (_, { slug }) => {
+      queryClient.invalidateQueries({ queryKey: ['college', slug] });
+      queryClient.invalidateQueries({ queryKey: ['colleges'] });
+      toast.success('Logo uploaded');
+    },
+    onError: (error) => toast.error(error.response?.data?.message || 'Logo upload failed'),
+  });
+};
+
 // ========== CollegeCourse Hooks ==========
 export const useCoursesForCollege = (collegeId) => {
   return useQuery({
@@ -597,7 +610,7 @@ export const useImportExcel = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ formData }) => importExportService.importExcel(formData),
-    onSuccess: (axiosResponse, variables) => {
+    onSuccess: (_, variables) => {
       // Always invalidate import logs
       queryClient.invalidateQueries({ queryKey: ['importLogs'] });
 
@@ -638,6 +651,24 @@ export const useExportExcel = () => {
       toast.success('Export completed');
     },
     onError: (error) => toast.error(error.response?.data?.message || 'Export failed'),
+  });
+};
+
+export const useDownloadTemplate = () => {
+  return useMutation({
+    mutationFn: (model) => importExportService.downloadTemplate(model),
+    onSuccess: (response, model) => {
+      const url = window.URL.createObjectURL(response.data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${model}_template.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+      toast.success('Template downloaded');
+    },
+    onError: () => toast.error('Template download failed'),
   });
 };
 

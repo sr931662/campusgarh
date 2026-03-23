@@ -40,8 +40,8 @@ export default function CollegeEnquiryForm({ college }) {
       {/* Header with logo */}
       <div className={styles.header} style={{ background: accent }}>
         <div className={styles.logo}>
-          {college.images?.[0]?.url ? (
-            <img src={college.images[0].url} alt={college.name} className={styles.logoImg} />
+          {college.logoUrl ? (
+            <img src={college.logoUrl} alt={college.name} className={styles.logoImg} />
           ) : (
             <span className={styles.logoInitials} style={{ color: accent }}>
               {initials(college.name, college.shortName)}

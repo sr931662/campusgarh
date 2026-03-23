@@ -28,4 +28,8 @@ export const collegeService = {
 
   // Delete college (admin)
   deleteCollege: (id) => api.delete(`/colleges/${id}`),
+
+  // Upload college logo (admin) — formData with field 'logo'
+  uploadCollegeLogo: (id, formData) =>
+    api.patch(`/colleges/${id}/logo`, formData, { headers: { 'Content-Type': undefined } }),
 };

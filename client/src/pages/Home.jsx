@@ -217,6 +217,9 @@ export default function Home() {
                   >
                     <div className={styles.instCardImage}>
                       <span className={styles.instRank}>{getRankBadge(college)}</span>
+                      {college.logoUrl && (
+                        <img src={college.logoUrl} alt={college.name} className={styles.instLogo} />
+                      )}
                     </div>
                     <div className={styles.instCardBody}>
                       <span className={styles.instTag}>{college.collegeType || 'Institution'}</span>

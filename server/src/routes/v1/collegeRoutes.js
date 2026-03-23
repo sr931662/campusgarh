@@ -3,6 +3,7 @@ const collegeController = require('../../controllers/collegeController');
 const { protect } = require('../../middleware/auth');
 const { restrictTo } = require('../../middleware/roleCheck');
 const validate = require('../../middleware/validation');
+const upload = require('../../middleware/upload');
 const {
   createCollegeValidator,
   updateCollegeValidator,
@@ -251,6 +252,7 @@ router.post('/', createCollegeValidator, validate, collegeController.createColle
  *         description: College updated
  */
 router.patch('/:id', updateCollegeValidator, validate, collegeController.updateCollege);
+router.patch('/:id/logo', upload.single('logo'), collegeController.uploadLogo);
 
 /**
  * @swagger

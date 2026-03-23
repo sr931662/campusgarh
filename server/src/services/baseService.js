@@ -68,7 +68,7 @@ class BaseService {
   // Update one document
   async updateOne(query, data, options = {}) {
     try {
-      const doc = await this.model.findOneAndUpdate(query, data, {
+      const doc = await this.model.findOneAndUpdate(query, { $set: data }, {
         new: true,
         runValidators: true,
         ...options,

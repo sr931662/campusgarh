@@ -6,10 +6,15 @@ import RatingStars from '../common/RatingStars/RatingStars';
 import styles from './CollegeCard.module.css';
 import { formatCurrency } from '../../utils/formatters';
 
+function logoInitials(name = '', shortName = '') {
+  const src = shortName || name;
+  return src.split(' ').filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+}
+
 const CollegeCard = ({ college }) => {
   const {
     name, slug, contact, collegeType, fundingType, placementStats, fees, rankings,
-    averageRating, isVerified, accreditation, approvedBy,
+    averageRating, isVerified, accreditation, approvedBy, logoUrl, shortName,
   } = college;
 
   const latestRanking = rankings?.find(r => r.year === new Date().getFullYear()) || rankings?.[0];
@@ -21,13 +26,31 @@ const CollegeCard = ({ college }) => {
     <Link to={`/colleges/${slug}`} className={styles.link}>
       <Card hover className={styles.card}>
         <div className={styles.header}>
-          <div className={styles.nameContainer}>
-            <h3 className={styles.name}>{name}</h3>
-            {isVerified && <span className={styles.verifiedBadge}>✓ Verified</span>}
+          <div className={styles.logoBox}>
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt={name}
+                className={styles.logoImg}
+                onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = ''; }}
+              />
+            ) : null}
+            <span
+              className={styles.logoInitials}
+              style={logoUrl ? { display: 'none' } : undefined}
+            >
+              {logoInitials(name, shortName)}
+            </span>
           </div>
-          <div className={styles.badges}>
-            {fundingType && <div className={styles.fundingBadge}>{fundingType}</div>}
-            {collegeType && <div className={styles.typeBadge}>{collegeType}</div>}
+          <div className={styles.headerRight}>
+            <div className={styles.nameContainer}>
+              <h3 className={styles.name}>{name}</h3>
+              {isVerified && <span className={styles.verifiedBadge}>✓ Verified</span>}
+            </div>
+            <div className={styles.badges}>
+              {fundingType && <div className={styles.fundingBadge}>{fundingType}</div>}
+              {collegeType && <div className={styles.typeBadge}>{collegeType}</div>}
+            </div>
           </div>
         </div>
 

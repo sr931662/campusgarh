@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useImportExcel, useExportExcel, useImportLogs } from '../../hooks/queries';
+import { useImportExcel, useExportExcel, useImportLogs, useDownloadTemplate } from '../../hooks/queries';
 import Button from '../../components/common/Button/Button';
 import Card from '../../components/common/Card/Card';
 import styles from './ImportData.module.css';
@@ -9,7 +9,7 @@ const COLUMN_GUIDE = {
   College: {
     required: ['College Name'],
     optional: [
-      'Short Name', 'Description', 'Established Year',
+      'Short Name', 'Logo URL', 'Description', 'Established Year',
       'Discipline (College Type)', 'Institute Type (Funding Type)', 'Affiliation',
       'NAAC Grade', 'NIRF Rank', 'NBA Status (Yes/No)',
       'Phone', 'Email', 'Website', 'Address', 'City', 'State', 'Pincode',
@@ -75,6 +75,7 @@ export default function ImportData() {
 
   const { mutate: importExcel, isPending: importing } = useImportExcel();
   const { mutate: exportExcel, isPending: exporting } = useExportExcel();
+  const { mutate: downloadTemplate, isPending: downloading } = useDownloadTemplate();
   const { data: logsData } = useImportLogs({ limit: 10 });
 
   // Normalize the nested response shape the API returns
@@ -254,6 +255,28 @@ export default function ImportData() {
           >
             {importing ? 'Importing…' : 'Import'}
           </Button>
+        </div>
+      </Card>
+
+      {/* ─────────── EXPORT ─────────── */}
+      {/* ─────────── DOWNLOAD TEMPLATES ─────────── */}
+      <Card padding="lg" style={{ marginBottom: '2rem' }}>
+        <p className={styles.sectionTitle}>DOWNLOAD IMPORT TEMPLATES</p>
+        <hr style={{ borderColor: 'var(--border)', marginBottom: '0.75rem' }} />
+        <p style={{ fontSize: '0.82rem', color: 'var(--muted)', marginBottom: '1rem' }}>
+          Download a ready-to-fill Excel template with correct column headers, a sample row, and a Notes sheet listing all valid values.
+        </p>
+        <div className={styles.exportGrid}>
+          {MODELS.map(m => (
+            <button
+              key={m.value}
+              className={styles.templateBtn}
+              onClick={() => downloadTemplate(m.value)}
+              disabled={downloading}
+            >
+              ↓ {m.label} Template
+            </button>
+          ))}
         </div>
       </Card>
 

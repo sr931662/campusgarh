@@ -26,6 +26,26 @@ class CollegeService extends BaseService {
     return this.create(data);
   }
 
+  // Upsert: create if slug doesn't exist, update if it does.
+  // Used by bulk import so re-importing updates existing colleges (e.g. sets logoUrl).
+  async upsertCollege(data) {
+    if (!data.slug) data.slug = slugify(data.name, { lower: true, strict: true });
+    data.admissionProcess = data.admissionProcess || {};
+    data.placementStats   = data.placementStats   || {};
+    data.hostel           = data.hostel           || {};
+    data.campusInfo       = data.campusInfo       || {};
+    data.rankings         = data.rankings         || [];
+    data.scholarships     = data.scholarships     || [];
+    data.cutoffs          = data.cutoffs          || [];
+    data.yearWisePlacements = data.yearWisePlacements || [];
+
+    return College.findOneAndUpdate(
+      { slug: data.slug },
+      { $set: data },
+      { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true }
+    ).lean();
+  }
+
   async updateCollege(id, data) {
     if (data.name && !data.slug) data.slug = slugify(data.name, { lower: true, strict: true });
     return this.updateById(id, data);

@@ -264,6 +264,24 @@
 }
 .exportBtn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+.templateBtn {
+  background: rgba(201, 168, 76, 0.06);
+  border: 1.5px solid rgba(201, 168, 76, 0.35);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gold, #C9A84C);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.templateBtn:hover:not(:disabled) {
+  background: rgba(201, 168, 76, 0.14);
+  transform: translateY(-1px);
+}
+.templateBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
 /* ── Logs ── */
 .logsTable {
   border: 1.5px solid var(--border, #E8E3DB);

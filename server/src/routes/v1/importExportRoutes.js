@@ -112,4 +112,6 @@ router.get('/export/:model', exportExcelValidator, validate, importExportControl
  */
 router.get('/logs', importExportController.getImportLogs);
 
+router.get('/template/:model', importExportController.downloadTemplate);
+
 module.exports = router;

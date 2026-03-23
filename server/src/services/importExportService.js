@@ -140,7 +140,15 @@ class ImportExportService {
   normalizeRow(row) {
     const out = {};
     for (const k of Object.keys(row)) {
-      out[k.replace(/^\uFEFF/, '').trim().toLowerCase()] = row[k];
+      // Remove BOM, strip ALL unicode whitespace (including non-breaking space \u00a0,
+      // zero-width space \u200b, etc.), collapse multiple spaces, lowercase
+      const normalized = k
+        .replace(/^\uFEFF/, '')
+        .replace(/[\u00a0\u200b\u200c\u200d\u2060\ufeff]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+      out[normalized] = row[k];
     }
     return out;
   }
@@ -177,7 +185,7 @@ class ImportExportService {
       for (let i = 0; i < data.length; i++) {
         try {
           const mapped = this.mapRowToModel(data[i], modelName);
-          if      (modelName === 'College') await service.createCollege(mapped);
+          if      (modelName === 'College') await service.upsertCollege(mapped);
           else if (modelName === 'Course')  await service.createCourse(mapped);
           else if (modelName === 'Exam')    await service.createExam(mapped);
           else                              await service.create(mapped);
@@ -218,6 +226,219 @@ class ImportExportService {
     return XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
   }
 
+  // ── TEMPLATE GENERATION ─────────────────────────────────────────────────────
+
+  generateTemplate(modelName) {
+    const TEMPLATES = {
+      College: {
+        headers: [
+          'College Name', 'Short Name', 'Logo URL', 'Description',
+          'College Type', 'Institute Type (Funding Type)', 'Affiliation',
+          'Established Year',
+          'NAAC Grade', 'NIRF Rank', 'NBA Status',
+          'Other Accreditations',
+          'Phone', 'Email', 'Website', 'Address', 'City', 'State', 'Pincode',
+          'Latitude', 'Longitude',
+          'Average Package (LPA)', 'Highest Package (LPA)', 'Median Package (LPA)',
+          'Placement Rate (%)', 'Placement Year', 'Top Recruiters',
+          'Tuition Fee (₹/yr)', 'Hostel Fee (₹/yr)', 'Other Fees (₹/yr)', 'Total Fees (₹/yr)',
+          'Approved By',
+          'Total Area (Acres)', 'Campus Type', 'Total Students', 'Total Faculty',
+          'Student-Faculty Ratio', 'Departments',
+          'Hostel Available', 'Boys Capacity', 'Girls Capacity',
+          'Hostel Annual Fee (₹)', 'Mess Charges (₹)', 'Hostel Distance from Campus',
+          'Hostel Facilities',
+          'Admission Mode', 'Application Fee (₹)', 'Application Link',
+          'Documents Required',
+          'Facebook', 'Twitter', 'Instagram', 'LinkedIn', 'YouTube',
+          'Verified', 'Featured',
+          'SEO Title', 'SEO Description', 'SEO Keywords',
+        ],
+        sample: {
+          'College Name': 'Indian Institute of Technology Delhi',
+          'Short Name': 'IIT Delhi',
+          'Logo URL': 'https://cdn.example.com/iitd-logo.png',
+          'Description': 'Premier engineering institution in India',
+          'College Type': 'Engineering & Technology',
+          'Institute Type (Funding Type)': 'Institute of National Importance',
+          'Affiliation': 'Autonomous',
+          'Established Year': 1961,
+          'NAAC Grade': 'A++',
+          'NIRF Rank': 2,
+          'NBA Status': 'Yes',
+          'Other Accreditations': 'ABET, NBA',
+          'Phone': '01126591000',
+          'Email': 'info@iitd.ac.in',
+          'Website': 'https://home.iitd.ac.in',
+          'Address': 'Hauz Khas',
+          'City': 'New Delhi',
+          'State': 'Delhi',
+          'Pincode': '110016',
+          'Latitude': 28.5454,
+          'Longitude': 77.1926,
+          'Average Package (LPA)': 20,
+          'Highest Package (LPA)': 2.8,
+          'Placement Rate (%)': 85,
+          'Placement Year': 2024,
+          'Top Recruiters': 'Google, Microsoft, Amazon',
+          'Tuition Fee (₹/yr)': 200000,
+          'Total Fees (₹/yr)': 300000,
+          'Approved By': 'UGC, AICTE',
+          'Total Area (Acres)': '325',
+          'Campus Type': 'Urban',
+          'Total Students': 10000,
+          'Total Faculty': 600,
+          'Student-Faculty Ratio': '16:1',
+          'Departments': 13,
+          'Hostel Available': 'Yes',
+          'Boys Capacity': 7000,
+          'Girls Capacity': 2000,
+          'Admission Mode': 'Entrance-Based',
+          'Verified': 'Yes',
+          'Featured': 'Yes',
+        },
+        notes: [
+          ['Field', 'Valid Values / Notes'],
+          ['College Type', 'Engineering & Technology | Medical & Health Sciences | Management & Business | Law | Arts & Science | Architecture & Planning | Pharmacy | Agriculture | Education & Teaching | Design & Fine Arts | Commerce & Finance | Technical | Multi-Disciplinary'],
+          ['Institute Type (Funding Type)', 'Government | Private | Semi-Government | Public-Private Partnership | Deemed University | Private University | Central University | State University | Autonomous | Minority Institution | Autonomous College | National Institute | National Law University | Institute of National Importance | Deemed to be University | Open University | Agricultural University'],
+          ['NAAC Grade', 'A++ | A+ | A | B++ | B+ | B | C'],
+          ['NBA Status', 'Yes | No'],
+          ['Campus Type', 'Urban | Semi-Urban | Rural | Suburban | Residential | Non-Residential | Semi-Residential'],
+          ['Admission Mode', 'Merit-Based | Entrance-Based | Both  (or paste the entrance exam name e.g. JEE Advanced)'],
+          ['Hostel Available / Verified / Featured', 'Yes | No'],
+          ['Top Recruiters / Approved By / Other Accreditations / Hostel Facilities / Documents Required', 'Comma-separated values  e.g.  Google, Microsoft, Amazon'],
+          ['Logo URL', 'Direct URL to the college logo image  (PNG/JPG/WebP)'],
+          ['Package fields (LPA)', 'Enter numeric value in Lakhs Per Annum  e.g. 12.5  (not 12.5 LPA)'],
+          ['Fee fields (₹/yr)', 'Enter numeric value in Rupees per year  e.g. 200000  (not 2 Lakh)'],
+        ],
+      },
+      Course: {
+        headers: [
+          'Course Name', 'Level', 'Discipline', 'Duration', 'Mode',
+          'Description', 'Eligibility Criteria', 'Admission Type',
+          'Specializations', 'Job Roles', 'Skills',
+          'Minimum Fee (INR/Year)', 'Maximum Fee (INR/Year)',
+        ],
+        sample: {
+          'Course Name': 'Bachelor of Technology (Computer Science)',
+          'Level': 'UG',
+          'Discipline': 'Engineering & Technology',
+          'Duration': '4 Years',
+          'Mode': 'Full-time',
+          'Description': 'Undergraduate engineering programme in Computer Science',
+          'Eligibility Criteria': '10+2 with PCM, JEE Main/Advanced qualified',
+          'Specializations': 'AI, Data Science, Cybersecurity',
+          'Job Roles': 'Software Engineer, Data Analyst, Product Manager',
+          'Skills': 'Python, Java, Data Structures, Machine Learning',
+          'Minimum Fee (INR/Year)': 150000,
+          'Maximum Fee (INR/Year)': 400000,
+        },
+        notes: [
+          ['Field', 'Valid Values / Notes'],
+          ['Level', 'UG | PG | Diploma | Doctorate | Certificate'],
+          ['Mode', 'Full-time | Part-time | Online | Distance'],
+          ['Specializations / Job Roles / Skills', 'Comma-separated values'],
+          ['Fee fields', 'Numeric, in Rupees per year'],
+        ],
+      },
+      Exam: {
+        headers: [
+          'Exam Name', 'Category', 'Conducting Body', 'Overview', 'Eligibility',
+          'Official Website', 'Exam Level', 'Exam Mode', 'Languages', 'Frequency',
+          'Registration Fee', 'Total Applications',
+        ],
+        sample: {
+          'Exam Name': 'JEE Main',
+          'Category': 'UG',
+          'Conducting Body': 'National Testing Agency (NTA)',
+          'Overview': 'Joint Entrance Examination for B.Tech admissions at NITs, IIITs and GFTIs',
+          'Eligibility': '10+2 with PCM, minimum 75% marks',
+          'Official Website': 'https://jeemain.nta.nic.in',
+          'Exam Level': 'National',
+          'Exam Mode': 'Online (CBT)',
+          'Languages': 'English, Hindi, Regional languages',
+          'Frequency': 'Twice a Year',
+          'Registration Fee': 1000,
+          'Total Applications': 1200000,
+        },
+        notes: [
+          ['Field', 'Valid Values / Notes'],
+          ['Category', 'UG | PG | PhD | Diploma'],
+          ['Exam Level', 'National | State | University-Level | Institute-Level'],
+          ['Exam Mode', 'Online (CBT) | Offline (OMR) | Online + Offline | Remote Proctored'],
+          ['Frequency', 'Annual | Twice a Year | Multiple Times | As per notification'],
+          ['Languages', 'Comma-separated  e.g.  English, Hindi'],
+          ['Registration Fee', 'Numeric, in Rupees'],
+        ],
+      },
+      Blog: {
+        headers: ['Title', 'Content', 'Excerpt', 'Status', 'Tags'],
+        sample: {
+          'Title': 'Top 10 Engineering Colleges in India 2025',
+          'Content': 'Full article content here...',
+          'Excerpt': 'A curated list of the best engineering colleges in India ranked by NIRF 2025.',
+          'Status': 'draft',
+          'Tags': 'engineering, rankings, NIRF, IIT',
+        },
+        notes: [
+          ['Field', 'Valid Values / Notes'],
+          ['Status', 'draft | published'],
+          ['Tags', 'Comma-separated keywords'],
+        ],
+      },
+      AdmissionEnquiry: {
+        headers: ['Student Name', 'Phone', 'Email', 'Message', 'Preferred City', 'Source'],
+        sample: {
+          'Student Name': 'Rahul Sharma',
+          'Phone': '9876543210',
+          'Email': 'rahul@example.com',
+          'Message': 'Interested in B.Tech admissions',
+          'Preferred City': 'Delhi',
+          'Source': 'website',
+        },
+        notes: [
+          ['Field', 'Valid Values / Notes'],
+          ['Phone', '10-digit mobile number without country code'],
+          ['Source', 'website | referral | social | ads | other'],
+        ],
+      },
+    };
+
+    const tpl = TEMPLATES[modelName];
+    if (!tpl) throw new AppError('No template for model ' + modelName, 400);
+
+    const wb = XLSX.utils.book_new();
+
+    // ── Sheet 1: Data (headers + one sample row) ──────────────────────────────
+    const dataRows = [tpl.sample];
+    const dataSheet = XLSX.utils.json_to_sheet(dataRows, { header: tpl.headers });
+
+    // Bold + gold fill the header row
+    const headerStyle = { font: { bold: true, color: { rgb: 'FFFFFF' } }, fill: { fgColor: { rgb: '1C1C1E' } }, alignment: { wrapText: true } };
+    const sampleStyle  = { fill: { fgColor: { rgb: 'FFF9EC' } }, alignment: { wrapText: true } };
+
+    tpl.headers.forEach((h, colIdx) => {
+      const cellAddr = XLSX.utils.encode_cell({ r: 0, c: colIdx });
+      if (!dataSheet[cellAddr]) dataSheet[cellAddr] = { v: h, t: 's' };
+      dataSheet[cellAddr].s = headerStyle;
+
+      const sampleAddr = XLSX.utils.encode_cell({ r: 1, c: colIdx });
+      if (dataSheet[sampleAddr]) dataSheet[sampleAddr].s = sampleStyle;
+    });
+
+    // Auto column widths
+    dataSheet['!cols'] = tpl.headers.map(h => ({ wch: Math.max(h.length + 2, 18) }));
+
+    XLSX.utils.book_append_sheet(wb, dataSheet, 'Data');
+
+    // ── Sheet 2: Notes (valid values) ─────────────────────────────────────────
+    const notesSheet = XLSX.utils.aoa_to_sheet(tpl.notes);
+    notesSheet['!cols'] = [{ wch: 35 }, { wch: 90 }];
+    XLSX.utils.book_append_sheet(wb, notesSheet, 'Notes — Valid Values');
+
+    return XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
+  }
+
   // ── ROW MAPPING ─────────────────────────────────────────────────────────────
 
   mapRowToModel(row, modelName) {
@@ -242,6 +463,7 @@ class ImportExportService {
     return {
       name: String(name).trim(),
       shortName:         get('short name','shortname','abbreviation'),
+      logoUrl:           get('logo url','logourl','logo','college logo','logo url (png/jpg/webp)','logo_url','logo-url','college logo url','image url','logo link'),
       description:       get('description','about','overview') || '',
       establishmentYear: toNum(get('established year','establishedyear','year established','founded')),
 

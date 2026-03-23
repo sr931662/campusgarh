@@ -877,3 +877,25 @@
 {"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 00:18:05"}
 {"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 01:30:47"}
 {"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 01:56:35"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 02:32:45"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 02:32:52"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 02:32:59"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 02:33:07"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 02:33:13"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 02:33:26"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 03:01:08"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 03:01:20"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 03:01:31"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 06:13:07"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-01.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 06:13:11"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-02.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 06:21:39"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 06:38:26"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 06:38:30"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 06:39:08"}
+{"level":"info","message":"MongoDB Connected: ac-vkmdwuk-shard-00-00.w2wblc5.mongodb.net","service":"campusgarh-api","timestamp":"2026-03-23 06:40:09"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-23 06:40:51"}
+{"level":"info","message":"GET /api/v1/colleges?page=1&limit=12&search=&city=&state=&type=&fundingType=&ranking=&feesMin=&feesMax=&naacGrade=&nbaStatus=&approvedBy=&campusType=&minPlacement=&minPackage=&admissionMode=&isVerified=&featured=&sort=ranking - ::1","service":"campusgarh-api","timestamp":"2026-03-23 06:40:56"}
+{"level":"info","message":"GET /api/v1/colleges/slug/all-india-institute-of-medical-sciences-delhi - ::1","service":"campusgarh-api","timestamp":"2026-03-23 06:40:57"}
+{"level":"info","message":"GET /api/v1/reviews/college/69c090f5d739d334a523a29e/rating - ::1","service":"campusgarh-api","timestamp":"2026-03-23 06:40:58"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-23 06:41:38"}
+{"level":"info","message":"GET /api/v1/admin/stats - ::1","service":"campusgarh-api","timestamp":"2026-03-23 06:41:39"}

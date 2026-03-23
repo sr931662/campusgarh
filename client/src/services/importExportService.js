@@ -17,4 +17,8 @@ export const importExportService = {
 
   // Get import logs
   getImportLogs: (params) => api.get('/import-export/logs', { params }),
+
+  // Download blank Excel template for a model
+  downloadTemplate: (model) =>
+    api.get(`/import-export/template/${model}`, { responseType: 'blob' }),
 };
