@@ -58,21 +58,17 @@ class AuthService extends BaseService {
     user.emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
     await user.save({ validateBeforeSave: false });
 
-    // Send verification email
+    // Send verification email (fire-and-forget — don't block the response)
     const verificationUrl = `${process.env.CLIENT_URL}/verify-email/${verificationToken}`;
     if (process.env.NODE_ENV !== 'production') {
       console.log(`\n[DEV] ✉ Verify email for ${user.email}:\n  ${verificationUrl}\n`);
     }
-    try {
-      await emailService.sendEmail({
-        to: user.email,
-        subject: 'Verify your email - CampusGarh',
-        template: 'verification',
-        context: { name: user.name, url: verificationUrl },
-      });
-    } catch (err) {
-      // SMTP not configured — URL already logged above, safe to continue
-    }
+    emailService.sendEmail({
+      to: user.email,
+      subject: 'Verify your email - CampusGarh',
+      template: 'verification',
+      context: { name: user.name, url: verificationUrl },
+    }).catch(() => {/* SMTP not configured — safe to ignore */});
 
     return { user: user.toObject(), message: 'Registration successful. Please verify your email.' };
   }
@@ -128,21 +124,17 @@ class AuthService extends BaseService {
     user.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
     await user.save({ validateBeforeSave: false });
 
-    // Send email
+    // Send email (fire-and-forget — don't block the response)
     const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
     if (process.env.NODE_ENV !== 'production') {
       console.log(`\n[DEV] 🔑 Password reset for ${user.email}:\n  ${resetUrl}\n`);
     }
-    try {
-      await emailService.sendEmail({
-        to: user.email,
-        subject: 'Password reset - CampusGarh',
-        template: 'passwordReset',
-        context: { name: user.name, url: resetUrl },
-      });
-    } catch (err) {
-      // SMTP not configured — URL already logged above, safe to continue
-    }
+    emailService.sendEmail({
+      to: user.email,
+      subject: 'Password reset - CampusGarh',
+      template: 'passwordReset',
+      context: { name: user.name, url: resetUrl },
+    }).catch(() => {/* SMTP not configured — safe to ignore */});
 
     return { message: 'Reset link sent to email' };
   }
