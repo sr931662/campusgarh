@@ -208,13 +208,15 @@ const Register = () => {
           </div>
 
           <div className={styles.googleBtn}>
+            // Remove the width prop entirely
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               onError={() => toast.error('Google sign-in failed.')}
-              width="100%"
-              text="signup_with"
+              useOneTap
+              text="signin_with"
               shape="rectangular"
             />
+
           </div>
 
         </form>
