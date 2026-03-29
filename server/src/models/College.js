@@ -7,6 +7,7 @@ const collegeSchema = new mongoose.Schema(
     slug: { type: String, unique: true, lowercase: true },
     shortName: String,
     logoUrl: String,
+    coverImageUrl: String,
     description: String,
     establishmentYear: Number,
     collegeType: {

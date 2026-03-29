@@ -24,6 +24,7 @@ const CreateCollege = () => {
   const [form, setForm] = useState({
     name: '',
     shortName: '',
+    coverImageUrl: '',
     collegeType: '',
     fundingType: '',
     establishmentYear: '',
@@ -103,6 +104,7 @@ const CreateCollege = () => {
       establishmentYear: form.establishmentYear ? Number(form.establishmentYear) : undefined,
       affiliation: form.affiliation || undefined,
       description: form.description,
+      coverImageUrl: form.coverImageUrl || undefined,
       contact: {
         city: form.city,
         state: form.state,
@@ -190,6 +192,18 @@ const CreateCollege = () => {
               <label>Short Name</label>
               <input name="shortName" value={form.shortName} onChange={handleChange} placeholder="e.g. IIT Delhi" />
             </div>
+            <div className={styles.formGroup}>
+              <label>Cover Image URL</label>
+              <input
+                type="url"
+                name="coverImageUrl"
+                value={form.coverImageUrl}
+                onChange={handleChange}
+                placeholder="https://... (paste any image URL for the card cover)"
+              />
+              <small>This image appears as the card photo in the colleges listing.</small>
+            </div>
+
           </div>
           <div className={styles.row3}>
             <div className={styles.field}>
