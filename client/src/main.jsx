@@ -5,14 +5,19 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './index.css';
+import './styles/globals.css';
 import App from './App';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      refetchOnWindowFocus: false,
       retry: 1,
       staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+    },
+    mutations: {
+      retry: false,
     },
   },
 });
