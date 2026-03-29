@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaInbox } from 'react-icons/fa';
 import { useParams, Link } from 'react-router-dom';
-import { useAuthStore } from '../../store/authStore';
+import useAuthStore from '../../store/authStore';
 import { ROLES } from '../../utils/constants';
 import {
   useEnquiry,
