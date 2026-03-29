@@ -22,4 +22,8 @@ export const authService = {
   // Change password
   changePassword: (currentPassword, newPassword) =>
     api.post('/auth/change-password', { currentPassword, newPassword }),
+
+  // Google OAuth
+  googleAuth: (credential) => api.post('/auth/oauth/google', { credential }),
 };
+
