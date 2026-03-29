@@ -39,13 +39,14 @@ const CollegeList = () => {
 
   // Update URL when filters or page change
   useEffect(() => {
-    const params = {};
-    if (page !== 1) params.page = page;
-    Object.entries(filters).forEach(([key, value]) => {
-      if (value) params[key] = value;
-    });
-    setSearchParams(params);
-  }, [page, filters, setSearchParams]);
+  const params = {};
+  if (page !== 1) params.page = page;
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) params[key] = value;
+  });
+  setSearchParams(params, { replace: true });
+}, [page, filters]);  // remove setSearchParams from deps to avoid loop
+
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);

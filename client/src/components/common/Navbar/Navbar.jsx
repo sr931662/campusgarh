@@ -12,13 +12,14 @@ const MEGA = {
   colleges: {
     sections: [
       { title: 'By Stream', links: [
-        { label: 'Engineering Colleges', to: '/colleges?search=engineering' },
-        { label: 'Medical Colleges',     to: '/colleges?search=medical'     },
-        { label: 'Management Colleges',  to: '/colleges?search=management'  },
-        { label: 'Law Colleges',         to: '/colleges?search=law'         },
-        { label: 'Design Colleges',      to: '/colleges?search=design'      },
-        { label: 'Arts & Science',       to: '/colleges?search=arts'        },
+        { label: 'Engineering Colleges', to: '/colleges?type=Engineering+%26+Technology' },
+        { label: 'Medical Colleges',     to: '/colleges?type=Medical+%26+Health+Sciences' },
+        { label: 'Management Colleges',  to: '/colleges?type=Management+%26+Business'    },
+        { label: 'Law Colleges',         to: '/colleges?type=Law'                         },
+        { label: 'Design Colleges',      to: '/colleges?type=Design+%26+Fine+Arts'       },
+        { label: 'Arts & Science',       to: '/colleges?type=Arts+%26+Science'           },
       ]},
+
       { title: 'By City', links: [
         { label: 'Colleges in Delhi',     to: '/colleges?city=delhi'     },
         { label: 'Colleges in Mumbai',    to: '/colleges?city=mumbai'    },
