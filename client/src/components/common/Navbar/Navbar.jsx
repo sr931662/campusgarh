@@ -252,10 +252,14 @@ const Navbar = () => {
 
             {isAuthenticated ? (
               <>
-                <Link to={getDashboardPath(user?.role)} className={styles.actionBtn}>
+                <Link to="/profile" className={styles.actionBtn}>
                   <FiUser size={18} />
                   <span className={styles.actionLabel}>{user?.name?.split(' ')[0] || 'Me'}</span>
                 </Link>
+                <Link to={getDashboardPath(user?.role)} className={styles.actionBtn}>
+                  <span className={styles.actionLabel}>Dashboard</span>
+                </Link>
+
                 <button onClick={handleLogout} className={`${styles.actionBtn} ${styles.logoutBtn}`}>
                   <span className={styles.actionLabel}>Logout</span>
                 </button>
@@ -380,7 +384,12 @@ const Navbar = () => {
                           {lnk.label}
                         </Link>
                       ))}
+                      <Link to="/profile" style={{ fontSize: '0.85rem', color: '#C9A84C', textDecoration: 'none', marginTop: '0.5rem', display: 'inline-block' }}>
+                        Edit Profile Settings →
+                      </Link>
+
                     </div>
+                    
                   ))}
                 </div>
               )}
