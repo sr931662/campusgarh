@@ -123,16 +123,15 @@ const Login = () => {
           </div>
 
           <div className={styles.googleBtn}>
-            // Remove the width prop entirely
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               onError={() => toast.error('Google sign-in failed.')}
-              useOneTap
+              // useOneTap
               text="signin_with"
               shape="rectangular"
             />
-
           </div>
+
 
 
           <div className={styles.registerLink}>
