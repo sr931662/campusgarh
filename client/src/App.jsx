@@ -38,6 +38,10 @@ import VerifyEmail from './components/auth/VerifyEmail';
 import PrivateRoute from './routes/PrivateRoute';
 import RoleBasedRoute from './routes/RoleBasedRoute';
 import AdminRoleRequests from './pages/admin/AdminRoleRequests';
+import ManageColleges from './pages/admin/ManageColleges';
+import ManageCourses from './pages/admin/ManageCourses';
+import ManageExams from './pages/admin/ManageExams';
+import ManageBlogs from './pages/admin/ManageBlogs';
 import { ROLES } from './utils/constants';
 
 function App() {
@@ -99,15 +103,20 @@ function App() {
         {/* Admin-only routes */}
         <Route element={<RoleBasedRoute allowedRoles={[ROLES.ADMIN]} />}>
           <Route path="/dashboard/admin" element={<AdminDashboard />} />
+          <Route path="/admin/colleges" element={<ManageColleges />} />
           <Route path="/admin/colleges/create" element={<CreateCollege />} />
+          <Route path="/admin/courses" element={<ManageCourses />} />
           <Route path="/admin/courses/create" element={<CreateCourse />} />
+          <Route path="/admin/exams" element={<ManageExams />} />
           <Route path="/admin/exams/create" element={<CreateExam />} />
+          <Route path="/admin/blogs" element={<ManageBlogs />} />
           <Route path="/admin/blogs/create" element={<CreateBlog />} />
           <Route path="/admin/import" element={<ImportData />} />
           <Route path="/admin/leads"     element={<AdminLeads />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
           <Route path="/admin/role-requests" element={<AdminRoleRequests />} />
         </Route>
+
       </Route>
     </Routes>
   );

@@ -102,17 +102,17 @@ const AdminDashboard = () => {
       <div className={styles.quickActions}>
         <h2>Quick Actions</h2>
         <div className={styles.actionsGrid}>
-          <Link to="/admin/colleges/create"      className={styles.actionCard}>Add College</Link>
-          <Link to="/admin/courses/create"       className={styles.actionCard}>Add Course</Link>
-          <Link to="/admin/exams/create"         className={styles.actionCard}>Add Exam</Link>
-          <Link to="/admin/blogs/create"         className={styles.actionCard}>Write Blog</Link>
-          <Link to="/admin/import"               className={styles.actionCard}>Import Data</Link>
-          <Link to="/admin/reviews/moderation"   className={styles.actionCard}>Moderate Reviews</Link>
-          <Link to="/admin/leads"                className={styles.actionCard}>Manage Leads</Link>
-          <Link to="/admin/analytics"            className={styles.actionCard}>Analytics</Link>
-          <Link to="/admin/role-requests" className={styles.actionCard}>Role Requests</Link>
-
+          <Link to="/admin/colleges"           className={styles.actionCard}>Manage Colleges</Link>
+          <Link to="/admin/courses"            className={styles.actionCard}>Manage Courses</Link>
+          <Link to="/admin/exams"              className={styles.actionCard}>Manage Exams</Link>
+          <Link to="/admin/blogs"              className={styles.actionCard}>Manage Blogs</Link>
+          <Link to="/admin/import"             className={styles.actionCard}>Import Data</Link>
+          <Link to="/admin/reviews/moderation" className={styles.actionCard}>Moderate Reviews</Link>
+          <Link to="/admin/leads"              className={styles.actionCard}>Manage Leads</Link>
+          <Link to="/admin/analytics"          className={styles.actionCard}>Analytics</Link>
+          <Link to="/admin/role-requests"      className={styles.actionCard}>Role Requests</Link>
         </div>
+
       </div>
     </div>
   );
