@@ -10,7 +10,9 @@ const CounsellorDashboard = () => {
   const { data: enquiriesData, isLoading } = useMyEnquiries({ limit: 5 });
   if (isLoading) return <Loader />;
 
-  const enquiries = enquiriesData?.data?.data || [];
+  const _raw = enquiriesData?.data?.data;
+  const enquiries = Array.isArray(_raw) ? _raw : Array.isArray(_raw?.data) ? _raw.data : [];
+
   const stats = [
     { title: 'Active Leads',   value: enquiries.length, icon: <FaPhone />, color: 'primary' },
     { title: 'Follow-up Today', value: enquiries.filter(e => e.followUpDate && new Date(e.followUpDate).toDateString() === new Date().toDateString()).length, icon: <FaClock />, color: 'warning' },
