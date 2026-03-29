@@ -30,6 +30,10 @@ import ProgrammaticSEO from '../pages/ProgrammaticSEO';
 import PrivateRoute from './PrivateRoute';
 import RoleBasedRoute from './RoleBasedRoute';
 import MainLayout from '../components/layout/MainLayout';
+import AdminLeads     from '../pages/admin/AdminLeads';
+import AdminAnalytics from '../pages/admin/AdminAnalytics';
+import EnquiryDetail  from '../pages/counsellor/EnquiryDetail';
+
 
 const AppRoutes = () => {
   return (
@@ -74,6 +78,7 @@ const AppRoutes = () => {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/dashboard/student" element={<StudentDashboard />} />
           <Route path="/dashboard/counsellor" element={<CounsellorDashboard />} />
+          <Route path="/enquiries/:id" element={<EnquiryDetail />} />
         </Route>
 
         {/* Admin-only routes */}
@@ -84,6 +89,9 @@ const AppRoutes = () => {
           <Route path="/admin/exams/create" element={<CreateExam />} />
           <Route path="/admin/blogs/create" element={<CreateBlog />} />
           <Route path="/admin/import" element={<ImportData />} />
+          <Route path="/admin/leads"     element={<AdminLeads />} />
+          <Route path="/admin/analytics" element={<AdminAnalytics />} />
+
         </Route>
 
         {/* Admin + Moderator routes */}

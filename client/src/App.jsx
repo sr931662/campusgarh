@@ -30,6 +30,8 @@ import CreateCourse from './pages/admin/CreateCourse';
 import CreateExam from './pages/admin/CreateExam';
 import CreateBlog from './pages/admin/CreateBlog';
 import ImportData from './pages/admin/ImportData';
+import AdminLeads     from './pages/admin/AdminLeads';
+import AdminAnalytics from './pages/admin/AdminAnalytics';
 import UserProfile from './pages/UserProfile';
 import ProgrammaticSEO from './pages/ProgrammaticSEO';
 import VerifyEmail from './components/auth/VerifyEmail';
@@ -101,6 +103,8 @@ function App() {
           <Route path="/admin/exams/create" element={<CreateExam />} />
           <Route path="/admin/blogs/create" element={<CreateBlog />} />
           <Route path="/admin/import" element={<ImportData />} />
+          <Route path="/admin/leads"     element={<AdminLeads />} />
+          <Route path="/admin/analytics" element={<AdminAnalytics />} />
         </Route>
       </Route>
     </Routes>

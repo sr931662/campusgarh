@@ -29,6 +29,8 @@ router.use(protect, restrictTo('admin'));
  */
 router.get('/stats', adminController.getDashboardStats);
 
+router.get('/analytics', adminController.getAnalytics);
+
 /**
  * @swagger
  * /admin/bulk-delete-colleges:

@@ -1,6 +1,8 @@
 const AdmissionEnquiry = require('../models/AdmissionEnquiry');
 const BaseService = require('./baseService');
 const AppError = require('../utils/AppError');
+const emailService = require('./emailService');
+
 
 class EnquiryService extends BaseService {
   constructor() {
@@ -10,21 +12,28 @@ class EnquiryService extends BaseService {
   // Create enquiry (public)
   async createEnquiry(data) {
     const enquiry = await this.create(data);
-    // Auto-assign to counsellor based on load or round-robin (simplified)
+    // Student confirmation — fire-and-forget so it never blocks the response
+    emailService.sendEnquiryConfirmation(enquiry).catch(() => {});
+    // Auto-assign and notify counsellor
     await this.autoAssign(enquiry._id);
     return enquiry;
   }
 
+
   // Auto-assign to a counsellor (simple round-robin)
   async autoAssign(enquiryId) {
     const User = require('../models/User');
-    const counsellors = await User.find({ role: 'counsellor', isActive: true }).select('_id');
+    const counsellors = await User.find({ role: 'counsellor', isActive: true }).select('_id name email');
     if (counsellors.length === 0) return;
     const count = await AdmissionEnquiry.countDocuments();
     const index = count % counsellors.length;
-    const assignedTo = counsellors[index]._id;
-    await this.updateById(enquiryId, { assignedTo });
+    const counsellor = counsellors[index];
+    await this.updateById(enquiryId, { assignedTo: counsellor._id });
+    // Fetch the full enquiry to pass to the email template
+    const enquiry = await AdmissionEnquiry.findById(enquiryId);
+    emailService.sendCounsellorNotification(enquiry, counsellor).catch(() => {});
   }
+
 
   // Assign enquiry manually
   async assignEnquiry(enquiryId, counsellorId) {

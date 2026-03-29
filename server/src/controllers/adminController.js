@@ -37,7 +37,40 @@ class AdminController {
     ResponseHandler.success(res, null, 'Colleges deleted');
   });
 
-  // ... other admin operations can be added
+    // Analytics breakdown
+  getAnalytics = catchAsync(async (req, res) => {
+    const AdmissionEnquiry = enquiryService.model;
+    const startOfToday = new Date(); startOfToday.setHours(0, 0, 0, 0);
+    const endOfToday   = new Date(); endOfToday.setHours(23, 59, 59, 999);
+    const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+
+    const [
+      conversionBreakdown, callStatusBreakdown, sourceBreakdown,
+      todayFollowUps, thisMonthEnquiries,
+      totalUsers, totalColleges, totalCourses, totalEnquiries, convertedCount,
+    ] = await Promise.all([
+      AdmissionEnquiry.aggregate([{ $match: { deletedAt: null } }, { $group: { _id: '$conversionStatus', count: { $sum: 1 } } }, { $sort: { count: -1 } }]),
+      AdmissionEnquiry.aggregate([{ $match: { deletedAt: null } }, { $group: { _id: '$callStatus',       count: { $sum: 1 } } }, { $sort: { count: -1 } }]),
+      AdmissionEnquiry.aggregate([{ $match: { deletedAt: null } }, { $group: { _id: '$source',           count: { $sum: 1 } } }, { $sort: { count: -1 } }]),
+      AdmissionEnquiry.countDocuments({ deletedAt: null, followUpDate: { $gte: startOfToday, $lte: endOfToday } }),
+      AdmissionEnquiry.countDocuments({ deletedAt: null, createdAt: { $gte: startOfMonth } }),
+      userService.model.countDocuments({ deletedAt: null }),
+      collegeService.model.countDocuments({ deletedAt: null }),
+      courseService.model.countDocuments({ deletedAt: null }),
+      AdmissionEnquiry.countDocuments({ deletedAt: null }),
+      AdmissionEnquiry.countDocuments({ deletedAt: null, conversionStatus: 'converted' }),
+    ]);
+
+    ResponseHandler.success(res, {
+      conversionBreakdown,
+      callStatusBreakdown,
+      sourceBreakdown,
+      todayFollowUps,
+      thisMonthEnquiries,
+      totals: { totalUsers, totalColleges, totalCourses, totalEnquiries, convertedCount },
+    });
+  });
+
 }
 
 module.exports = new AdminController();

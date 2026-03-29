@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>New Lead Assigned – CampusGarh</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #FAF7F2; margin: 0; padding: 0; }
+    .wrap { max-width: 560px; margin: 40px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .header { background: #0A0A0F; padding: 32px 40px; }
+    .header h1 { color: #C9A84C; font-size: 22px; margin: 0 0 4px; letter-spacing: -0.02em; }
+    .header p { color: rgba(255,255,255,0.5); font-size: 13px; margin: 0; }
+    .body { padding: 32px 40px; }
+    .body h2 { color: #1C1C1E; font-size: 17px; margin: 0 0 16px; }
+    .lead-box { background: #FAF7F2; border: 1.5px solid #E8E3DB; border-radius: 10px; padding: 20px 24px; margin-bottom: 20px; }
+    .lead-box p { margin: 6px 0; font-size: 14px; color: #333; }
+    .lead-box strong { color: #1C1C1E; display: inline-block; min-width: 80px; }
+    .cta { display: inline-block; background: #C9A84C; color: #0A0A0F; padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 14px; margin-top: 8px; }
+    .footer { background: #F5F2ED; padding: 20px 40px; text-align: center; }
+    .footer p { color: #999; font-size: 12px; margin: 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1>New Lead Assigned</h1>
+      <p>CampusGarh CRM</p>
+    </div>
+    <div class="body">
+      <h2>Hi <%= counsellorName %>, you have a new lead.</h2>
+      <div class="lead-box">
+        <p><strong>Name:</strong> <%= studentName %></p>
+        <p><strong>Email:</strong> <%= studentEmail %></p>
+        <p><strong>Phone:</strong> <%= studentPhone %></p>
+        <% if (message) { %>
+        <p><strong>Message:</strong> <%= message %></p>
+        <% } %>
+        <% if (sourceUrl) { %>
+        <p><strong>Source:</strong> <%= sourceUrl %></p>
+        <% } %>
+      </div>
+      <a href="<%= dashboardUrl %>" class="cta">Open Dashboard →</a>
+    </div>
+    <div class="footer">
+      <p>© CampusGarh · This is an automated notification for counsellors.</p>
+    </div>
+  </div>
+</body>
+</html>

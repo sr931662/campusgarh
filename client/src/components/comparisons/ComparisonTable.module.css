@@ -21,3 +21,19 @@
   font-weight: 500;
   background: #f9fafb;
 }
+
+@media (max-width: 768px) {
+  .table th, .table td {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 480px) {
+  .table th, .table td {
+    padding: 0.4rem 0.25rem;
+    font-size: 0.7rem;
+  }
+  .tableWrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+}

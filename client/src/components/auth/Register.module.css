@@ -198,3 +198,20 @@
 .loginLink a:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 640px) {
+  .formGroup input,
+  .formGroup textarea,
+  .formGroup select,
+  .input,
+  .select {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .roleGroup {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}

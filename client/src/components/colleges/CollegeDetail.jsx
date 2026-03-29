@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+// Add FaEnvelope to the existing fa import line:
 import {
   FaTrophy, FaCalendarAlt, FaUsers, FaBriefcase, FaRupeeSign, FaGraduationCap, FaMapMarkerAlt,
-  FaFacebook, FaInstagram, FaLinkedinIn, FaYoutube,
+  FaFacebook, FaInstagram, FaLinkedinIn, FaYoutube, FaEnvelope,
 } from 'react-icons/fa';
+
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useCollegeBySlug, useAverageRating, useToggleSavedCollege } from '../../hooks/queries';
@@ -17,8 +19,11 @@ import CollegePlacements from './CollegePlacements';
 import CollegeFacilities from './CollegeFacilities';
 import CollegeAdmission from './CollegeAdmission';
 import CollegeCutoffs from './CollegeCutoffs';
+
 import CollegeHostelCampus from './CollegeHostelCampus';
 import CollegeEnquiryForm from './CollegeEnquiryForm';
+import Modal from '../common/Modal/Modal';
+
 import styles from './CollegeDetail.module.css';
 
 const TABS = [
@@ -34,6 +39,7 @@ const TABS = [
 export default function CollegeDetail() {
   const { slug } = useParams();
   const [activeTab, setActiveTab] = useState('info');
+  const [showEnquiryModal, setShowEnquiryModal] = useState(false);
 
   // ── Data fetching ────────────────────────────────────────────────────────────
   // axios response shape: { data: { success, message, data: collegeObject } }
@@ -187,16 +193,26 @@ export default function CollegeDetail() {
           <div className={styles.heroActions}>
             {college.contact?.website && (
               <a href={college.contact.website} target="_blank" rel="noopener noreferrer"
-                className={styles.btnPrimary}>
+                className={styles.btnSecondary}>
                 Visit Website ↗
               </a>
             )}
-            {college.admissionProcess?.applicationLink && (
+            {college.admissionProcess?.applicationLink ? (
               <a href={college.admissionProcess.applicationLink} target="_blank" rel="noopener noreferrer"
-                className={styles.btnSecondary}>
-                Apply Now
+                className={styles.btnPrimary}>
+                Apply Now ↗
               </a>
+            ) : (
+              <button className={styles.btnPrimary} onClick={() => setActiveTab('admission')}>
+                Apply Now
+              </button>
             )}
+            <button
+              className={styles.btnEnquiry}
+              onClick={() => setShowEnquiryModal(true)}
+            >
+              <FaEnvelope /> Enquire Now
+            </button>
             {isAuthenticated && (
               <button
                 className={`${styles.btnSecondary} ${isSaved ? styles.btnSaved : ''}`}
@@ -206,6 +222,7 @@ export default function CollegeDetail() {
               </button>
             )}
           </div>
+
         </div>
       </section>
 
@@ -407,8 +424,30 @@ export default function CollegeDetail() {
         </aside>
         </div>
       </div>
+          {/* ── MOBILE STICKY CTA BAR ─────────────────────────────────────────────── */}
+      <div className={styles.mobileCTA}>
+        {college.admissionProcess?.applicationLink ? (
+          <a href={college.admissionProcess.applicationLink} target="_blank" rel="noopener noreferrer"
+            className={styles.mobileCTAApply}>
+            Apply Now ↗
+          </a>
+        ) : (
+          <button className={styles.mobileCTAApply} onClick={() => setActiveTab('admission')}>
+            Apply Now
+          </button>
+        )}
+        <button className={styles.mobileCTAEnquire} onClick={() => setShowEnquiryModal(true)}>
+          <FaEnvelope /> Enquire
+        </button>
+      </div>
+
+      {/* ── ENQUIRY MODAL ─────────────────────────────────────────────────────── */}
+      <Modal isOpen={showEnquiryModal} onClose={() => setShowEnquiryModal(false)} title="Enquire About This College">
+        <CollegeEnquiryForm college={college} />
+      </Modal>
     </div>
   );
+
 }
 
 // Small stat box helper component

@@ -56,12 +56,15 @@
 }
 
 .logoIcon {
-  height: 200px;
+  height: 200px; /* was 200px */
   width: auto;
-  display: block;
   object-fit: contain;
 }
-
+@media (max-width: 480px) {
+  .logoIcon {
+    height: 150px;
+  }
+}
 /* Nav links */
 .navLinks {
   display: flex;

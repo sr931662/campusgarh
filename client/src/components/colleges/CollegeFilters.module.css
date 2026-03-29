@@ -267,3 +267,23 @@
 .toggleOn .toggleKnob {
   transform: translateX(16px);
 }
+
+@media (max-width: 768px) {
+  .filters {
+    position: static;
+    max-height: none;
+    margin-bottom: 2rem;
+    top: auto;
+  }
+}
+
+
+@media (max-width: 640px) {
+  .formGroup input,
+  .formGroup textarea,
+  .formGroup select,
+  .input,
+  .select {
+    font-size: 16px;
+  }
+}

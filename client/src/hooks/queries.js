@@ -12,6 +12,7 @@ import { enquiryService } from '../services/enquiryService';
 import { comparisonService } from '../services/comparisonService';
 import { mediaService } from '../services/mediaService';
 import { importExportService } from '../services/importExportService';
+import { adminService } from '../services/adminService';
 import { collegeCourseService } from '../services/collegeCourseService';
 
 // ========== Auth Hooks ==========
@@ -685,5 +686,28 @@ export const useImportLogs = (params) => {
   return useQuery({
     queryKey: ['importLogs', params],
     queryFn: () => importExportService.getImportLogs(params),
+  });
+};
+
+// ========== Admin Hooks ==========
+export const useAdminAnalytics = () => {
+  return useQuery({
+    queryKey: ['adminAnalytics'],
+    queryFn: adminService.getAnalytics,
+    staleTime: 60 * 1000,
+  });
+};
+
+export const useAssignEnquiry = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ enquiryId, counsellorId }) =>
+      enquiryService.assignEnquiry(enquiryId, counsellorId),
+    onSuccess: (_, { enquiryId }) => {
+      queryClient.invalidateQueries({ queryKey: ['enquiry', enquiryId] });
+      queryClient.invalidateQueries({ queryKey: ['allEnquiries'] });
+      toast.success('Lead reassigned');
+    },
+    onError: (error) => toast.error(error.response?.data?.message || 'Assign failed'),
   });
 };

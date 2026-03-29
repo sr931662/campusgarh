@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Enquiry Received – CampusGarh</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #FAF7F2; margin: 0; padding: 0; }
+    .wrap { max-width: 560px; margin: 40px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .header { background: #0A0A0F; padding: 32px 40px; text-align: center; }
+    .header h1 { color: #C9A84C; font-size: 22px; margin: 0; letter-spacing: -0.02em; }
+    .body { padding: 32px 40px; }
+    .body h2 { color: #1C1C1E; font-size: 18px; margin: 0 0 12px; }
+    .body p { color: #555; font-size: 14px; line-height: 1.7; margin: 0 0 12px; }
+    .info-box { background: #FAF7F2; border: 1px solid #E8E3DB; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+    .info-box p { margin: 4px 0; font-size: 13px; color: #333; }
+    .info-box strong { color: #1C1C1E; }
+    .footer { background: #F5F2ED; padding: 20px 40px; text-align: center; }
+    .footer p { color: #999; font-size: 12px; margin: 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h1>CampusGarh</h1>
+    </div>
+    <div class="body">
+      <h2>Hi <%= name %>, we got your enquiry!</h2>
+      <p>Thank you for reaching out. One of our counsellors will contact you within <strong>24 hours</strong> to help you find the right college.</p>
+      <div class="info-box">
+        <p><strong>Name:</strong> <%= name %></p>
+        <p><strong>Phone:</strong> <%= phone %></p>
+        <% if (message) { %>
+        <p><strong>Your message:</strong> <%= message %></p>
+        <% } %>
+      </div>
+      <p>While you wait, explore more colleges at <a href="<%= process.env.CLIENT_URL || 'https://campusgarh.com' %>" style="color:#C9A84C;">CampusGarh</a>.</p>
+    </div>
+    <div class="footer">
+      <p>© CampusGarh · India's student-first college discovery platform</p>
+    </div>
+  </div>
+</body>
+</html>
