@@ -43,6 +43,8 @@ import ManageCourses from './pages/admin/ManageCourses';
 import ManageExams from './pages/admin/ManageExams';
 import ManageBlogs from './pages/admin/ManageBlogs';
 import ScrollToTop from './components/common/ScrollToTop';
+import AdminGuide from './pages/admin/AdminGuide';
+
 
 import { ROLES } from './utils/constants';
 
@@ -119,6 +121,7 @@ function App() {
             <Route path="/admin/leads"     element={<AdminLeads />} />
             <Route path="/admin/analytics" element={<AdminAnalytics />} />
             <Route path="/admin/role-requests" element={<AdminRoleRequests />} />
+            <Route path="/admin/guide" element={<AdminGuide />} />
           </Route>
 
         </Route>

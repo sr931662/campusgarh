@@ -111,6 +111,8 @@ const AdminDashboard = () => {
           <Link to="/admin/leads"              className={styles.actionCard}>Manage Leads</Link>
           <Link to="/admin/analytics"          className={styles.actionCard}>Analytics</Link>
           <Link to="/admin/role-requests"      className={styles.actionCard}>Role Requests</Link>
+          <Link to="/admin/guide" className={styles.actionCard}>Resource Guide</Link>
+
         </div>
 
       </div>
