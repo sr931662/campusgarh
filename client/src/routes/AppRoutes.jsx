@@ -33,6 +33,8 @@ import MainLayout from '../components/layout/MainLayout';
 import AdminLeads     from '../pages/admin/AdminLeads';
 import AdminAnalytics from '../pages/admin/AdminAnalytics';
 import EnquiryDetail  from '../pages/counsellor/EnquiryDetail';
+import AdminRoleRequests from '../pages/admin/AdminRoleRequests';
+
 
 
 const AppRoutes = () => {
@@ -91,6 +93,8 @@ const AppRoutes = () => {
           <Route path="/admin/import" element={<ImportData />} />
           <Route path="/admin/leads"     element={<AdminLeads />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
+          <Route path="/admin/role-requests" element={<AdminRoleRequests />} />
+
 
         </Route>
 

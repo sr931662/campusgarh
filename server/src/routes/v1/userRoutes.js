@@ -110,6 +110,11 @@ router.patch('/me/academic', userController.updateAcademicDetails);
  */
 router.patch('/me/preferences', userController.updatePreferences);
 
+router.post('/me/role-request', userController.requestRoleChange);
+router.get('/me/role-requests', userController.getMyRoleRequests);
+router.get('/role-requests', restrictTo('admin'), userController.getAllRoleRequests);
+router.patch('/role-requests/:requestId', restrictTo('admin'), userController.reviewRoleRequest);
+
 /**
  * @swagger
  * /users/saved-colleges/{collegeId}:

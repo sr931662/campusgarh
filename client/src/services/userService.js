@@ -1,30 +1,17 @@
 import api from './api';
 
 export const userService = {
-  // Get current user profile
-  getProfile: () => api.get('/users/me'),
-
-  // Update profile
-  updateProfile: (data) => api.patch('/users/me', data),
-
-  // Update academic details
-  updateAcademicDetails: (data) => api.patch('/users/me/academic', data),
-
-  // Update preferences
-  updatePreferences: (data) => api.patch('/users/me/preferences', data),
-
-  // Toggle saved college
-  toggleSavedCollege: (collegeId) => api.post(`/users/saved-colleges/${collegeId}`),
-
-  // Toggle saved course
-  toggleSavedCourse: (courseId) => api.post(`/users/saved-courses/${courseId}`),
-
-  // Admin: get all users
-  getAllUsers: (params) => api.get('/users', { params }),
-
-  // Admin: toggle user active status
-  toggleActiveStatus: (userId, isActive) => api.patch(`/users/${userId}/toggle-active`, { isActive }),
-
-  // Admin: assign role
-  assignRole: (userId, role) => api.patch(`/users/${userId}/role`, { role }),
+  getProfile:           ()           => api.get('/users/me'),
+  updateProfile:        (data)       => api.patch('/users/me', data),
+  updateAcademicDetails:(data)       => api.patch('/users/me/academic', data),
+  updatePreferences:    (data)       => api.patch('/users/me/preferences', data),
+  toggleSavedCollege:   (collegeId)  => api.post(`/users/saved-colleges/${collegeId}`),
+  toggleSavedCourse:    (courseId)   => api.post(`/users/saved-courses/${courseId}`),
+  requestRoleChange:    (data)       => api.post('/users/me/role-request', data),
+  getMyRoleRequests:    ()           => api.get('/users/me/role-requests'),
+  getAllRoleRequests:    (params)     => api.get('/users/role-requests', { params }),
+  reviewRoleRequest:    (id, data)   => api.patch(`/users/role-requests/${id}`, data),
+  getAllUsers:           (params)     => api.get('/users', { params }),
+  toggleActiveStatus:   (userId, isActive) => api.patch(`/users/${userId}/toggle-active`, { isActive }),
+  assignRole:           (userId, role)     => api.patch(`/users/${userId}/role`, { role }),
 };

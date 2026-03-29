@@ -1,47 +1,87 @@
-.card {
-  max-width: 600px;
-  margin: 2rem auto;
-}
+.page { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
 
-.title {
-  font-size: 1.5rem;
-  font-weight: 700;
+.header {
+  display: flex; align-items: center; gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: #C9A84C; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.75rem; font-weight: 700; flex-shrink: 0;
+}
+.name { font-size: 1.4rem; font-weight: 700; color: #1C1C1E; margin: 0 0 0.25rem; }
+
+.tabs {
+  display: flex; gap: 0.25rem;
+  border-bottom: 2px solid #EDE8E0;
   margin-bottom: 1.5rem;
-  color: var(--color-text-primary, #1a202c);
+  overflow-x: auto;
+}
+.tab {
+  padding: 0.6rem 1.1rem; background: none; border: none;
+  font-size: 0.875rem; font-weight: 500; color: #6B7280;
+  cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent;
+  margin-bottom: -2px; transition: color 0.2s, border-color 0.2s;
+}
+.tabActive { color: #C9A84C; border-bottom-color: #C9A84C; }
+
+.card {
+  background: #fff; border-radius: 16px;
+  border: 1px solid #EDE8E0;
+  padding: 2rem;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
+.sectionTitle { font-size: 1.1rem; font-weight: 700; color: #1C1C1E; margin: 0 0 1.5rem; }
 
-.formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
+.form { display: flex; flex-direction: column; gap: 1.25rem; }
+.formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.formGroup { display: flex; flex-direction: column; gap: 0.35rem; }
+.formGroup label { font-size: 0.8rem; font-weight: 600; color: #374151; }
+.formGroup input, .formGroup select, .formGroup textarea {
+  padding: 0.55rem 0.75rem; border: 1.5px solid #DDD8CF; border-radius: 8px;
+  font-size: 0.875rem; font-family: inherit; color: #1C1C1E; outline: none;
+  transition: border-color 0.2s;
 }
+.formGroup input:focus, .formGroup select:focus, .formGroup textarea:focus { border-color: #C9A84C; }
+.formGroup input:disabled { background: #F5F0E8; cursor: not-allowed; color: #6B7280; }
+.formGroup textarea { resize: vertical; }
 
-.formGroup label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text-secondary, #4a5568);
+.locked { font-size: 0.72rem; font-weight: 400; color: #94a3b8; }
+.hint   { font-size: 0.72rem; font-weight: 400; color: #94a3b8; }
+
+.roleBadge {
+  display: inline-block; padding: 0.2rem 0.7rem;
+  background: #FBF8F2; border: 1px solid #EDE8E0;
+  border-radius: 999px; font-size: 0.78rem; font-weight: 600; color: #C9A84C;
 }
+.currentRole { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
+.roleLabel   { font-weight: 600; color: #374151; }
 
-.formGroup input {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  outline: none;
-  transition: border-color 0.15s;
+.infoNote { font-size: 0.875rem; color: #6B7280; margin-bottom: 1rem; }
+.roleForm { display: flex; flex-direction: column; gap: 1rem; }
+
+.pendingBox {
+  padding: 1rem; background: #FEF9EC; border: 1px solid #F5D97E;
+  border-radius: 10px; color: #92400E;
 }
+.pendingBox strong { display: block; margin-bottom: 0.25rem; }
 
-.formGroup input:focus {
-  border-color: var(--color-primary, #3b82f6);
+.requestHistory { margin-top: 2rem; }
+.requestHistory h3 { font-size: 0.95rem; font-weight: 700; color: #374151; margin: 0 0 0.75rem; }
+.requestCard {
+  padding: 0.85rem 1rem; border-radius: 10px;
+  border: 1px solid #EDE8E0; margin-bottom: 0.5rem;
+  background: #FAFAF9;
 }
+.pending  { color: #d97706; font-weight: 600; }
+.approved { color: #16a34a; font-weight: 600; }
+.rejected { color: #dc2626; font-weight: 600; }
+.reqMeta  { font-size: 0.8rem; color: #6B7280; margin-top: 0.25rem; }
+.reqNote  { font-size: 0.8rem; color: #374151; margin-top: 0.25rem; font-style: italic; }
+.reqDate  { font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem; }
 
-.formGroup input:disabled {
-  background-color: #f3f4f6;
-  cursor: not-allowed;
+@media (max-width: 600px) {
+  .formRow { grid-template-columns: 1fr; }
+  .card { padding: 1.25rem; }
 }

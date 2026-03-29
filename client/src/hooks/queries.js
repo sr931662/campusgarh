@@ -711,3 +711,45 @@ export const useAssignEnquiry = () => {
     onError: (error) => toast.error(error.response?.data?.message || 'Assign failed'),
   });
 };
+
+export const useUpdateAcademicDetails = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: userService.updateAcademicDetails,
+    onSuccess: () => { toast.success('Academic details updated'); queryClient.invalidateQueries({ queryKey: ['userProfile'] }); },
+    onError: (err) => toast.error(err.response?.data?.message || 'Update failed'),
+  });
+};
+
+export const useUpdatePreferences = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: userService.updatePreferences,
+    onSuccess: () => { toast.success('Preferences updated'); queryClient.invalidateQueries({ queryKey: ['userProfile'] }); },
+    onError: (err) => toast.error(err.response?.data?.message || 'Update failed'),
+  });
+};
+
+export const useRequestRoleChange = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: userService.requestRoleChange,
+    onSuccess: () => { toast.success('Role change request submitted!'); queryClient.invalidateQueries({ queryKey: ['myRoleRequests'] }); },
+    onError: (err) => toast.error(err.response?.data?.message || 'Request failed'),
+  });
+};
+
+export const useMyRoleRequests = () =>
+  useQuery({ queryKey: ['myRoleRequests'], queryFn: userService.getMyRoleRequests });
+
+export const useAllRoleRequests = (params) =>
+  useQuery({ queryKey: ['allRoleRequests', params], queryFn: () => userService.getAllRoleRequests(params) });
+
+export const useReviewRoleRequest = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => userService.reviewRoleRequest(id, data),
+    onSuccess: () => { toast.success('Done!'); queryClient.invalidateQueries({ queryKey: ['allRoleRequests'] }); },
+    onError: (err) => toast.error(err.response?.data?.message || 'Action failed'),
+  });
+};

@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const BaseService = require('./baseService');
 const AppError = require('../utils/AppError');
+const RoleChangeRequest = require('../models/RoleChangeRequest');
 
 class UserService extends BaseService {
   constructor() {
@@ -102,6 +103,49 @@ class UserService extends BaseService {
     const user = await this.updateById(userId, { role });
     return user;
   }
+
+    async requestRoleChange(userId, { requestedRole, reason }) {
+    const user = await User.findById(userId);
+    if (!user) throw new AppError('User not found', 404);
+    if (user.role === requestedRole) throw new AppError('You already have this role', 400);
+    const allowed = ['student', 'counsellor', 'institution_rep'];
+    if (!allowed.includes(requestedRole)) throw new AppError('Cannot request this role', 400);
+    const existing = await RoleChangeRequest.findOne({ user: userId, status: 'pending' });
+    if (existing) throw new AppError('You already have a pending role change request', 400);
+    return RoleChangeRequest.create({ user: userId, currentRole: user.role, requestedRole, reason });
+  }
+
+  async getMyRoleRequests(userId) {
+    return RoleChangeRequest.find({ user: userId }).sort({ createdAt: -1 }).lean();
+  }
+
+  async getAllRoleRequests({ status, page = 1, limit = 20 } = {}) {
+    const filter = {};
+    if (status) filter.status = status;
+    const skip = (page - 1) * limit;
+    const [data, total] = await Promise.all([
+      RoleChangeRequest.find(filter)
+        .populate('user', 'name email role')
+        .populate('reviewedBy', 'name')
+        .sort({ createdAt: -1 }).skip(skip).limit(+limit).lean(),
+      RoleChangeRequest.countDocuments(filter),
+    ]);
+    return { data, pagination: { total, page: +page, limit: +limit } };
+  }
+
+  async reviewRoleRequest(requestId, adminId, action, reviewNote) {
+    const request = await RoleChangeRequest.findById(requestId).populate('user');
+    if (!request) throw new AppError('Request not found', 404);
+    if (request.status !== 'pending') throw new AppError('Request already reviewed', 400);
+    request.status = action === 'approve' ? 'approved' : 'rejected';
+    request.reviewedBy = adminId;
+    request.reviewNote = reviewNote || '';
+    request.reviewedAt = new Date();
+    await request.save();
+    if (action === 'approve') await User.findByIdAndUpdate(request.user._id, { role: request.requestedRole });
+    return request;
+  }
+
 }
 
 module.exports = new UserService();

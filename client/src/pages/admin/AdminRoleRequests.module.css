@@ -1,0 +1,27 @@
+.page { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.header h1 { font-size: 1.5rem; font-weight: 700; color: #1C1C1E; }
+.filters { display: flex; gap: 0.5rem; }
+.filterBtn { padding: 0.4rem 0.9rem; border-radius: 999px; border: 1.5px solid #DDD8CF; background: none; cursor: pointer; font-size: 0.8rem; color: #6B7280; transition: all 0.2s; }
+.filterActive { background: #C9A84C; border-color: #C9A84C; color: #fff; font-weight: 600; }
+.empty { color: #6B7280; text-align: center; padding: 3rem; }
+.list { display: flex; flex-direction: column; gap: 1rem; }
+.card { background: #fff; border: 1px solid #EDE8E0; border-radius: 14px; padding: 1.25rem; }
+.cardTop { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+.userName  { font-weight: 600; color: #1C1C1E; }
+.userEmail { font-size: 0.8rem; color: #6B7280; }
+.status { padding: 0.2rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.pending  { background: #FEF9EC; color: #d97706; }
+.approved { background: #DCFCE7; color: #16a34a; }
+.rejected { background: #FEE2E2; color: #dc2626; }
+.roleChange { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+.from  { font-size: 0.85rem; color: #6B7280; }
+.arrow { color: #C9A84C; font-weight: 700; }
+.to    { font-size: 0.85rem; font-weight: 600; color: #C9A84C; }
+.reason    { font-size: 0.85rem; color: #374151; margin-bottom: 0.5rem; }
+.reviewNote{ font-size: 0.8rem; color: #6B7280; font-style: italic; margin-bottom: 0.5rem; }
+.meta      { font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.75rem; }
+.actions   { display: flex; gap: 0.5rem; }
+.approveBtn { padding: 0.4rem 1rem; background: #16a34a; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+.rejectBtn  { padding: 0.4rem 1rem; background: #ef4444; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+.approveBtn:disabled, .rejectBtn:disabled { opacity: 0.6; cursor: not-allowed; }

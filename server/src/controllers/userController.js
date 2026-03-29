@@ -66,6 +66,28 @@ class UserController {
     const user = await userService.assignRole(userId, role);
     ResponseHandler.success(res, user);
   });
+    requestRoleChange = catchAsync(async (req, res) => {
+    const result = await userService.requestRoleChange(req.user.id, req.body);
+    ResponseHandler.success(res, result, 'Role change request submitted', 201);
+  });
+
+  getMyRoleRequests = catchAsync(async (req, res) => {
+    const requests = await userService.getMyRoleRequests(req.user.id);
+    ResponseHandler.success(res, requests);
+  });
+
+  getAllRoleRequests = catchAsync(async (req, res) => {
+    const requests = await userService.getAllRoleRequests(req.query);
+    ResponseHandler.success(res, requests);
+  });
+
+  reviewRoleRequest = catchAsync(async (req, res) => {
+    const { requestId } = req.params;
+    const { action, reviewNote } = req.body;
+    const result = await userService.reviewRoleRequest(requestId, req.user.id, action, reviewNote);
+    ResponseHandler.success(res, result, `Role request ${action}d`);
+  });
+
 }
 
 module.exports = new UserController();
