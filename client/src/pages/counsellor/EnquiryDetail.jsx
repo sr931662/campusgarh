@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { FaInbox } from 'react-icons/fa';
 import { useParams, Link } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore';
+import { ROLES } from '../../utils/constants';
 import {
   useEnquiry,
   useAddNote,
@@ -34,6 +36,8 @@ const CALL_COLORS = {
 
 export default function EnquiryDetail() {
   const { id } = useParams();
+  const user = useAuthStore((s) => s.user);
+  const dashboardPath = user?.role === ROLES.ADMIN ? '/dashboard/admin' : '/dashboard/counsellor';
   const { data: res, isLoading, error } = useEnquiry(id);
   const addNoteMutation = useAddNote();
   const updateCallMutation = useUpdateCallStatus();
@@ -76,14 +80,14 @@ export default function EnquiryDetail() {
     <div className={styles.errorWrap}>
       <span className={styles.errorIcon}><FaInbox /></span>
       <h2>Enquiry not found</h2>
-      <Link to="/dashboard/counsellor"><Button variant="primary">Back to Dashboard</Button></Link>
+      <Link to={dashboardPath}><Button variant="primary">Back to Dashboard</Button></Link>
     </div>
   );
 
   return (
     <div className={styles.page}>
       <div className={styles.topBar}>
-        <Link to="/dashboard/counsellor" className={styles.back}>← Back to Dashboard</Link>
+        <Link to={dashboardPath} className={styles.back}>← Back to Dashboard</Link>
       </div>
 
       <div className={styles.grid}>
