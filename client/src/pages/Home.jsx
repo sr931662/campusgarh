@@ -9,6 +9,7 @@ import HeroCanvas from '../components/home/HeroCanvas';
 import { useFeaturedColleges } from '../hooks/queries';
 import styles from './Home.module.css';
 import StudyPlaces from '../components/home/StudyPlaces';
+import PredictorWidget from '../components/home/PredictorWidget';
 
 const stats = [
   { num: '500+', label: 'Colleges' },
@@ -433,6 +434,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+      
+      
+      <PredictorWidget />
 
     </div>
   );

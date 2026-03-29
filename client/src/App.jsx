@@ -44,6 +44,8 @@ import ManageExams from './pages/admin/ManageExams';
 import ManageBlogs from './pages/admin/ManageBlogs';
 import ScrollToTop from './components/common/ScrollToTop';
 import AdminGuide from './pages/admin/AdminGuide';
+import Predictor from './pages/Predictor';
+
 
 
 import { ROLES } from './utils/constants';
@@ -78,6 +80,7 @@ function App() {
           {/* Any authenticated user */}
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/predictor" element={<Predictor />} />   {/* ← add this */}
           </Route>
 
           {/* Student dashboard */}

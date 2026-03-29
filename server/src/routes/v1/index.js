@@ -12,6 +12,8 @@ const mediaRoutes = require('./mediaRoutes');
 const importExportRoutes = require('./importExportRoutes');
 const adminRoutes = require('./adminRoutes');
 const collegeCourseRoutes = require('./collegeCourseRoutes');
+const predictorRoutes = require('./predictorRoutes');
+
 
 const router = express.Router();
 
@@ -28,5 +30,7 @@ router.use('/media', mediaRoutes);
 router.use('/import-export', importExportRoutes);
 router.use('/admin', adminRoutes);
 router.use('/college-courses', collegeCourseRoutes);
+router.use('/predictor', predictorRoutes);
+
 
 module.exports = router;
