@@ -37,6 +37,7 @@ import ProgrammaticSEO from './pages/ProgrammaticSEO';
 import VerifyEmail from './components/auth/VerifyEmail';
 import PrivateRoute from './routes/PrivateRoute';
 import RoleBasedRoute from './routes/RoleBasedRoute';
+import AdminRoleRequests from './pages/admin/AdminRoleRequests';
 import { ROLES } from './utils/constants';
 
 function App() {
@@ -105,6 +106,7 @@ function App() {
           <Route path="/admin/import" element={<ImportData />} />
           <Route path="/admin/leads"     element={<AdminLeads />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
+          <Route path="/admin/role-requests" element={<AdminRoleRequests />} />
         </Route>
       </Route>
     </Routes>
