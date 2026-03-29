@@ -14,10 +14,9 @@ class AuthService extends BaseService {
   signToken(id) {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
-      // Google OAuth
-      googleAuth: (credential) => api.post('/auth/oauth/google', { credential }),
     });
   }
+
 
   // Create send token response
   createSendToken(user, statusCode, res) {
