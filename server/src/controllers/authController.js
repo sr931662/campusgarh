@@ -2,6 +2,8 @@ const catchAsync = require('../utils/catchAsync');
 const ResponseHandler = require('../utils/responseHandler');
 const authService = require('../services/authService');
 const { validationResult } = require('express-validator');
+const { OAuth2Client } = require('google-auth-library');   // ← add here
+
 
 class AuthController {
   // Register a new user
@@ -68,7 +70,6 @@ class AuthController {
     const { credential } = req.body;
     if (!credential) return ResponseHandler.error(res, { message: 'Google credential required' }, 400);
 
-    const { OAuth2Client } = require('google-auth-library');
     const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
     const ticket = await client.verifyIdToken({
