@@ -2,32 +2,18 @@ const mongoose = require('mongoose');
 
 const comparisonSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-      index: true,
-    },
-    colleges: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'College',
-        required: true,
-      },
-    ],
-    // Snapshot of data at time of creation (to avoid future changes affecting comparison)
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+    type: { type: String, enum: ['college', 'course', 'exam'], required: true, default: 'college' },
+    colleges: [{ type: mongoose.Schema.Types.ObjectId, ref: 'College' }],
+    courses:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course'  }],
+    exams:    [{ type: mongoose.Schema.Types.ObjectId, ref: 'Exam'    }],
     snapshot: {
-      fees: [Number],
-      coursesOffered: [[String]],
+      fees:       [Number],
       placements: [Number],
-      rankings: [Number],
-      facilities: [[String]],
-      ratings: [Number],
+      rankings:   [Number],
     },
-    // Metadata
-    name: String, // user can name the comparison
+    name:     String,
     isPublic: { type: Boolean, default: false },
-    // Audit
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     deletedAt: Date,
@@ -35,7 +21,7 @@ const comparisonSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-comparisonSchema.index({ colleges: 1 });
+comparisonSchema.index({ type: 1 });
 comparisonSchema.index({ isPublic: 1 });
 
 module.exports = mongoose.model('Comparison', comparisonSchema);

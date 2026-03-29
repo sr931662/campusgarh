@@ -1,17 +1,44 @@
 import React from 'react';
 import styles from './ComparisonTable.module.css';
-import { formatCurrency } from '../../utils/formatters';
-import RatingStars from '../common/RatingStars/RatingStars';
 
-const ComparisonTable = ({ colleges }) => {
-  if (!colleges || colleges.length === 0) return null;
+const fmt = (n) => n ? `₹${Number(n).toLocaleString('en-IN')}` : 'N/A';
 
-  const parameters = [
-    { key: 'fees', label: 'Annual Fees', format: (v) => formatCurrency(v) },
-    { key: 'ranking', label: 'NIRF Rank', format: (v) => v || 'N/A' },
-    { key: 'placement', label: 'Average Package', format: (v) => formatCurrency(v) },
-    { key: 'rating', label: 'Rating', format: (v) => <RatingStars rating={v} size="sm" /> },
-  ];
+const COLLEGE_ROWS = [
+  { label: 'Location',       get: c => `${c.contact?.city || ''}${c.contact?.state ? ', ' + c.contact.state : ''}` || 'N/A' },
+  { label: 'NIRF Rank',      get: c => c.accreditation?.nirfRank || 'Not Ranked' },
+  { label: 'NAAC Grade',     get: c => c.accreditation?.naacGrade || 'N/A' },
+  { label: 'Total Fees/yr',  get: c => fmt(c.fees?.total) },
+  { label: 'Avg Package',    get: c => fmt(c.placementStats?.averagePackage) },
+  { label: 'Placement %',    get: c => c.placementStats?.placementPercentage ? `${c.placementStats.placementPercentage}%` : 'N/A' },
+  { label: 'Campus Type',    get: c => c.campusInfo?.campusType || 'N/A' },
+  { label: 'Hostel',         get: c => c.hostel?.available ? 'Available' : 'N/A' },
+];
+
+const COURSE_ROWS = [
+  { label: 'Level',          get: c => c.category || 'N/A' },
+  { label: 'Discipline',     get: c => c.discipline || 'N/A' },
+  { label: 'Duration',       get: c => c.duration || 'N/A' },
+  { label: 'Mode',           get: c => c.mode || 'N/A' },
+  { label: 'Fee Range/yr',   get: c => c.feeRange?.min || c.feeRange?.max ? `${fmt(c.feeRange.min)} – ${fmt(c.feeRange.max)}` : 'N/A' },
+  { label: 'Eligibility',    get: c => c.eligibility || 'N/A' },
+  { label: 'Admission Type', get: c => c.admissionType || 'N/A' },
+];
+
+const EXAM_ROWS = [
+  { label: 'Category',          get: e => e.category || 'N/A' },
+  { label: 'Level',             get: e => e.examLevel || 'N/A' },
+  { label: 'Conducting Body',   get: e => e.conductingBody || 'N/A' },
+  { label: 'Exam Mode',         get: e => e.examMode || 'N/A' },
+  { label: 'Frequency',         get: e => e.frequency || 'N/A' },
+  { label: 'Registration Fee',  get: e => e.registrationFee ? `₹${e.registrationFee}` : 'N/A' },
+  { label: 'Official Website',  get: e => e.officialWebsite ? <a href={e.officialWebsite} target="_blank" rel="noreferrer" style={{ color: '#C9A84C' }}>Visit</a> : 'N/A' },
+];
+
+const ROWS_MAP = { college: COLLEGE_ROWS, course: COURSE_ROWS, exam: EXAM_ROWS };
+
+const ComparisonTable = ({ type = 'college', items }) => {
+  if (!items || items.length === 0) return null;
+  const rows = ROWS_MAP[type] || COLLEGE_ROWS;
 
   return (
     <div className={styles.tableWrapper}>
@@ -19,30 +46,14 @@ const ComparisonTable = ({ colleges }) => {
         <thead>
           <tr>
             <th>Parameter</th>
-            {colleges.map((college) => (
-              <th key={college._id}>{college.name}</th>
-            ))}
+            {items.map(item => <th key={item._id}>{item.name}</th>)}
           </tr>
         </thead>
         <tbody>
-          {parameters.map((param) => (
-            <tr key={param.key}>
-              <td className={styles.paramLabel}>{param.label}</td>
-              {colleges.map((college) => {
-                let value;
-                if (param.key === 'fees') value = college.fees?.total;
-                else if (param.key === 'ranking') {
-                  const latestRank = college.rankings?.find(r => r.year === new Date().getFullYear()) || college.rankings?.[0];
-                  value = latestRank?.rank;
-                }
-                else if (param.key === 'placement') value = college.placementStats?.averagePackage;
-                else if (param.key === 'rating') value = college.averageRating || 0;
-                return (
-                  <td key={college._id}>
-                    {param.format ? param.format(value) : value || 'N/A'}
-                  </td>
-                );
-              })}
+          {rows.map(row => (
+            <tr key={row.label}>
+              <td className={styles.paramLabel}>{row.label}</td>
+              {items.map(item => <td key={item._id}>{row.get(item) ?? 'N/A'}</td>)}
             </tr>
           ))}
         </tbody>

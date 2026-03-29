@@ -3,47 +3,49 @@ const BaseService = require('./baseService');
 const AppError = require('../utils/AppError');
 
 class ComparisonService extends BaseService {
-  constructor() {
-    super(Comparison);
+  constructor() { super(Comparison); }
+
+  async createComparison(userId, type = 'college', itemIds = [], name = 'My Comparison') {
+    const payload = { user: userId, type, name, colleges: [], courses: [], exams: [], snapshot: {} };
+
+    if (type === 'college') {
+      const College = require('../models/College');
+      const items = await College.find({ _id: { $in: itemIds }, deletedAt: null }).lean();
+      payload.colleges = itemIds;
+      payload.snapshot = {
+        fees:       items.map(c => c.fees?.total || 0),
+        placements: items.map(c => c.placementStats?.averagePackage || 0),
+        rankings:   items.map(c => c.rankings?.find(r => r.year === new Date().getFullYear())?.rank || 0),
+      };
+    } else if (type === 'course') {
+      payload.courses = itemIds;
+    } else if (type === 'exam') {
+      payload.exams = itemIds;
+    }
+
+    return this.create(payload);
   }
 
-  // Create comparison with snapshot
-  async createComparison(userId, collegeIds, name = 'My Comparison') {
-    // Fetch colleges data to create snapshot
-    const College = require('../models/College');
-    const colleges = await College.find({ _id: { $in: collegeIds }, deletedAt: null }).lean();
-    const snapshot = {
-      fees: colleges.map(c => c.fees?.total || 0),
-      coursesOffered: [], // will need to fetch from CollegeCourse
-      placements: colleges.map(c => c.placementStats?.averagePackage || 0),
-      rankings: colleges.map(c => {
-        const recent = c.rankings?.find(r => r.year === new Date().getFullYear());
-        return recent?.rank || 0;
-      }),
-      facilities: colleges.map(c => c.facilities || []),
-      ratings: [], // can fetch from Review service
-    };
-    const comparison = await this.create({ user: userId, colleges: collegeIds, snapshot, name });
-    return comparison;
-  }
-
-  // Get user comparisons
   async getUserComparisons(userId) {
     return this.findAll({ user: userId, deletedAt: null }, { limit: 20 }, { updatedAt: -1 });
   }
 
-  // Get comparison by ID with populated colleges
   async getComparisonById(id) {
     const comparison = await Comparison.findById(id)
-      .populate('colleges', 'name slug contact city state placementStats fees rankings')
+      .populate('colleges', 'name slug contact accreditation placementStats fees campusInfo hostel')
+      .populate('courses',  'name category discipline duration mode feeRange eligibility admissionType')
+      .populate('exams',    'name category examLevel conductingBody registrationFee examMode frequency officialWebsite')
       .lean();
     if (!comparison) throw new AppError('Comparison not found', 404);
     return comparison;
   }
 
-  // Update comparison (add/remove colleges)
-  async updateComparison(id, collegeIds) {
-    return this.updateById(id, { colleges: collegeIds });
+  async updateComparison(id, type, itemIds) {
+    const update = { type, colleges: [], courses: [], exams: [] };
+    if (type === 'college') update.colleges = itemIds;
+    else if (type === 'course') update.courses = itemIds;
+    else if (type === 'exam') update.exams = itemIds;
+    return this.updateById(id, update);
   }
 }
 
