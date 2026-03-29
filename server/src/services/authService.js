@@ -14,6 +14,8 @@ class AuthService extends BaseService {
   signToken(id) {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
+      // Google OAuth
+      googleAuth: (credential) => api.post('/auth/oauth/google', { credential }),
     });
   }
 
@@ -177,6 +179,7 @@ class AuthService extends BaseService {
   async oAuthLogin(profile) {
     // First try to find by googleId, then by email
     let user = await User.findOne({ googleId: profile.googleId });
+    
     if (!user) {
       user = await User.findOne({ email: profile.email });
     }
@@ -204,6 +207,7 @@ class AuthService extends BaseService {
     user.password = undefined;
     return { token, user };
   }
+  
 }
 
 module.exports = new AuthService();

@@ -65,8 +65,25 @@ class AuthController {
 
   // OAuth login callback (Google)
   oauthCallback = catchAsync(async (req, res) => {
-    // Assuming passport or similar, we'll implement a simplified version
-    const { profile } = req.body;
+    const { credential } = req.body;
+    if (!credential) return ResponseHandler.error(res, { message: 'Google credential required' }, 400);
+
+    const { OAuth2Client } = require('google-auth-library');
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    const profile = {
+      googleId:       payload.sub,
+      email:          payload.email,
+      name:           payload.name,
+      profilePicture: payload.picture,
+    };
+
     const result = await authService.oAuthLogin(profile);
     res.cookie('jwt', result.token, {
       httpOnly: true,
@@ -74,8 +91,9 @@ class AuthController {
       sameSite: 'strict',
       maxAge: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     });
-    ResponseHandler.success(res, result.user, 'OAuth login successful');
+    ResponseHandler.success(res, { user: result.user, token: result.token }, 'Google login successful');
   });
+
 }
 
 module.exports = new AuthController();

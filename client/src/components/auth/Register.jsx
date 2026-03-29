@@ -8,6 +8,11 @@ import styles from './Register.module.css';
 import Button from '../common/Button/Button';
 import { ROLES } from '../../utils/constants';
 import { FaEye, FaEyeSlash, FaUniversity, FaUserGraduate, FaChalkboardTeacher } from 'react-icons/fa';
+import { GoogleLogin } from '@react-oauth/google';
+import { useAuth } from '../../store/authStore';
+import { authService } from '../../services/authService';
+import { toast } from 'react-toastify';
+
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Name is required').min(2, 'Name must be at least 2 characters'),
@@ -34,6 +39,21 @@ const Register = () => {
     resolver: yupResolver(validationSchema),
     defaultValues: { role: ROLES.STUDENT }
   });
+
+  const { setAuth } = useAuth();
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const res = await authService.googleAuth(credentialResponse.credential);
+      const { user, token } = res.data.data;
+      setAuth(user, token);
+      toast.success('Account created with Google!');
+      navigate('/dashboard/student');
+    } catch {
+      toast.error('Google sign-in failed. Please try again.');
+    }
+  };
+
 
   const watchedRole = watch('role');
 
@@ -183,7 +203,22 @@ const Register = () => {
           >
             Create Account
           </Button>
+          <div className={styles.divider}>
+            <span>or</span>
+          </div>
+
+          <div className={styles.googleBtn}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => toast.error('Google sign-in failed.')}
+              width="100%"
+              text="signup_with"
+              shape="rectangular"
+            />
+          </div>
+
         </form>
+        
 
         <div className={styles.loginLink}>
           Already have an account? <Link to="/login">Log in</Link>

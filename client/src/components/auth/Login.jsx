@@ -8,6 +8,11 @@ import { loginValidationSchema } from '../../utils/validators';
 import Button from '../common/Button/Button';
 import Card from '../common/Card/Card';
 import styles from './Login.module.css';
+import { GoogleLogin } from '@react-oauth/google';
+import { useAuth } from '../../store/authStore';
+import { authService } from '../../services/authService';
+import { toast } from 'react-toastify';
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,6 +20,23 @@ const Login = () => {
   const loginMutation = useLogin();
   const [showPassword, setShowPassword] = useState(false);
   const stateMessage = location.state?.message;
+  const { setAuth } = useAuth();
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const res = await authService.googleAuth(credentialResponse.credential);
+      const { user, token } = res.data.data;
+      setAuth(user, token);
+      toast.success('Signed in with Google!');
+      if (user.role === 'admin')           navigate('/dashboard/admin');
+      else if (user.role === 'counsellor') navigate('/dashboard/counsellor');
+      else if (user.role === 'moderator')  navigate('/dashboard/moderator');
+      else                                 navigate('/dashboard/student');
+    } catch {
+      toast.error('Google sign-in failed. Please try again.');
+    }
+  };
+
 
   const {
     register,
@@ -95,6 +117,22 @@ const Login = () => {
           >
             Login
           </Button>
+
+          <div className={styles.divider}>
+            <span>or</span>
+          </div>
+
+          <div className={styles.googleBtn}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => toast.error('Google sign-in failed.')}
+              useOneTap
+              width="100%"
+              text="signin_with"
+              shape="rectangular"
+            />
+          </div>
+
 
           <div className={styles.registerLink}>
             Don't have an account? <Link to="/register">Register here</Link>

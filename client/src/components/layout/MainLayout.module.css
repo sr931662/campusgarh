@@ -9,13 +9,13 @@
    so it bleeds behind the transparent navbar. */
 .main {
   flex: 1;
-  padding-top: 76px;
+  padding-top: 156px;   /* was 140px → 32 topstrip + 80 mainbar + 44 bottomnav */
 }
 
-
 @media (max-width: 768px) {
-  .main { padding-top: 60px; }
+  .main { padding-top: 64px; }
 }
 @media (max-width: 480px) {
   .main { padding-top: 52px; }
 }
+

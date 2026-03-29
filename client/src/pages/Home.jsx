@@ -8,6 +8,7 @@ import { FaBriefcase, FaPalette, FaFlask, FaMapMarkerAlt, FaBullseye, FaHandshak
 import HeroCanvas from '../components/home/HeroCanvas';
 import { useFeaturedColleges } from '../hooks/queries';
 import styles from './Home.module.css';
+import StudyPlaces from '../components/home/StudyPlaces';
 
 const stats = [
   { num: '500+', label: 'Colleges' },
@@ -247,6 +248,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+      
+      {/* ── TOP STUDY PLACES ────────────────────────────────────────────────── */}
+      <StudyPlaces />
 
       {/* ── EXPLORE COURSES ─────────────────────────────────────────────────── */}
       <section className={styles.coursesSection}>
