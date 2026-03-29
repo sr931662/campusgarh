@@ -42,11 +42,14 @@ import ManageColleges from './pages/admin/ManageColleges';
 import ManageCourses from './pages/admin/ManageCourses';
 import ManageExams from './pages/admin/ManageExams';
 import ManageBlogs from './pages/admin/ManageBlogs';
+import ScrollToTop from './components/common/ScrollToTop';
+
 import { ROLES } from './utils/constants';
 
 function App() {
   return (
     <Routes>
+      <ScrollToTop />     {/* ← add this line */}
       <Route element={<MainLayout />}>
         {/* Public routes */}
         <Route path="/" element={<Home />} />
