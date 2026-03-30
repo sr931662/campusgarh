@@ -11,6 +11,7 @@ import styles from './Home.module.css';
 import StudyPlaces from '../components/home/StudyPlaces';
 import PredictorWidget from '../components/home/PredictorWidget';
 import LatestArticles from '../components/home/LatestArticles';
+import ExploreColleges from '../components/home/ExploreColleges';
 
 const stats = [
   { num: '500+', label: 'Colleges' },
@@ -250,7 +251,8 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-      
+      <ExploreColleges />
+
       {/* ── TOP STUDY PLACES ────────────────────────────────────────────────── */}
       <StudyPlaces />
 

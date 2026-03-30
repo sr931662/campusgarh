@@ -1,0 +1,205 @@
+.section {
+  padding: 5rem 0;
+  background: rgba(255, 255, 255, 0.015);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold, #C9A84C);
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  margin: 0 0 0.6rem;
+}
+
+.heading {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--warm-white, #FFFEF9);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+
+.heading span {
+  color: var(--gold, #C9A84C);
+}
+
+.sub {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.38);
+  margin: 0;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Card */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.4rem 1rem 1.1rem;
+  text-decoration: none;
+  transition: border-color 0.25s, transform 0.25s, background 0.25s;
+  cursor: pointer;
+}
+
+.card:hover {
+  border-color: rgba(201, 168, 76, 0.4);
+  background: rgba(201, 168, 76, 0.04);
+  transform: translateY(-3px);
+}
+
+/* Logo */
+.logoWrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+
+.initials {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--gold, #C9A84C);
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  letter-spacing: -0.02em;
+}
+
+/* Card body */
+.cardBody {
+  text-align: center;
+  width: 100%;
+}
+
+.type {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--gold, #C9A84C);
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--warm-white, #FFFEF9);
+  margin: 0 0 0.25rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.city {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.viewMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2.25rem;
+  border: 1.5px solid var(--gold, #C9A84C);
+  border-radius: 8px;
+  color: var(--gold, #C9A84C);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+
+.viewMoreBtn:hover {
+  background: var(--gold, #C9A84C);
+  color: #0A0A0F;
+}
+
+/* Skeleton */
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.skeleton {
+  height: 160px;
+  border-radius: 14px;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .grid, .skeletonGrid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+  .grid, .skeletonGrid { grid-template-columns: repeat(3, 1fr); }
+  .section { padding: 3.5rem 0; }
+  .container { padding: 0 1.25rem; }
+}
+@media (max-width: 480px) {
+  .grid, .skeletonGrid { grid-template-columns: repeat(2, 1fr); }
+}
