@@ -45,7 +45,7 @@ import ManageBlogs from './pages/admin/ManageBlogs';
 import ScrollToTop from './components/common/ScrollToTop';
 import AdminGuide from './pages/admin/AdminGuide';
 import Predictor from './pages/Predictor';
-import AdminVideoTestimonials from '../pages/admin/AdminVideoTestimonials';
+import AdminVideoTestimonials from './pages/admin/AdminVideoTestimonials';
 
 
 
