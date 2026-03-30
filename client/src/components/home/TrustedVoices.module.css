@@ -40,22 +40,31 @@
 .sliderWrapper {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
   --card-w: 240px;
 }
 
-.track { overflow: hidden; flex: 1; }
+
+.track { overflow: hidden; flex: 1; max-width: calc(4 * (var(--card-w) + 20px)); }
+
 
 .inner {
   display: flex;
   gap: 20px;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
+
 
 /* ── Card ─────────────────────────────────────────────────────────────────── */
 .card {
   position: relative;
+  width: var(--card-w);
   min-width: var(--card-w);
+  max-width: var(--card-w);
   border-radius: 20px;
   overflow: hidden;
   background: #111;
@@ -64,6 +73,7 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.5);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
 .card:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 16px 48px rgba(0,0,0,0.65);
