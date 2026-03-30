@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { collegeService } from '../../services/collegeService';
 import styles from './AdminForm.module.css';
+
 
 const COLLEGE_TYPES = [
   'Engineering & Technology', 'Medical & Health Sciences',
@@ -11,6 +12,11 @@ const COLLEGE_TYPES = [
   'Education & Teaching', 'Design & Fine Arts',
   'Commerce & Finance', 'Technical', 'Multi-Disciplinary',
 ];
+
+<h1>{isEditing ? 'Edit College' : 'Add New College'}</h1>
+// button:
+{mutation.isPending ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update College' : 'Create College')}
+
 
 const FUNDING_TYPES = [
   'Government', 'Private', 'Semi-Government',
@@ -21,6 +27,9 @@ const FUNDING_TYPES = [
 
 const CreateCollege = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEditing = !!id;
+
   const [form, setForm] = useState({
     name: '',
     shortName: '',
@@ -82,10 +91,76 @@ const CreateCollege = () => {
   });
   const [error, setError] = useState('');
 
+  const { data: existing } = useQuery({
+  queryKey: ['college-edit', id],
+  queryFn: () => collegeService.getCollegeById(id),
+  enabled: isEditing,
+});
+
+useEffect(() => {
+  if (!existing) return;
+  const c = existing?.data?.data;
+  if (!c) return;
+  setForm({
+    name: c.name || '',
+    shortName: c.shortName || '',
+    coverImageUrl: c.coverImageUrl || '',
+    collegeType: c.collegeType || '',
+    fundingType: c.fundingType || '',
+    establishmentYear: c.establishmentYear || '',
+    affiliation: c.affiliation || '',
+    description: c.description || '',
+    city: c.contact?.city || '',
+    state: c.contact?.state || '',
+    country: c.contact?.country || 'India',
+    address: c.contact?.address || '',
+    pincode: c.contact?.pincode || '',
+    phone: c.contact?.phone || '',
+    email: c.contact?.email || '',
+    website: c.contact?.website || '',
+    nirfRank: c.accreditation?.nirfRank || '',
+    naacGrade: c.accreditation?.naacGrade || '',
+    nbaStatus: c.accreditation?.nbaStatus || false,
+    tuitionFee: c.fees?.tuitionFee || '',
+    hostelFee: c.fees?.hostelFee || '',
+    otherFees: c.fees?.otherFees || '',
+    placementPercentage: c.placementStats?.placementPercentage || '',
+    averagePackage: c.placementStats?.averagePackage || '',
+    highestPackage: c.placementStats?.highestPackage || '',
+    medianPackage: c.placementStats?.medianPackage || '',
+    featured: c.featured || false,
+    campusTotalArea: c.campusInfo?.totalArea || '',
+    campusType: c.campusInfo?.campusType || '',
+    totalStudents: c.campusInfo?.totalStudents || '',
+    totalFaculty: c.campusInfo?.totalFaculty || '',
+    studentFacultyRatio: c.campusInfo?.studentFacultyRatio || '',
+    hostelAvailable: c.hostel?.available || false,
+    hostelBoysCapacity: c.hostel?.boysCapacity || '',
+    hostelGirlsCapacity: c.hostel?.girlsCapacity || '',
+    hostelAnnualFee: c.hostel?.annualFee || '',
+    hostelMessCharges: c.hostel?.messCharges || '',
+    admissionMode: c.admissionProcess?.mode || '',
+    applicationFee: c.admissionProcess?.applicationFee || '',
+    applicationLink: c.admissionProcess?.applicationLink || '',
+    applicationStartDate: c.admissionProcess?.applicationStartDate?.slice(0, 10) || '',
+    applicationEndDate: c.admissionProcess?.applicationEndDate?.slice(0, 10) || '',
+    documentsRequired: (c.admissionProcess?.documentsRequired || []).join(', '),
+    approvedBy: (c.approvedBy || []).join(', '),
+    facebook: c.socialMedia?.facebook || '',
+    instagram: c.socialMedia?.instagram || '',
+    linkedin: c.socialMedia?.linkedin || '',
+    twitter: c.socialMedia?.twitter || '',
+    youtube: c.socialMedia?.youtube || '',
+  });
+}, [existing]);
+
+
   const mutation = useMutation({
-    mutationFn: (data) => collegeService.createCollege(data),
+    mutationFn: (data) => isEditing
+      ? collegeService.updateCollege(id, data)
+      : collegeService.createCollege(data),
     onSuccess: () => navigate('/dashboard/admin'),
-    onError: (err) => setError(err?.response?.data?.message || 'Failed to create college'),
+    onError: (err) => setError(err?.response?.data?.message || `Failed to ${isEditing ? 'update' : 'create'} college`),
   });
 
   const handleChange = (e) => {

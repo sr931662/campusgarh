@@ -62,14 +62,19 @@ const ManageExams = () => {
                     <td>{e.examLevel || '—'}</td>
                     <td>{e.conductingBody || '—'}</td>
                     <td>
-                      <button
-                        className={styles.deleteBtn}
-                        disabled={deleteMutation.isPending}
-                        onClick={() => handleDelete(e._id, e.name)}
-                      >
-                        Delete
-                      </button>
+                      <div className={styles.actionCell}>
+                        <Link to={`/exams/${e.slug}`} className={styles.viewBtn} target="_blank" rel="noopener noreferrer">View</Link>
+                        <Link to={`/admin/exams/edit/${e._id}`} className={styles.editBtn}>Edit</Link>
+                        <button
+                          className={styles.deleteBtn}
+                          disabled={deleteMutation.isPending}
+                          onClick={() => handleDelete(e._id, e.name)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
+
                   </tr>
                 ))}
               </tbody>

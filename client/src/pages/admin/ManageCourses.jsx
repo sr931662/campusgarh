@@ -62,14 +62,19 @@ const ManageCourses = () => {
                     <td>{c.mode || '—'}</td>
                     <td>{c.duration || '—'}</td>
                     <td>
-                      <button
-                        className={styles.deleteBtn}
-                        disabled={deleteMutation.isPending}
-                        onClick={() => handleDelete(c._id, c.name)}
-                      >
-                        Delete
-                      </button>
+                      <div className={styles.actionCell}>
+                        <Link to={`/courses/${c.slug}`} className={styles.viewBtn} target="_blank" rel="noopener noreferrer">View</Link>
+                        <Link to={`/admin/courses/edit/${c._id}`} className={styles.editBtn}>Edit</Link>
+                        <button
+                          className={styles.deleteBtn}
+                          disabled={deleteMutation.isPending}
+                          onClick={() => handleDelete(c._id, c.name)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
+
                   </tr>
                 ))}
               </tbody>

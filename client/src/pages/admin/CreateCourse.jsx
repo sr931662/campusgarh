@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { courseService } from '../../services/courseService';
 import styles from './AdminForm.module.css';
+
 
 // Matches Course model enum exactly
 const COURSE_CATEGORIES = ['UG', 'PG', 'Diploma', 'Doctorate', 'Certificate'];
 const COURSE_MODES = ['Full-time', 'Part-time', 'Online', 'Distance'];
 
 const CreateCourse = () => {
+  const { id } = useParams();
+  const isEditing = !!id;
+
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: '',
@@ -33,12 +37,48 @@ const CreateCourse = () => {
     careerDescription: '',
   });
   const [error, setError] = useState('');
+  const { data: existing } = useQuery({
+    queryKey: ['course-edit', id],
+    queryFn: () => courseService.getCourseById(id),
+    enabled: isEditing,
+  });
+
+  useEffect(() => {
+    if (!existing) return;
+    const c = existing?.data?.data;
+    if (!c) return;
+    setForm({
+      name: c.name || '',
+      category: c.category || '',
+      discipline: c.discipline || '',
+      duration: c.duration || '',
+      mode: c.mode || '',
+      description: c.description || '',
+      eligibility: c.eligibility || '',
+      feeMin: c.feeRange?.min || '',
+      feeMax: c.feeRange?.max || '',
+      specializations: (c.specializations || []).join(', '),
+      jobRoles: (c.jobRoles || []).join(', '),
+      skills: (c.skills || []).join(', '),
+      admissionType: c.admissionType || '',
+      lateralEntryAvailable: c.lateralEntry?.available || false,
+      lateralEntryEligibility: c.lateralEntry?.eligibility || '',
+      lateralEntryIntoYear: c.lateralEntry?.intoYear || '',
+      avgStartingSalary: c.careerProspects?.averageStartingSalary || '',
+      growthRate: c.careerProspects?.growthRate || '',
+      topSectors: (c.careerProspects?.topSectors || []).join(', '),
+      careerDescription: c.careerProspects?.description || '',
+    });
+  }, [existing]);
 
   const mutation = useMutation({
-    mutationFn: (data) => courseService.createCourse(data),
+    mutationFn: (data) => isEditing
+      ? courseService.updateCourse(id, data)
+      : courseService.createCourse(data),
     onSuccess: () => navigate('/dashboard/admin'),
-    onError: (err) => setError(err?.response?.data?.message || 'Failed to create course'),
+    onError: (err) => setError(err?.response?.data?.message || `Failed to ${isEditing ? 'update' : 'create'} course`),
   });
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -85,8 +125,8 @@ const CreateCourse = () => {
     <div className={styles.container}>
       <Link to="/dashboard/admin" className={styles.backLink}>← Back to Dashboard</Link>
       <div className={styles.header}>
-        <h1>Add New Course</h1>
-        <p>Fill in the details to add a course to the platform</p>
+        <h1>{isEditing ? 'Edit Course' : 'Add New Course'}</h1>
+          <p>{isEditing ? 'Update course details below' : 'Fill in the details to add a course to the platform'}</p>
       </div>
 
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -221,7 +261,7 @@ const CreateCourse = () => {
 
         <div className={styles.actions}>
           <button type="submit" className={styles.submitBtn} disabled={mutation.isPending}>
-            {mutation.isPending ? 'Creating...' : 'Create Course'}
+            {mutation.isPending ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Course' : 'Create Course')}
           </button>
           <Link to="/dashboard/admin" className={styles.cancelLink}>Cancel</Link>
         </div>

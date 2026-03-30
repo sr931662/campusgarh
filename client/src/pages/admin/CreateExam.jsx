@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { examService } from '../../services/examService';
 import styles from './AdminForm.module.css';
+
 
 // Matches Exam model enum exactly
 const EXAM_CATEGORIES = ['UG', 'PG', 'PhD', 'Diploma'];
@@ -40,16 +41,64 @@ const CreateExam = () => {
     counsellingOverview: '',
   });
   const [error, setError] = useState('');
+  const { data: existing } = useQuery({
+  queryKey: ['exam-edit', id],
+  queryFn: () => examService.getExamById(id),
+  enabled: isEditing,
+});
+
+useEffect(() => {
+  if (!existing) return;
+  const e = existing?.data?.data;
+  if (!e) return;
+  const dates = e.importantDates || [];
+  const get = (event) => dates.find(d => d.event === event)?.date?.slice(0, 10) || '';
+  const getLink = (event) => dates.find(d => d.event === event)?.link || '';
+  setForm({
+    name: e.name || '',
+    category: e.category || '',
+    overview: e.overview || '',
+    eligibility: e.eligibility || '',
+    officialWebsite: e.officialWebsite || '',
+    registrationFee: e.registrationFee || '',
+    syllabus: e.syllabus || '',
+    regStartDate: get('Registration Start'),
+    regEndDate: get('Registration End'),
+    examDate: get('Exam Date'),
+    resultDate: get('Result Date'),
+    regStartLink: getLink('Registration Start'),
+    examDateLink: getLink('Exam Date'),
+    conductingBody: e.conductingBody || '',
+    examLevel: e.examLevel || '',
+    examMode: e.examMode || '',
+    examLanguages: (e.examLanguages || []).join(', '),
+    frequency: e.frequency || '',
+    registrationFeeGeneral: e.registrationFeeDetails?.general || '',
+    registrationFeeOBC: e.registrationFeeDetails?.obc || '',
+    registrationFeeSCST: e.registrationFeeDetails?.sc_st || '',
+    registrationFeeFemale: e.registrationFeeDetails?.female || '',
+    registrationSteps: (e.registrationSteps || []).join('\n'),
+    documentsRequired: (e.documentsRequired || []).join(', '),
+    counsellingBody: e.counsellingInfo?.conductingBody || '',
+    counsellingMode: e.counsellingInfo?.mode || '',
+    counsellingOverview: e.counsellingInfo?.overview || '',
+  });
+}, [existing]);
+
 
   const mutation = useMutation({
-    mutationFn: (data) => examService.createExam(data),
+    mutationFn: (data) => isEditing
+      ? examService.updateExam(id, data)
+      : examService.createExam(data),
     onSuccess: () => navigate('/dashboard/admin'),
-    onError: (err) => setError(err?.response?.data?.message || 'Failed to create exam'),
+    onError: (err) => setError(err?.response?.data?.message || `Failed to ${isEditing ? 'update' : 'create'} exam`),
   });
 
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { id } = useParams();
+    const isEditing = !!id;
+
   };
 
   const handleSubmit = (e) => {
@@ -98,7 +147,10 @@ const CreateExam = () => {
     <div className={styles.container}>
       <Link to="/dashboard/admin" className={styles.backLink}>← Back to Dashboard</Link>
       <div className={styles.header}>
-        <h1>Add New Exam</h1>
+        <h1>{isEditing ? 'Edit Exam' : 'Add New Exam'}</h1>
+        // button:
+        {mutation.isPending ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Exam' : 'Create Exam')}
+
         <p>Fill in the details to add an entrance exam to the platform</p>
       </div>
 

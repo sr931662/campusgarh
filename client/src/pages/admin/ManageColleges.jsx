@@ -89,7 +89,7 @@ const ManageColleges = () => {
                   <th>City</th>
                   <th>Verified</th>
                   <th>Homepage</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -100,7 +100,7 @@ const ManageColleges = () => {
                     <td>
                       <strong>{c.name}</strong>
                       {c.shortName ? <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> ({c.shortName})</span> : ''}
-                    </td>
+                    </td>S
                     <td><span className={styles.badge}>{c.fundingType || '—'}</span></td>
                     <td>{c.contact?.city || '—'}</td>
                     <td>
@@ -120,14 +120,19 @@ const ManageColleges = () => {
                       </button>
                     </td>
                     <td>
-                      <button
-                        className={styles.deleteBtn}
-                        disabled={deleteMutation.isPending}
-                        onClick={() => handleDelete(c._id, c.name)}
-                      >
-                        Delete
-                      </button>
+                      <div className={styles.actionCell}>
+                        <Link to={`/colleges/${c.slug}`}S className={styles.viewBtn} target="_blank" rel="noopener noreferrer">View</Link>
+                        <Link to={`/admin/colleges/edit/${c._id}`} className={styles.editBtn}>Edit</Link>
+                        <button
+                          className={styles.deleteBtn}
+                         disabled={deleteMutation.isPending}
+                          onClick={() => handleDelete(c._id, c.name)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
+
                   </tr>
                 ))}
               </tbody>
