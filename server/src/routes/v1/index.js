@@ -14,7 +14,8 @@ const adminRoutes = require('./adminRoutes');
 const collegeCourseRoutes = require('./collegeCourseRoutes');
 const predictorRoutes = require('./predictorRoutes');
 const newsletterRoutes = require('./newsletter.routes');
-import videoTestimonialRoutes from './videoTestimonialRoutes.js';
+const videoTestimonialRoutes = require('./videoTestimonialRoutes')
+// import videoTestimonialRoutes from './videoTestimonialRoutes.js';
 
 const router = express.Router();
 
