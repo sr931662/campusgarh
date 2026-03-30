@@ -69,7 +69,7 @@ const Footer = () => {
 
       <div className={styles.container}>
 
-        {/* Main Grid */}
+                {/* Main Grid */}
         <div className={styles.grid}>
 
           {/* Brand */}
@@ -134,26 +134,13 @@ const Footer = () => {
             <ul className={styles.links}>
               <li><Link to="/about">About Us</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
-              <li><Link to="/privacy">Privacy Policy</Link></li>
-              <li><Link to="/terms">Terms & Conditions</Link></li>
               <li><Link to="/blogs">Blog</Link></li>
-            </ul>
-          </div>
-
-          {/* Tools */}
-          <div className={styles.section}>
-            <h4 className={styles.subtitle}>Tools</h4>
-            <ul className={styles.links}>
-              <li><Link to="/college-predictor">College Predictor</Link></li>
               <li><Link to="/compare">College Compare</Link></li>
-              <li><Link to="/cutoff-predictor">Cutoff Predictor</Link></li>
-              <li><Link to="/rank-predictor">Rank Predictor</Link></li>
-              <li><Link to="/counselling">Counselling</Link></li>
-              <li><Link to="/scholarships">Scholarship Finder</Link></li>
             </ul>
           </div>
 
         </div>
+
 
         {/* Stats Bar */}
         <div className={styles.statsBar}>
@@ -182,9 +169,6 @@ const Footer = () => {
         <div className={styles.copyright}>
           <p>&copy; {currentYear} CampusGarh. All rights reserved.</p>
           <div className={styles.copyrightLinks}>
-            <Link to="/privacy">Privacy Policy</Link>
-            <Link to="/terms">Terms of Service</Link>
-            <a href="/sitemap.xml" target="_blank" rel="noreferrer">Sitemap</a>
             <Link to="/contact">Contact</Link>
           </div>
         </div>
