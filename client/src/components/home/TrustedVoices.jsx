@@ -3,32 +3,35 @@ import { useQuery } from '@tanstack/react-query';
 import { videoTestimonialService } from '../../services/videoTestimonialService';
 import styles from './TrustedVoices.module.css';
 
+const VISIBLE = 4;
+
 export default function TrustedVoices() {
   const { data, isLoading } = useQuery({
     queryKey: ['video-testimonials'],
     queryFn: () => videoTestimonialService.getAll().then(r => r.data.data),
+    staleTime: 5 * 60 * 1000,
   });
 
   const [index, setIndex] = useState(0);
   const [playingId, setPlayingId] = useState(null);
   const timerRef = useRef(null);
-  const VISIBLE = 4;
 
   const items = data || [];
+  const maxIndex = Math.max(0, items.length - VISIBLE);
 
   useEffect(() => {
-    if (!playingId) {
+    if (!playingId && items.length > VISIBLE) {
       timerRef.current = setInterval(() => {
-        setIndex(i => (i + 1) % Math.max(1, items.length - VISIBLE + 1));
-      }, 4000);
+        setIndex(i => (i >= maxIndex ? 0 : i + 1));
+      }, 5000);
     }
     return () => clearInterval(timerRef.current);
-  }, [items.length, playingId]);
+  }, [items.length, playingId, maxIndex]);
 
   if (isLoading || items.length === 0) return null;
 
   const prev = () => setIndex(i => Math.max(0, i - 1));
-  const next = () => setIndex(i => Math.min(items.length - VISIBLE, i + 1));
+  const next = () => setIndex(i => Math.min(maxIndex, i + 1));
 
   return (
     <section className={styles.section}>
@@ -40,7 +43,14 @@ export default function TrustedVoices() {
       </div>
 
       <div className={styles.sliderWrapper}>
-        <button className={`${styles.arrow} ${styles.left}`} onClick={prev}>&#8249;</button>
+        <button
+          className={styles.arrow}
+          onClick={prev}
+          disabled={index === 0}
+          aria-label="Previous"
+        >
+          &#8249;
+        </button>
 
         <div className={styles.track}>
           <div
@@ -49,7 +59,10 @@ export default function TrustedVoices() {
           >
             {items.map(item => (
               <div key={item._id} className={styles.card}>
-                <div className={styles.viewsBadge}>👁 {item.views}</div>
+                {item.views && (
+                  <div className={styles.viewsBadge}>👁 {item.views}</div>
+                )}
+
                 {playingId === item._id ? (
                   <iframe
                     src={`${item.videoUrl}?autoplay=1`}
@@ -58,18 +71,52 @@ export default function TrustedVoices() {
                     className={styles.iframe}
                   />
                 ) : (
-                  <div className={styles.thumb} onClick={() => setPlayingId(item._id)}>
-                    <img src={item.thumbnailUrl} alt={item.title} />
-                    <div className={styles.playBtn}>&#9654;</div>
-                  </div>
+                  <>
+                    <div className={styles.thumb} onClick={() => setPlayingId(item._id)}>
+                      <img src={item.thumbnailUrl} alt={item.title} />
+                      <div className={styles.playBtn}>
+                        <div className={styles.playIcon}>
+                          <div className={styles.playTriangle} />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={styles.cardOverlay}>
+                      <p className={styles.cardTitle}>{item.title}</p>
+                      {item.description && (
+                        <p className={styles.cardDesc}>{item.description}</p>
+                      )}
+                    </div>
+                  </>
                 )}
               </div>
             ))}
           </div>
         </div>
 
-        <button className={`${styles.arrow} ${styles.right}`} onClick={next}>&#8250;</button>
+        <button
+          className={styles.arrow}
+          onClick={next}
+          disabled={index >= maxIndex}
+          aria-label="Next"
+        >
+          &#8250;
+        </button>
       </div>
+
+      {/* Dot indicators */}
+      {items.length > VISIBLE && (
+        <div className={styles.dots}>
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              className={`${styles.dot} ${i === index ? styles.dotActive : ''}`}
+              onClick={() => setIndex(i)}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
 
       <div className={styles.footer}>
         <a
@@ -78,7 +125,7 @@ export default function TrustedVoices() {
           rel="noreferrer"
           className={styles.ytLink}
         >
-          WATCH 100+ SUCCESS STORIES ON YOUTUBE &rsaquo;
+          Watch 100+ success stories on YouTube &rsaquo;
         </a>
       </div>
     </section>
