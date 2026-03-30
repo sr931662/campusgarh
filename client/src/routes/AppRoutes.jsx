@@ -95,6 +95,8 @@ const AppRoutes = () => {
           <Route path="/admin/leads"     element={<AdminLeads />} />
           <Route path="/admin/analytics" element={<AdminAnalytics />} />
           <Route path="/admin/role-requests" element={<AdminRoleRequests />} />
+          <Route path="/admin/video-testimonials" element={<AdminVideoTestimonials />} />
+
 
 
         </Route>
