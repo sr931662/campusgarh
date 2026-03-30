@@ -11,7 +11,7 @@ export const comparisonService = {
   getComparison: (id) => api.get(`/comparisons/${id}`),
 
   // Update comparison (add/remove colleges)
-  updateComparison: (id, collegeIds) => api.patch(`/comparisons/${id}`, { collegeIds }),
+  updateComparison: (id, data) => api.patch(`/comparisons/${id}`, data),
 
   // Delete comparison
   deleteComparison: (id) => api.delete(`/comparisons/${id}`),

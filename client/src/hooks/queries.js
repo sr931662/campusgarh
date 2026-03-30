@@ -546,7 +546,7 @@ export const useCreateComparison = () => {
 export const useUpdateComparison = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, collegeIds }) => comparisonService.updateComparison(id, collegeIds),
+    mutationFn: ({ id, ...data }) => comparisonService.updateComparison(id, data),
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: ['comparison', id] });
       queryClient.invalidateQueries({ queryKey: ['comparisons'] });

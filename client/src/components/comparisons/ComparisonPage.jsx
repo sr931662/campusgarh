@@ -80,11 +80,13 @@ const ComparisonPage = () => {
       </div>
 
       <ComparisonSelector
+        key={type}
         type={type}
         selectedItems={selectedItems}
         onAdd={addItem}
         onRemove={removeItem}
       />
+
 
       {selectedItems.length >= 2 && (
         <>
