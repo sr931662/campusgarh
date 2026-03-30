@@ -1,5 +1,5 @@
-import BaseService from './baseService.js';
-import VideoTestimonial from '../models/VideoTestimonial.js';
+const BaseService = require('./baseService');
+const VideoTestimonial = require('../models/VideoTestimonial');
 
 class VideoTestimonialService extends BaseService {
   constructor() {
@@ -12,4 +12,4 @@ class VideoTestimonialService extends BaseService {
   }
 }
 
-export default new VideoTestimonialService();
+module.exports = new VideoTestimonialService();

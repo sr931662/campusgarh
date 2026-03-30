@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const videoTestimonialSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
     thumbnailUrl: { type: String, required: true },
-    videoUrl: { type: String, required: true }, // YouTube embed URL or direct
-    views: { type: String, default: '0' },      // display string e.g. "9K"
+    videoUrl: { type: String, required: true },
+    views: { type: String, default: '0' },
     order: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -14,4 +14,4 @@ const videoTestimonialSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model('VideoTestimonial', videoTestimonialSchema);
+module.exports = mongoose.model('VideoTestimonial', videoTestimonialSchema);
