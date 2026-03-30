@@ -103,8 +103,6 @@ const MEGA = {
       ]},
       { title: 'Resources', links: [
         { label: 'Blogs & Articles',   to: '/blogs'                         },
-        { label: 'Admission Guide',    to: '/search?q=admission+guide'      },
-        { label: 'Exam Preparation',   to: '/search?q=exam+preparation'     },
         { label: 'Contact Counsellor', to: '/contact'                       },
       ]},
     ],
