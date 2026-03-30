@@ -13,7 +13,7 @@ const importExportRoutes = require('./importExportRoutes');
 const adminRoutes = require('./adminRoutes');
 const collegeCourseRoutes = require('./collegeCourseRoutes');
 const predictorRoutes = require('./predictorRoutes');
-
+import newsletterRoutes from './newsletter.routes.js';
 
 const router = express.Router();
 
@@ -31,6 +31,6 @@ router.use('/import-export', importExportRoutes);
 router.use('/admin', adminRoutes);
 router.use('/college-courses', collegeCourseRoutes);
 router.use('/predictor', predictorRoutes);
-
+router.use('/newsletter', newsletterRoutes);
 
 module.exports = router;
