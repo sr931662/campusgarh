@@ -215,16 +215,134 @@ class ImportExportService {
     }
   }
 
+    flattenDocForExport(doc, modelName) {
+    if (modelName === 'College') {
+      return {
+        'College Name':                doc.name || '',
+        'Short Name':                  doc.shortName || '',
+        'Logo URL':                    doc.logoUrl || '',
+        'Description':                 doc.description || '',
+        'College Type':                doc.collegeType || '',
+        'Institute Type (Funding Type)': doc.fundingType || '',
+        'Affiliation':                 doc.affiliation || '',
+        'Established Year':            doc.establishmentYear || '',
+        'NAAC Grade':                  doc.accreditation?.naacGrade || '',
+        'NIRF Rank':                   doc.accreditation?.nirfRank || '',
+        'NBA Status':                  doc.accreditation?.nbaStatus ? 'Yes' : 'No',
+        'Other Accreditations':        (doc.accreditation?.otherAccreditations || []).join(', '),
+        'Phone':                       doc.contact?.phone || '',
+        'Email':                       doc.contact?.email || '',
+        'Website':                     doc.contact?.website || '',
+        'Address':                     doc.contact?.address || '',
+        'City':                        doc.contact?.city || '',
+        'State':                       doc.contact?.state || '',
+        'Pincode':                     doc.contact?.pincode || '',
+        'Latitude':                    doc.contact?.latitude || '',
+        'Longitude':                   doc.contact?.longitude || '',
+        'Average Package (LPA)':       doc.placementStats?.averagePackage || '',
+        'Highest Package (LPA)':       doc.placementStats?.highestPackage || '',
+        'Median Package (LPA)':        doc.placementStats?.medianPackage || '',
+        'Placement Rate (%)':          doc.placementStats?.placementPercentage || '',
+        'Placement Year':              doc.placementStats?.year || '',
+        'Top Recruiters':              (doc.placementStats?.topRecruiters || []).join(', '),
+        'Tuition Fee (₹/yr)':          doc.fees?.tuitionFee || '',
+        'Hostel Fee (₹/yr)':           doc.fees?.hostelFee || '',
+        'Other Fees (₹/yr)':           doc.fees?.otherFees || '',
+        'Total Fees (₹/yr)':           doc.fees?.total || '',
+        'Approved By':                 (doc.approvedBy || []).join(', '),
+        'Total Area (Acres)':          doc.campusInfo?.totalArea || '',
+        'Campus Type':                 doc.campusInfo?.campusType || '',
+        'Total Students':              doc.campusInfo?.totalStudents || '',
+        'Total Faculty':               doc.campusInfo?.totalFaculty || '',
+        'Student-Faculty Ratio':       doc.campusInfo?.studentFacultyRatio || '',
+        'Departments':                 doc.campusInfo?.departments || '',
+        'Hostel Available':            doc.hostel?.available ? 'Yes' : 'No',
+        'Boys Capacity':               doc.hostel?.boysCapacity || '',
+        'Girls Capacity':              doc.hostel?.girlsCapacity || '',
+        'Hostel Annual Fee (₹)':       doc.hostel?.annualFee || '',
+        'Mess Charges (₹)':            doc.hostel?.messCharges || '',
+        'Hostel Distance from Campus': doc.hostel?.distanceFromCampus || '',
+        'Hostel Facilities':           (doc.hostel?.facilities || []).join(', '),
+        'Admission Mode':              doc.admissionProcess?.mode || '',
+        'Application Fee (₹)':        doc.admissionProcess?.applicationFee || '',
+        'Application Link':            doc.admissionProcess?.applicationLink || '',
+        'Documents Required':          (doc.admissionProcess?.documentsRequired || []).join(', '),
+        'Facebook':                    doc.socialMedia?.facebook || '',
+        'Twitter':                     doc.socialMedia?.twitter || '',
+        'Instagram':                   doc.socialMedia?.instagram || '',
+        'LinkedIn':                    doc.socialMedia?.linkedin || '',
+        'YouTube':                     doc.socialMedia?.youtube || '',
+        'Verified':                    doc.isVerified ? 'Yes' : 'No',
+        'Featured':                    doc.featured ? 'Yes' : 'No',
+        'SEO Title':                   doc.seo?.metaTitle || '',
+        'SEO Description':             doc.seo?.metaDescription || '',
+        'SEO Keywords':                (doc.seo?.keywords || []).join(', '),
+      };
+    }
+    if (modelName === 'Course') {
+      return {
+        'Course Name':              doc.name || '',
+        'Level':                    doc.category || '',
+        'Discipline':               doc.discipline || '',
+        'Duration':                 doc.duration || '',
+        'Mode':                     doc.mode || '',
+        'Description':              doc.description || '',
+        'Eligibility Criteria':     doc.eligibility || '',
+        'Admission Type':           doc.admissionType || '',
+        'Specializations':          (doc.specializations || []).join(', '),
+        'Job Roles':                (doc.jobRoles || []).join(', '),
+        'Skills':                   (doc.skills || []).join(', '),
+        'Minimum Fee (INR/Year)':   doc.feeRange?.min || '',
+        'Maximum Fee (INR/Year)':   doc.feeRange?.max || '',
+      };
+    }
+    if (modelName === 'Exam') {
+      return {
+        'Exam Name':          doc.name || '',
+        'Category':           doc.category || '',
+        'Conducting Body':    doc.conductingBody || '',
+        'Overview':           doc.overview || '',
+        'Eligibility':        doc.eligibility || '',
+        'Official Website':   doc.officialWebsite || '',
+        'Exam Level':         doc.examLevel || '',
+        'Exam Mode':          doc.examMode || '',
+        'Languages':          (doc.examLanguages || []).join(', '),
+        'Frequency':          doc.frequency || '',
+        'Registration Fee':   doc.registrationFee || '',
+        'Total Applications': doc.totalApplications || '',
+      };
+    }
+    if (modelName === 'Blog') {
+      return {
+        'Title':   doc.title || '',
+        'Content': doc.content || '',
+        'Excerpt': doc.excerpt || '',
+        'Status':  doc.status || '',
+        'Tags':    (doc.tags || []).join(', '),
+      };
+    }
+    // Fallback for other models — basic flatten
+    const flat = {};
+    for (const [k, v] of Object.entries(doc)) {
+      if (typeof v === 'object' && v !== null && !Array.isArray(v)) flat[k] = JSON.stringify(v);
+      else if (Array.isArray(v)) flat[k] = v.join(', ');
+      else flat[k] = v;
+    }
+    return flat;
+  }
+
   // ── EXPORT ──────────────────────────────────────────────────────────────────
 
   async exportToExcel(modelName, filter = {}) {
     const service = this.modelMapping[modelName];
     if (!service) throw new AppError('No service for model ' + modelName, 400);
     const { data } = await service.findAll({ ...filter, deletedAt: null }, { limit: 10000 }, {});
+    const rows = data.map(doc => this.flattenDocForExport(doc, modelName));
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data), modelName);
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), modelName);
     return XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
   }
+
 
   // ── TEMPLATE GENERATION ─────────────────────────────────────────────────────
 
@@ -473,8 +591,9 @@ class ImportExportService {
       ),
 
       fundingType: resolveFundingType(
-        get('institute type','funding type','fundingtype','ownership','management type','management','type')
-      ),
+        get('institute type (funding type)','institute type','funding type','fundingtype','ownership','management type','management','type')
+      ),  
+
 
       affiliation: get('affiliation','affiliated to','university','affiliated university'),
 

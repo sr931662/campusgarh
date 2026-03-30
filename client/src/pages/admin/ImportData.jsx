@@ -10,7 +10,7 @@ const COLUMN_GUIDE = {
     required: ['College Name'],
     optional: [
       'Short Name', 'Logo URL', 'Description', 'Established Year',
-      'Discipline (College Type)', 'Institute Type (Funding Type)', 'Affiliation',
+      'College Type', 'Institute Type (Funding Type)', 'Affiliation',
       'NAAC Grade', 'NIRF Rank', 'NBA Status (Yes/No)',
       'Phone', 'Email', 'Website', 'Address', 'City', 'State', 'Pincode',
       'Admission Mode', 'Application Fee (₹)', 'Application Link',
