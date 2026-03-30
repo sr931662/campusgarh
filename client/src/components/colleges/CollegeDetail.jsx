@@ -46,6 +46,14 @@ export default function CollegeDetail() {
   const { data: axiosRes, isLoading, error } = useCollegeBySlug(slug);
   const college = axiosRes?.data?.data;
 
+  // Auto-open enquiry popup once college data is ready
+  useEffect(() => {
+    if (college) {
+      const t = setTimeout(() => setShowEnquiryModal(true), 600);
+      return () => clearTimeout(t);
+    }
+  }, [college?._id]);
+
   const { data: ratingData } = useAverageRating(college?._id);
 
   const { user, isAuthenticated } = useAuth();
