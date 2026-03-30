@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   COURSE_CATEGORIES, COURSE_DISCIPLINES, COURSE_MODES,
   ADMISSION_TYPES, SALARY_RANGES,
@@ -39,6 +39,19 @@ const PillGroup = ({ options, value, onChange }) => (
 const CourseFilters = ({ filters, onFilterChange, onReset }) => {
   const [local, setLocal] = useState(filters);
   const debounceRef = useRef(null);
+  const isResetting = useRef(false);
+
+  // Sync local state when parent resets filters externally
+  useEffect(() => {
+    if (isResetting.current) {
+      isResetting.current = false;
+      return;
+    }
+    const hasActiveFilters = Object.values(filters).some(v => v && v !== '');
+    if (!hasActiveFilters) {
+      setLocal({});
+    }
+  }, [filters]);
 
   const setInstant = (field, value) => {
     const next = { ...local, [field]: value };
@@ -55,6 +68,7 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
 
   const handleReset = () => {
     clearTimeout(debounceRef.current);
+    isResetting.current = true;
     setLocal({});
     onReset();
   };
@@ -67,7 +81,9 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
         <h3 className={styles.title}>
           Filters {activeCount > 0 && <span className={styles.badge}>{activeCount}</span>}
         </h3>
-        <button className={styles.resetBtn} onClick={handleReset}>Reset All</button>
+        {activeCount > 0 && (
+          <button className={styles.resetBtn} onClick={handleReset}>Reset All</button>
+        )}
       </div>
 
       <Section title="Search">

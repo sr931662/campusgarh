@@ -68,99 +68,79 @@ const ExamList = () => {
         </div>
       </section>
 
-    {isLoading ? <Loader /> : error ? (
-      <div className={styles.errorWrap}>Failed to load exams</div>
-    ) : (
-    <div className={styles.container}>
-      <aside className={styles.sidebar}>
-        <ExamFilters
-          filters={filters}
-          onChange={handleFilterChange}
-          onReset={handleReset}
-          activeCount={activeFilterCount}
-        />
-      </aside>
+      {error ? (
+        <div className={styles.errorWrap}>Failed to load exams</div>
+      ) : (
+        <div className={styles.container}>
+          <aside className={styles.sidebar}>
+            <ExamFilters
+              filters={filters}
+              onChange={handleFilterChange}
+              onReset={handleReset}
+              activeCount={activeFilterCount}
+            />
+          </aside>
 
-      <main className={styles.content}>
-        <div className={styles.header}>
-          <div className={styles.headerTop}>
-            <div>
-              <h1 className={styles.title}>Entrance Exams</h1>
-              <p className={styles.subtitle}>Find details, dates, and colleges accepting each exam</p>
-            </div>
-            <div className={styles.sortBar}>
-              <FaSort className={styles.sortIcon} />
-              <select value={filters.sort} onChange={handleSort} className={styles.sortSelect}>
-                <option value="date_asc">Exam Date (Earliest)</option>
-                <option value="date_desc">Exam Date (Latest)</option>
-                <option value="name_asc">Name (A-Z)</option>
-              </select>
-            </div>
-          </div>
-          {activeFilterCount > 0 && (
-            <div className={styles.activeFilters}>
-              {filters.category && (
-                <div className={styles.filterChip}>
-                  Category: {filters.category}
-                  <button onClick={() => handleFilterChange({ category: '' })}>×</button>
+          <main className={styles.content}>
+            <div className={styles.header}>
+              <div className={styles.headerTop}>
+                <div>
+                  <h2 className={styles.title}>Entrance Exams</h2>
+                  <p className={styles.subtitle}>
+                    {isLoading ? 'Searching...' : 'Find details, dates, and colleges accepting each exam'}
+                  </p>
                 </div>
-              )}
-              {filters.examLevel && (
-                <div className={styles.filterChip}>
-                  Level: {filters.examLevel}
-                  <button onClick={() => handleFilterChange({ examLevel: '' })}>×</button>
+                <div className={styles.sortBar}>
+                  <FaSort className={styles.sortIcon} />
+                  <select value={filters.sort} onChange={handleSort} className={styles.sortSelect}>
+                    <option value="date_asc">Exam Date (Earliest)</option>
+                    <option value="date_desc">Exam Date (Latest)</option>
+                    <option value="name_asc">Name (A-Z)</option>
+                  </select>
                 </div>
-              )}
-              {filters.examMode && (
-                <div className={styles.filterChip}>
-                  Mode: {filters.examMode}
-                  <button onClick={() => handleFilterChange({ examMode: '' })}>×</button>
-                </div>
-              )}
-              {filters.conductingBody && (
-                <div className={styles.filterChip}>
-                  Conducting Body: {filters.conductingBody}
-                  <button onClick={() => handleFilterChange({ conductingBody: '' })}>×</button>
-                </div>
-              )}
-              {filters.upcoming === 'true' && (
-                <div className={styles.filterChip}>
-                  Upcoming Only
-                  <button onClick={() => handleFilterChange({ upcoming: '' })}>×</button>
+              </div>
+              {activeFilterCount > 0 && (
+                <div className={styles.activeFilters}>
+                  {filters.category && <div className={styles.filterChip}>Category: {filters.category}<button onClick={() => handleFilterChange({ category: '' })}>×</button></div>}
+                  {filters.examLevel && <div className={styles.filterChip}>Level: {filters.examLevel}<button onClick={() => handleFilterChange({ examLevel: '' })}>×</button></div>}
+                  {filters.examMode && <div className={styles.filterChip}>Mode: {filters.examMode}<button onClick={() => handleFilterChange({ examMode: '' })}>×</button></div>}
+                  {filters.conductingBody && <div className={styles.filterChip}>Conducting Body: {filters.conductingBody}<button onClick={() => handleFilterChange({ conductingBody: '' })}>×</button></div>}
+                  {filters.upcoming === 'true' && <div className={styles.filterChip}>Upcoming Only<button onClick={() => handleFilterChange({ upcoming: '' })}>×</button></div>}
                 </div>
               )}
             </div>
-          )}
-        </div>
 
-        {exams.length === 0 ? (
-          <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}><FaBook /></div>
-            <h3 className={styles.emptyTitle}>No exams found</h3>
-            <p className={styles.emptyText}>Try adjusting your filters or search term.</p>
-            <button className={styles.emptyReset} onClick={handleReset}>Clear Filters</button>
-          </div>
-        ) : (
-          <>
-            <div className={styles.grid}>
-              {Array.isArray(exams) && exams.map((exam) => (
-                <ExamCard key={exam._id} exam={exam} />
-              ))}
-            </div>
-            {pagination && (
-              <Pagination
-                currentPage={pagination.page}
-                totalPages={pagination.pages}
-                onPageChange={(page) => setFilters(prev => ({ ...prev, page }))}
-              />
+            {isLoading ? (
+              <Loader />
+            ) : exams.length === 0 ? (
+              <div className={styles.emptyState}>
+                <div className={styles.emptyIcon}><FaBook /></div>
+                <h3 className={styles.emptyTitle}>No exams found</h3>
+                <p className={styles.emptyText}>Try adjusting your filters or search term.</p>
+                <button className={styles.emptyReset} onClick={handleReset}>Clear Filters</button>
+              </div>
+            ) : (
+              <>
+                <div className={styles.grid}>
+                  {Array.isArray(exams) && exams.map((exam) => (
+                    <ExamCard key={exam._id} exam={exam} />
+                  ))}
+                </div>
+                {pagination && (
+                  <Pagination
+                    currentPage={pagination.page}
+                    totalPages={pagination.pages}
+                    onPageChange={(page) => setFilters(prev => ({ ...prev, page }))}
+                  />
+                )}
+              </>
             )}
-          </>
-        )}
-      </main>
-    </div>
-    )}
+          </main>
+        </div>
+      )}
     </div>
   );
+
 };
 
 export default ExamList;

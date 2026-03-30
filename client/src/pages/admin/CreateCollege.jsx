@@ -192,7 +192,7 @@ const CreateCollege = () => {
               <label>Short Name</label>
               <input name="shortName" value={form.shortName} onChange={handleChange} placeholder="e.g. IIT Delhi" />
             </div>
-            <div className={styles.formGroup}>
+            <div className={styles.field}>
               <label>Cover Image URL</label>
               <input
                 type="url"
@@ -201,8 +201,11 @@ const CreateCollege = () => {
                 onChange={handleChange}
                 placeholder="https://... (paste any image URL for the card cover)"
               />
-              <small>This image appears as the card photo in the colleges listing.</small>
+              <small style={{ fontSize: '0.75rem', color: 'var(--muted, #888)', marginTop: '0.1rem' }}>
+                This image appears as the card photo in the colleges listing.
+              </small>
             </div>
+
 
           </div>
           <div className={styles.row3}>
