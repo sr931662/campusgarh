@@ -442,7 +442,7 @@ export default function CollegeDetail() {
       </div>
 
       {/* ── ENQUIRY MODAL ─────────────────────────────────────────────────────── */}
-      <Modal isOpen={showEnquiryModal} onClose={() => setShowEnquiryModal(false)} title="Enquire About This College">
+      <Modal isOpen={showEnquiryModal} onClose={() => setShowEnquiryModal(false)}>
         <CollegeEnquiryForm college={college} />
       </Modal>
     </div>

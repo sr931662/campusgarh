@@ -33,7 +33,15 @@ class CourseService extends BaseService {
   async searchCourses(filters, pagination) {
     const query = { deletedAt: null, isActive: { $ne: false } };
 
-    if (filters.search)   query.name = { $regex: filters.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), $options: 'i' };
+    // NEW (name + discipline + description):
+    if (filters.search) {
+      const esc = filters.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').trim();
+      query.$or = [
+        { name:        { $regex: esc, $options: 'i' } },
+        { discipline:  { $regex: esc, $options: 'i' } },
+        { description: { $regex: esc, $options: 'i' } },
+      ];
+    }
     if (filters.category) query.category = filters.category;
     if (filters.mode)     query.mode = filters.mode;
     if (filters.discipline) {

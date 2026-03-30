@@ -124,7 +124,29 @@ class CollegeService extends BaseService {
   async searchColleges(filters, pagination = {}, sort = {}) {
     const query = { deletedAt: null };
 
-    if (filters.search) query.name = { $regex: filters.search, $options: 'i' };
+    // NEW (name + shortName + city + state + description):
+    if (filters.search) {
+      const terms = filters.search.trim().split(/\s+/)
+        .filter(Boolean)
+        .map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+
+      const makeOr = (t) => [
+        { name:              { $regex: t, $options: 'i' } },
+        { shortName:         { $regex: t, $options: 'i' } },
+        { 'contact.city':   { $regex: t, $options: 'i' } },
+        { 'contact.state':  { $regex: t, $options: 'i' } },
+        { description:      { $regex: t, $options: 'i' } },
+      ];
+
+      if (terms.length === 1) {
+        query.$or = makeOr(terms[0]);
+      } else {
+        query.$and = (query.$and || []).concat(
+          terms.map(t => ({ $or: makeOr(t) }))
+        );
+      }
+    }
+
     if (filters.city) query['contact.city'] = { $regex: filters.city, $options: 'i' };
     if (filters.state) query['contact.state'] = { $regex: filters.state, $options: 'i' };
     if (filters.type) query.collegeType = filters.type;
