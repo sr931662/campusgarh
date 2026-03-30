@@ -45,6 +45,7 @@ import ManageBlogs from './pages/admin/ManageBlogs';
 import ScrollToTop from './components/common/ScrollToTop';
 import AdminGuide from './pages/admin/AdminGuide';
 import Predictor from './pages/Predictor';
+import AdminVideoTestimonials from '../pages/admin/AdminVideoTestimonials';
 
 
 
@@ -125,6 +126,8 @@ function App() {
             <Route path="/admin/analytics" element={<AdminAnalytics />} />
             <Route path="/admin/role-requests" element={<AdminRoleRequests />} />
             <Route path="/admin/guide" element={<AdminGuide />} />
+            <Route path="/admin/video-testimonials" element={<ProtectedRoute roles={['admin','superAdmin']}><AdminVideoTestimonials /></ProtectedRoute>} />
+            
           </Route>
 
         </Route>

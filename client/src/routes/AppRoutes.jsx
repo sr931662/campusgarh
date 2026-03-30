@@ -34,6 +34,7 @@ import AdminLeads     from '../pages/admin/AdminLeads';
 import AdminAnalytics from '../pages/admin/AdminAnalytics';
 import EnquiryDetail  from '../pages/counsellor/EnquiryDetail';
 import AdminRoleRequests from '../pages/admin/AdminRoleRequests';
+import AdminVideoTestimonials from '../pages/admin/AdminVideoTestimonials';
 
 
 

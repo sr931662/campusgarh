@@ -14,6 +14,7 @@ const adminRoutes = require('./adminRoutes');
 const collegeCourseRoutes = require('./collegeCourseRoutes');
 const predictorRoutes = require('./predictorRoutes');
 const newsletterRoutes = require('./newsletter.routes');
+import videoTestimonialRoutes from './videoTestimonialRoutes.js';
 
 const router = express.Router();
 
@@ -32,5 +33,6 @@ router.use('/admin', adminRoutes);
 router.use('/college-courses', collegeCourseRoutes);
 router.use('/predictor', predictorRoutes);
 router.use('/newsletter', newsletterRoutes);
+router.use('/video-testimonials', videoTestimonialRoutes);
 
 module.exports = router;
