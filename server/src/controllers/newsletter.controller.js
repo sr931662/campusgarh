@@ -1,9 +1,9 @@
-import Newsletter from '../models/Newsletter.js';
-import catchAsync from '../utils/catchAsync.js';
-import AppError from '../utils/AppError.js';
-import ResponseHandler from '../utils/ResponseHandler.js';
+const Newsletter = require('../models/Newsletter');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/AppError');
+const ResponseHandler = require('../utils/responseHandler');
 
-export const subscribe = catchAsync(async (req, res, next) => {
+const subscribe = catchAsync(async (req, res, next) => {
   const { email } = req.body;
 
   if (!email) return next(new AppError('Email is required', 400));
@@ -14,7 +14,6 @@ export const subscribe = catchAsync(async (req, res, next) => {
     if (existing.isActive) {
       return next(new AppError('This email is already subscribed', 409));
     }
-    // Re-activate if previously unsubscribed
     existing.isActive = true;
     existing.subscribedAt = new Date();
     await existing.save();
@@ -25,7 +24,7 @@ export const subscribe = catchAsync(async (req, res, next) => {
   ResponseHandler.success(res, 201, 'Subscribed successfully', null);
 });
 
-export const unsubscribe = catchAsync(async (req, res, next) => {
+const unsubscribe = catchAsync(async (req, res, next) => {
   const { email } = req.body;
   if (!email) return next(new AppError('Email is required', 400));
 
@@ -37,8 +36,9 @@ export const unsubscribe = catchAsync(async (req, res, next) => {
   ResponseHandler.success(res, 200, 'Unsubscribed successfully', null);
 });
 
-// Admin only
-export const getAllSubscribers = catchAsync(async (req, res) => {
+const getAllSubscribers = catchAsync(async (_req, res) => {
   const subscribers = await Newsletter.find({ isActive: true }).sort({ subscribedAt: -1 });
   ResponseHandler.success(res, 200, 'Subscribers fetched', subscribers);
 });
+
+module.exports = { subscribe, unsubscribe, getAllSubscribers };

@@ -13,7 +13,7 @@ const importExportRoutes = require('./importExportRoutes');
 const adminRoutes = require('./adminRoutes');
 const collegeCourseRoutes = require('./collegeCourseRoutes');
 const predictorRoutes = require('./predictorRoutes');
-import newsletterRoutes from './newsletter.routes.js';
+const newsletterRoutes = require('./newsletter.routes');
 
 const router = express.Router();
 
