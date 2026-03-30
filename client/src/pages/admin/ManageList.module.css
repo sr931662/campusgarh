@@ -134,6 +134,39 @@
 .pageInfo { font-size: 0.85rem; color: var(--muted, #8A8A8E); }
 
 
+.filterTabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filterTab {
+  padding: 0.35rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filterTab:hover {
+  border-color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.7);
+}
+
+.filterTabActive {
+  padding: 0.35rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--gold, #C9A84C);
+  background: rgba(201,168,76,0.1);
+  color: var(--gold, #C9A84C);
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
 .featuredBtn {
   display: inline-flex;
   align-items: center;
@@ -148,9 +181,14 @@
   transition: all 0.2s;
 }
 
-.featuredBtn:hover {
+.featuredBtn:hover:not(:disabled) {
   border-color: #f59e0b;
   color: #f59e0b;
+}
+
+.featuredBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 .featuredBtnActive {

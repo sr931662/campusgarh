@@ -65,6 +65,15 @@ class BlogController {
     ResponseHandler.success(res, blog, `Blog ${featured ? 'featured' : 'unfeatured'} successfully`);
   });
 
+  getAllBlogsAdmin = catchAsync(async (req, res) => {
+    const { page, limit, status } = req.query;
+    const filter = { deletedAt: null };
+    if (status && status !== 'all') filter.status = status;
+    const result = await blogService.findAll(filter, { page, limit }, { createdAt: -1 });
+    ResponseHandler.success(res, result);
+  });
+
+
 }
 
 module.exports = new BlogController();

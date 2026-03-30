@@ -119,6 +119,10 @@ router.get('/:id', blogController.getBlogById);
 // Authenticated routes (admin, author)
 router.use(protect, restrictTo('admin', 'moderator'));
 
+// Admin-only: returns ALL blogs regardless of status
+router.get('/admin/all', blogController.getAllBlogsAdmin);
+
+
 router.patch('/:id/featured', blogController.toggleFeatured);
 
 /**

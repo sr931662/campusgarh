@@ -30,5 +30,8 @@ export const blogService = {
 
   // Toggle featured status (admin)
   toggleFeatured: (id, featured) => api.patch(`/blogs/${id}/featured`, { featured }),
+  
+  // Admin: get all blogs (all statuses)
+  getAdminBlogs: (params) => api.get('/blogs/admin/all', { params }),
 
 };
