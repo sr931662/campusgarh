@@ -441,11 +441,22 @@ export default function CollegeDetail() {
         </button>
       </div>
 
-      {/* ── ENQUIRY MODAL ─────────────────────────────────────────────────────── */}
+            {/* ── ENQUIRY MODAL ─────────────────────────────────────────────────────── */}
       <Modal isOpen={showEnquiryModal} onClose={() => setShowEnquiryModal(false)}>
         <CollegeEnquiryForm college={college} />
       </Modal>
+
+      {/* ── FLOATING ENQUIRE BUTTON (always visible on desktop) ───────────────── */}
+      <button
+        className={styles.fabEnquire}
+        onClick={() => setShowEnquiryModal(true)}
+        aria-label="Enquire about this college"
+      >
+        <FaEnvelope />
+        <span>Enquire</span>
+      </button>
     </div>
+
   );
 
 }

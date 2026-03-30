@@ -739,3 +739,36 @@
     padding-bottom: 6rem; /* prevent content hiding under sticky bar */
   }
 }
+
+/* ── Floating Enquire Button ──────────────────────────────────────────────── */
+.fabEnquire {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--gold, #C9A84C);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.fabEnquire:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(201, 168, 76, 0.55);
+}
+
+/* Hide FAB on mobile — mobileCTA bar handles it there */
+@media (max-width: 768px) {
+  .fabEnquire {
+    display: none;
+  }
+}
