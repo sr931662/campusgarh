@@ -139,6 +139,18 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* News & Articles */}
+          <div className={styles.section}>
+            <h4 className={styles.subtitle}>News & Articles</h4>
+            <ul className={styles.links}>
+              <li><Link to="/blogs?category=admission">Admission Guide</Link></li>
+              <li><Link to="/blogs?category=exam-prep">Exam Preparation</Link></li>
+              <li><Link to="/blogs?category=career">Career Advice</Link></li>
+              <li><Link to="/blogs?category=scholarship">Scholarships</Link></li>
+              <li><Link to="/blogs">All Articles</Link></li>
+            </ul>
+          </div>
+
         </div>
 
 
