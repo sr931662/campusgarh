@@ -5,11 +5,13 @@ import {
 } from '../../utils/constants';
 import styles from './CourseFilters.module.css';
 
+const EMPTY = { search: '', category: '', mode: '', discipline: '', admissionType: '', feesMin: '', feesMax: '', minSalary: '' };
+
 const Section = ({ title, children, defaultOpen = true }) => {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className={styles.section}>
-      <button className={styles.sectionHeader} onClick={() => setOpen(!open)}>
+      <button className={styles.sectionHeader} onClick={() => setOpen(o => !o)}>
         <span>{title}</span>
         <span className={styles.chevron}>{open ? '▲' : '▼'}</span>
       </button>
@@ -21,7 +23,7 @@ const Section = ({ title, children, defaultOpen = true }) => {
 const PillGroup = ({ options, value, onChange }) => (
   <div className={styles.pillGroup}>
     {options.map((opt) => {
-      const val = typeof opt === 'object' ? opt.value : opt;
+      const val   = typeof opt === 'object' ? opt.value : opt;
       const label = typeof opt === 'object' ? opt.label : opt;
       return (
         <button
@@ -37,20 +39,13 @@ const PillGroup = ({ options, value, onChange }) => (
 );
 
 const CourseFilters = ({ filters, onFilterChange, onReset }) => {
-  const [local, setLocal] = useState(filters);
+  const [local, setLocal] = useState({ ...EMPTY, ...filters });
   const debounceRef = useRef(null);
-  const isResetting = useRef(false);
 
-  // Sync local state when parent resets filters externally
+  // Sync when parent resets (all values become empty)
   useEffect(() => {
-    if (isResetting.current) {
-      isResetting.current = false;
-      return;
-    }
-    const hasActiveFilters = Object.values(filters).some(v => v && v !== '');
-    if (!hasActiveFilters) {
-      setLocal({});
-    }
+    const anyActive = Object.values(filters).some(v => v && v !== '');
+    if (!anyActive) setLocal({ ...EMPTY });
   }, [filters]);
 
   const setInstant = (field, value) => {
@@ -68,8 +63,7 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
 
   const handleReset = () => {
     clearTimeout(debounceRef.current);
-    isResetting.current = true;
-    setLocal({});
+    setLocal({ ...EMPTY });
     onReset();
   };
 
@@ -89,7 +83,7 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
       <Section title="Search">
         <input
           type="text"
-          value={local.search || ''}
+          value={local.search}
           onChange={(e) => setDebounced('search', e.target.value)}
           placeholder="Course name..."
           className={styles.input}
@@ -99,14 +93,14 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
       <Section title="Level / Category">
         <PillGroup
           options={COURSE_CATEGORIES}
-          value={local.category || ''}
+          value={local.category}
           onChange={(v) => setInstant('category', v)}
         />
       </Section>
 
       <Section title="Discipline / Stream">
         <select
-          value={local.discipline || ''}
+          value={local.discipline}
           onChange={(e) => setInstant('discipline', e.target.value)}
           className={styles.select}
         >
@@ -118,7 +112,7 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
       <Section title="Study Mode">
         <PillGroup
           options={COURSE_MODES}
-          value={local.mode || ''}
+          value={local.mode}
           onChange={(v) => setInstant('mode', v)}
         />
       </Section>
@@ -126,7 +120,7 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
       <Section title="Admission Type" defaultOpen={false}>
         <PillGroup
           options={ADMISSION_TYPES}
-          value={local.admissionType || ''}
+          value={local.admissionType}
           onChange={(v) => setInstant('admissionType', v)}
         />
       </Section>
@@ -135,7 +129,7 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
         <div className={styles.rangeGroup}>
           <input
             type="number"
-            value={local.feesMin || ''}
+            value={local.feesMin}
             onChange={(e) => setInstant('feesMin', e.target.value)}
             placeholder="Min"
             className={styles.rangeInput}
@@ -143,7 +137,7 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
           <span className={styles.rangeSep}>–</span>
           <input
             type="number"
-            value={local.feesMax || ''}
+            value={local.feesMax}
             onChange={(e) => setInstant('feesMax', e.target.value)}
             placeholder="Max"
             className={styles.rangeInput}
@@ -154,7 +148,7 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
       <Section title="Avg Starting Salary" defaultOpen={false}>
         <PillGroup
           options={SALARY_RANGES}
-          value={local.minSalary || ''}
+          value={local.minSalary}
           onChange={(v) => setInstant('minSalary', v)}
         />
       </Section>

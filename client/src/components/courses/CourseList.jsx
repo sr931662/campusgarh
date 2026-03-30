@@ -10,28 +10,27 @@ import styles from './CourseList.module.css';
 const CourseList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(parseInt(searchParams.get('page')) || 1);
+  const [sort, setSort] = useState(searchParams.get('sort') || 'name');
   const [filters, setFilters] = useState({
-    search: searchParams.get('search') || '',
-    category: searchParams.get('category') || '',
-    mode: searchParams.get('mode') || '',
-    discipline: searchParams.get('discipline') || '',
+    search:        searchParams.get('search')        || '',
+    category:      searchParams.get('category')      || '',
+    mode:          searchParams.get('mode')          || '',
+    discipline:    searchParams.get('discipline')    || '',
     admissionType: searchParams.get('admissionType') || '',
-    feesMin: searchParams.get('feesMin') || '',
-    feesMax: searchParams.get('feesMax') || '',
-    minSalary: searchParams.get('minSalary') || '',
-    sort: searchParams.get('sort') || 'name',
+    feesMin:       searchParams.get('feesMin')       || '',
+    feesMax:       searchParams.get('feesMax')       || '',
+    minSalary:     searchParams.get('minSalary')     || '',
   });
 
-  const { data, isLoading, error } = useCourses({ page, limit: 12, ...filters });
+  const { data, isLoading, error } = useCourses({ page, limit: 12, sort, ...filters });
 
   useEffect(() => {
     const params = {};
     if (page !== 1) params.page = page;
-    Object.entries(filters).forEach(([key, value]) => {
-      if (value) params[key] = value;
-    });
+    if (sort !== 'name') params.sort = sort;
+    Object.entries(filters).forEach(([k, v]) => { if (v) params[k] = v; });
     setSearchParams(params);
-  }, [page, filters, setSearchParams]);
+  }, [page, sort, filters, setSearchParams]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
@@ -39,12 +38,16 @@ const CourseList = () => {
   };
 
   const handleResetFilters = () => {
-    setFilters({});
+    setFilters({ search: '', category: '', mode: '', discipline: '', admissionType: '', feesMin: '', feesMax: '', minSalary: '' });
+    setSort('name');
     setPage(1);
   };
 
-  const { data: courses = [], pagination = {} } = data?.data?.data || {};
-  const { total, pages, currentPage = page } = pagination;
+  const raw = data?.data?.data;
+  const courses   = Array.isArray(raw?.data) ? raw.data : [];
+  const pagination = raw?.pagination || {};
+  const { total, pages } = pagination;
+  const currentPage = pagination.page || page;
 
   return (
     <div className={styles.pageWrapper}>
@@ -74,15 +77,15 @@ const CourseList = () => {
                 <div>
                   <h2 className={styles.title}>Courses in India</h2>
                   <p className={styles.subtitle}>
-                    {isLoading ? 'Searching...' : total > 0 ? `${total} courses found` : 'No courses found'}
+                    {isLoading ? 'Searching…' : total > 0 ? `${total} courses found` : 'No courses found'}
                   </p>
                 </div>
                 <div className={styles.sortBar}>
                   <label className={styles.sortLabel}>Sort by</label>
                   <select
                     className={styles.sortSelect}
-                    value={filters.sort || 'name'}
-                    onChange={(e) => handleFilterChange({ ...filters, sort: e.target.value })}
+                    value={sort}
+                    onChange={(e) => { setSort(e.target.value); setPage(1); }}
                   >
                     <option value="name">Name (A–Z)</option>
                     <option value="fees_asc">Fees: Low to High</option>
@@ -92,14 +95,14 @@ const CourseList = () => {
                 </div>
               </div>
 
-              {Object.entries(filters).some(([k, v]) => v && k !== 'sort') && (
+              {Object.values(filters).some(Boolean) && (
                 <div className={styles.activeFilters}>
-                  {filters.search && <span className={styles.filterChip}><FaSearch /> "{filters.search}" <button onClick={() => handleFilterChange({ ...filters, search: '' })}>×</button></span>}
-                  {filters.category && <span className={styles.filterChip}><FaGraduationCap /> {filters.category} <button onClick={() => handleFilterChange({ ...filters, category: '' })}>×</button></span>}
-                  {filters.discipline && <span className={styles.filterChip}><FaBook /> {filters.discipline} <button onClick={() => handleFilterChange({ ...filters, discipline: '' })}>×</button></span>}
-                  {filters.mode && <span className={styles.filterChip}><FaBookOpen /> {filters.mode} <button onClick={() => handleFilterChange({ ...filters, mode: '' })}>×</button></span>}
+                  {filters.search        && <span className={styles.filterChip}><FaSearch /> "{filters.search}" <button onClick={() => handleFilterChange({ ...filters, search: '' })}>×</button></span>}
+                  {filters.category      && <span className={styles.filterChip}><FaGraduationCap /> {filters.category} <button onClick={() => handleFilterChange({ ...filters, category: '' })}>×</button></span>}
+                  {filters.discipline    && <span className={styles.filterChip}><FaBook /> {filters.discipline} <button onClick={() => handleFilterChange({ ...filters, discipline: '' })}>×</button></span>}
+                  {filters.mode         && <span className={styles.filterChip}><FaBookOpen /> {filters.mode} <button onClick={() => handleFilterChange({ ...filters, mode: '' })}>×</button></span>}
                   {filters.admissionType && <span className={styles.filterChip}><FaCheck /> {filters.admissionType} <button onClick={() => handleFilterChange({ ...filters, admissionType: '' })}>×</button></span>}
-                  {filters.minSalary && <span className={styles.filterChip}><FaBriefcase /> Salary {(Number(filters.minSalary)/100000).toFixed(0)}L+ <button onClick={() => handleFilterChange({ ...filters, minSalary: '' })}>×</button></span>}
+                  {filters.minSalary     && <span className={styles.filterChip}><FaBriefcase /> Salary {(Number(filters.minSalary)/100000).toFixed(0)}L+ <button onClick={() => handleFilterChange({ ...filters, minSalary: '' })}>×</button></span>}
                 </div>
               )}
             </div>
@@ -115,9 +118,7 @@ const CourseList = () => {
               </div>
             ) : (
               <div className={styles.grid}>
-                {courses.map((course) => (
-                  <CourseCard key={course._id} course={course} />
-                ))}
+                {courses.map((course) => <CourseCard key={course._id} course={course} />)}
               </div>
             )}
 
@@ -127,17 +128,17 @@ const CourseList = () => {
                 <div className={styles.pageNumbers}>
                   {Array.from({ length: Math.min(pages, 7) }, (_, i) => {
                     let p;
-                    if (pages <= 7) { p = i + 1; }
-                    else if (currentPage <= 4) { p = i < 6 ? i + 1 : pages; }
-                    else if (currentPage >= pages - 3) { p = i === 0 ? 1 : pages - 6 + i; }
+                    if (pages <= 7)              p = i + 1;
+                    else if (currentPage <= 4)   p = i < 6 ? i + 1 : pages;
+                    else if (currentPage >= pages - 3) p = i === 0 ? 1 : pages - 6 + i;
                     else {
                       const arr = [1, currentPage-2, currentPage-1, currentPage, currentPage+1, currentPage+2, pages];
                       p = arr[i];
                     }
-                    const isEllipsis = i > 0 && p - (pages <= 7 ? i : [1, currentPage-2, currentPage-1, currentPage, currentPage+1, currentPage+2, pages][i-1]) > 1;
+                    const prev = pages <= 7 ? i : [1, currentPage-2, currentPage-1, currentPage, currentPage+1, currentPage+2, pages][i-1];
                     return (
                       <React.Fragment key={i}>
-                        {isEllipsis && <span className={styles.ellipsis}>…</span>}
+                        {i > 0 && p - prev > 1 && <span className={styles.ellipsis}>…</span>}
                         <button
                           className={`${styles.pageNum} ${currentPage === p ? styles.pageNumActive : ''}`}
                           onClick={() => setPage(p)}
@@ -154,7 +155,6 @@ const CourseList = () => {
       )}
     </div>
   );
-
 };
 
 export default CourseList;

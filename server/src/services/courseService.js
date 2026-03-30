@@ -31,39 +31,39 @@ class CourseService extends BaseService {
   }
 
   async searchCourses(filters, pagination) {
-    const query = { deletedAt: null };
-    if (filters.search) query.name = { $regex: filters.search, $options: 'i' };
+    const query = { deletedAt: null, isActive: { $ne: false } };
+
+    if (filters.search)   query.name = { $regex: filters.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), $options: 'i' };
     if (filters.category) query.category = filters.category;
-    if (filters.mode) query.mode = filters.mode;
-    if (filters.discipline) query.discipline = { $regex: filters.discipline, $options: 'i' };
+    if (filters.mode)     query.mode = filters.mode;
+    if (filters.discipline) {
+      const escaped = filters.discipline.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      query.discipline = { $regex: escaped, $options: 'i' };
+    }
     if (filters.admissionType) query.admissionType = filters.admissionType;
 
-    // Fee range (filter on feeRange.min)
     if (filters.feesMin || filters.feesMax) {
       query['feeRange.min'] = {};
       if (filters.feesMin) query['feeRange.min'].$gte = parseInt(filters.feesMin);
       if (filters.feesMax) query['feeRange.min'].$lte = parseInt(filters.feesMax);
     }
 
-    // Min avg starting salary
     if (filters.minSalary) {
       query['careerProspects.averageStartingSalary'] = { $gte: Number(filters.minSalary) };
     }
 
-    // Filter courses that accept a specific exam (for ExamDetail → Courses tab)
     if (filters.examId) {
       query.entranceExamRequirements = filters.examId;
     }
 
-    // Sort
-    let sortObj = {};
-    if (filters.sort === 'fees_asc')  sortObj = { 'feeRange.min': 1, name: 1 };
-    else if (filters.sort === 'fees_desc') sortObj = { 'feeRange.max': -1, name: 1 };
-    else if (filters.sort === 'salary')    sortObj = { 'careerProspects.averageStartingSalary': -1, name: 1 };
-    else sortObj = { name: 1 };
+    let sortObj = { name: 1 };
+    if (filters.sort === 'fees_asc')  sortObj = { 'feeRange.min': 1,  name: 1 };
+    if (filters.sort === 'fees_desc') sortObj = { 'feeRange.max': -1, name: 1 };
+    if (filters.sort === 'salary')    sortObj = { 'careerProspects.averageStartingSalary': -1, name: 1 };
 
     return this.findAll(query, pagination, sortObj);
   }
+
 }
 
 module.exports = new CourseService();
