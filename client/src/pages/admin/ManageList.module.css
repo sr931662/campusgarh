@@ -212,3 +212,23 @@
   display: flex;
   align-items: center;
 }
+
+.searchWrap {
+  margin-bottom: 1.25rem;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 380px;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: var(--warm-white, #FFFEF9);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.searchInput::placeholder { color: rgba(255,255,255,0.28); }
+.searchInput:focus { border-color: var(--gold, #C9A84C); }
