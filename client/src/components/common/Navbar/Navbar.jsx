@@ -99,7 +99,6 @@ const MEGA = {
         { label: 'All Colleges',     to: '/colleges'                },
         { label: 'All Courses',      to: '/courses'                 },
         { label: 'All Exams',        to: '/exams'                   },
-        { label: 'Search Platform',  to: '/search?q='              },
       ]},
       { title: 'Resources', links: [
         { label: 'Blogs & Articles',   to: '/blogs'                         },
