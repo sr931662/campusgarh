@@ -24,4 +24,11 @@ export const blogService = {
 
   // Delete blog (admin/moderator)
   deleteBlog: (id) => api.delete(`/blogs/${id}`),
+
+  // Get featured blogs for homepage
+  getFeaturedBlogs: () => api.get('/blogs/featured'),
+
+  // Toggle featured status (admin)
+  toggleFeatured: (id, featured) => api.patch(`/blogs/${id}/featured`, { featured }),
+
 };

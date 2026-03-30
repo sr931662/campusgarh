@@ -95,6 +95,9 @@ router.get('/tag/:tag', blogController.getBlogsByTag);
 // Add this new route for categories
 router.get('/categories', blogController.getCategories);
 
+router.get('/featured', blogController.getFeaturedBlogs);
+
+
 /**
  * @swagger
  * /blogs/{id}:
@@ -115,6 +118,8 @@ router.get('/:id', blogController.getBlogById);
 
 // Authenticated routes (admin, author)
 router.use(protect, restrictTo('admin', 'moderator'));
+
+router.patch('/:id/featured', blogController.toggleFeatured);
 
 /**
  * @swagger

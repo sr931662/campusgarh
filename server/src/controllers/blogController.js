@@ -54,6 +54,17 @@ class BlogController {
     const result = await blogService.getBlogsByTag(tag, { page, limit });
     ResponseHandler.success(res, result);
   });
+  getFeaturedBlogs = catchAsync(async (req, res) => {
+    const result = await blogService.getFeaturedBlogs(4);
+    ResponseHandler.success(res, result);
+  });
+
+  toggleFeatured = catchAsync(async (req, res) => {
+    const { featured } = req.body;
+    const blog = await blogService.updateBlog(req.params.id, { featured });
+    ResponseHandler.success(res, blog, `Blog ${featured ? 'featured' : 'unfeatured'} successfully`);
+  });
+
 }
 
 module.exports = new BlogController();

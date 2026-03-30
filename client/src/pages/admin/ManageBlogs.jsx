@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { FaStar, FaRegStar } from 'react-icons/fa';
 import { blogService } from '../../services/blogService';
 import Loader from '../../components/common/Loader/Loader';
 import styles from './ManageList.module.css';
@@ -19,10 +20,22 @@ const ManageBlogs = () => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-blogs'] }),
   });
 
+  const featureMutation = useMutation({
+    mutationFn: ({ id, featured }) => blogService.toggleFeatured(id, featured),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-blogs'] });
+      queryClient.invalidateQueries({ queryKey: ['featured-blogs'] });
+    },
+  });
+
   const handleDelete = (id, title) => {
     if (window.confirm(`Delete "${title}"? This cannot be undone.`)) {
       deleteMutation.mutate(id);
     }
+  };
+
+  const handleToggleFeatured = (id, currentFeatured) => {
+    featureMutation.mutate({ id, featured: !currentFeatured });
   };
 
   const raw = data?.data?.data;
@@ -30,11 +43,19 @@ const ManageBlogs = () => {
   const pagination = raw?.pagination || {};
   const totalPages = pagination.totalPages || 1;
 
+  const featuredCount = blogs.filter(b => b.featured).length;
+
   return (
     <div className={styles.container}>
       <Link to="/dashboard/admin" className={styles.backLink}>← Back to Dashboard</Link>
       <div className={styles.header}>
-        <h1>Manage Blogs</h1>
+        <div>
+          <h1>Manage Blogs</h1>
+          <p className={styles.headerNote}>
+            <FaStar style={{ color: '#f59e0b', marginRight: 4 }} />
+            {featuredCount} article{featuredCount !== 1 ? 's' : ''} featured on homepage (max recommended: 4)
+          </p>
+        </div>
         <Link to="/admin/blogs/create" className={styles.addBtn}>+ Write Blog</Link>
       </div>
 
@@ -49,18 +70,30 @@ const ManageBlogs = () => {
                   <th>Type</th>
                   <th>Status</th>
                   <th>Date</th>
+                  <th>Homepage</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {blogs.length === 0 ? (
-                  <tr><td colSpan={5} className={styles.empty}>No blog posts found.</td></tr>
+                  <tr><td colSpan={6} className={styles.empty}>No blog posts found.</td></tr>
                 ) : blogs.map((b) => (
                   <tr key={b._id}>
                     <td><strong>{b.title}</strong></td>
                     <td><span className={styles.badge}>{b.contentType || '—'}</span></td>
                     <td><span className={styles.badge}>{b.status || '—'}</span></td>
                     <td>{b.createdAt ? new Date(b.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: '2-digit' }) : '—'}</td>
+                    <td>
+                      <button
+                        className={b.featured ? styles.featuredBtnActive : styles.featuredBtn}
+                        onClick={() => handleToggleFeatured(b._id, b.featured)}
+                        disabled={featureMutation.isPending}
+                        title={b.featured ? 'Remove from homepage' : 'Feature on homepage'}
+                      >
+                        {b.featured ? <FaStar /> : <FaRegStar />}
+                        {b.featured ? ' Featured' : ' Feature'}
+                      </button>
+                    </td>
                     <td>
                       <button
                         className={styles.deleteBtn}

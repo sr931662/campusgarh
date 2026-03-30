@@ -52,6 +52,14 @@ class BlogService extends BaseService {
       .lean();
     return categories;
   }
+  async getFeaturedBlogs(limit = 4) {
+    return this.findAll(
+      { featured: true, status: 'published', deletedAt: null },
+      { limit },
+      { publishedAt: -1 }
+    );
+  }
+
 }
 
 module.exports = new BlogService();
