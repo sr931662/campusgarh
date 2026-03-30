@@ -23,6 +23,7 @@ import CollegeCutoffs from './CollegeCutoffs';
 import CollegeHostelCampus from './CollegeHostelCampus';
 import CollegeEnquiryForm from './CollegeEnquiryForm';
 import Modal from '../common/Modal/Modal';
+import CollegeGallery from './CollegeGallery';
 
 import styles from './CollegeDetail.module.css';
 
@@ -33,8 +34,10 @@ const TABS = [
   { id: 'cutoffs',    label: 'Cutoffs' },
   { id: 'hostel',     label: 'Hostel & Campus' },
   { id: 'facilities', label: 'Facilities' },
+  { id: 'gallery',    label: 'Gallery' },
   { id: 'reviews',    label: 'Reviews' },
 ];
+
 
 export default function CollegeDetail() {
   const { slug } = useParams();
@@ -424,6 +427,12 @@ export default function CollegeDetail() {
           {/* FACILITIES ─────────────────────────────────────────────── */}
           {activeTab === 'facilities' && (
             <CollegeFacilities college={college} />
+          )}
+          {/* GALLERY ───────────────────────────────────────────── */}
+          {activeTab === 'gallery' && (
+            <div className={styles.section}>
+              <CollegeGallery collegeId={college._id} />
+            </div>
           )}
 
           {/* REVIEWS ────────────────────────────────────────────────── */}
