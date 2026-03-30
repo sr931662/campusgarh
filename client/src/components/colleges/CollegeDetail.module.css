@@ -43,12 +43,18 @@
 /* ══════════════════════════════════════
    HERO
    ══════════════════════════════════════ */
-.hero {
-  position: relative;
-  background: var(--deep, #0A0A0F);
-  overflow: hidden;
-  padding: 4rem 0 3rem;
+.heroNoise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.72) 100%),
+    radial-gradient(ellipse at 15% 60%, rgba(201,168,76,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(26,107,74,0.05) 0%, transparent 45%);
+  backdrop-filter: blur(1px);
 }
+
 
 /* Noise / grain texture */
 .heroNoise {

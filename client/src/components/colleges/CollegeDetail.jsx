@@ -108,7 +108,15 @@ export default function CollegeDetail() {
   return (
     <div className={styles.page}>
       {/* ── HERO ──────────────────────────────────────────────────────────────── */}
-      <section className={styles.hero}>
+      <section
+        className={styles.hero}
+        style={college.coverImageUrl ? {
+          backgroundImage: `url(${college.coverImageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        } : undefined}
+      >
         <div className={styles.heroNoise} />
 
         <div className={styles.heroInner}>
