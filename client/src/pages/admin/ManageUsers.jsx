@@ -22,8 +22,9 @@ export default function ManageUsers() {
     onSuccess: () => qc.invalidateQueries(['admin-users']),
   });
 
-    const users = data?.data?.data || [];
-    const total = data?.data?.pagination?.total || 0;
+    const users = data?.data?.data?.data || [];
+    const total = data?.data?.data?.pagination?.total || 0;
+
 
 
   return (
