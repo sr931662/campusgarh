@@ -13,6 +13,8 @@ import PredictorWidget from '../components/home/PredictorWidget';
 import LatestArticles from '../components/home/LatestArticles';
 import ExploreColleges from '../components/home/ExploreColleges';
 import TrustedVoices from '../components/home/TrustedVoices';
+import TopCourses from '../components/home/TopCourses';
+import TopInstitutions from '../components/home/TopInstitutions';
 
 const stats = [
   { num: '500+', label: 'Colleges' },
@@ -253,6 +255,9 @@ export default function Home() {
         </div>
       </section>
       <ExploreColleges />
+
+      <TopInstitutions />
+      <TopCourses />
 
       {/* ── TOP STUDY PLACES ────────────────────────────────────────────────── */}
       <StudyPlaces />
