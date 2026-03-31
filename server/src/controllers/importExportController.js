@@ -11,7 +11,18 @@ class ImportExportController {
       return ResponseHandler.error(res, { message: 'No file uploaded' }, 400);
     }
     const { model } = req.body;
-    const result = await importExportService.importFromExcel(req.file.path, model, req.user.id);
+
+    // Partners may only import leads
+    if (req.user.role === 'partner' && model !== 'AdmissionEnquiry') {
+      return ResponseHandler.error(res, { message: 'Partners can only import leads (AdmissionEnquiry)' }, 403);
+    }
+
+    // Inject importedBy so the lead is tracked back to the partner
+    const extraData = (req.user.role === 'partner' && model === 'AdmissionEnquiry')
+      ? { importedBy: req.user._id, source: 'referral' }
+      : {};
+
+    const result = await importExportService.importFromExcel(req.file.path, model, req.user.id, extraData);
     // Always return 200 with the full result so the UI can display per-row errors
     ResponseHandler.success(res, result, 'Import completed');
   });

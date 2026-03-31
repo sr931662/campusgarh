@@ -48,8 +48,9 @@ import Predictor from './pages/Predictor';
 import AdminVideoTestimonials from './pages/admin/AdminVideoTestimonials';
 import PartnershipProgram from './pages/PartnershipProgram';
 import ManageAccreditation from './pages/admin/ManageAccreditation';
-
-
+import PartnerDashboard from './pages/partner/PartnerDashboard';
+import PartnerLeads from './pages/partner/PartnerLeads';
+import PartnerImport from './pages/partner/PartnerImport';
 
 import { ROLES } from './utils/constants';
 
@@ -111,6 +112,13 @@ function App() {
           {/* Admin + Moderator shared routes */}
           <Route element={<RoleBasedRoute allowedRoles={[ROLES.ADMIN, ROLES.MODERATOR]} />}>
             <Route path="/admin/reviews/moderation" element={<ReviewModeration />} />
+          </Route>
+
+          {/* Partner routes */}
+          <Route element={<RoleBasedRoute allowedRoles={[ROLES.PARTNER]} />}>
+            <Route path="/partner/dashboard" element={<PartnerDashboard />} />
+            <Route path="/partner/leads"     element={<PartnerLeads />} />
+            <Route path="/partner/import"    element={<PartnerImport />} />
           </Route>
 
           {/* Admin-only routes */}

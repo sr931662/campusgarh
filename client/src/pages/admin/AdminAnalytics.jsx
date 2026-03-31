@@ -5,6 +5,7 @@ import {
   FaCheckCircle, FaBell, FaArrowLeft,
 } from 'react-icons/fa';
 import { adminService } from '../../services/adminService';
+import { enquiryService } from '../../services/enquiryService';
 import Loader from '../../components/common/Loader/Loader';
 import styles from './AdminAnalytics.module.css';
 
@@ -44,8 +45,16 @@ export default function AdminAnalytics() {
     staleTime: 60 * 1000,
   });
 
+  const { data: cRes } = useQuery({
+    queryKey: ['counsellorAnalytics'],
+    queryFn: enquiryService.getCounsellorAnalytics,
+    staleTime: 60 * 1000,
+  });
+
   if (isLoading) return <Loader />;
   if (error) return <div className={styles.error}>Failed to load analytics.</div>;
+
+  const counsellorRows = cRes?.data?.data ?? [];
 
   const d = res?.data?.data || {};
   const { conversionBreakdown = [], callStatusBreakdown = [], sourceBreakdown = [], totals = {}, todayFollowUps = 0, thisMonthEnquiries = 0 } = d;
@@ -152,6 +161,40 @@ export default function AdminAnalytics() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Counsellor Performance */}
+      <div className={styles.counsellorSection}>
+        <h2 className={styles.chartTitle}>Counsellor Performance</h2>
+        <p className={styles.chartSubtitle}>Leads assigned vs converted per counsellor</p>
+        {counsellorRows.length === 0 ? (
+          <p className={styles.empty}>No counsellor data yet.</p>
+        ) : (
+          <div className={styles.counsellorTable}>
+            <div className={styles.counsellorHead}>
+              <span>Counsellor</span>
+              <span>Total Leads</span>
+              <span>Converted</span>
+              <span>Conversion Rate</span>
+            </div>
+            {counsellorRows.map((row) => {
+              const rate = row.total > 0 ? ((row.converted / row.total) * 100).toFixed(1) : '0.0';
+              const name = row.counsellor?.name || 'Unassigned';
+              return (
+                <div key={row._id || name} className={styles.counsellorRow}>
+                  <span className={styles.counsellorName}>{name}</span>
+                  <span>{row.total}</span>
+                  <span className={styles.convertedCount}>{row.converted}</span>
+                  <span>
+                    <span className={styles.rateChip} style={{ background: parseFloat(rate) >= 20 ? '#22c55e' : parseFloat(rate) >= 10 ? '#f59e0b' : '#ef4444' }}>
+                      {rate}%
+                    </span>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Quick link */}

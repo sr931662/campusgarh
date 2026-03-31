@@ -173,7 +173,7 @@ class ImportExportService {
 
   // ── IMPORT ──────────────────────────────────────────────────────────────────
 
-  async importFromExcel(filePath, modelName, userId) {
+  async importFromExcel(filePath, modelName, userId, extraData = {}) {
     const batchId = this.generateBatchId();
     await ImportLog.create({ batchId, model: modelName, fileUrl: filePath, status: 'processing', startedBy: userId });
 
@@ -188,7 +188,7 @@ class ImportExportService {
 
       for (let i = 0; i < data.length; i++) {
         try {
-          const mapped = this.mapRowToModel(data[i], modelName);
+          const mapped = { ...this.mapRowToModel(data[i], modelName), ...extraData };
           if      (modelName === 'College') await service.upsertCollege(mapped);
           else if (modelName === 'Course')  await service.createCourse(mapped);
           else if (modelName === 'Exam')    await service.createExam(mapped);

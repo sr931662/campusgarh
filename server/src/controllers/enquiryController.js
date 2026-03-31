@@ -65,6 +65,18 @@ class EnquiryController {
     ResponseHandler.success(res, rows);
   });
 
+  // Partner: paginated list of own leads | Admin: pass ?partnerId= for any partner
+  getPartnerLeads = catchAsync(async (req, res) => {
+    const mongoose = require('mongoose');
+    const partnerId =
+      req.user.role === 'admin' && req.query.partnerId
+        ? new mongoose.Types.ObjectId(req.query.partnerId)
+        : new mongoose.Types.ObjectId(req.user.id);
+    const { page = 1, limit = 20, conversionStatus, callStatus } = req.query;
+    const result = await enquiryService.getPartnerLeads(partnerId, { conversionStatus, callStatus }, { page, limit });
+    ResponseHandler.success(res, result);
+  });
+
   // Partner: analytics for own leads | Admin: pass ?partnerId= for any partner
   getPartnerAnalytics = catchAsync(async (req, res) => {
     const AdmissionEnquiry = enquiryService.model;

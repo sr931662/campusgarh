@@ -30,6 +30,7 @@ router.use(protect, restrictTo('admin'));
 router.get('/stats', adminController.getDashboardStats);
 
 router.get('/analytics', adminController.getAnalytics);
+router.get('/counsellors', adminController.getCounsellors);
 
 /**
  * @swagger

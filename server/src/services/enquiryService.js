@@ -73,6 +73,14 @@ class EnquiryService extends BaseService {
     return this.findAll(query, pagination, { createdAt: -1 });
   }
 
+  // Get leads imported by a specific partner
+  async getPartnerLeads(partnerId, filters = {}, pagination = {}) {
+    const query = { importedBy: partnerId, deletedAt: null };
+    if (filters.conversionStatus) query.conversionStatus = filters.conversionStatus;
+    if (filters.callStatus) query.callStatus = filters.callStatus;
+    return this.findAll(query, pagination, { createdAt: -1 });
+  }
+
   // Get all enquiries for admin
   async getAllEnquiries(filters = {}, pagination = {}) {
     const query = { deletedAt: null };

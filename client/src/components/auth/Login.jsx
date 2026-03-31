@@ -31,6 +31,7 @@ const Login = () => {
       if (user.role === 'admin')           navigate('/dashboard/admin');
       else if (user.role === 'counsellor') navigate('/dashboard/counsellor');
       else if (user.role === 'moderator')  navigate('/dashboard/moderator');
+      else if (user.role === 'partner')    navigate('/partner/dashboard');
       else                                 navigate('/dashboard/student');
     } catch {
       toast.error('Google sign-in failed. Please try again.');
@@ -50,11 +51,12 @@ const Login = () => {
     try {
       const result = await loginMutation.mutateAsync(data);
       const { user } = result.data.data;
-      if (user.role === 'admin') navigate('/dashboard/admin');
+      if (user.role === 'admin')           navigate('/dashboard/admin');
       else if (user.role === 'counsellor') navigate('/dashboard/counsellor');
-      else if (user.role === 'moderator') navigate('/dashboard/moderator');
+      else if (user.role === 'moderator')  navigate('/dashboard/moderator');
       else if (user.role === 'institution_rep') navigate('/dashboard/institution-rep');
-      else navigate('/dashboard/student');
+      else if (user.role === 'partner')    navigate('/partner/dashboard');
+      else                                 navigate('/dashboard/student');
     } catch (error) {
       // Error is already handled by the mutation's onError
     }

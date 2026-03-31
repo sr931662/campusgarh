@@ -753,3 +753,33 @@ export const useReviewRoleRequest = () => {
     onError: (err) => toast.error(err.response?.data?.message || 'Action failed'),
   });
 };
+
+// ========== Counsellor / Partner Analytics Hooks ==========
+
+export const useCounsellors = () =>
+  useQuery({
+    queryKey: ['counsellors'],
+    queryFn: adminService.getCounsellors,
+    staleTime: 5 * 60 * 1000,
+  });
+
+export const useCounsellorAnalytics = () =>
+  useQuery({
+    queryKey: ['counsellorAnalytics'],
+    queryFn: enquiryService.getCounsellorAnalytics,
+    staleTime: 60 * 1000,
+  });
+
+export const usePartnerAnalytics = (partnerId) =>
+  useQuery({
+    queryKey: ['partnerAnalytics', partnerId],
+    queryFn: () => enquiryService.getPartnerAnalytics(partnerId),
+    staleTime: 60 * 1000,
+  });
+
+export const usePartnerLeads = (params) =>
+  useQuery({
+    queryKey: ['partnerLeads', params],
+    queryFn: () => enquiryService.getPartnerLeads(params),
+    placeholderData: keepPreviousData,
+  });

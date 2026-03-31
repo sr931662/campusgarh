@@ -27,4 +27,12 @@ export const enquiryService = {
   // Assign enquiry (admin)
   assignEnquiry: (enquiryId, counsellorId) =>
     api.post(`/enquiries/${enquiryId}/assign/${counsellorId}`),
+
+  // Partner: get own leads (paginated)
+  getPartnerLeads: (params) => api.get('/enquiries/partner-leads', { params }),
+
+  // Analytics
+  getCounsellorAnalytics: () => api.get('/enquiries/analytics/counsellors'),
+  getPartnerAnalytics: (partnerId) =>
+    api.get('/enquiries/analytics/partner', { params: partnerId ? { partnerId } : {} }),
 };

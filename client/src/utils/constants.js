@@ -5,6 +5,7 @@ export const ROLES = {
   COUNSELLOR: 'counsellor',
   MODERATOR: 'moderator',
   INSTITUTION_REP: 'institution_rep',
+  PARTNER: 'partner',
 };
 
 // Review status

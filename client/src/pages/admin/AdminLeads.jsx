@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { FaExternalLinkAlt, FaChartBar } from 'react-icons/fa';
-import { useAllEnquiries } from '../../hooks/queries';
+import { useAllEnquiries, useAssignEnquiry, useCounsellors } from '../../hooks/queries';
 import Loader from '../../components/common/Loader/Loader';
 import styles from './AdminLeads.module.css';
 import { FaExternalLinkAlt, FaChartBar, FaWhatsapp } from 'react-icons/fa';
-
 
 const CONVERSION_COLORS = {
   new: '#64748b', contacted: '#3b82f6', interested: '#10b981',
@@ -23,6 +21,9 @@ export default function AdminLeads() {
   const [page, setPage] = useState(1);
   const [conversionFilter, setConversionFilter] = useState('');
   const [callFilter, setCallFilter] = useState('');
+  // Track which row has the assign dropdown open and its selected counsellor
+  const [assigningId, setAssigningId] = useState(null);
+  const [selectedCounsellor, setSelectedCounsellor] = useState('');
 
   const params = {
     page,
@@ -31,15 +32,25 @@ export default function AdminLeads() {
     ...(callFilter       && { callStatus: callFilter }),
   };
 
-  const { data: res, isLoading } = useAllEnquiries(params);
+  const { data: res, isLoading }   = useAllEnquiries(params);
+  const { data: cRes }             = useCounsellors();
+  const { mutate: assignEnquiry, isPending: assigning } = useAssignEnquiry();
+
   const _raw       = res?.data?.data;
-    const enquiries  = Array.isArray(_raw) ? _raw : Array.isArray(_raw?.data) ? _raw.data : [];
-    const total      = _raw?.pagination?.total || _raw?.total || enquiries.length;
-    const totalPages = _raw?.pagination?.pages || Math.ceil(total / 20) || 1;
+  const enquiries  = Array.isArray(_raw) ? _raw : Array.isArray(_raw?.data) ? _raw.data : [];
+  const total      = _raw?.pagination?.total || _raw?.total || enquiries.length;
+  const totalPages = _raw?.pagination?.pages || Math.ceil(total / 20) || 1;
 
-
+  const counsellors = cRes?.data?.data ?? [];
 
   const handleFilterChange = (setter) => (e) => { setter(e.target.value); setPage(1); };
+
+  const handleAssign = (enquiryId) => {
+    if (!selectedCounsellor) return;
+    assignEnquiry({ enquiryId, counsellorId: selectedCounsellor }, {
+      onSuccess: () => { setAssigningId(null); setSelectedCounsellor(''); },
+    });
+  };
 
   return (
     <div className={styles.page}>
@@ -98,6 +109,9 @@ export default function AdminLeads() {
                     <td className={styles.tdIdx}>{(page - 1) * 20 + i + 1}</td>
                     <td>
                       <span className={styles.studentName}>{enq.studentName}</span>
+                      {enq.importedBy && (
+                        <span className={styles.partnerTag} title="Partner lead">P</span>
+                      )}
                     </td>
                     <td>
                       <div className={styles.contactCell}>
@@ -105,8 +119,6 @@ export default function AdminLeads() {
                         {enq.phone && (
                           <a
                             href={`https://wa.me/91${enq.phone.replace(/\D/g,'').replace(/^91/, '')}?text=...`}
-
-                            // href={`https://wa.me/91${enq.phone.replace(/\D/g,'')}?text=${encodeURIComponent(`Hi ${enq.studentName}, I'm reaching out regarding your enquiry for ${enq.collegeInterest?.name || 'college admission'}. Please let us know how we can assist you.`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={styles.waBtn}
@@ -115,16 +127,55 @@ export default function AdminLeads() {
                             <FaWhatsapp />
                           </a>
                         )}
-
                         <span className={styles.emailText}>{enq.email}</span>
                       </div>
                     </td>
                     <td>{enq.collegeInterest?.name || <span className={styles.na}>—</span>}</td>
+
+                    {/* Assign cell */}
                     <td>
-                      {enq.assignedTo?.name
-                        ? <span className={styles.assignedName}>{enq.assignedTo.name}</span>
-                        : <span className={styles.unassigned}>Unassigned</span>}
+                      {assigningId === enq._id ? (
+                        <div className={styles.assignInline}>
+                          <select
+                            className={styles.assignSelect}
+                            value={selectedCounsellor}
+                            onChange={e => setSelectedCounsellor(e.target.value)}
+                          >
+                            <option value="">Pick counsellor</option>
+                            {counsellors.map(c => (
+                              <option key={c._id} value={c._id}>{c.name}</option>
+                            ))}
+                          </select>
+                          <button
+                            className={styles.assignConfirmBtn}
+                            onClick={() => handleAssign(enq._id)}
+                            disabled={!selectedCounsellor || assigning}
+                          >
+                            ✓
+                          </button>
+                          <button
+                            className={styles.assignCancelBtn}
+                            onClick={() => { setAssigningId(null); setSelectedCounsellor(''); }}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ) : (
+                        <div className={styles.assignCell}>
+                          {enq.assignedTo?.name
+                            ? <span className={styles.assignedName}>{enq.assignedTo.name}</span>
+                            : <span className={styles.unassigned}>Unassigned</span>}
+                          <button
+                            className={styles.assignBtn}
+                            onClick={() => { setAssigningId(enq._id); setSelectedCounsellor(''); }}
+                            title="Assign / Reassign"
+                          >
+                            {enq.assignedTo ? 'Reassign' : 'Assign'}
+                          </button>
+                        </div>
+                      )}
                     </td>
+
                     <td>
                       <span className={styles.badge} style={{ background: CONVERSION_COLORS[enq.conversionStatus] || '#64748b' }}>
                         {statusLabel(enq.conversionStatus || 'new')}

@@ -37,7 +37,16 @@ class AdminController {
     ResponseHandler.success(res, null, 'Colleges deleted');
   });
 
-    // Analytics breakdown
+    // List all counsellors (for assign dropdown)
+  getCounsellors = catchAsync(async (_req, res) => {
+    const counsellors = await userService.model.find({ role: 'counsellor', isActive: true, deletedAt: null })
+      .select('_id name email')
+      .sort({ name: 1 })
+      .lean();
+    ResponseHandler.success(res, counsellors);
+  });
+
+  // Analytics breakdown
   getAnalytics = catchAsync(async (req, res) => {
     const AdmissionEnquiry = enquiryService.model;
     const startOfToday = new Date(); startOfToday.setHours(0, 0, 0, 0);

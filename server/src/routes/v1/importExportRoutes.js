@@ -12,8 +12,9 @@ const {
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
-// All import/export routes require admin authentication
-router.use(protect, restrictTo('admin'));
+// Export, logs, template: admin only
+// Import: admin OR partner (partner is restricted to AdmissionEnquiry in the controller)
+router.use(protect);
 
 /**
  * @swagger
@@ -48,7 +49,7 @@ router.use(protect, restrictTo('admin'));
  *         description: Import completed
  */
 // multer MUST run first so req.body is populated before the validator reads it
-router.post('/import', upload.single('file'), importExcelValidator, validate, importExportController.importExcel);
+router.post('/import', restrictTo('admin', 'partner'), upload.single('file'), importExcelValidator, validate, importExportController.importExcel);
 
 /**
  * @swagger
@@ -78,7 +79,7 @@ router.post('/import', upload.single('file'), importExcelValidator, validate, im
  *               type: string
  *               format: binary
  */
-router.get('/export/:model', exportExcelValidator, validate, importExportController.exportExcel);
+router.get('/export/:model', restrictTo('admin'), exportExcelValidator, validate, importExportController.exportExcel);
 
 /**
  * @swagger
@@ -110,8 +111,8 @@ router.get('/export/:model', exportExcelValidator, validate, importExportControl
  *       200:
  *         description: List of import logs
  */
-router.get('/logs', importExportController.getImportLogs);
+router.get('/logs', restrictTo('admin'), importExportController.getImportLogs);
 
-router.get('/template/:model', importExportController.downloadTemplate);
+router.get('/template/:model', restrictTo('admin', 'partner'), importExportController.downloadTemplate);
 
 module.exports = router;

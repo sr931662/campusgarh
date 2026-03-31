@@ -140,6 +140,19 @@
 .unassigned   { color: var(--muted); font-style: italic; font-size: 0.82rem; }
 .na           { color: var(--muted); }
 
+/* Assign inline UI */
+.assignCell       { display: flex; align-items: center; gap: 0.5rem; }
+.assignBtn        { font-size: 0.72rem; padding: 0.2rem 0.5rem; border: 1px solid var(--gold); border-radius: 4px; background: transparent; color: var(--gold); cursor: pointer; white-space: nowrap; }
+.assignBtn:hover  { background: var(--gold); color: #fff; }
+.assignInline     { display: flex; align-items: center; gap: 0.3rem; }
+.assignSelect     { font-size: 0.78rem; padding: 0.2rem 0.4rem; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); color: var(--charcoal); max-width: 140px; }
+.assignConfirmBtn { padding: 0.2rem 0.5rem; border-radius: 4px; border: none; background: #22c55e; color: #fff; cursor: pointer; font-size: 0.8rem; }
+.assignConfirmBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+.assignCancelBtn  { padding: 0.2rem 0.5rem; border-radius: 4px; border: none; background: #ef4444; color: #fff; cursor: pointer; font-size: 0.8rem; }
+
+/* Partner lead indicator */
+.partnerTag { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: #3b82f6; color: #fff; font-size: 0.6rem; font-weight: 700; margin-left: 0.35rem; vertical-align: middle; }
+
 .badge {
   display: inline-block;
   color: #fff;

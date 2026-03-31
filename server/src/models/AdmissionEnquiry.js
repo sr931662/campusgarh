@@ -60,5 +60,6 @@ enquirySchema.index({ assignedTo: 1, followUpDate: 1 });
 enquirySchema.index({ conversionStatus: 1 });
 enquirySchema.index({ source: 1 });
 enquirySchema.index({ deletedAt: 1 });
+enquirySchema.index({ importedBy: 1 });
 
 module.exports = mongoose.model('AdmissionEnquiry', enquirySchema);
