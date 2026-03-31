@@ -11,7 +11,8 @@ const importLogSchema = new mongoose.Schema(
     model: {
       type: String,
       required: true,
-      enum: ['College', 'Course', 'Exam', 'User', 'Blog', 'Review', 'AdmissionEnquiry'],
+      enum: ['College', 'Course', 'Exam', 'User', 'Blog', 'Review', 'AdmissionEnquiry', 'AccreditationBody'],
+      // enum: ['College', 'Course', 'Exam', 'User', 'Blog', 'Review', 'AdmissionEnquiry'],
     },
     fileUrl: String, // stored file location
     status: {
