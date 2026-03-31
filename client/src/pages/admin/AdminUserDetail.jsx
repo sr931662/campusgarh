@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getUserById, adminUpdateUser, assignRole } from '../../services/userService';
+import { userService } from '../../services/userService';
+const { getUserById, adminUpdateUser, assignRole } = userService;
 
 const ROLES = ['student', 'admin', 'counsellor', 'moderator', 'institution_rep', 'partner'];
 
