@@ -246,4 +246,8 @@ router.patch('/:userId/toggle-active', restrictTo('admin'), userController.toggl
  */
 router.patch('/:userId/role', restrictTo('admin'), assignRoleValidator, validate, userController.assignRole);
 
+router.get('/:userId', restrictTo('admin'), userController.getUser);
+router.patch('/:userId', restrictTo('admin'), userController.adminUpdateUser);
+
+
 module.exports = router;

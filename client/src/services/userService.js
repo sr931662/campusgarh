@@ -14,4 +14,6 @@ export const userService = {
   getAllUsers:           (params)     => api.get('/users', { params }),
   toggleActiveStatus:   (userId, isActive) => api.patch(`/users/${userId}/toggle-active`, { isActive }),
   assignRole:           (userId, role)     => api.patch(`/users/${userId}/role`, { role }),
+  getUserById:     (userId)       => api.get(`/users/${userId}`),
+  adminUpdateUser: (userId, data) => api.patch(`/users/${userId}`, data),
 };
