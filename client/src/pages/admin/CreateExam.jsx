@@ -10,6 +10,9 @@ const EXAM_CATEGORIES = ['UG', 'PG', 'PhD', 'Diploma'];
 
 const CreateExam = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEditing = !!id;
+
   const [form, setForm] = useState({
     name: '',
     category: '',
@@ -96,10 +99,11 @@ useEffect(() => {
 
 
   const handleChange = (e) => {
-    const { id } = useParams();
-    const isEditing = !!id;
-
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
