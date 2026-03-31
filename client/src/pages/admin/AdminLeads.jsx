@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaExternalLinkAlt, FaChartBar } from 'react-icons/fa';
+// import { FaExternalLinkAlt, FaChartBar } from 'react-icons/fa';
 import { useAllEnquiries } from '../../hooks/queries';
 import Loader from '../../components/common/Loader/Loader';
 import styles from './AdminLeads.module.css';
+import { FaExternalLinkAlt, FaChartBar, FaWhatsapp } from 'react-icons/fa';
+
 
 const CONVERSION_COLORS = {
   new: '#64748b', contacted: '#3b82f6', interested: '#10b981',
@@ -100,6 +102,18 @@ export default function AdminLeads() {
                     <td>
                       <div className={styles.contactCell}>
                         <span>{enq.phone}</span>
+                        {enq.phone && (
+                          <a
+                            href={`https://wa.me/91${enq.phone.replace(/\D/g,'')}?text=${encodeURIComponent(`Hi ${enq.studentName}, I'm reaching out regarding your enquiry for ${enq.collegeInterest?.name || 'college admission'}. Please let us know how we can assist you.`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.waBtn}
+                            title="Open WhatsApp"
+                          >
+                            <FaWhatsapp />
+                          </a>
+                        )}
+
                         <span className={styles.emailText}>{enq.email}</span>
                       </div>
                     </td>

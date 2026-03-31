@@ -203,3 +203,14 @@
   .title    { font-size: 1.5rem; }
   .filterBar { gap: 0.5rem; }
 }
+
+.waBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #25d366;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+.waBtn:hover { transform: scale(1.2); }
