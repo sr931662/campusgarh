@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-
 import { userService } from '../../services/userService';
+import styles from './ManageUsers.module.css';
+
 const { getAllUsers, toggleActiveStatus } = userService;
 
 const ROLES = ['student', 'admin', 'counsellor', 'moderator', 'institution_rep', 'partner'];
@@ -25,25 +26,26 @@ export default function ManageUsers() {
   const total = data?.data?.total || 0;
 
   return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Manage Users</h1>
-        <span className="text-sm text-gray-500">Total: {total}</span>
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <div>
+          <h1 className={styles.title}>Manage Users</h1>
+          <p className={styles.subtitle}>{total} total users</p>
+        </div>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-3 mb-6">
+      <div className={styles.filterBar}>
         <input
           type="text"
           placeholder="Search by name or email..."
           value={filters.search}
           onChange={e => setFilters(f => ({ ...f, search: e.target.value, page: 1 }))}
-          className="border rounded-lg px-3 py-2 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={styles.searchInput}
         />
         <select
           value={filters.role}
           onChange={e => setFilters(f => ({ ...f, role: e.target.value, page: 1 }))}
-          className="border rounded-lg px-3 py-2 text-sm focus:outline-none"
+          className={styles.filterSelect}
         >
           <option value="">All Roles</option>
           {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
@@ -51,7 +53,7 @@ export default function ManageUsers() {
         <select
           value={filters.isActive}
           onChange={e => setFilters(f => ({ ...f, isActive: e.target.value, page: 1 }))}
-          className="border rounded-lg px-3 py-2 text-sm focus:outline-none"
+          className={styles.filterSelect}
         >
           <option value="">All Status</option>
           <option value="true">Active</option>
@@ -59,88 +61,83 @@ export default function ManageUsers() {
         </select>
       </div>
 
-      {/* Table */}
       {isLoading ? (
-        <div className="text-center py-12 text-gray-500">Loading...</div>
+        <div className={styles.empty}>Loading users...</div>
+      ) : users.length === 0 ? (
+        <div className={styles.empty}>No users found.</div>
       ) : (
-        <div className="bg-white rounded-xl shadow overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 text-gray-600 uppercase text-xs">
-              <tr>
-                <th className="px-4 py-3 text-left">User</th>
-                <th className="px-4 py-3 text-left">Role</th>
-                <th className="px-4 py-3 text-left">Verified</th>
-                <th className="px-4 py-3 text-left">Status</th>
-                <th className="px-4 py-3 text-left">Joined</th>
-                <th className="px-4 py-3 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {users.map(user => (
-                <tr key={user._id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3">
-                    <div className="font-medium text-gray-800">{user.name}</div>
-                    <div className="text-gray-400 text-xs">{user.email}</div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs font-medium capitalize">
-                      {user.role}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`text-xs font-medium ${user.emailVerified ? 'text-green-600' : 'text-red-500'}`}>
-                      {user.emailVerified ? 'Yes' : 'No'}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <button
-                      onClick={() => toggleMutation.mutate(user._id)}
-                      className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                        user.isActive
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-red-100 text-red-600'
-                      }`}
-                    >
-                      {user.isActive ? 'Active' : 'Inactive'}
-                    </button>
-                  </td>
-                  <td className="px-4 py-3 text-gray-500">
-                    {new Date(user.createdAt).toLocaleDateString('en-IN')}
-                  </td>
-                  <td className="px-4 py-3">
-                    <Link
-                      to={`/admin/users/${user._id}`}
-                      className="text-blue-600 hover:underline text-xs font-medium"
-                    >
-                      View / Edit
-                    </Link>
-                  </td>
+        <>
+          <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th>Verified</th>
+                  <th>Status</th>
+                  <th>Joined</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* Pagination */}
-          <div className="flex items-center justify-between px-4 py-3 border-t text-sm text-gray-500">
-            <span>Page {filters.page}</span>
-            <div className="flex gap-2">
-              <button
-                disabled={filters.page === 1}
-                onClick={() => setFilters(f => ({ ...f, page: f.page - 1 }))}
-                className="px-3 py-1 border rounded disabled:opacity-40"
-              >
-                Prev
-              </button>
-              <button
-                disabled={users.length < 20}
-                onClick={() => setFilters(f => ({ ...f, page: f.page + 1 }))}
-                className="px-3 py-1 border rounded disabled:opacity-40"
-              >
-                Next
-              </button>
-            </div>
+              </thead>
+              <tbody>
+                {users.map(user => (
+                  <tr key={user._id}>
+                    <td>
+                      <div className={styles.userName}>{user.name}</div>
+                      <div className={styles.userEmail}>{user.email}</div>
+                    </td>
+                    <td>
+                      <span className={`${styles.roleBadge} ${user.role === 'admin' ? styles.roleBadgeAdmin : ''}`}>
+                        {user.role}
+                      </span>
+                    </td>
+                    <td>
+                      <span className={user.emailVerified ? styles.verifiedYes : styles.verifiedNo}>
+                        {user.emailVerified ? 'Verified' : 'Unverified'}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => toggleMutation.mutate(user._id)}
+                        className={`${styles.statusBtn} ${user.isActive ? styles.statusActive : styles.statusInactive}`}
+                      >
+                        {user.isActive ? 'Active' : 'Inactive'}
+                      </button>
+                    </td>
+                    <td className={styles.dateCell}>
+                      {new Date(user.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    </td>
+                    <td>
+                      <div className={styles.actionCell}>
+                        <Link to={`/admin/users/${user._id}`} className={styles.editBtn}>
+                          View / Edit
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        </div>
+
+          <div className={styles.pagination}>
+            <button
+              className={styles.pageBtn}
+              disabled={filters.page === 1}
+              onClick={() => setFilters(f => ({ ...f, page: f.page - 1 }))}
+            >
+              ← Prev
+            </button>
+            <span className={styles.pageInfo}>Page {filters.page}</span>
+            <button
+              className={styles.pageBtn}
+              disabled={users.length < 20}
+              onClick={() => setFilters(f => ({ ...f, page: f.page + 1 }))}
+            >
+              Next →
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { userService } from '../../services/userService';
-const { getUserById, adminUpdateUser, assignRole } = userService;
+import styles from './AdminUserDetail.module.css';
+
+const { getUserById, adminUpdateUser } = userService;
 
 const ROLES = ['student', 'admin', 'counsellor', 'moderator', 'institution_rep', 'partner'];
 
@@ -17,11 +19,9 @@ export default function AdminUserDetail() {
   });
 
   const user = data?.data?.user;
-
   const [form, setForm] = useState(null);
   const [saved, setSaved] = useState(false);
 
-  // initialize form once user loads
   if (user && !form) {
     setForm({
       name: user.name || '',
@@ -43,132 +43,117 @@ export default function AdminUserDetail() {
     },
   });
 
-  if (isLoading) return <div className="p-8 text-gray-500">Loading user...</div>;
-  if (!user) return <div className="p-8 text-red-500">User not found.</div>;
+  if (isLoading) return <div className={styles.loading}>Loading user...</div>;
+  if (!user) return <div className={styles.notFound}>User not found.</div>;
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <button
-        onClick={() => navigate('/admin/users')}
-        className="text-sm text-blue-600 hover:underline mb-4 block"
-      >
+    <div className={styles.page}>
+      <button className={styles.backLink} onClick={() => navigate('/admin/users')}>
         ← Back to Users
       </button>
 
-      <div className="bg-white rounded-xl shadow p-6">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-2xl font-bold text-blue-600">
+      {/* Profile Card */}
+      <div className={styles.card}>
+        <div className={styles.userHeader}>
+          <div className={styles.avatar}>
             {user.name?.charAt(0).toUpperCase()}
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-800">{user.name}</h1>
-            <p className="text-sm text-gray-500">{user.email}</p>
-            <p className="text-xs text-gray-400">
-              Joined: {new Date(user.createdAt).toLocaleDateString('en-IN')}
-              {user.lastLogin && ` · Last login: ${new Date(user.lastLogin).toLocaleDateString('en-IN')}`}
+            <h1 className={styles.userName}>{user.name}</h1>
+            <p className={styles.userEmail}>{user.email}</p>
+            <p className={styles.userMeta}>
+              Joined {new Date(user.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+              {user.lastLogin && ` · Last login ${new Date(user.lastLogin).toLocaleDateString('en-IN')}`}
             </p>
           </div>
         </div>
 
         {form && (
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              updateMutation.mutate(form);
-            }}
-          >
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs text-gray-500 mb-1">Full Name</label>
+          <form onSubmit={e => { e.preventDefault(); updateMutation.mutate(form); }}>
+            <h2 className={styles.sectionTitle}>Edit Profile</h2>
+            <div className={styles.formGrid}>
+              <div className={styles.field}>
+                <label>Full Name</label>
                 <input
                   value={form.name}
                   onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div>
-                <label className="block text-xs text-gray-500 mb-1">Email</label>
+              <div className={styles.field}>
+                <label>Email</label>
                 <input
                   type="email"
                   value={form.email}
                   onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div>
-                <label className="block text-xs text-gray-500 mb-1">Phone</label>
+              <div className={styles.field}>
+                <label>Phone</label>
                 <input
                   value={form.phone}
                   onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                  className="w-full border rounded-lg px-3 py-2 text-sm"
                 />
               </div>
-              <div>
-                <label className="block text-xs text-gray-500 mb-1">Role</label>
+              <div className={styles.field}>
+                <label>Role</label>
                 <select
                   value={form.role}
                   onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
-                  className="w-full border rounded-lg px-3 py-2 text-sm"
                 >
                   {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
                 </select>
               </div>
-              <div className="flex items-center gap-3 col-span-2">
-                <label className="flex items-center gap-2 cursor-pointer">
+              <div className={styles.checkboxRow}>
+                <label className={styles.checkboxLabel}>
                   <input
                     type="checkbox"
                     checked={form.isActive}
                     onChange={e => setForm(f => ({ ...f, isActive: e.target.checked }))}
-                    className="w-4 h-4 accent-blue-600"
                   />
-                  <span className="text-sm text-gray-700">Active Account</span>
+                  Active Account
                 </label>
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className={styles.checkboxLabel}>
                   <input
                     type="checkbox"
                     checked={form.emailVerified}
                     onChange={e => setForm(f => ({ ...f, emailVerified: e.target.checked }))}
-                    className="w-4 h-4 accent-green-600"
                   />
-                  <span className="text-sm text-gray-700">Email Verified</span>
+                  Email Verified
                 </label>
               </div>
             </div>
 
-            <div className="mt-6 flex items-center gap-3">
-              <button
-                type="submit"
-                disabled={updateMutation.isPending}
-                className="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
-              >
+            <div className={styles.formActions}>
+              <button type="submit" disabled={updateMutation.isPending} className={styles.submitBtn}>
                 {updateMutation.isPending ? 'Saving...' : 'Save Changes'}
               </button>
-              {saved && <span className="text-green-600 text-sm">Saved successfully!</span>}
+              {saved && <span className={styles.savedMsg}>Saved successfully!</span>}
             </div>
           </form>
         )}
       </div>
 
-      {/* Read-only info */}
+      {/* Academic Background */}
       {user.academicBackground?.qualification && (
-        <div className="bg-white rounded-xl shadow p-6 mt-4">
-          <h2 className="font-semibold text-gray-700 mb-3">Academic Background</h2>
-          <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
-            <div>Qualification: <strong>{user.academicBackground.qualification}</strong></div>
-            <div>Stream: <strong>{user.academicBackground.stream || '—'}</strong></div>
-            <div>Institution: <strong>{user.academicBackground.institution || '—'}</strong></div>
-            <div>Percentage: <strong>{user.academicBackground.percentage || '—'}</strong></div>
+        <div className={styles.card}>
+          <h2 className={styles.sectionTitle}>Academic Background</h2>
+          <div className={styles.infoGrid}>
+            <div className={styles.infoItem}>Qualification: <strong>{user.academicBackground.qualification}</strong></div>
+            <div className={styles.infoItem}>Stream: <strong>{user.academicBackground.stream || '—'}</strong></div>
+            <div className={styles.infoItem}>Institution: <strong>{user.academicBackground.institution || '—'}</strong></div>
+            <div className={styles.infoItem}>Percentage: <strong>{user.academicBackground.percentage || '—'}</strong></div>
           </div>
         </div>
       )}
 
+      {/* Saved Colleges */}
       {user.savedColleges?.length > 0 && (
-        <div className="bg-white rounded-xl shadow p-6 mt-4">
-          <h2 className="font-semibold text-gray-700 mb-3">Saved Colleges ({user.savedColleges.length})</h2>
-          <div className="flex flex-wrap gap-2">
+        <div className={styles.card}>
+          <h2 className={styles.sectionTitle}>Saved Colleges ({user.savedColleges.length})</h2>
+          <div className={styles.tagList}>
             {user.savedColleges.map(c => (
-              <span key={c._id} className="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full">
-                {c.name} {c.city ? `· ${c.city}` : ''}
+              <span key={c._id} className={styles.tag}>
+                {c.name}{c.city ? ` · ${c.city}` : ''}
               </span>
             ))}
           </div>

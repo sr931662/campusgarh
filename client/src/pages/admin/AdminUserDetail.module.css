@@ -1,0 +1,204 @@
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 5rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted, #8A8A8E);
+  text-decoration: none;
+  margin-bottom: 1.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+.backLink:hover { color: var(--charcoal, #1C1C1E); }
+
+.card {
+  background: var(--warm-white, #FFFEF9);
+  border: 1px solid var(--border, #E8E3DB);
+  border-radius: 14px;
+  padding: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.userHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border, #E8E3DB);
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.12);
+  border: 2px solid var(--gold, #C9A84C);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold, #C9A84C);
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+.userName {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  margin: 0 0 0.2rem;
+}
+
+.userEmail {
+  font-size: 0.875rem;
+  color: var(--muted, #8A8A8E);
+  margin: 0 0 0.2rem;
+}
+
+.userMeta {
+  font-size: 0.78rem;
+  color: var(--muted, #8A8A8E);
+  font-family: var(--font-mono);
+}
+
+.sectionTitle {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--charcoal, #1C1C1E);
+  margin: 0 0 1.25rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted, #8A8A8E);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.4rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: 8px;
+  background: var(--cream, #FAF7F2);
+  color: var(--charcoal, #1C1C1E);
+  font-size: 0.875rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.field input:focus,
+.field select:focus { border-color: var(--gold, #C9A84C); }
+
+.checkboxRow {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  grid-column: 1 / -1;
+  padding-top: 0.5rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--charcoal, #1C1C1E);
+  cursor: pointer;
+}
+
+.checkboxLabel input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--gold, #C9A84C);
+  cursor: pointer;
+}
+
+.formActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border, #E8E3DB);
+}
+
+.submitBtn {
+  padding: 0.6rem 1.5rem;
+  background: var(--charcoal, #1C1C1E);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.submitBtn:hover:not(:disabled) { background: var(--gold, #C9A84C); }
+.submitBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.savedMsg {
+  font-size: 0.85rem;
+  color: #166534;
+  font-weight: 500;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.infoItem {
+  font-size: 0.875rem;
+  color: var(--muted, #8A8A8E);
+}
+
+.infoItem strong {
+  color: var(--charcoal, #1C1C1E);
+  font-weight: 600;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: var(--bg-soft, #F7F4EF);
+  color: var(--charcoal, #1C1C1E);
+  border: 1px solid var(--border, #E8E3DB);
+}
+
+.loading { padding: 4rem; text-align: center; color: var(--muted, #8A8A8E); }
+.notFound { padding: 4rem; text-align: center; color: #b91c1c; }
