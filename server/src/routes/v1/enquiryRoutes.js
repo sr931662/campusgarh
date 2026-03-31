@@ -97,6 +97,10 @@ router.use(protect);
  */
 router.get('/my', restrictTo('counsellor', 'admin'), enquiryController.getMyEnquiries);
 
+// Analytics — must be before /:id to avoid route conflict
+router.get('/analytics/counsellors', restrictTo('admin'), enquiryController.getCounsellorAnalytics);
+router.get('/analytics/partner', restrictTo('admin', 'partner'), enquiryController.getPartnerAnalytics);
+
 /**
  * @swagger
  * /enquiries/{enquiryId}:

@@ -21,6 +21,7 @@ const enquirySchema = new mongoose.Schema(
       enum: ['website', 'referral', 'social', 'ads', 'other'],
       default: 'website',
     },
+    importedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // partner who submitted this lead
     sourceUrl: String, // where they came from
     // CRM fields
     assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // counsellor
