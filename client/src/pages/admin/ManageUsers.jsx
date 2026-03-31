@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { getAllUsers, toggleActiveStatus } from '../../services/userService';
+
+import { userService } from '../../services/userService';
+const { getAllUsers, toggleActiveStatus } = userService;
 
 const ROLES = ['student', 'admin', 'counsellor', 'moderator', 'institution_rep', 'partner'];
 
