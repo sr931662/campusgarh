@@ -13,9 +13,9 @@ const COLLEGE_TYPES = [
   'Commerce & Finance', 'Technical', 'Multi-Disciplinary',
 ];
 
-<h1>{isEditing ? 'Edit College' : 'Add New College'}</h1>
+{/* <h1>{isEditing ? 'Edit College' : 'Add New College'}</h1>
 // button:
-{mutation.isPending ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update College' : 'Create College')}
+{mutation.isPending ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update College' : 'Create College')} */}
 
 
 const FUNDING_TYPES = [
