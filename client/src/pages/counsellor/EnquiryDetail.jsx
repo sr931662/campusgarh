@@ -87,7 +87,9 @@ export default function EnquiryDetail() {
   return (
     <div className={styles.page}>
       <div className={styles.topBar}>
-        <Link to={dashboardPath} className={styles.back}>← Back to Dashboard</Link>
+        <Link to={user?.role === ROLES.ADMIN ? '/admin/leads' : dashboardPath} className={styles.back}>
+          ← {user?.role === ROLES.ADMIN ? 'Back to Leads' : 'Back to Dashboard'}
+        </Link>
       </div>
 
       <div className={styles.grid}>

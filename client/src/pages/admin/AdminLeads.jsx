@@ -4,6 +4,9 @@ import { useAllEnquiries, useAssignEnquiry, useCounsellors } from '../../hooks/q
 import Loader from '../../components/common/Loader/Loader';
 import styles from './AdminLeads.module.css';
 import { FaExternalLinkAlt, FaChartBar, FaWhatsapp } from 'react-icons/fa';
+import { enquiryService } from '../../services/enquiryService';
+import { useDeleteEnquiry } from '../../hooks/queries';
+
 
 const CONVERSION_COLORS = {
   new: '#64748b', contacted: '#3b82f6', interested: '#10b981',
@@ -24,13 +27,21 @@ export default function AdminLeads() {
   // Track which row has the assign dropdown open and its selected counsellor
   const [assigningId, setAssigningId] = useState(null);
   const [selectedCounsellor, setSelectedCounsellor] = useState('');
-
+  // Add these states at the top of the component:
+  const [search, setSearch] = useState('');
+  const [sourceFilter, setSourceFilter] = useState('');
+  const { mutate: deleteEnquiry } = useDeleteEnquiry();
+  
+  // Update params object to include:
   const params = {
     page,
     limit: 20,
     ...(conversionFilter && { conversionStatus: conversionFilter }),
     ...(callFilter       && { callStatus: callFilter }),
+    ...(sourceFilter     && { source: sourceFilter }),
+    ...(search           && { search }),
   };
+
 
   const { data: res, isLoading }   = useAllEnquiries(params);
   const { data: cRes }             = useCounsellors();
@@ -41,6 +52,8 @@ export default function AdminLeads() {
   const total      = _raw?.pagination?.total || _raw?.total || enquiries.length;
   const totalPages = _raw?.pagination?.pages || Math.ceil(total / 20) || 1;
 
+  
+
   const counsellors = cRes?.data?.data ?? [];
 
   const handleFilterChange = (setter) => (e) => { setter(e.target.value); setPage(1); };
@@ -50,6 +63,15 @@ export default function AdminLeads() {
     assignEnquiry({ enquiryId, counsellorId: selectedCounsellor }, {
       onSuccess: () => { setAssigningId(null); setSelectedCounsellor(''); },
     });
+  };
+
+  const handleExport = () => {
+    const qp = new URLSearchParams();
+    if (conversionFilter) qp.set('conversionStatus', conversionFilter);
+    if (callFilter)       qp.set('callStatus', callFilter);
+    if (sourceFilter)     qp.set('source', sourceFilter);
+    if (search)           qp.set('search', search);
+    window.open(`${import.meta.env.VITE_API_URL}/api/v1/enquiries/export/csv?${qp}`, '_blank');
   };
 
   return (
@@ -63,6 +85,10 @@ export default function AdminLeads() {
         <Link to="/admin/analytics" className={styles.analyticsBtn}>
           <FaChartBar /> Analytics
         </Link>
+        <button onClick={handleExport} className={styles.analyticsBtn}>
+          ↓ Export CSV
+        </button>
+
       </div>
 
       {/* Filters */}
@@ -75,11 +101,31 @@ export default function AdminLeads() {
           <option value="">All Call Status</option>
           {CALL_STATUSES.map(s => <option key={s} value={s}>{statusLabel(s)}</option>)}
         </select>
-        {(conversionFilter || callFilter) && (
-          <button className={styles.clearBtn} onClick={() => { setConversionFilter(''); setCallFilter(''); setPage(1); }}>
+        {(conversionFilter || callFilter || sourceFilter || search) && (
+          <button className={styles.clearBtn} onClick={() => {
+            setConversionFilter(''); setCallFilter('');
+            setSourceFilter(''); setSearch(''); setPage(1);
+          }}>
             Clear filters
           </button>
         )}
+
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder="Search name, phone, email..."
+          value={search}
+          onChange={e => { setSearch(e.target.value); setPage(1); }}
+        />
+        <select className={styles.filterSelect} value={sourceFilter} onChange={e => { setSourceFilter(e.target.value); setPage(1); }}>
+          <option value="">All Sources</option>
+          <option value="website">Website</option>
+          <option value="referral">Referral</option>
+          <option value="social">Social</option>
+          <option value="ads">Ads</option>
+          <option value="other">Other</option>
+        </select>
+
       </div>
 
       {/* Table */}
@@ -198,6 +244,15 @@ export default function AdminLeads() {
                       <Link to={`/enquiries/${enq._id}`} className={styles.viewBtn}>
                         View <FaExternalLinkAlt />
                       </Link>
+                    </td>
+                    <td>
+                      <button
+                        className={styles.deleteRowBtn}
+                        onClick={() => { if (window.confirm('Delete this lead?')) deleteEnquiry(enq._id); }}
+                        title="Delete lead"
+                      >
+                        ✕
+                      </button>
                     </td>
                   </tr>
                 ))}

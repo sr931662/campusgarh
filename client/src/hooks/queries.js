@@ -554,6 +554,17 @@ export const useUpdateComparison = () => {
     },
   });
 };
+export const useDeleteEnquiry = () => {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => enquiryService.deleteEnquiry(id),
+    onSuccess: () => {
+      qc.invalidateQueries(['enquiries']);
+      toast.success('Enquiry deleted');
+    },
+    onError: (e) => toast.error(e.response?.data?.message || 'Failed to delete'),
+  });
+};
 
 export const useDeleteComparison = () => {
   const queryClient = useQueryClient();

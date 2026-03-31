@@ -121,6 +121,8 @@ router.get('/partner-leads', restrictTo('admin', 'partner'), enquiryController.g
  *         description: Enquiry details
  */
 router.get('/:id', enquiryController.getEnquiry);
+router.delete('/:id', restrictTo('admin'), enquiryController.deleteEnquiry);
+router.get('/export/csv', restrictTo('admin'), enquiryController.exportEnquiries);
 
 /**
  * @swagger

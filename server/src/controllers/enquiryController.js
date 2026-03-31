@@ -77,6 +77,57 @@ class EnquiryController {
     ResponseHandler.success(res, result);
   });
 
+  exportEnquiries = catchAsync(async (req, res) => {
+    const { conversionStatus, callStatus, source, search, from, to, assignedTo } = req.query;
+    const filters = { conversionStatus, callStatus, source, search, from, to, assignedTo };
+
+    const query = { deletedAt: null };
+    if (filters.assignedTo)       query.assignedTo = filters.assignedTo;
+    if (filters.conversionStatus) query.conversionStatus = filters.conversionStatus;
+    if (filters.callStatus)       query.callStatus = filters.callStatus;
+    if (filters.source)           query.source = filters.source;
+    if (filters.search) query.$or = [
+      { studentName: { $regex: filters.search, $options: 'i' } },
+      { phone:       { $regex: filters.search, $options: 'i' } },
+      { email:       { $regex: filters.search, $options: 'i' } },
+    ];
+    if (filters.from || filters.to) {
+      query.createdAt = {};
+      if (filters.from) query.createdAt.$gte = new Date(filters.from);
+      if (filters.to)   query.createdAt.$lte = new Date(filters.to);
+    }
+
+    const AdmissionEnquiry = enquiryService.model;
+    const data = await AdmissionEnquiry.find(query)
+      .populate('assignedTo',    'name email')
+      .populate('collegeInterest', 'name')
+      .populate('courseInterest',  'name')
+      .lean();
+
+    const rows = [
+      ['Name', 'Phone', 'Email', 'College Interest', 'Course Interest', 'Conversion Status',
+      'Call Status', 'Follow-up Date', 'Source', 'Assigned To', 'Received On'].join(','),
+      ...data.map(e => [
+        `"${e.studentName || ''}"`,
+        e.phone || '',
+        e.email || '',
+        `"${e.collegeInterest?.name || ''}"`,
+        `"${e.courseInterest?.name  || ''}"`,
+        e.conversionStatus || 'new',
+        e.callStatus || 'pending',
+        e.followUpDate ? new Date(e.followUpDate).toLocaleDateString('en-IN') : '',
+        e.source || '',
+        `"${e.assignedTo?.name || 'Unassigned'}"`,
+        new Date(e.createdAt).toLocaleDateString('en-IN'),
+      ].join(',')),
+    ].join('\n');
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="leads.csv"');
+    res.send(rows);
+  });
+
+
   // Partner: analytics for own leads | Admin: pass ?partnerId= for any partner
   getPartnerAnalytics = catchAsync(async (req, res) => {
     const AdmissionEnquiry = enquiryService.model;
@@ -100,15 +151,20 @@ class EnquiryController {
     ResponseHandler.success(res, { total, converted, statusBreakdown });
   });
 
+  deleteEnquiry = catchAsync(async (req, res) => {
+    await enquiryService.deleteEnquiry(req.params.id);
+    ResponseHandler.success(res, null, 'Enquiry deleted');
+  });
+
   // Get single enquiry (admin or assigned counsellor)
   getEnquiry = catchAsync(async (req, res) => {
-    const enquiry = await enquiryService.findById(req.params.id);
-    // Check permissions
-    if (req.user.role !== 'admin' && enquiry.assignedTo?.toString() !== req.user.id) {
-      return ResponseHandler.error(res, { message: 'Not authorized' }, 403);
+    const enquiry = await enquiryService.getEnquiryById(req.params.id);
+    if (req.user.role !== 'admin' && enquiry.assignedTo?._id?.toString() !== req.user.id) {
+      return ResponseHandler.error(res, { message: 'Not authorized', isOperational: true }, 403);
     }
     ResponseHandler.success(res, enquiry);
   });
+
 
   // Assign enquiry (admin)
   assignEnquiry = catchAsync(async (req, res) => {

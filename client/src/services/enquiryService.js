@@ -31,6 +31,8 @@ export const enquiryService = {
   // Partner: get own leads (paginated)
   getPartnerLeads: (params) => api.get('/enquiries/partner-leads', { params }),
 
+  deleteEnquiry: (id) => api.delete(`/enquiries/${id}`),
+
   // Analytics
   getCounsellorAnalytics: () => api.get('/enquiries/analytics/counsellors'),
   getPartnerAnalytics: (partnerId) =>
