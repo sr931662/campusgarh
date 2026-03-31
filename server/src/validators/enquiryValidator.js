@@ -1,10 +1,10 @@
 const { body, param, query } = require('express-validator');
-const { isMongoId, isEmail, isPhone } = require('./common');
+const { isMongoId, isPhone } = require('./common');
 
 const createEnquiryValidator = [
   body('studentName').notEmpty().withMessage('Name is required'),
   isPhone('phone'),
-  isEmail(),
+  body('email').optional({ checkFalsy: true }).isEmail().withMessage('Invalid email address').normalizeEmail(),
   body('courseInterest').optional().isMongoId().withMessage('Invalid course ID'),
   body('collegeInterest').optional().isMongoId().withMessage('Invalid college ID'),
   body('message').optional().trim(),

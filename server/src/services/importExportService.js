@@ -334,6 +334,23 @@ class ImportExportService {
         'Active':       doc.active ? 'Yes' : 'No',
       };
     }
+    if (modelName === 'AdmissionEnquiry') {
+      return {
+        'Student Name':   doc.studentName || '',
+        'Phone':          doc.phone || '',
+        'Email':          doc.email || '',
+        'Father Name':    doc.fatherName || '',
+        'Mother Name':    doc.motherName || '',
+        'Passed From':    doc.passedFrom || '',
+        'Passed Year':    doc.passedYear || '',
+        'Address':        doc.address || '',
+        'Preferred City': doc.preferredCity || '',
+        'Message':        doc.message || '',
+        'Source':         doc.source || '',
+        'Status':         doc.conversionStatus || 'new',
+        'Call Status':    doc.callStatus || 'pending',
+      };
+    }
 
     // Fallback for other models — basic flatten
     const flat = {};
@@ -519,21 +536,35 @@ class ImportExportService {
         ],
       },
       AdmissionEnquiry: {
-        headers: ['Student Name', 'Phone', 'Email', 'Message', 'Preferred City', 'Source'],
-        sample: {
-          'Student Name': 'Rahul Sharma',
-          'Phone': '9876543210',
-          'Email': 'rahul@example.com',
-          'Message': 'Interested in B.Tech admissions',
-          'Preferred City': 'Delhi',
-          'Source': 'website',
+          headers: [
+            'Student Name', 'Phone', 'Email',
+            'Father Name', 'Mother Name',
+            'Passed From', 'Passed Year',
+            'Address', 'Preferred City',
+            'Message', 'Source',
+          ],
+          sample: {
+            'Student Name':  'Rahul Sharma',
+            'Phone':         '9876543210',
+            'Email':         '',
+            'Father Name':   'Ramesh Sharma',
+            'Mother Name':   'Sunita Sharma',
+            'Passed From':   '12th',
+            'Passed Year':   '2024',
+            'Address':       '123 Main Street, Jaipur',
+            'Preferred City':'Delhi',
+            'Message':       'Interested in B.Tech admissions',
+            'Source':        'other',
+          },
+          notes: [
+            ['Field', 'Valid Values / Notes'],
+            ['Phone', '10-digit mobile number'],
+            ['Email', 'Optional'],
+            ['Passed From', '10th | 12th | Diploma | ITI | Graduation | Other'],
+            ['Source', 'website | referral | social | ads | other'],
+          ],
         },
-        notes: [
-          ['Field', 'Valid Values / Notes'],
-          ['Phone', '10-digit mobile number without country code'],
-          ['Source', 'website | referral | social | ads | other'],
-        ],
-      },
+
       AccreditationBody: {
         headers: ['Abbreviation', 'Full Name', 'Logo URL', 'Order', 'Active'],
         sample: {
@@ -600,7 +631,7 @@ class ImportExportService {
         active:  get('active') ? this.toBool(get('active')) : true,
       };
     }
-
+    if (modelName === 'AdmissionEnquiry') return this.mapAdmissionEnquiry(row);
     return row;
   }
 
@@ -802,6 +833,28 @@ class ImportExportService {
       tags:    get('tags') ? String(get('tags')).split(',').map(t => t.trim()).filter(Boolean) : [],
     };
   }
+  mapAdmissionEnquiry(row) {
+    const n   = this.normalizeRow(row);
+    const get = this.makeGet(n);
+    const name = get('student name', 'name', 'studentname');
+    if (!name) throw new Error('Missing required field: Student Name');
+    const phone = get('phone', 'mobile', 'contact');
+    if (!phone) throw new Error('Missing required field: Phone');
+    return {
+      studentName:  String(name).trim(),
+      phone:        String(phone).replace(/\D/g, '').slice(-10),
+      email:        get('email', 'email id', 'emailid') || undefined,
+      message:      get('message', 'note', 'notes', 'remarks') || undefined,
+      preferredCity:get('preferred city', 'preferredcity', 'city', 'location') || undefined,
+      source:       get('source') || 'other',
+      fatherName:   get('father name', 'fathername', 'father') || undefined,
+      motherName:   get('mother name', 'mothername', 'mother') || undefined,
+      passedYear:   this.toNum(get('passed year', 'passedyear', 'year of passing', 'year')) || undefined,
+      passedFrom:   get('passed from', 'passedfrom', 'qualification', 'last qualification') || undefined,
+      address:      get('address', 'full address') || undefined,
+    };
+  }
+
 }
 
 module.exports = new ImportExportService();

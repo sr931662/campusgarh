@@ -4,11 +4,17 @@ const enquirySchema = new mongoose.Schema(
   {
     studentName: { type: String, required: true },
     phone: { type: String, required: true },
-    email: { type: String, required: true, lowercase: true, index: true },
+    email: { type: String, lowercase: true, index: true },
     courseInterest: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
     collegeInterest: { type: mongoose.Schema.Types.ObjectId, ref: 'College' },
     preferredCity: String,
     message: String,
+    fatherName:  String,
+    motherName:  String,
+    passedYear:  Number,
+    passedFrom:  String,   // e.g. "10th", "12th", "Diploma", "ITI"
+    address:     String,
+
     // Source tracking
     source: {
       type: String,

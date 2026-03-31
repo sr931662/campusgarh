@@ -51,9 +51,15 @@ const COLUMN_GUIDE = {
   },
 
   AdmissionEnquiry: {
-    required: ['Student Name', 'Phone', 'Email'],
-    optional: ['Message', 'Preferred City', 'Source'],
+    required: ['Student Name', 'Phone'],
+    optional: [
+      'Email', 'Father Name', 'Mother Name',
+      'Passed From (10th/12th/Diploma/ITI/Graduation)',
+      'Passed Year', 'Address', 'Preferred City',
+      'Message', 'Source (website/referral/social/ads/other)',
+    ],
   },
+
 };
 
 const MODELS = [
