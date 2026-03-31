@@ -104,7 +104,9 @@ export default function AdminLeads() {
                         <span>{enq.phone}</span>
                         {enq.phone && (
                           <a
-                            href={`https://wa.me/91${enq.phone.replace(/\D/g,'')}?text=${encodeURIComponent(`Hi ${enq.studentName}, I'm reaching out regarding your enquiry for ${enq.collegeInterest?.name || 'college admission'}. Please let us know how we can assist you.`)}`}
+                            href={`https://wa.me/91${enq.phone.replace(/\D/g,'').replace(/^91/, '')}?text=...`}
+
+                            // href={`https://wa.me/91${enq.phone.replace(/\D/g,'')}?text=${encodeURIComponent(`Hi ${enq.studentName}, I'm reaching out regarding your enquiry for ${enq.collegeInterest?.name || 'college admission'}. Please let us know how we can assist you.`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={styles.waBtn}
