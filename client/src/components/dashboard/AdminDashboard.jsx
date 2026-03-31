@@ -31,7 +31,7 @@ const AdminDashboard = () => {
     { title: 'Courses',         value: stats?.totalCourses    || 0, icon: <FaBook />,        color: 'warning' },
     { title: 'Enquiries',       value: stats?.totalEnquiries  || 0, icon: <FaPhone />,       color: 'danger'  },
     { title: 'Pending Reviews', value: stats?.pendingReviews  || 0, icon: <FaStar />,        color: 'warning' },
-    {  title: 'Manage Users',  description: 'View, edit, and manage all user profiles',  icon: '👤', link: '/admin/users',  color: 'bg-purple-50 text-purple-700',}
+    // {  title: 'Manage Users',  description: 'View, edit, and manage all user profiles',  icon: '👤', link: '/admin/users',  color: 'bg-purple-50 text-purple-700',}
 
   ];
 
@@ -116,8 +116,7 @@ const AdminDashboard = () => {
           <Link to="/admin/guide" className={styles.actionCard}>Resource Guide</Link>
           <Link to="/admin/video-testimonials" className={styles.actionCard}>Manage Video Testimonials</Link>
           <Link to="/admin/accreditation" className={styles.actionCard}>Accreditation Bodies</Link>
-
-
+          <Link to="/admin/users" className={styles.actionCard}>Manage Users</Link>
         </div>
 
       </div>
