@@ -56,8 +56,19 @@ import AdminUserDetail from './pages/admin/AdminUserDetail';
 import CreateUser from './pages/admin/CreateUser';
 
 import { ROLES } from './utils/constants';
+export const getDashboardPath = (role) => {
+  switch (role) {
+    case 'admin':           return '/dashboard/admin';
+    case 'counsellor':      return '/dashboard/counsellor';
+    case 'moderator':       return '/dashboard/moderator';
+    case 'institution_rep': return '/dashboard/institution-rep';
+    case 'partner':         return '/partner/dashboard';   // ← ensure this exists
+    default:                return '/dashboard/student';
+  }
+};
 
 function App() {
+  
   return (
     <>
       <ScrollToTop />     {/* ← add this line */}
