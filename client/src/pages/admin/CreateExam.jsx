@@ -14,79 +14,79 @@ const CreateExam = () => {
   const isEditing = !!id;
 
   const [form, setForm] = useState({
-    name: '',
-    category: '',
-    overview: '',          // schema field is 'overview', not 'description'
-    eligibility: '',
-    officialWebsite: '',
-    registrationFee: '',   // schema field is 'registrationFee', not 'applicationFee'
-    syllabus: '',
-    // importantDates — schema: array of { event: String, date: Date, link: String }
-    regStartDate: '',
-    regEndDate: '',
-    examDate: '',
-    resultDate: '',
-    regStartLink: '',
-    examDateLink: '',
-    conductingBody: '',
-    examLevel: '',
-    examMode: '',
-    examLanguages: '',     // comma-separated
-    frequency: '',
-    registrationFeeGeneral: '',
-    registrationFeeOBC: '',
-    registrationFeeSCST: '',
-    registrationFeeFemale: '',
-    registrationSteps: '',  // newline-separated
-    documentsRequired: '',  // comma-separated
-    counsellingBody: '',
-    counsellingMode: '',
-    counsellingOverview: '',
+      name: '',
+      category: '',
+      overview: '',          // schema field is 'overview', not 'description'
+      eligibility: '',
+      officialWebsite: '',
+      registrationFee: '',   // schema field is 'registrationFee', not 'applicationFee'
+      syllabus: '',
+      // importantDates — schema: array of { event: String, date: Date, link: String }
+      regStartDate: '',
+      regEndDate: '',
+      examDate: '',
+      resultDate: '',
+      regStartLink: '',
+      examDateLink: '',
+      conductingBody: '',
+      examLevel: '',
+      examMode: '',
+      examLanguages: '',     // comma-separated
+      frequency: '',
+      registrationFeeGeneral: '',
+      registrationFeeOBC: '',
+      registrationFeeSCST: '',
+      registrationFeeFemale: '',
+      registrationSteps: '',  // newline-separated
+      documentsRequired: '',  // comma-separated
+      counsellingBody: '',
+      counsellingMode: '',
+      counsellingOverview: '',
+    });
+    const [error, setError] = useState('');
+    const { data: existing } = useQuery({
+    queryKey: ['exam-edit', id],
+    queryFn: () => examService.getExamById(id),
+    enabled: isEditing,
   });
-  const [error, setError] = useState('');
-  const { data: existing } = useQuery({
-  queryKey: ['exam-edit', id],
-  queryFn: () => examService.getExamById(id),
-  enabled: isEditing,
-});
 
-useEffect(() => {
-  if (!existing) return;
-  const e = existing?.data?.data;
-  if (!e) return;
-  const dates = e.importantDates || [];
-  const get = (event) => dates.find(d => d.event === event)?.date?.slice(0, 10) || '';
-  const getLink = (event) => dates.find(d => d.event === event)?.link || '';
-  setForm({
-    name: e.name || '',
-    category: e.category || '',
-    overview: e.overview || '',
-    eligibility: e.eligibility || '',
-    officialWebsite: e.officialWebsite || '',
-    registrationFee: e.registrationFee || '',
-    syllabus: e.syllabus || '',
-    regStartDate: get('Registration Start'),
-    regEndDate: get('Registration End'),
-    examDate: get('Exam Date'),
-    resultDate: get('Result Date'),
-    regStartLink: getLink('Registration Start'),
-    examDateLink: getLink('Exam Date'),
-    conductingBody: e.conductingBody || '',
-    examLevel: e.examLevel || '',
-    examMode: e.examMode || '',
-    examLanguages: (e.examLanguages || []).join(', '),
-    frequency: e.frequency || '',
-    registrationFeeGeneral: e.registrationFeeDetails?.general || '',
-    registrationFeeOBC: e.registrationFeeDetails?.obc || '',
-    registrationFeeSCST: e.registrationFeeDetails?.sc_st || '',
-    registrationFeeFemale: e.registrationFeeDetails?.female || '',
-    registrationSteps: (e.registrationSteps || []).join('\n'),
-    documentsRequired: (e.documentsRequired || []).join(', '),
-    counsellingBody: e.counsellingInfo?.conductingBody || '',
-    counsellingMode: e.counsellingInfo?.mode || '',
-    counsellingOverview: e.counsellingInfo?.overview || '',
-  });
-}, [existing]);
+  useEffect(() => {
+    if (!existing) return;
+    const e = existing?.data?.data;
+    if (!e) return;
+    const dates = e.importantDates || [];
+    const get = (event) => dates.find(d => d.event === event)?.date?.slice(0, 10) || '';
+    const getLink = (event) => dates.find(d => d.event === event)?.link || '';
+    setForm({
+      name: e.name || '',
+      category: e.category || '',
+      overview: e.overview || '',
+      eligibility: e.eligibility || '',
+      officialWebsite: e.officialWebsite || '',
+      registrationFee: e.registrationFee || '',
+      syllabus: e.syllabus || '',
+      regStartDate: get('Registration Start'),
+      regEndDate: get('Registration End'),
+      examDate: get('Exam Date'),
+      resultDate: get('Result Date'),
+      regStartLink: getLink('Registration Start'),
+      examDateLink: getLink('Exam Date'),
+      conductingBody: e.conductingBody || '',
+      examLevel: e.examLevel || '',
+      examMode: e.examMode || '',
+      examLanguages: (e.examLanguages || []).join(', '),
+      frequency: e.frequency || '',
+      registrationFeeGeneral: e.registrationFeeDetails?.general || '',
+      registrationFeeOBC: e.registrationFeeDetails?.obc || '',
+      registrationFeeSCST: e.registrationFeeDetails?.sc_st || '',
+      registrationFeeFemale: e.registrationFeeDetails?.female || '',
+      registrationSteps: (e.registrationSteps || []).join('\n'),
+      documentsRequired: (e.documentsRequired || []).join(', '),
+      counsellingBody: e.counsellingInfo?.conductingBody || '',
+      counsellingMode: e.counsellingInfo?.mode || '',
+      counsellingOverview: e.counsellingInfo?.overview || '',
+    });
+  }, [existing]);
 
 
   const mutation = useMutation({
