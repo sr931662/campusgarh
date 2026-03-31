@@ -93,12 +93,12 @@ class UserController {
   });
   getUser = catchAsync(async (req, res) => {
     const user = await this.userService.getUserById(req.params.userId);
-    ResponseHandler.success(res, 200, 'User fetched', { user });
+    ResponseHandler.success(res, { user }, 'User fetched');
   });
 
   adminUpdateUser = catchAsync(async (req, res) => {
     const user = await this.userService.adminUpdateUser(req.params.userId, req.body);
-    ResponseHandler.success(res, 200, 'User updated', { user });
+    ResponseHandler.success(res, { user }, 'User updated');
   });
 
 }

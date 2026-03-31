@@ -18,7 +18,7 @@ export default function AdminUserDetail() {
     queryFn: () => getUserById(userId),
   });
 
-  const user = data?.data?.user;
+  const user = data?.data?.data?.user;
   const [form, setForm] = useState(null);
   const [saved, setSaved] = useState(false);
 
