@@ -31,6 +31,8 @@ const AdminDashboard = () => {
     { title: 'Courses',         value: stats?.totalCourses    || 0, icon: <FaBook />,        color: 'warning' },
     { title: 'Enquiries',       value: stats?.totalEnquiries  || 0, icon: <FaPhone />,       color: 'danger'  },
     { title: 'Pending Reviews', value: stats?.pendingReviews  || 0, icon: <FaStar />,        color: 'warning' },
+    {  title: 'Manage Users',  description: 'View, edit, and manage all user profiles',  icon: '👤', link: '/admin/users',  color: 'bg-purple-50 text-purple-700',}
+
   ];
 
   return (

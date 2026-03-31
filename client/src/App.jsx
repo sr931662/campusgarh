@@ -51,6 +51,8 @@ import ManageAccreditation from './pages/admin/ManageAccreditation';
 import PartnerDashboard from './pages/partner/PartnerDashboard';
 import PartnerLeads from './pages/partner/PartnerLeads';
 import PartnerImport from './pages/partner/PartnerImport';
+import ManageUsers from './pages/admin/ManageUsers';
+import AdminUserDetail from './pages/admin/AdminUserDetail';
 
 import { ROLES } from './utils/constants';
 
@@ -141,7 +143,9 @@ function App() {
             <Route path="/admin/colleges/edit/:id" element={<CreateCollege />} />
             <Route path="/admin/courses/edit/:id" element={<CreateCourse />} />
             <Route path="/admin/exams/edit/:id" element={<CreateExam />} />
-            <Route path="/admin/accreditation" element={<ManageAccreditation />} />           
+            <Route path="/admin/accreditation" element={<ManageAccreditation />} />
+            <Route path="/admin/users" element={<ManageUsers />} />
+            <Route path="/admin/users/:userId" element={<AdminUserDetail />} />
 
           </Route>
 

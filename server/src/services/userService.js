@@ -145,6 +145,34 @@ class UserService extends BaseService {
     if (action === 'approve') await User.findByIdAndUpdate(request.user._id, { role: request.requestedRole });
     return request;
   }
+  // Admin: get single user by ID
+  async getUserById(userId) {
+    const user = await User.findById(userId)
+      .populate('profilePicture', 'url')
+      .populate('preferredCourses', 'name')
+      .populate('savedColleges', 'name city')
+      .select('-password -emailVerificationToken -passwordResetToken');
+    if (!user) throw new AppError('User not found', 404);
+    return user;
+  }
+
+  // Admin: update any user's profile
+  async adminUpdateUser(userId, updateData) {
+    const allowedFields = ['name', 'email', 'phone', 'role', 'isActive', 'emailVerified'];
+    const filtered = {};
+    allowedFields.forEach(f => {
+      if (updateData[f] !== undefined) filtered[f] = updateData[f];
+    });
+
+    const user = await User.findByIdAndUpdate(userId, filtered, {
+      new: true,
+      runValidators: true,
+    }).select('-password -emailVerificationToken -passwordResetToken');
+
+    if (!user) throw new AppError('User not found', 404);
+    return user;
+  }
+
 
 }
 

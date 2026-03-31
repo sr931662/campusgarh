@@ -87,6 +87,15 @@ class UserController {
     const result = await userService.reviewRoleRequest(requestId, req.user.id, action, reviewNote);
     ResponseHandler.success(res, result, `Role request ${action}d`);
   });
+  getUser = catchAsync(async (req, res) => {
+    const user = await this.userService.getUserById(req.params.userId);
+    ResponseHandler.success(res, 200, 'User fetched', { user });
+  });
+
+  adminUpdateUser = catchAsync(async (req, res) => {
+    const user = await this.userService.adminUpdateUser(req.params.userId, req.body);
+    ResponseHandler.success(res, 200, 'User updated', { user });
+  });
 
 }
 
