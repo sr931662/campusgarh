@@ -152,10 +152,7 @@ const CreateExam = () => {
       <Link to="/dashboard/admin" className={styles.backLink}>← Back to Dashboard</Link>
       <div className={styles.header}>
         <h1>{isEditing ? 'Edit Exam' : 'Add New Exam'}</h1>
-        // button:
-        {mutation.isPending ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Exam' : 'Create Exam')}
-
-        <p>Fill in the details to add an entrance exam to the platform</p>
+        <p>{isEditing ? 'Update exam details below' : 'Fill in the details to add an entrance exam to the platform'}</p>
       </div>
 
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -350,7 +347,7 @@ const CreateExam = () => {
 
         <div className={styles.actions}>
           <button type="submit" className={styles.submitBtn} disabled={mutation.isPending}>
-            {mutation.isPending ? 'Creating...' : 'Create Exam'}
+            {mutation.isPending ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Exam' : 'Create Exam')}
           </button>
           <Link to="/dashboard/admin" className={styles.cancelLink}>Cancel</Link>
         </div>

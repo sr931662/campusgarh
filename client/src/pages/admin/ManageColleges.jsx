@@ -100,7 +100,7 @@ const ManageColleges = () => {
                     <td>
                       <strong>{c.name}</strong>
                       {c.shortName ? <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> ({c.shortName})</span> : ''}
-                    </td>S
+                    </td>
                     <td><span className={styles.badge}>{c.fundingType || '—'}</span></td>
                     <td>{c.contact?.city || '—'}</td>
                     <td>
@@ -121,7 +121,7 @@ const ManageColleges = () => {
                     </td>
                     <td>
                       <div className={styles.actionCell}>
-                        <Link to={`/colleges/${c.slug}`}S className={styles.viewBtn} target="_blank" rel="noopener noreferrer">View</Link>
+                        <Link to={`/colleges/${c.slug}`} className={styles.viewBtn} target="_blank" rel="noopener noreferrer">View</Link>
                         <Link to={`/admin/colleges/edit/${c._id}`} className={styles.editBtn}>Edit</Link>
                         <button
                           className={styles.deleteBtn}
