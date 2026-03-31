@@ -5,9 +5,15 @@ const enquiryService = require('../services/enquiryService');
 class EnquiryController {
   // Public: create enquiry
   createEnquiry = catchAsync(async (req, res) => {
-    const enquiry = await enquiryService.createEnquiry(req.body);
+    const data = { ...req.body };
+    // If logged-in partner is submitting, tag the lead
+    if (req.user && req.user.role === 'partner') {
+      data.importedBy = req.user.id;
+    }
+    const enquiry = await enquiryService.createEnquiry(data);
     ResponseHandler.success(res, enquiry, 'Enquiry submitted successfully', 201);
   });
+
 
   // Counsellor: get assigned enquiries
   getMyEnquiries = catchAsync(async (req, res) => {

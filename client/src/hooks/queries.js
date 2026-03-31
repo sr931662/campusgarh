@@ -455,6 +455,17 @@ export const useCreateEnquiry = () => {
     onError: (error) => toast.error(error.response?.data?.message || 'Submission failed'),
   });
 };
+export const useAdminCreateUser = () => {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => userService.adminCreateUser(data),
+    onSuccess: () => {
+      qc.invalidateQueries(['admin-users']);
+      toast.success('User account created successfully');
+    },
+    onError: (e) => toast.error(e.response?.data?.message || 'Failed to create user'),
+  });
+};
 
 export const useEnquiry = (id) => {
   return useQuery({

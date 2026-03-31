@@ -132,6 +132,36 @@ class UserService extends BaseService {
     ]);
     return { data, pagination: { total, page: +page, limit: +limit } };
   }
+  async adminCreateUser(data) {
+    const allowedRoles = ['counsellor', 'moderator', 'institution_rep', 'partner', 'admin'];
+    if (!allowedRoles.includes(data.role)) {
+      throw new AppError('Invalid role for admin-created user', 400);
+    }
+    const existing = await User.findOne({ email: data.email });
+    if (existing) throw new AppError('Email already registered', 400);
+
+    const crypto = require('crypto');
+    // Generate a temp password if not provided
+    const tempPassword = data.password || crypto.randomBytes(8).toString('hex');
+    const user = await User.create({
+      ...data,
+      password: tempPassword,
+      emailVerified: true,   // admin-created accounts are pre-verified
+      isActive: true,
+    });
+
+    // Send welcome email with credentials (fire-and-forget)
+    const emailService = require('./emailService');
+    emailService.sendEmail({
+      to: user.email,
+      subject: 'Your CampusGarh account is ready',
+      template: 'welcome',
+      context: { name: user.name, email: user.email, password: tempPassword, role: user.role },
+    }).catch(() => {});
+
+    user.password = undefined;
+    return user;
+  }
 
   async reviewRoleRequest(requestId, adminId, action, reviewNote) {
     const request = await RoleChangeRequest.findById(requestId).populate('user');

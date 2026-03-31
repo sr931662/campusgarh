@@ -34,6 +34,9 @@ export default function ManageUsers() {
           <h1 className={styles.title}>Manage Users</h1>
           <p className={styles.subtitle}>{total} total users</p>
         </div>
+        <Link to="/admin/users/create" className={styles.createBtn}>
+        + Create Account
+        </Link>
       </div>
 
       <div className={styles.filterBar}>

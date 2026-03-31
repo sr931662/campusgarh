@@ -176,36 +176,37 @@ class AuthService extends BaseService {
 
   // OAuth login (Google)
   async oAuthLogin(profile) {
-    // First try to find by googleId, then by email
     let user = await User.findOne({ googleId: profile.googleId });
-    
+    if (!user) user = await User.findOne({ email: profile.email });
+
     if (!user) {
-      user = await User.findOne({ email: profile.email });
-    }
-    if (!user) {
-      // Create new user from OAuth profile
+      // Only students can register via OAuth — don't auto-create admin/partner/counsellor
       user = await this.create({
         name: profile.name,
         email: profile.email,
         googleId: profile.googleId,
         oauthProvider: 'google',
         emailVerified: true,
-        password: crypto.randomBytes(20).toString('hex'), // dummy password - not used for OAuth
+        role: 'student',
+        password: require('crypto').randomBytes(20).toString('hex'),
       });
-    } else if (!user.googleId) {
-      // Link existing account with Google
-      user.googleId = profile.googleId;
-      user.oauthProvider = 'google';
-      if (!user.emailVerified) user.emailVerified = true;
-      await user.save({ validateBeforeSave: false });
+    } else {
+      // Link Google to existing account
+      if (!user.googleId) {
+        user.googleId = profile.googleId;
+        user.oauthProvider = 'google';
+        if (!user.emailVerified) user.emailVerified = true;
+        await user.save({ validateBeforeSave: false });
+      }
     }
 
-    if (!user.isActive) throw new AppError('Account deactivated. Contact support.', 401);
+    if (!user.isActive || user.deletedAt) throw new AppError('Account deactivated. Contact support.', 401);
 
     const token = this.signToken(user._id);
     user.password = undefined;
     return { token, user };
   }
+
   
 }
 

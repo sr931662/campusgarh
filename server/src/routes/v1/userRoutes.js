@@ -186,6 +186,7 @@ router.post('/saved-courses/:courseId', toggleSavedCourseValidator, validate, us
  *         description: List of users
  */
 router.get('/', restrictTo('admin'), userController.getAllUsers);
+router.post('/admin/create', restrictTo('admin'), userController.adminCreateUser);
 
 /**
  * @swagger

@@ -16,4 +16,5 @@ export const userService = {
   assignRole:           (userId, role)     => api.patch(`/users/${userId}/role`, { role }),
   getUserById:     (userId)       => api.get(`/users/${userId}`),
   adminUpdateUser: (userId, data) => api.patch(`/users/${userId}`, data),
+  adminCreateUser: (data) => api.post('/users/admin/create', data),
 };

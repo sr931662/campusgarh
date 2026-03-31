@@ -53,6 +53,7 @@ import PartnerLeads from './pages/partner/PartnerLeads';
 import PartnerImport from './pages/partner/PartnerImport';
 import ManageUsers from './pages/admin/ManageUsers';
 import AdminUserDetail from './pages/admin/AdminUserDetail';
+import CreateUser from './pages/admin/CreateUser';
 
 import { ROLES } from './utils/constants';
 
@@ -146,7 +147,7 @@ function App() {
             <Route path="/admin/accreditation" element={<ManageAccreditation />} />
             <Route path="/admin/users" element={<ManageUsers />} />
             <Route path="/admin/users/:userId" element={<AdminUserDetail />} />
-
+            <Route path="/admin/users/create" element={<CreateUser />} />
           </Route>
 
         </Route>

@@ -55,8 +55,14 @@ const router = express.Router();
  *       201:
  *         description: Enquiry submitted
  */
-router.post('/', createEnquiryValidator, validate, enquiryController.createEnquiry);
-
+router.post('/', createEnquiryValidator, validate, (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  const cookie     = req.cookies?.jwt;
+  if (authHeader || cookie) {
+    return require('../../middleware/auth').protect(req, res, next);
+  }
+  next();
+}, enquiryController.createEnquiry);
 // Authenticated routes (counsellors, admin)
 router.use(protect);
 
@@ -120,9 +126,11 @@ router.get('/partner-leads', restrictTo('admin', 'partner'), enquiryController.g
  *       200:
  *         description: Enquiry details
  */
-router.get('/:id', enquiryController.getEnquiry);
-router.delete('/:id', restrictTo('admin'), enquiryController.deleteEnquiry);
 router.get('/export/csv', restrictTo('admin'), enquiryController.exportEnquiries);
+router.delete('/:id',     restrictTo('admin'), enquiryController.deleteEnquiry);
+router.patch('/:id',      restrictTo('admin'), enquiryController.updateEnquiry);  // also add this missing route
+
+router.get('/:id', enquiryController.getEnquiry);
 
 /**
  * @swagger

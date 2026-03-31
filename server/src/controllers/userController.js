@@ -84,7 +84,10 @@ class UserController {
     const requests = await userService.getAllRoleRequests(req.query);
     ResponseHandler.success(res, requests);
   });
-
+  adminCreateUser = catchAsync(async (req, res) => {
+    const user = await userService.adminCreateUser(req.body);
+    ResponseHandler.success(res, { user }, 'User created successfully', 201);
+  });
   reviewRoleRequest = catchAsync(async (req, res) => {
     const { requestId } = req.params;
     const { action, reviewNote } = req.body;

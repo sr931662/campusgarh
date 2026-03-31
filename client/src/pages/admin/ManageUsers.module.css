@@ -187,3 +187,19 @@
 .pageBtn:disabled { opacity: 0.4; cursor: not-allowed; }
 .pageBtn:hover:not(:disabled) { background: var(--bg-soft, #F7F4EF); }
 .pageInfo { font-size: 0.85rem; color: var(--muted, #8A8A8E); }
+
+
+.createBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.2rem;
+  background: var(--gold, #C9A84C);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.createBtn:hover { opacity: 0.85; }
