@@ -128,7 +128,7 @@ router.get('/partner-leads', restrictTo('admin', 'partner'), enquiryController.g
  */
 router.get('/export/csv', restrictTo('admin'), enquiryController.exportEnquiries);
 router.delete('/:id',     restrictTo('admin'), enquiryController.deleteEnquiry);
-router.patch('/:id',      restrictTo('admin'), enquiryController.updateEnquiry);  // also add this missing route
+router.patch('/:id', restrictTo('admin'), enquiryController.updateEnquiry);
 
 router.get('/:id', enquiryController.getEnquiry);
 

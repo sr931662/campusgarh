@@ -40,6 +40,13 @@ class EnquiryService extends BaseService {
     const enquiry = await AdmissionEnquiry.findById(enquiryId);
     emailService.sendCounsellorNotification(enquiry, counsellor).catch(() => {});
   }
+  async updateEnquiry(enquiryId, updateData) {
+    const allowed = ['studentName', 'phone', 'email', 'message', 'preferredCity',
+                    'courseInterest', 'collegeInterest', 'budget', 'source'];
+    const filtered = {};
+    allowed.forEach(f => { if (updateData[f] !== undefined) filtered[f] = updateData[f]; });
+    return this.updateById(enquiryId, filtered);
+  }
 
   async deleteEnquiry(enquiryId) {
     const enquiry = await AdmissionEnquiry.findOneAndUpdate(

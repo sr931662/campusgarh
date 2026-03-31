@@ -14,6 +14,12 @@ class EnquiryController {
     ResponseHandler.success(res, enquiry, 'Enquiry submitted successfully', 201);
   });
 
+  
+  updateEnquiry = catchAsync(async (req, res) => {
+    const enquiry = await enquiryService.updateEnquiry(req.params.id, req.body);
+    ResponseHandler.success(res, enquiry, 'Enquiry updated');
+  });
+
 
   // Counsellor: get assigned enquiries
   getMyEnquiries = catchAsync(async (req, res) => {
