@@ -35,6 +35,7 @@ import AdminAnalytics from '../pages/admin/AdminAnalytics';
 import EnquiryDetail  from '../pages/counsellor/EnquiryDetail';
 import AdminRoleRequests from '../pages/admin/AdminRoleRequests';
 import AdminVideoTestimonials from '../pages/admin/AdminVideoTestimonials';
+import ManageAccreditation from '../pages/admin/ManageAccreditation';
 
 
 
@@ -99,6 +100,7 @@ const AppRoutes = () => {
           <Route path="/admin/colleges/edit/:id" element={<CreateCollege />} />
           <Route path="/admin/courses/edit/:id" element={<CreateCourse />} />
           <Route path="/admin/exams/edit/:id" element={<CreateExam />} />
+          <Route path="/admin/accreditation" element={<ManageAccreditation />} />
 
 
 

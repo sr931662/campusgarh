@@ -47,6 +47,7 @@ import AdminGuide from './pages/admin/AdminGuide';
 import Predictor from './pages/Predictor';
 import AdminVideoTestimonials from './pages/admin/AdminVideoTestimonials';
 import PartnershipProgram from './pages/PartnershipProgram';
+import ManageAccreditation from '../pages/admin/ManageAccreditation';
 
 
 
@@ -132,8 +133,7 @@ function App() {
             <Route path="/admin/colleges/edit/:id" element={<CreateCollege />} />
             <Route path="/admin/courses/edit/:id" element={<CreateCourse />} />
             <Route path="/admin/exams/edit/:id" element={<CreateExam />} />
-            
-            
+            <Route path="/admin/accreditation" element={<ManageAccreditation />} />           
 
           </Route>
 

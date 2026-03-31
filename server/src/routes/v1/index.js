@@ -16,6 +16,7 @@ const predictorRoutes = require('./predictorRoutes');
 const newsletterRoutes = require('./newsletter.routes');
 const videoTestimonialRoutes = require('./videoTestimonialRoutes')
 // import videoTestimonialRoutes from './videoTestimonialRoutes.js';
+const accreditationRoutes = require('./accreditationRoutes');
 
 const router = express.Router();
 
@@ -35,5 +36,6 @@ router.use('/college-courses', collegeCourseRoutes);
 router.use('/predictor', predictorRoutes);
 router.use('/newsletter', newsletterRoutes);
 router.use('/video-testimonials', videoTestimonialRoutes);
+router.use('/accreditation', accreditationRoutes);
 
 module.exports = router;

@@ -54,29 +54,32 @@
   to   { transform: translateX(-50%); }
 }
 
-.badge {
+.logoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  padding: 0.4rem 0.9rem;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 6px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: rgba(255,255,255,0.55);
-  background: rgba(255,255,255,0.04);
-  white-space: nowrap;
-  cursor: default;
-  transition: border-color 0.2s, color 0.2s;
-}
-.badge:hover {
-  border-color: var(--gold, #C9A84C);
-  color: var(--gold, #C9A84C);
+  height: 52px;
+  padding: 0 0.5rem;
 }
 
+.logo {
+  height: 44px;
+  width: auto;
+  max-width: 90px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 6px;
+  padding: 4px 6px;
+  filter: brightness(0.95);
+  transition: filter 0.2s, transform 0.2s;
+}
 
 .logo:hover {
-  filter: grayscale(0%) brightness(1.1);
+  filter: brightness(1.05);
+  transform: scale(1.05);
 }
+
 
 /* Divider */
 .divider {
