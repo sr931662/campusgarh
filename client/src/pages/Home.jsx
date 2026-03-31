@@ -15,6 +15,7 @@ import ExploreColleges from '../components/home/ExploreColleges';
 import TrustedVoices from '../components/home/TrustedVoices';
 import TopCourses from '../components/home/TopCourses';
 import TopInstitutions from '../components/home/TopInstitutions';
+import LeadCapturePopup from '../components/home/LeadCapturePopup';
 
 const stats = [
   { num: '500+', label: 'Colleges' },
@@ -452,6 +453,7 @@ export default function Home() {
       
       
       <PredictorWidget />
+      <LeadCapturePopup />
 
     </div>
   );

@@ -46,6 +46,7 @@ import ScrollToTop from './components/common/ScrollToTop';
 import AdminGuide from './pages/admin/AdminGuide';
 import Predictor from './pages/Predictor';
 import AdminVideoTestimonials from './pages/admin/AdminVideoTestimonials';
+import PartnershipProgram from './pages/PartnershipProgram';
 
 
 
@@ -77,6 +78,7 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/verify-email/:token" element={<VerifyEmail />} />
           <Route path="/colleges/:courseSlug/:location" element={<ProgrammaticSEO />} />
+          <Route path="/partner" element={<PartnershipProgram />} />
 
           {/* Any authenticated user */}
           <Route element={<PrivateRoute />}>
@@ -127,9 +129,11 @@ function App() {
             <Route path="/admin/role-requests" element={<AdminRoleRequests />} />
             <Route path="/admin/guide" element={<AdminGuide />} />
             <Route path="/admin/video-testimonials" element={<AdminVideoTestimonials />} />
-          <Route path="/admin/colleges/edit/:id" element={<CreateCollege />} />
-          <Route path="/admin/courses/edit/:id" element={<CreateCourse />} />
-          <Route path="/admin/exams/edit/:id" element={<CreateExam />} />
+            <Route path="/admin/colleges/edit/:id" element={<CreateCollege />} />
+            <Route path="/admin/courses/edit/:id" element={<CreateCourse />} />
+            <Route path="/admin/exams/edit/:id" element={<CreateExam />} />
+            
+            
 
           </Route>
 
