@@ -45,6 +45,11 @@ const COLUMN_GUIDE = {
     required: ['Title'],
     optional: ['Content', 'Excerpt', 'Status (draft/published)', 'Tags'],
   },
+  AccreditationBody: {
+    required: ['Abbreviation', 'Full Name'],
+    optional: ['Logo URL', 'Order (number)', 'Active (Yes/No)'],
+  },
+
   AdmissionEnquiry: {
     required: ['Student Name', 'Phone', 'Email'],
     optional: ['Message', 'Preferred City', 'Source'],
@@ -57,6 +62,7 @@ const MODELS = [
   { value: 'Exam',             label: 'Exams' },
   { value: 'Blog',             label: 'Blogs' },
   { value: 'AdmissionEnquiry', label: 'Enquiries' },
+  { value: 'AccreditationBody', label: 'Accreditation Bodies' },
 ];
 
 const VIEW_LINKS = {
@@ -64,6 +70,7 @@ const VIEW_LINKS = {
   Course:  '/courses',
   Exam:    '/exams',
   Blog:    '/blogs',
+  AccreditationBody: '/admin/accreditation',
 };
 
 export default function ImportData() {

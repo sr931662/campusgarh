@@ -1,13 +1,12 @@
 const { body, param } = require('express-validator');
 
 const importExcelValidator = [
-  body('model').isIn(['College', 'Course', 'Exam', 'User', 'Blog', 'Review', 'AdmissionEnquiry']).withMessage('Invalid model'),
+  body('model').isIn(['College', 'Course', 'Exam', 'User', 'Blog', 'Review', 'AdmissionEnquiry', 'AccreditationBody']).withMessage('Invalid model'),
 ];
 
 const exportExcelValidator = [
-  param('model').isIn(['College', 'Course', 'Exam', 'User', 'Blog', 'Review', 'AdmissionEnquiry']).withMessage('Invalid model'),
-];
-
+  param('model').isIn(['College', 'Course', 'Exam', 'User', 'Blog', 'Review', 'AdmissionEnquiry', 'AccreditationBody']).withMessage('Invalid model'),
+]
 module.exports = {
   importExcelValidator,
   exportExcelValidator,

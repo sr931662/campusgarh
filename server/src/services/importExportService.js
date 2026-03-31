@@ -10,6 +10,9 @@ const blogService = require('./blogService');
 const reviewService = require('./reviewService');
 const enquiryService = require('./enquiryService');
 const collegeCourseService = require('./collegeCourseService');
+const AccreditationBody = require('../models/AccreditationBody');
+const BaseService = require('./baseService');
+const accreditationService = new BaseService(AccreditationBody);
 
 // ─── Enum lists (must match College.js model exactly) ────────────────────────
 
@@ -125,6 +128,7 @@ class ImportExportService {
       College: collegeService, Course: courseService, Exam: examService,
       User: userService, Blog: blogService, Review: reviewService,
       AdmissionEnquiry: enquiryService, CollegeCourse: collegeCourseService,
+      AccreditationBody: accreditationService,
     };
   }
 
@@ -321,6 +325,16 @@ class ImportExportService {
         'Tags':    (doc.tags || []).join(', '),
       };
     }
+    if (modelName === 'AccreditationBody') {
+      return {
+        'Abbreviation': doc.abbr || '',
+        'Full Name':    doc.full || '',
+        'Logo URL':     doc.logoUrl || '',
+        'Order':        doc.order ?? '',
+        'Active':       doc.active ? 'Yes' : 'No',
+      };
+    }
+
     // Fallback for other models — basic flatten
     const flat = {};
     for (const [k, v] of Object.entries(doc)) {
@@ -520,6 +534,17 @@ class ImportExportService {
           ['Source', 'website | referral | social | ads | other'],
         ],
       },
+      AccreditationBody: {
+        headers: ['Abbreviation', 'Full Name', 'Logo URL', 'Order', 'Active'],
+        sample: {
+          'Abbreviation': 'NAAC',
+          'Full Name':    'National Assessment and Accreditation Council',
+          'Logo URL':     'https://cdn.example.com/naac.png',
+          'Order':        '1',
+          'Active':       'Yes',
+        },
+      },
+
     };
 
     const tpl = TEMPLATES[modelName];
@@ -564,6 +589,18 @@ class ImportExportService {
     if (modelName === 'Course')  return this.mapCourse(row);
     if (modelName === 'Exam')    return this.mapExam(row);
     if (modelName === 'Blog')    return this.mapBlog(row);
+    if (modelName === 'AccreditationBody') {
+      const n = this.normalizeRow(row);
+      const get = this.makeGet(n);
+      return {
+        abbr:    get('abbreviation', 'abbr')    || '',
+        full:    get('full name', 'full')       || '',
+        logoUrl: get('logo url', 'logourl')     || '',
+        order:   this.toNum(get('order'))       ?? 0,
+        active:  get('active') ? this.toBool(get('active')) : true,
+      };
+    }
+
     return row;
   }
 
