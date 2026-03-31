@@ -43,10 +43,14 @@ class UserController {
 
   // Admin: get all users
   getAllUsers = catchAsync(async (req, res) => {
-    const { page, limit, role, isActive } = req.query;
+    const { page, limit, role, isActive, search } = req.query;
     const filter = {};
     if (role) filter.role = role;
-    if (isActive !== undefined) filter.isActive = isActive === 'true';
+    if (isActive !== undefined && isActive !== '') filter.isActive = isActive === 'true';
+    if (search) filter.$or = [
+      { name: { $regex: search, $options: 'i' } },
+      { email: { $regex: search, $options: 'i' } },
+    ];
     const result = await userService.getAllUsers(filter, { page, limit });
     ResponseHandler.success(res, result);
   });
