@@ -16,6 +16,7 @@ import TrustedVoices from '../components/home/TrustedVoices';
 import TopCourses from '../components/home/TopCourses';
 import TopInstitutions from '../components/home/TopInstitutions';
 import LeadCapturePopup from '../components/home/LeadCapturePopup';
+import AccreditationBar from '../components/home/AccreditationBar';
 
 const stats = [
   { num: '500+', label: 'Colleges' },
@@ -153,6 +154,9 @@ export default function Home() {
           <span className={styles.scrollText}>Scroll</span>
         </div>
       </section>
+
+      
+      <AccreditationBar />
 
       {/* ── BROWSE BY STREAM ────────────────────────────────────────────────── */}
       <section className={styles.categoriesSection}>
