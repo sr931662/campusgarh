@@ -17,6 +17,15 @@ class PredictorController {
     const results = await predictorService.predictExams(req.query);
     ResponseHandler.success(res, results, 'Exam predictions generated');
   });
+  getCollegeDetailedAnalysis = catchAsync(async (req, res) => {
+    const { collegeId, courseId, examId, rank, percentile, category } = req.query;
+    const result = await predictorService.getCollegeDetailedAnalysis({
+      collegeId, courseId, examId, rank, percentile, category,
+    });
+    if (!result) return ResponseHandler.error(res, { message: 'College-course combination not found' }, 404);
+    ResponseHandler.success(res, result);
+  });
+
 }
 
 module.exports = new PredictorController();

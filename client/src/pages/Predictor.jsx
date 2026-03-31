@@ -36,6 +36,13 @@ const CollegeCard = ({ item }) => (
     <p className={styles.cardMeta}>
       {item.contact?.city}{item.contact?.state ? `, ${item.contact.state}` : ''} · {item.collegeType || 'College'}
     </p>
+    {item.hasRealData
+      ? <span className={styles.realDataBadge}>Based on actual cutoffs</span>
+      : <span className={styles.estimatedBadge}>NIRF estimate</span>}
+    {item.lastYearClosingRank && (
+      <span className={styles.detail}>Last year closing rank: {item.lastYearClosingRank.toLocaleString()}</span>
+    )}
+
     <div className={styles.cardDetails}>
       {item.accreditation?.nirfRank && <span className={styles.detail}>NIRF #{item.accreditation.nirfRank}</span>}
       {item.accreditation?.naacGrade && <span className={styles.detail}>NAAC {item.accreditation.naacGrade}</span>}
@@ -88,7 +95,7 @@ const Predictor = () => {
   const [type, setType] = useState('college');
 
   // College form state
-  const [cForm, setCForm] = useState({ percentile: '', rank: '', stream: '', state: '', maxFee: '', inputMode: 'percentile' });
+  const [cForm, setCForm] = useState({ percentile: '', rank: '', stream: '', state: '', maxFee: '', inputMode: 'percentile',examName: '', category: 'General', selectedCollegeId: '', selectedCourseId: '' });
   // Course form state
   const [crForm, setCrForm] = useState({ percentage: '', level: '', discipline: '' });
   // Exam form state
