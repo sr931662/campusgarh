@@ -47,7 +47,7 @@ import AdminGuide from './pages/admin/AdminGuide';
 import Predictor from './pages/Predictor';
 import AdminVideoTestimonials from './pages/admin/AdminVideoTestimonials';
 import PartnershipProgram from './pages/PartnershipProgram';
-import ManageAccreditation from '../pages/admin/ManageAccreditation';
+import ManageAccreditation from './pages/admin/ManageAccreditation';
 
 
 
