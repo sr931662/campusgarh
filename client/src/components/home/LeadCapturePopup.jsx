@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaTimes, FaGraduationCap } from 'react-icons/fa';
 import { enquiryService } from '../../services/enquiryService';
+import { useAuth } from '../../store/authStore';
 import styles from './LeadCapturePopup.module.css';
 
 const STORAGE_KEY = 'cg_popup_dismissed';
@@ -13,13 +14,15 @@ const LeadCapturePopup = () => {
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
+    if (isAuthenticated) return;          // never show to logged-in users
     const dismissed = sessionStorage.getItem(STORAGE_KEY);
     if (dismissed) return;
     const timer = setTimeout(() => setVisible(true), 8000); // show after 8s
     return () => clearTimeout(timer);
-  }, []);
+  }, [isAuthenticated]);
 
   const dismiss = () => {
     sessionStorage.setItem(STORAGE_KEY, '1');
