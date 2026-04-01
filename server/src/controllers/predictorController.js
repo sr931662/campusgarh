@@ -26,6 +26,17 @@ class PredictorController {
     ResponseHandler.success(res, result);
   });
 
+  predictCollegesForCourse = catchAsync(async (req, res) => {
+    const results = await predictorService.predictCollegesForCourse(req.query);
+    ResponseHandler.success(res, results, 'College predictions for course generated');
+  });
+
+  getExamCollegeMap = catchAsync(async (req, res) => {
+    const results = await predictorService.getExamCollegeMap(req.query);
+    ResponseHandler.success(res, results, 'Exam-college map generated');
+  });
+
+
 }
 
 module.exports = new PredictorController();

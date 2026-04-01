@@ -194,7 +194,7 @@ class PredictorService {
      DETAILED COLLEGE ANALYSIS — specific college + course
      Uses last 3 years of real cutoff data, computes trend & reasoning.
   ══════════════════════════════════════════════════════════════════════════════*/
-  async getCollegeDetailedAnalysis({ collegeId, courseId, examId, rank, percentile, category = 'General' }) {
+  async getCollegeDetailedAnalysis({ collegeId, courseId, examId, rank, percentile, cgpa, category = 'General' }) {
     const currentYear = new Date().getFullYear();
 
     const cc = await CollegeCourse.findOne({ college: collegeId, course: courseId, deletedAt: null })
@@ -229,9 +229,12 @@ class PredictorService {
     ].sort((a, b) => b.year - a.year);
 
     // Normalise candidate score
-    const pct = percentile
+    const pct = cgpa
+    ? Math.min(Number(cgpa) * 9.5, 100)
+    : percentile
       ? Number(percentile)
       : rank ? rankToPercentile(Number(rank)) : null;
+
 
     const candidateRank = rank
       ? Number(rank)
@@ -417,14 +420,15 @@ class PredictorService {
       });
     }
 
-    // const filter = { deletedAt: null };
-    // if (level) filter.category = level;
+    const filter = { deletedAt: null };
+    if (level) filter.category = level;
 
-    // const exams = await Exam.find(filter)
-    //   .select('name slug category examLevel conductingBody registrationFee examMode frequency overview officialWebsite importantDates eligibilityDetails')
-    //   .lean();
+    const exams = await Exam.find(filter)
+      .select('name slug category examLevel conductingBody registrationFee examMode frequency overview officialWebsite registrationLink syllabus importantDates eligibilityDetails participatingColleges')
+      .lean();
 
     const results = exams.map(exam => {
+
       let relevance = 50;
       const examIdStr = String(exam._id);
 
@@ -453,7 +457,98 @@ class PredictorService {
 
     results.sort((a, b) => b.chance - a.chance);
     return results.slice(0, Number(limit));
+    
   }
+  /* ═══════════════════════════════════════════════════════════════════════════
+    COLLEGES FOR A SPECIFIC COURSE — student wants chances in ONE course
+    Returns all colleges offering that course, ranked by admission chances.
+  ══════════════════════════════════════════════════════════════════════════════*/
+  async predictCollegesForCourse({ courseId, rank, percentile, cgpa, category = 'General', examId, limit = 30 }) {
+    if (!courseId) return [];
+    const currentYear = new Date().getFullYear();
+
+    const ccRecords = await CollegeCourse.find({ course: courseId, deletedAt: null, isActive: true })
+      .populate('college', 'name slug collegeType fundingType accreditation fees contact placementStats cutoffs')
+      .populate('course',  'name slug category discipline')
+      .populate('entranceExamRequirement', 'name slug examLevel officialWebsite registrationLink')
+      .lean();
+
+    const pct = cgpa
+      ? Math.min(Number(cgpa) * 9.5, 100)
+      : percentile ? Number(percentile) : 70;
+    const candidateRank = rank ? Number(rank) : percentileToRank(pct);
+
+    const results = ccRecords.map(cc => {
+      const activeCutoff = pickBestCutoff(cc.examCutoffs || [], category, examId, currentYear);
+
+      let chance, hasRealData, lastYearClosingRank = null;
+
+      if (activeCutoff?.closingRank) {
+        hasRealData         = true;
+        lastYearClosingRank = activeCutoff.closingRank;
+        chance = chanceFromRanks(candidateRank, activeCutoff.closingRank);
+      } else {
+        hasRealData = false;
+        const nirfRank = cc.college?.accreditation?.nirfRank;
+        const reqPct   = getRequiredPercentile(nirfRank);
+        chance = Math.round(clamp((pct / reqPct) * 100, 0, 100));
+      }
+
+      return {
+        college:             cc.college,
+        course:              cc.course,
+        seatIntake:          cc.seatIntake  || null,
+        fees:                cc.fees        || null,
+        eligibility:         cc.eligibility || null,
+        examsRequired:       cc.entranceExamRequirement || [],
+        lastYearClosingRank,
+        candidateRank,
+        chance:              clamp(chance || 0, 0, 100),
+        hasRealData,
+        ...getProbability(clamp(chance || 0, 0, 100)),
+      };
+    });
+
+    results.sort((a, b) => b.chance - a.chance);
+    return results.slice(0, Number(limit));
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+    EXAM → COLLEGE MAP — for a course, which exam opens which colleges
+    Returns exam list each with its list of colleges requiring it for that course
+  ══════════════════════════════════════════════════════════════════════════════*/
+  async getExamCollegeMap({ courseId, limit = 30 }) {
+    if (!courseId) return [];
+
+    const ccRecords = await CollegeCourse.find({ course: courseId, deletedAt: null, isActive: true })
+      .populate('college', 'name slug collegeType accreditation contact fees')
+      .populate('entranceExamRequirement', 'name slug examLevel conductingBody officialWebsite registrationLink syllabus examMode frequency category')
+      .lean();
+
+    // Build map: examId → { exam info, colleges[] }
+    const examMap = {};
+    for (const cc of ccRecords) {
+      if (!cc.college) continue;
+      const exams = cc.entranceExamRequirement || [];
+      if (exams.length === 0) {
+        // Merit-based colleges — group under a pseudo key
+        const key = '__merit__';
+        if (!examMap[key]) examMap[key] = { exam: { _id: '__merit__', name: 'Merit-Based (No Entrance Exam)', examLevel: 'N/A', isMerit: true }, colleges: [] };
+        examMap[key].colleges.push({ ...cc.college, seatIntake: cc.seatIntake, fees: cc.fees });
+      } else {
+        for (const exam of exams) {
+          const key = String(exam._id);
+          if (!examMap[key]) examMap[key] = { exam, colleges: [] };
+          examMap[key].colleges.push({ ...cc.college, seatIntake: cc.seatIntake, fees: cc.fees });
+        }
+      }
+    }
+
+    return Object.values(examMap)
+      .sort((a, b) => b.colleges.length - a.colleges.length)
+      .slice(0, Number(limit));
+  }
+
 }
 
 module.exports = new PredictorService();

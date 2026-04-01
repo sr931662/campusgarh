@@ -235,6 +235,18 @@ const Predictor = () => {
   const [highestQualification, setHQual]          = useState('12th');
 
   const [type, setType]       = useState('college');
+  // College browse — sort
+  const [collegeSort, setCollegeSort] = useState('chance'); // 'chance'|'nirf'|'fees'|'placement'
+
+  // Course tab modes
+  const [courseMode, setCourseMode] = useState('recommend'); // 'recommend'|'specific'
+  const [cfForm,  setCfForm]  = useState({ courseId: '', courseName: '', percentile: '', rank: '', cgpa: '', category: 'General' });
+
+  // Exam tab modes
+  const [examMode, setExamMode] = useState('recommend'); // 'recommend'|'map'
+  const [mapCourseId,   setMapCourseId]   = useState('');
+  const [mapCourseName, setMapCourseName] = useState('');
+
   const [mode, setMode]       = useState('browse');  // 'browse' | 'analyze'
   const [triggered, setTriggered] = useState(false);
 
@@ -320,22 +332,46 @@ const Predictor = () => {
   });
 
   // ── Actions ─────────────────────────────────────────────────────────────────
+  const { data: cfData, isLoading: cfLoading, refetch: cfRefetch } = useQuery({
+    queryKey: ['predict-colleges-for-course', cfForm],
+    queryFn: () => predictorService.predictCollegesForCourse({
+      courseId:    cfForm.courseId,
+      ...(cfForm.cgpa        && { cgpa:       cfForm.cgpa }),
+      ...(cfForm.percentile  && { percentile: cfForm.percentile }),
+      ...(cfForm.rank        && { rank:       cfForm.rank }),
+      category:    cfForm.category,
+      limit: 30,
+    }),
+    enabled: false,
+  });
+
+  const { data: emData, isLoading: emLoading, refetch: emRefetch } = useQuery({
+    queryKey: ['exam-college-map', mapCourseId],
+    queryFn: () => predictorService.getExamCollegeMap({ courseId: mapCourseId }),
+    enabled: false,
+  });
 
   const handlePredict = () => {
     setTriggered(true);
-    if      (type === 'college' && mode === 'analyze') aRefetch();
-    else if (type === 'college')                       cRefetch();
-    else if (type === 'course')                        crRefetch();
-    else                                               eRefetch();
+    if      (type === 'college' && mode === 'analyze')                          aRefetch();
+    else if (type === 'college')                                                 cRefetch();
+    else if (type === 'course'  && courseMode === 'specific' && cfForm.courseId) cfRefetch();
+    else if (type === 'course')                                                  crRefetch();
+    else if (type === 'exam'    && examMode === 'map' && mapCourseId)            emRefetch();
+    else                                                                         eRefetch();
   };
+
 
   const handleTypeChange = (t) => { setType(t); setTriggered(false); setMode('browse'); };
 
-  const isLoading = cLoading || aLoading || crLoading || eLoading;
-  const colleges  = cData?.data?.data  || [];
-  const detail    = aData?.data?.data  || null;
-  const courses   = crData?.data?.data || [];
-  const exams     = eData?.data?.data  || [];
+  const isLoading      = cLoading || aLoading || crLoading || eLoading || cfLoading || emLoading;
+  const colleges       = cData?.data?.data   || [];
+  const detail         = aData?.data?.data   || null;
+  const courses        = crData?.data?.data  || [];
+  const exams          = eData?.data?.data   || [];
+  const courseColleges = cfData?.data?.data  || [];
+  const examCollegeMap = emData?.data?.data  || [];
+
 
   // ── Shared score input block ─────────────────────────────────────────────────
   const ScoreInputs = ({ form, setForm }) => (
@@ -407,6 +443,14 @@ const Predictor = () => {
     </>
   );
 
+  const sortedColleges = [...colleges].sort((a, b) => {
+    if (collegeSort === 'nirf')      return (a.college?.accreditation?.nirfRank || 9999) - (b.college?.accreditation?.nirfRank || 9999);
+    if (collegeSort === 'fees')      return (a.fees?.total || a.college?.fees?.total || 9999999) - (b.fees?.total || b.college?.fees?.total || 9999999);
+    if (collegeSort === 'placement') return (b.college?.placementStats?.placementPercentage || b.placementStats?.placementPercentage || 0) - (a.college?.placementStats?.placementPercentage || a.placementStats?.placementPercentage || 0);
+    return b.chance - a.chance; // default: best chance first
+  });
+
+
   // ─── Render ──────────────────────────────────────────────────────────────────
   return (
     <div className={styles.page}>
@@ -440,6 +484,13 @@ const Predictor = () => {
               <div className={styles.formGrid}>
                 <ScoreInputs form={cForm} setForm={setCForm} />
                 <div className={styles.field}>
+                  <label>Category</label>
+                  <select value={cForm.category} onChange={e => setCForm(p => ({ ...p, category: e.target.value }))}>
+                    {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+
+                <div className={styles.field}>
                   <label>Preferred Stream</label>
                   <select value={cForm.stream} onChange={e => setCForm(p => ({ ...p, stream: e.target.value }))}>
                     {STREAMS.map(s => <option key={s} value={s}>{s || 'All Streams'}</option>)}
@@ -471,15 +522,26 @@ const Predictor = () => {
               <div className={styles.formGrid}>
                 <ScoreInputs form={aForm} setForm={setAForm} />
                 <div className={styles.field}>
-                  <label>College ID <span className={styles.req}>*</span></label>
-                  <input type="text" placeholder="MongoDB ObjectId of the college"
-                    value={aForm.collegeId} onChange={e => setAForm(p => ({ ...p, collegeId: e.target.value }))} />
+                  <label>College <span className={styles.req}>*</span></label>
+                  <CollegeSearchInput
+                    selected={aForm.collegeId ? [{ id: aForm.collegeId, name: aForm.collegeName || aForm.collegeId }] : []}
+                    onChange={val => setAForm(p => ({ ...p, collegeId: val[0]?.id || '', collegeName: val[0]?.name || '' }))}
+                  />
                 </div>
                 <div className={styles.field}>
-                  <label>Course ID <span className={styles.req}>*</span></label>
-                  <input type="text" placeholder="MongoDB ObjectId of the course"
-                    value={aForm.courseId} onChange={e => setAForm(p => ({ ...p, courseId: e.target.value }))} />
+                  <label>Course <span className={styles.req}>*</span></label>
+                  <CourseSearchInput
+                    selected={aForm.courseId ? [{ id: aForm.courseId, name: aForm.courseName || aForm.courseId }] : []}
+                    onChange={val => setAForm(p => ({ ...p, courseId: val[0]?.id || '', courseName: val[0]?.name || '' }))}
+                  />
                 </div>
+                <div className={styles.field}>
+                  <label>Category</label>
+                  <select value={aForm.category} onChange={e => setAForm(p => ({ ...p, category: e.target.value }))}>
+                    {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+
               </div>
               <button className={styles.predictBtn} onClick={handlePredict}
                 disabled={isLoading || !aForm.collegeId || !aForm.courseId}>
@@ -492,115 +554,189 @@ const Predictor = () => {
 
       {/* ── Course Tab ──────────────────────────────────────────────────────── */}
       {type === 'course' && (
-        <div className={styles.formCard}>
-          <p className={styles.formTitle}>Enter your academic profile to find matching courses</p>
-          <div className={styles.formGrid}>
-            {/* Qualification */}
-            <div className={styles.field}>
-              <label>Highest Qualification</label>
-              <select value={crForm.highestQualification} onChange={e => setCrForm(p => ({ ...p, highestQualification: e.target.value }))}>
-                <option value="10th">10th</option>
-                <option value="12th">12th / HSC</option>
-                <option value="Diploma">Diploma</option>
-                <option value="UG">Graduation (UG)</option>
-                <option value="PG">Post-Graduation (PG)</option>
-              </select>
-            </div>
-            {/* Score */}
-            <div className={styles.field}>
-              <label>Score (% or CGPA out of 10)</label>
-              <input type="number" min="0" max="100" step="0.1" placeholder="e.g. 85 or 8.5"
-                value={crForm.cgpa || crForm.percentage}
-                onChange={e => {
-                  const v = e.target.value;
-                  Number(v) <= 10
-                    ? setCrForm(p => ({ ...p, cgpa: v, percentage: '' }))
-                    : setCrForm(p => ({ ...p, percentage: v, cgpa: '' }));
-                }} />
-              <small style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>Values ≤ 10 treated as CGPA, above as %</small>
-            </div>
-            {/* Level */}
-            <div className={styles.field}>
-              <label>Course Level</label>
-              <select value={crForm.level} onChange={e => setCrForm(p => ({ ...p, level: e.target.value }))}>
-                {LEVELS.map(l => <option key={l} value={l}>{l || 'All Levels'}</option>)}
-              </select>
-            </div>
-            {/* Discipline */}
-            <div className={styles.field}>
-              <label>Discipline / Stream</label>
-              <input type="text" placeholder="e.g. Engineering, Medical, Management"
-                value={crForm.discipline} onChange={e => setCrForm(p => ({ ...p, discipline: e.target.value }))} />
-            </div>
+        <>
+          <div className={styles.modeToggle}>
+            <button className={`${styles.modeBtn} ${courseMode === 'recommend' ? styles.modeBtnActive : ''}`}
+              onClick={() => { setCourseMode('recommend'); setTriggered(false); }}>Recommend Courses</button>
+            <button className={`${styles.modeBtn} ${courseMode === 'specific' ? styles.modeBtnActive : ''}`}
+              onClick={() => { setCourseMode('specific'); setTriggered(false); }}>My Chances in a Course</button>
           </div>
-          {/* Interests */}
-          <div style={{ marginBottom: '1.25rem' }}>
-            <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.5rem' }}>Your Interests (select all that apply)</p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-              {['Coding','Design','Finance','Management','Law','Medicine','Arts','Science','Engineering','Education','Media','Sports'].map(interest => {
-                const val = interest.toLowerCase();
-                const checked = crForm.interests.includes(val);
-                return (
-                  <label key={val} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.82rem', padding: '0.3rem 0.75rem', borderRadius: '20px', border: `1.5px solid ${checked ? 'var(--gold, #C9A84C)' : 'var(--border, #E8E3DB)'}`, background: checked ? 'var(--gold, #C9A84C)' : 'transparent', color: checked ? '#fff' : 'var(--charcoal)', cursor: 'pointer', userSelect: 'none' }}>
-                    <input type="checkbox" checked={checked} style={{ display: 'none' }}
-                      onChange={e => setCrForm(p => ({
-                        ...p,
-                        interests: e.target.checked ? [...p.interests, val] : p.interests.filter(i => i !== val)
-                      }))} />
-                    {interest}
-                  </label>
-                );
-              })}
+
+          {/* Recommend mode — existing form */}
+          {courseMode === 'recommend' && (
+            <div className={styles.formCard}>
+              <p className={styles.formTitle}>Find courses that match your profile and interests</p>
+              <div className={styles.formGrid}>
+                <div className={styles.field}>
+                  <label>Highest Qualification</label>
+                  <select value={crForm.highestQualification} onChange={e => setCrForm(p => ({ ...p, highestQualification: e.target.value }))}>
+                    <option value="10th">10th</option>
+                    <option value="12th">12th / HSC</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="UG">Graduation (UG)</option>
+                    <option value="PG">Post-Graduation (PG)</option>
+                  </select>
+                </div>
+                <div className={styles.field}>
+                  <label>Score (% or CGPA out of 10)</label>
+                  <input type="number" min="0" max="100" step="0.1" placeholder="e.g. 85 or 8.5"
+                    value={crForm.cgpa || crForm.percentage}
+                    onChange={e => {
+                      const v = e.target.value;
+                      Number(v) <= 10
+                        ? setCrForm(p => ({ ...p, cgpa: v, percentage: '' }))
+                        : setCrForm(p => ({ ...p, percentage: v, cgpa: '' }));
+                    }} />
+                  <small style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>Values ≤ 10 treated as CGPA</small>
+                </div>
+                <div className={styles.field}>
+                  <label>Course Level</label>
+                  <select value={crForm.level} onChange={e => setCrForm(p => ({ ...p, level: e.target.value }))}>
+                    {LEVELS.map(l => <option key={l} value={l}>{l || 'All Levels'}</option>)}
+                  </select>
+                </div>
+                <div className={styles.field}>
+                  <label>Discipline / Stream</label>
+                  <input type="text" placeholder="e.g. Engineering, Medical, Management"
+                    value={crForm.discipline} onChange={e => setCrForm(p => ({ ...p, discipline: e.target.value }))} />
+                </div>
+              </div>
+              <div style={{ marginBottom: '1.25rem' }}>
+                <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.5rem' }}>Your Interests</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                  {['Coding','Design','Finance','Management','Law','Medicine','Arts','Science','Engineering','Education','Media','Sports'].map(interest => {
+                    const val = interest.toLowerCase();
+                    const checked = crForm.interests.includes(val);
+                    return (
+                      <label key={val} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.82rem', padding: '0.3rem 0.75rem', borderRadius: '20px', border: `1.5px solid ${checked ? 'var(--gold,#C9A84C)' : 'var(--border,#E8E3DB)'}`, background: checked ? 'var(--gold,#C9A84C)' : 'transparent', color: checked ? '#fff' : 'var(--charcoal)', cursor: 'pointer', userSelect: 'none' }}>
+                        <input type="checkbox" checked={checked} style={{ display: 'none' }}
+                          onChange={e => setCrForm(p => ({ ...p, interests: e.target.checked ? [...p.interests, val] : p.interests.filter(i => i !== val) }))} />
+                        {interest}
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+              <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading}>
+                {isLoading ? 'Predicting…' : '⚡ Recommend Courses'}
+              </button>
             </div>
-          </div>
-          <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading}>
-            {isLoading ? 'Predicting…' : '⚡ Predict Courses'}
-          </button>
-        </div>
+          )}
+
+          {/* Specific course chances mode */}
+          {courseMode === 'specific' && (
+            <div className={styles.formCard}>
+              <p className={styles.formTitle}>See which colleges you can get into for a specific course</p>
+              <p className={styles.formNote}>Pick a course and enter your score — we'll rank all colleges offering it by your admission chances.</p>
+              <div className={styles.formGrid}>
+                <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
+                  <label>Target Course <span className={styles.req}>*</span></label>
+                  <CourseSearchInput
+                    selected={cfForm.courseId ? [{ id: cfForm.courseId, name: cfForm.courseName }] : []}
+                    onChange={val => setCfForm(p => ({ ...p, courseId: val[0]?.id || '', courseName: val[0]?.name || '' }))}
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label>Score Type</label>
+                  <select value={useRankOrPct} onChange={e => setUseRankOrPct(e.target.value)}>
+                    <option value="percentile">Percentile</option>
+                    <option value="rank">Exam Rank</option>
+                    <option value="cgpa">CGPA (10-pt scale)</option>
+                    <option value="percentage">Percentage</option>
+                  </select>
+                </div>
+                <div className={styles.field}>
+                  <label>{useRankOrPct === 'cgpa' ? 'Your CGPA' : useRankOrPct === 'rank' ? 'Your Rank' : useRankOrPct === 'percentile' ? 'Your Percentile' : 'Your Percentage'}</label>
+                  <input type="number"
+                    placeholder={useRankOrPct === 'cgpa' ? 'e.g. 8.5' : useRankOrPct === 'rank' ? 'e.g. 15000' : 'e.g. 92.5'}
+                    value={useRankOrPct === 'cgpa' ? cfForm.cgpa : useRankOrPct === 'rank' ? cfForm.rank : cfForm.percentile}
+                    onChange={e => {
+                      if      (useRankOrPct === 'cgpa')       setCfForm(p => ({ ...p, cgpa: e.target.value }));
+                      else if (useRankOrPct === 'rank')       setCfForm(p => ({ ...p, rank: e.target.value }));
+                      else                                    setCfForm(p => ({ ...p, percentile: e.target.value }));
+                    }} />
+                </div>
+                <div className={styles.field}>
+                  <label>Category</label>
+                  <select value={cfForm.category} onChange={e => setCfForm(p => ({ ...p, category: e.target.value }))}>
+                    {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+              </div>
+              <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading || !cfForm.courseId}>
+                {isLoading ? 'Predicting…' : '⚡ Show My Chances'}
+              </button>
+            </div>
+          )}
+        </>
       )}
+
 
       {/* ── Exam Tab ────────────────────────────────────────────────────────── */}
       {type === 'exam' && (
-        <div className={styles.formCard}>
-          <p className={styles.formTitle}>Find the right entrance exams for your goals</p>
-          <div className={styles.formGrid}>
-            <div className={styles.field}>
-              <label>Target Discipline</label>
-              <input type="text" placeholder="e.g. Engineering, Medical, MBA"
-                value={eForm.discipline} onChange={e => setEForm(p => ({ ...p, discipline: e.target.value }))} />
+        <>
+          <div className={styles.modeToggle}>
+            <button className={`${styles.modeBtn} ${examMode === 'recommend' ? styles.modeBtnActive : ''}`}
+              onClick={() => { setExamMode('recommend'); setTriggered(false); }}>Exam Recommendations</button>
+            <button className={`${styles.modeBtn} ${examMode === 'map' ? styles.modeBtnActive : ''}`}
+              onClick={() => { setExamMode('map'); setTriggered(false); }}>Exams by Course & College</button>
+          </div>
+
+          {/* Recommend mode */}
+          {examMode === 'recommend' && (
+            <div className={styles.formCard}>
+              <p className={styles.formTitle}>Find the right entrance exams for your goals</p>
+              <div className={styles.formGrid}>
+                <div className={styles.field}>
+                  <label>Target Discipline</label>
+                  <input type="text" placeholder="e.g. Engineering, Medical, MBA"
+                    value={eForm.discipline} onChange={e => setEForm(p => ({ ...p, discipline: e.target.value }))} />
+                </div>
+                <div className={styles.field}>
+                  <label>Course Level</label>
+                  <select value={eForm.level} onChange={e => setEForm(p => ({ ...p, level: e.target.value }))}>
+                    <option value="">All Levels</option>
+                    <option value="UG">UG (After Class 12)</option>
+                    <option value="PG">PG (After Graduation)</option>
+                    <option value="PhD">PhD</option>
+                    <option value="Diploma">Diploma</option>
+                  </select>
+                </div>
+              </div>
+              <div className={styles.field} style={{ marginBottom: '1rem' }}>
+                <label>Colleges you are targeting (optional)</label>
+                <CollegeSearchInput selected={eForm.targetCollegeIds} onChange={val => setEForm(p => ({ ...p, targetCollegeIds: val }))} />
+              </div>
+              <div className={styles.field} style={{ marginBottom: '1.25rem' }}>
+                <label>Courses you are targeting (optional)</label>
+                <CourseSearchInput selected={eForm.targetCourseIds} onChange={val => setEForm(p => ({ ...p, targetCourseIds: val }))} />
+              </div>
+              <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading}>
+                {isLoading ? 'Predicting…' : '⚡ Predict Exams'}
+              </button>
             </div>
-            <div className={styles.field}>
-              <label>Course Level</label>
-              <select value={eForm.level} onChange={e => setEForm(p => ({ ...p, level: e.target.value }))}>
-                <option value="">All Levels</option>
-                <option value="UG">UG (After Class 12)</option>
-                <option value="PG">PG (After Graduation)</option>
-                <option value="PhD">PhD</option>
-                <option value="Diploma">Diploma</option>
-              </select>
+          )}
+
+          {/* Map mode — which exam opens which colleges for a course */}
+          {examMode === 'map' && (
+            <div className={styles.formCard}>
+              <p className={styles.formTitle}>See which exams are accepted across colleges for a course</p>
+              <p className={styles.formNote}>Pick a course → we'll show every compatible exam with the colleges that accept it, including syllabus links.</p>
+              <div className={styles.field} style={{ marginBottom: '1.25rem' }}>
+                <label>Target Course <span className={styles.req}>*</span></label>
+                <CourseSearchInput
+                  selected={mapCourseId ? [{ id: mapCourseId, name: mapCourseName }] : []}
+                  onChange={val => { setMapCourseId(val[0]?.id || ''); setMapCourseName(val[0]?.name || ''); }}
+                />
+              </div>
+              <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading || !mapCourseId}>
+                {isLoading ? 'Loading…' : '⚡ Show Exam Map'}
+              </button>
             </div>
-          </div>
-          {/* Target Colleges */}
-          <div className={styles.field} style={{ marginBottom: '1rem' }}>
-            <label>Colleges you are targeting (optional)</label>
-            <CollegeSearchInput
-              selected={eForm.targetCollegeIds}
-              onChange={val => setEForm(p => ({ ...p, targetCollegeIds: val }))}
-            />
-          </div>
-          {/* Target Courses */}
-          <div className={styles.field} style={{ marginBottom: '1.25rem' }}>
-            <label>Courses you are targeting (optional)</label>
-            <CourseSearchInput
-              selected={eForm.targetCourseIds}
-              onChange={val => setEForm(p => ({ ...p, targetCourseIds: val }))}
-            />
-          </div>
-          <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading}>
-            {isLoading ? 'Predicting…' : '⚡ Predict Exams'}
-          </button>
-        </div>
+          )}
+        </>
       )}
+
 
       {/* ── Results ────────────────────────────────────────────────────────── */}
       {isLoading && <Loader />}
@@ -611,13 +747,24 @@ const Predictor = () => {
           : <>
               <div className={styles.resultsHeader}>
                 <span className={styles.resultsTitle}>Predicted Colleges</span>
-                <span className={styles.resultsCount}>{colleges.length} results</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--muted)', fontWeight: 600 }}>Sort by:</span>
+                  {[['chance','Best Chance'],['nirf','NIRF Rank'],['fees','Fees ↑'],['placement','Placement %']].map(([val, label]) => (
+                    <button key={val}
+                      onClick={() => setCollegeSort(val)}
+                      style={{ padding: '0.25rem 0.75rem', borderRadius: 20, border: '1.5px solid', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', background: collegeSort === val ? 'var(--gold,#C9A84C)' : 'transparent', color: collegeSort === val ? '#fff' : 'var(--charcoal)', borderColor: collegeSort === val ? 'var(--gold,#C9A84C)' : 'var(--border,#E8E3DB)' }}>
+                      {label}
+                    </button>
+                  ))}
+                  <span className={styles.resultsCount}>{colleges.length} results</span>
+                </div>
               </div>
               <div className={styles.resultsGrid}>
-                {colleges.map(c => <CollegeCard key={c._id} item={c} />)}
+                {sortedColleges.map(c => <CollegeCard key={c._id} item={c} />)}
               </div>
             </>
       )}
+
 
       {triggered && !isLoading && type === 'college' && mode === 'analyze' && (
         !detail
@@ -650,6 +797,94 @@ const Predictor = () => {
               <div className={styles.resultsGrid}>
                 {exams.map(e => <ExamCard key={e._id} item={e} />)}
               </div>
+            </>
+      )}
+      {/* Course → Colleges results */}
+      {triggered && !isLoading && type === 'course' && courseMode === 'specific' && (
+        courseColleges.length === 0
+          ? <p className={styles.empty}>No colleges found for this course. Try a different course.</p>
+          : <>
+              <div className={styles.resultsHeader}>
+                <span className={styles.resultsTitle}>Colleges offering {cfForm.courseName}</span>
+                <span className={styles.resultsCount}>{courseColleges.length} colleges · ranked by your chances</span>
+              </div>
+              <div className={styles.resultsGrid}>
+                {courseColleges.map((item, i) => (
+                  <div key={i} className={styles.resultCard}>
+                    <ChanceMeter chance={item.chance} color={item.color} bucket={item.bucket} />
+                    <p className={styles.cardName}>{item.college?.name}</p>
+                    <p className={styles.cardMeta}>
+                      {item.college?.contact?.city}{item.college?.contact?.state ? `, ${item.college.contact.state}` : ''} · {item.college?.collegeType || 'College'}
+                    </p>
+                    <div className={styles.cardDetails}>
+                      {item.college?.accreditation?.nirfRank    && <span className={styles.detail}>NIRF #{item.college.accreditation.nirfRank}</span>}
+                      {item.college?.accreditation?.naacGrade   && <span className={styles.detail}>NAAC {item.college.accreditation.naacGrade}</span>}
+                      {item.fees && <span className={styles.detail}>{fmt(item.fees)}/yr</span>}
+                      {item.seatIntake && <span className={styles.detail}>{item.seatIntake} seats</span>}
+                      {item.lastYearClosingRank && <span className={`${styles.detail} ${styles.cutoffDetail}`}>Closing rank: {fmtNum(item.lastYearClosingRank)}</span>}
+                    </div>
+                    {item.examsRequired?.length > 0 && (
+                      <p style={{ fontSize: '0.72rem', color: 'var(--muted)', marginTop: '0.4rem' }}>
+                        Exam: {item.examsRequired.map(e => e.name).join(', ')}
+                      </p>
+                    )}
+                    <span className={item.hasRealData ? styles.realDataBadge : styles.estimateBadge}>
+                      {item.hasRealData ? '✓ Cutoff data' : '~ NIRF estimate'}
+                    </span>
+                    <Link to={`/colleges/${item.college?.slug}`} className={styles.cardLink}>View College →</Link>
+                  </div>
+                ))}
+              </div>
+            </>
+      )}
+
+      {/* Exam-College Map results */}
+      {triggered && !isLoading && type === 'exam' && examMode === 'map' && (
+        examCollegeMap.length === 0
+          ? <p className={styles.empty}>No exam data found for this course.</p>
+          : <>
+              <div className={styles.resultsHeader}>
+                <span className={styles.resultsTitle}>Exam Map for {mapCourseName}</span>
+                <span className={styles.resultsCount}>{examCollegeMap.length} exams found</span>
+              </div>
+              {examCollegeMap.map((entry, i) => (
+                <div key={i} className={styles.detailCard} style={{ marginBottom: '1rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                    <div>
+                      <p style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--charcoal)', margin: 0 }}>{entry.exam.name}</p>
+                      <p style={{ fontSize: '0.78rem', color: 'var(--muted)', margin: '0.2rem 0 0' }}>
+                        {entry.exam.examLevel} · {entry.exam.conductingBody || ''} · {entry.exam.category || ''} · {entry.exam.examMode || ''}
+                      </p>
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      {entry.exam.officialWebsite && (
+                        <a href={entry.exam.officialWebsite} target="_blank" rel="noopener noreferrer"
+                          style={{ fontSize: '0.78rem', padding: '0.3rem 0.75rem', borderRadius: 6, background: 'var(--gold,#C9A84C)', color: '#fff', fontWeight: 700, textDecoration: 'none' }}>
+                          Official Site
+                        </a>
+                      )}
+                      {entry.exam.registrationLink && (
+                        <a href={entry.exam.registrationLink} target="_blank" rel="noopener noreferrer"
+                          style={{ fontSize: '0.78rem', padding: '0.3rem 0.75rem', borderRadius: 6, border: '1.5px solid var(--gold,#C9A84C)', color: 'var(--gold,#C9A84C)', fontWeight: 700, textDecoration: 'none' }}>
+                          Register
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <p style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.5rem' }}>
+                    {entry.colleges.length} College{entry.colleges.length !== 1 ? 's' : ''} accept this exam
+                  </p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                    {entry.colleges.map((c, j) => (
+                      <Link key={j} to={`/colleges/${c.slug}`}
+                        style={{ fontSize: '0.78rem', padding: '0.25rem 0.75rem', borderRadius: 20, background: 'var(--bg-soft,#F7F4EF)', color: 'var(--charcoal)', fontWeight: 600, textDecoration: 'none', border: '1px solid var(--border,#E8E3DB)' }}>
+                        {c.name}
+                        {c.accreditation?.nirfRank ? ` (NIRF #${c.accreditation.nirfRank})` : ''}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </>
       )}
 
