@@ -47,14 +47,6 @@ const chanceFromRanks = (candidateRank, closingRank) => {
   if (ratio >= 0.65) return 18;
   return 8;
 };
-// Apply recency modifier
-chance = Math.round(clamp(chance * recencyMultiplier, 0, 100));
-
-// If examRank is provided alongside examId, prefer that over percentile conversion
-if (examRank && activeCutoff?.closingRank) {
-  chance = chanceFromRanks(Number(examRank), activeCutoff.closingRank);
-  chance = Math.round(clamp(chance * recencyMultiplier, 0, 100));
-}
 
 // Pick the most relevant cutoff entry from an array
 const pickBestCutoff = (cutoffs, category, examId, currentYear) => {
@@ -94,11 +86,6 @@ class PredictorService {
     limit = 30
   })
  {
-  // Convert CGPA (10-point scale) to equivalent percentage if provided
-  const effectivePercentage = cgpa
-    ? Math.min(cgpa * 9.5, 100)   // standard CBSE formula
-    : percentile || (rank ? rankToPercentile(Number(rank)) : 70);
-
   // Recency penalty: older passouts get slight disadvantage for freshness
   const passingYear = Number(yearOfPassing) || new Date().getFullYear();
   const yearsGap = new Date().getFullYear() - passingYear;
@@ -177,6 +164,15 @@ class PredictorService {
         const feeScore        = maxFee ? (college.fees?.total <= Number(maxFee) ? 100 : 25) : 100;
         const locationScore   = state  ? (college.contact?.state?.toLowerCase().includes(state.toLowerCase()) ? 100 : 55) : 100;
         chance = Math.round(percentileScore * 0.70 + feeScore * 0.15 + locationScore * 0.15);
+      }
+
+      // Apply recency modifier
+      chance = Math.round(clamp((chance || 0) * recencyMultiplier, 0, 100));
+
+      // If examRank is provided, prefer it over percentile-derived rank
+      if (examRank && activeCutoff?.closingRank) {
+        chance = chanceFromRanks(Number(examRank), activeCutoff.closingRank);
+        chance = Math.round(clamp(chance * recencyMultiplier, 0, 100));
       }
 
       return {
