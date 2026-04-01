@@ -4,20 +4,11 @@ const Exam          = require('../models/Exam');
 const CollegeCourse = require('../models/CollegeCourse');
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-
 const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 
-// NIRF rank → minimum percentile needed (fallback when no real cutoff data)
-const getRequiredPercentile = (nirfRank) => {
-  if (!nirfRank)       return 65;
-  if (nirfRank <= 5)   return 99.5;
-  if (nirfRank <= 25)  return 99;
-  if (nirfRank <= 50)  return 97;
-  if (nirfRank <= 100) return 95;
-  if (nirfRank <= 200) return 90;
-  if (nirfRank <= 500) return 80;
-  return 65;
-};
+// Sigmoid gives smooth, meaningful spread instead of a hard cap
+// diff = candidateScore - requiredScore; spread controls how steep the curve is
+const sigmoid = (diff, spread = 8) => 1 / (1 + Math.exp(-diff / spread));
 
 const getProbability = (chance) => {
   if (chance >= 80) return { bucket: 'High Chance',     color: 'green'  };
@@ -27,25 +18,90 @@ const getProbability = (chance) => {
   return             { bucket: 'Very Difficult',         color: 'red'    };
 };
 
-// Approximate conversions (JEE-scale; good enough for general use)
 const rankToPercentile = (rank, total = 1200000) =>
   clamp(((total - rank) / total) * 100, 0, 100);
 
 const percentileToRank = (pct, total = 1200000) =>
   Math.round((1 - pct / 100) * total);
 
-// Score candidate rank vs a college's closing rank
+// Rank-based chance: retains discrete buckets (real cutoff data path)
 const chanceFromRanks = (candidateRank, closingRank) => {
   if (!candidateRank || !closingRank) return null;
   const ratio = closingRank / candidateRank;
-  if (ratio >= 2.0)  return 92;
-  if (ratio >= 1.5)  return 85;
-  if (ratio >= 1.2)  return 75;
-  if (ratio >= 1.05) return 62;
-  if (ratio >= 0.95) return 48;  // borderline
-  if (ratio >= 0.80) return 30;
-  if (ratio >= 0.65) return 18;
-  return 8;
+  // Use sigmoid for smooth spread around the boundary
+  const diff  = (ratio - 1) * 100; // 0 at boundary, positive = better
+  return Math.round(clamp(sigmoid(diff, 15) * 100, 5, 95));
+};
+
+// Estimate what percentile a college typically requires — uses every available signal
+const estimateRequiredPercentile = (college) => {
+  // Real NIRF rank is the most reliable signal
+  const nirfRank = college.accreditation?.nirfRank;
+  if (nirfRank) {
+    if (nirfRank <= 5)   return 99.5;
+    if (nirfRank <= 10)  return 99;
+    if (nirfRank <= 25)  return 98;
+    if (nirfRank <= 50)  return 96;
+    if (nirfRank <= 100) return 93;
+    if (nirfRank <= 200) return 88;
+    if (nirfRank <= 300) return 82;
+    if (nirfRank <= 500) return 75;
+    return 65;
+  }
+
+  let base = 58; // unknown college default
+
+  // ── Name pattern detection ──────────────────────────────────────────────
+  const n = (college.name || '').toLowerCase();
+  if (/\biit\b|indian institute of technology/.test(n))          base = 99.5;
+  else if (/\baiims\b/.test(n))                                   base = 99;
+  else if (/\biim\b|indian institute of management/.test(n))     base = 98;
+  else if (/\bnit\b|national institute of technology/.test(n))   base = 95;
+  else if (/\bbits\b|birla institute of technology/.test(n))     base = 93;
+  else if (/\biiit\b/.test(n))                                   base = 90;
+  else if (/\bnlu\b|national law university/.test(n))            base = 88;
+  else if (/delhi university|\bdu\b/.test(n))                    base = 87;
+  else if (/jadavpur|hcu|hyderabad university/.test(n))          base = 84;
+  else if (/vit|manipal|srm|amity|lpu/.test(n))                  base = 68;
+
+  // ── Funding type modifier ───────────────────────────────────────────────
+  const f = college.fundingType || '';
+  if (f === 'Institute of National Importance') base = Math.max(base, 92);
+  else if (f === 'Central University')           base = Math.max(base, 86);
+  else if (f === 'National Institute')           base = Math.max(base, 84);
+  else if (f === 'National Law University')      base = Math.max(base, 85);
+  else if (f === 'State University')             base = Math.max(base, 68);
+  else if (f === 'Government')                   base = Math.max(base, 65);
+  else if (f === 'Agricultural University')      base = Math.max(base, 62);
+  // Private — use placement as proxy for competitiveness
+  else if (['Private','Private University','Deemed University','Deemed to be University','Autonomous College'].includes(f)) {
+    const avg = college.placementStats?.averagePackage || 0;
+    if      (avg >= 20) base = Math.max(base, 82);
+    else if (avg >= 12) base = Math.max(base, 72);
+    else if (avg >= 6)  base = Math.max(base, 62);
+    else                base = Math.max(base, 50);
+  }
+
+  // ── Fee as signal (low fee = govt/competitive) ──────────────────────────
+  const fee = college.fees?.total || college.fees?.tuitionFee || 0;
+  if (fee > 0 && fee < 40000)  base = Math.max(base, 72); // clearly govt
+  else if (fee > 400000)       base = Math.max(base, Math.min(base, 75)); // expensive private — cap if unrealistically high
+
+  // ── Placement as competitiveness signal ─────────────────────────────────
+  const avg = college.placementStats?.averagePackage || 0;
+  if (avg >= 25) base = Math.max(base, 90);
+  else if (avg >= 15) base = Math.max(base, 80);
+  else if (avg >= 8)  base = Math.max(base, 68);
+
+  return Math.min(base, 99.5);
+};
+
+// Smooth percentile-based chance with proper spread
+const chanceFromPercentiles = (candidatePct, requiredPct) => {
+  const diff = candidatePct - requiredPct; // positive = above threshold
+  // spread=7 means ±7 percentile points spans most of the 5-95% range
+  const raw = sigmoid(diff, 7) * 100;
+  return Math.round(clamp(raw, 5, 95));
 };
 
 // Pick the most relevant cutoff entry from an array
@@ -65,6 +121,7 @@ const pickBestCutoff = (cutoffs, category, examId, currentYear) => {
   const sorted = [...recent].sort((a, b) => score(b) - score(a));
   return sorted[0] || null;
 };
+
 
 // ─── Service ─────────────────────────────────────────────────────────────────
 
@@ -153,18 +210,19 @@ class PredictorService {
       } else if (activeCutoff?.simpleCutoff) {
         hasRealData = true;
         dataNote    = 'Cutoff score data';
-        const ratio = pct / activeCutoff.simpleCutoff;
-        chance = Math.round(clamp(ratio * 70, 0, 90));
+        // Treat simpleCutoff as a required percentile equivalent
+        chance = chanceFromPercentiles(pct, activeCutoff.simpleCutoff);
+
       } else {
         hasRealData = false;
-        dataNote    = 'NIRF estimate';
-        const nirfRank        = college.accreditation?.nirfRank;
-        const reqPct          = getRequiredPercentile(nirfRank);
-        const percentileScore = clamp((pct / reqPct) * 100, 0, 100);
-        const feeScore        = maxFee ? (college.fees?.total <= Number(maxFee) ? 100 : 25) : 100;
-        const locationScore   = state  ? (college.contact?.state?.toLowerCase().includes(state.toLowerCase()) ? 100 : 55) : 100;
-        chance = Math.round(percentileScore * 0.70 + feeScore * 0.15 + locationScore * 0.15);
+        dataNote    = 'Estimated';
+        const reqPct = estimateRequiredPercentile(college);
+        chance = chanceFromPercentiles(pct, reqPct);
+        // Small bonus/penalty for fee and location preferences (max ±5 pts)
+        if (maxFee && college.fees?.total > Number(maxFee)) chance = Math.max(chance - 5, 5);
+        if (state  && !college.contact?.state?.toLowerCase().includes(state.toLowerCase())) chance = Math.max(chance - 3, 5);
       }
+
 
       // Apply recency modifier
       chance = Math.round(clamp((chance || 0) * recencyMultiplier, 0, 100));
