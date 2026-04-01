@@ -451,7 +451,7 @@ export default function Home() {
                 Collaborate with us to empower students and shape the future of education.
               </p>
             </div>
-            <Link to="/partnership-program" className={styles.viewAll}>
+            <Link to="/about" className={styles.viewAll}>
               View all opportunities →
             </Link>
           </div>
@@ -463,7 +463,7 @@ export default function Home() {
               <p className={styles.partnerDesc}>
                 Help students discover the right colleges and courses. Earn commissions for successful enrollments.
               </p>
-              <Link to="/partnership-program" className={styles.partnerLink}>
+              <Link to="/register" className={styles.partnerLink}>
                 Become a partner →
               </Link>
             </div>
@@ -474,7 +474,7 @@ export default function Home() {
               <p className={styles.partnerDesc}>
                 Represent your institution, manage enquiries, and connect with prospective students.
               </p>
-              <Link to="/partnership-program" className={styles.partnerLink}>
+              <Link to="/register" className={styles.partnerLink}>
                 Join as rep →
               </Link>
             </div>
@@ -485,7 +485,7 @@ export default function Home() {
               <p className={styles.partnerDesc}>
                 Guide students with expert advice, build your profile, and earn rewards.
               </p>
-              <Link to="/partnership-program" className={styles.partnerLink}>
+              <Link to="/register" className={styles.partnerLink}>
                 Apply now →
               </Link>
             </div>
