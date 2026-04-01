@@ -4,9 +4,10 @@ import {
   FaGears, FaStethoscope, FaScaleBalanced, FaLaptopCode, FaBuilding,
   FaGraduationCap, FaTrophy, FaNewspaper, FaStar, FaBookOpen,
 } from 'react-icons/fa6';
+
 import { FaBriefcase, FaPalette, FaFlask, FaMapMarkerAlt, FaBullseye, FaHandshake, FaClipboardList } from 'react-icons/fa';
 import HeroCanvas from '../components/home/HeroCanvas';
-import { useFeaturedColleges } from '../hooks/queries';
+import { useFeaturedColleges, useCourses, useUpcomingExams, useBlogs } from '../hooks/queries';
 import styles from './Home.module.css';
 import StudyPlaces from '../components/home/StudyPlaces';
 import PredictorWidget from '../components/home/PredictorWidget';
@@ -435,7 +436,62 @@ export default function Home() {
       <LatestArticles />
 
       {/* ── CTA ─────────────────────────────────────────────────────────────── */}
+      
       <section className={styles.ctaSection}>
+         {/* NEW: Partners CTA Section */}
+      <section className={styles.partnersSection}>
+        <div className={styles.container}>
+          <div className={styles.sectionHeader}>
+            <div>
+              <div className={styles.eyebrow}>Grow with CampusGarh</div>
+              <h2 className={styles.sectionTitle}>
+                Join our <span>partner ecosystem</span>
+              </h2>
+              <p className={styles.sectionSub}>
+                Collaborate with us to empower students and shape the future of education.
+              </p>
+            </div>
+            <Link to="/partnership-program" className={styles.viewAll}>
+              View all opportunities →
+            </Link>
+          </div>
+
+          <div className={styles.partnersGrid}>
+            <div className={styles.partnerCard}>
+              <div className={styles.partnerIcon}>🏛️</div>
+              <h3 className={styles.partnerTitle}>Admission Partner</h3>
+              <p className={styles.partnerDesc}>
+                Help students discover the right colleges and courses. Earn commissions for successful enrollments.
+              </p>
+              <Link to="/partnership-program" className={styles.partnerLink}>
+                Become a partner →
+              </Link>
+            </div>
+
+            <div className={styles.partnerCard}>
+              <div className={styles.partnerIcon}>🎓</div>
+              <h3 className={styles.partnerTitle}>Institute Representative</h3>
+              <p className={styles.partnerDesc}>
+                Represent your institution, manage enquiries, and connect with prospective students.
+              </p>
+              <Link to="/partnership-program" className={styles.partnerLink}>
+                Join as rep →
+              </Link>
+            </div>
+
+            <div className={styles.partnerCard}>
+              <div className={styles.partnerIcon}>💡</div>
+              <h3 className={styles.partnerTitle}>Counsellor / Advisor</h3>
+              <p className={styles.partnerDesc}>
+                Guide students with expert advice, build your profile, and earn rewards.
+              </p>
+              <Link to="/partnership-program" className={styles.partnerLink}>
+                Apply now →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
         <div className={styles.container}>
           <motion.div
             className={styles.ctaCard}
