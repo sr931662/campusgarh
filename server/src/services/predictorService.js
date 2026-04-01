@@ -49,7 +49,7 @@ const estimateRequiredPercentile = (college) => {
     return 65;
   }
 
-  let base = 58; // unknown college default
+  let base = 65; // unknown college default — most colleges are accessible above 65%
 
   // ── Name pattern detection ──────────────────────────────────────────────
   const n = (college.name || '').toLowerCase();
@@ -97,10 +97,12 @@ const estimateRequiredPercentile = (college) => {
 };
 
 // Smooth percentile-based chance with proper spread
+// spread=15 means ±15 percentile points spans the full range
+// This ensures a student at 79% gets ~80% for a college needing 58%,
+// ~67% for one needing 72%, ~43% for one needing 88% — real differentiation
 const chanceFromPercentiles = (candidatePct, requiredPct) => {
-  const diff = candidatePct - requiredPct; // positive = above threshold
-  // spread=7 means ±7 percentile points spans most of the 5-95% range
-  const raw = sigmoid(diff, 7) * 100;
+  const diff = candidatePct - requiredPct;
+  const raw = sigmoid(diff, 15) * 100;
   return Math.round(clamp(raw, 5, 95));
 };
 

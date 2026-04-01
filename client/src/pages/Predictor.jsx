@@ -224,6 +224,79 @@ const ExamCard = ({ item }) => (
   </div>
 );
 
+// ─── Score Inputs (outside Predictor to prevent remount on every keystroke) ───
+
+const ScoreInputs = ({
+  form, setForm,
+  useRankOrPct, setUseRankOrPct,
+  cgpa, setCgpa,
+  highestQualification, setHQual,
+  yearOfPassing, setYearOfPassing,
+  instituteName, setInstituteName,
+}) => (
+  <>
+    <div className={styles.field}>
+      <label>Score Type</label>
+      <select value={useRankOrPct} onChange={e => setUseRankOrPct(e.target.value)}>
+        <option value="percentile">Percentile</option>
+        <option value="rank">Exam Rank</option>
+        <option value="cgpa">CGPA (10-pt scale)</option>
+        <option value="percentage">Percentage</option>
+      </select>
+    </div>
+
+    <div className={styles.field}>
+      <label>
+        {useRankOrPct === 'cgpa'       ? 'Your CGPA'       :
+         useRankOrPct === 'rank'       ? 'Your Rank'       :
+         useRankOrPct === 'percentile' ? 'Your Percentile' : 'Your Percentage'}
+      </label>
+      <input
+        type="number"
+        placeholder={useRankOrPct === 'cgpa' ? 'e.g. 8.5' : useRankOrPct === 'rank' ? 'e.g. 15000' : 'e.g. 92.5'}
+        value={useRankOrPct === 'cgpa' ? cgpa : useRankOrPct === 'rank' ? form.rank : form.percentile}
+        onChange={e => {
+          if      (useRankOrPct === 'cgpa') setCgpa(e.target.value);
+          else if (useRankOrPct === 'rank') setForm(p => ({ ...p, rank: e.target.value }));
+          else                              setForm(p => ({ ...p, percentile: e.target.value }));
+        }}
+      />
+    </div>
+
+    <div className={styles.field}>
+      <label>Highest Qualification</label>
+      <select value={highestQualification} onChange={e => setHQual(e.target.value)}>
+        <option value="10th">10th</option>
+        <option value="12th">12th / HSC</option>
+        <option value="Diploma">Diploma</option>
+        <option value="UG">Graduation (UG)</option>
+        <option value="PG">Post-Graduation (PG)</option>
+      </select>
+    </div>
+
+    <div className={styles.field}>
+      <label>Year of Passing</label>
+      <select value={yearOfPassing} onChange={e => setYearOfPassing(e.target.value)}>
+        <option value="">Select Year</option>
+        {[...Array(7)].map((_, i) => {
+          const y = new Date().getFullYear() - i;
+          return <option key={y} value={y}>{y}</option>;
+        })}
+      </select>
+    </div>
+
+    <div className={styles.field}>
+      <label>Institute / School Name (optional)</label>
+      <input
+        type="text"
+        placeholder="e.g. DPS Noida, IIT Roorkee"
+        value={instituteName}
+        onChange={e => setInstituteName(e.target.value)}
+      />
+    </div>
+  </>
+);
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 const Predictor = () => {
@@ -373,75 +446,14 @@ const Predictor = () => {
   const examCollegeMap = emData?.data?.data  || [];
 
 
-  // ── Shared score input block ─────────────────────────────────────────────────
-  const ScoreInputs = ({ form, setForm }) => (
-    <>
-      {/* Score type toggle */}
-      <div className={styles.field}>
-        <label>Score Type</label>
-        <select value={useRankOrPct} onChange={e => setUseRankOrPct(e.target.value)}>
-          <option value="percentile">Percentile</option>
-          <option value="rank">Exam Rank</option>
-          <option value="cgpa">CGPA (10-pt scale)</option>
-          <option value="percentage">Percentage</option>
-        </select>
-      </div>
-
-      {/* Score value input */}
-      <div className={styles.field}>
-        <label>
-          {useRankOrPct === 'cgpa'       ? 'Your CGPA'       :
-           useRankOrPct === 'rank'       ? 'Your Rank'       :
-           useRankOrPct === 'percentile' ? 'Your Percentile' : 'Your Percentage'}
-        </label>
-        <input
-          type="number"
-          placeholder={useRankOrPct === 'cgpa' ? 'e.g. 8.5' : useRankOrPct === 'rank' ? 'e.g. 15000' : 'e.g. 92.5'}
-          value={useRankOrPct === 'cgpa' ? cgpa : useRankOrPct === 'rank' ? form.rank : form.percentile}
-          onChange={e => {
-            if      (useRankOrPct === 'cgpa') setCgpa(e.target.value);
-            else if (useRankOrPct === 'rank') setForm(p => ({ ...p, rank: e.target.value }));
-            else                              setForm(p => ({ ...p, percentile: e.target.value }));
-          }}
-        />
-      </div>
-
-      {/* Highest Qualification */}
-      <div className={styles.field}>
-        <label>Highest Qualification</label>
-        <select value={highestQualification} onChange={e => setHQual(e.target.value)}>
-          <option value="10th">10th</option>
-          <option value="12th">12th / HSC</option>
-          <option value="Diploma">Diploma</option>
-          <option value="UG">Graduation (UG)</option>
-          <option value="PG">Post-Graduation (PG)</option>
-        </select>
-      </div>
-
-      {/* Year of Passing */}
-      <div className={styles.field}>
-        <label>Year of Passing</label>
-        <select value={yearOfPassing} onChange={e => setYearOfPassing(e.target.value)}>
-          <option value="">Select Year</option>
-          {[...Array(7)].map((_, i) => {
-            const y = new Date().getFullYear() - i;
-            return <option key={y} value={y}>{y}</option>;
-          })}
-        </select>
-      </div>
-
-      {/* Institute / School Name */}
-      <div className={styles.field}>
-        <label>Institute / School Name (optional)</label>
-        <input
-          type="text"
-          placeholder="e.g. DPS Noida, IIT Roorkee"
-          value={instituteName}
-          onChange={e => setInstituteName(e.target.value)}
-        />
-      </div>
-    </>
-  );
+  // shared props for ScoreInputs
+  const scoreInputProps = {
+    useRankOrPct, setUseRankOrPct,
+    cgpa, setCgpa,
+    highestQualification, setHQual,
+    yearOfPassing, setYearOfPassing,
+    instituteName, setInstituteName,
+  };
 
   const sortedColleges = [...colleges].sort((a, b) => {
     if (collegeSort === 'nirf')      return (a.college?.accreditation?.nirfRank || 9999) - (b.college?.accreditation?.nirfRank || 9999);
@@ -482,7 +494,7 @@ const Predictor = () => {
             <div className={styles.formCard}>
               <p className={styles.formTitle}>Enter your exam score to find matching colleges</p>
               <div className={styles.formGrid}>
-                <ScoreInputs form={cForm} setForm={setCForm} />
+                <ScoreInputs form={cForm} setForm={setCForm} {...scoreInputProps} />
                 <div className={styles.field}>
                   <label>Category</label>
                   <select value={cForm.category} onChange={e => setCForm(p => ({ ...p, category: e.target.value }))}>
@@ -520,7 +532,7 @@ const Predictor = () => {
               <p className={styles.formTitle}>Get year-wise cutoff analysis for a specific college & course</p>
               <p className={styles.formNote}>Enter your score, select a category, and provide the College ID + Course ID.</p>
               <div className={styles.formGrid}>
-                <ScoreInputs form={aForm} setForm={setAForm} />
+                <ScoreInputs form={aForm} setForm={setAForm} {...scoreInputProps} />
                 <div className={styles.field}>
                   <label>College <span className={styles.req}>*</span></label>
                   <CollegeSearchInput
@@ -772,7 +784,7 @@ const Predictor = () => {
           : <DetailedAnalysisCard data={detail} />
       )}
 
-      {triggered && !isLoading && type === 'course' && (
+      {triggered && !isLoading && type === 'course' && courseMode === 'recommend' && (
         courses.length === 0
           ? <p className={styles.empty}>No courses found. Try a different discipline or level.</p>
           : <>
