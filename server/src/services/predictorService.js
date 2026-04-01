@@ -47,6 +47,14 @@ const chanceFromRanks = (candidateRank, closingRank) => {
   if (ratio >= 0.65) return 18;
   return 8;
 };
+// Apply recency modifier
+chance = Math.round(clamp(chance * recencyMultiplier, 0, 100));
+
+// If examRank is provided alongside examId, prefer that over percentile conversion
+if (examRank && activeCutoff?.closingRank) {
+  chance = chanceFromRanks(Number(examRank), activeCutoff.closingRank);
+  chance = Math.round(clamp(chance * recencyMultiplier, 0, 100));
+}
 
 // Pick the most relevant cutoff entry from an array
 const pickBestCutoff = (cutoffs, category, examId, currentYear) => {
@@ -75,7 +83,27 @@ class PredictorService {
      Uses real CollegeCourse.examCutoffs when available,
      falls back to NIRF + fee + location heuristic otherwise.
   ══════════════════════════════════════════════════════════════════════════════*/
-  async predictColleges({ percentile, rank, stream, state, maxFee, category = 'General', examId, limit = 30 }) {
+  async predictColleges({
+    percentile, rank, cgpa,
+    stream, state, maxFee,
+    category = 'General',
+    examId, examRank,
+    highestQualification,  // '10th','12th','UG','PG','Diploma'
+    yearOfPassing,         // e.g. 2023
+    instituteName,         // previous school/college name
+    limit = 30
+  })
+ {
+  // Convert CGPA (10-point scale) to equivalent percentage if provided
+  const effectivePercentage = cgpa
+    ? Math.min(cgpa * 9.5, 100)   // standard CBSE formula
+    : percentile || (rank ? rankToPercentile(Number(rank)) : 70);
+
+  // Recency penalty: older passouts get slight disadvantage for freshness
+  const passingYear = Number(yearOfPassing) || new Date().getFullYear();
+  const yearsGap = new Date().getFullYear() - passingYear;
+  const recencyMultiplier = yearsGap <= 1 ? 1.0 : yearsGap <= 3 ? 0.97 : yearsGap <= 5 ? 0.93 : 0.88;
+
     const currentYear = new Date().getFullYear();
 
     const filter = { deletedAt: null };
@@ -88,9 +116,12 @@ class PredictorService {
       .lean();
 
     // Normalise candidate score
-    const pct = percentile
+    const pct = cgpa
+    ? Math.min(Number(cgpa) * 9.5, 100)
+    : percentile
       ? Number(percentile)
       : rank ? rankToPercentile(Number(rank)) : 70;
+
 
     const candidateRank = rank
       ? Number(rank)
@@ -298,7 +329,15 @@ class PredictorService {
   /* ═══════════════════════════════════════════════════════════════════════════
      COURSE PREDICTOR
   ══════════════════════════════════════════════════════════════════════════════*/
-  async predictCourses({ percentage, level, discipline, limit = 30 }) {
+  async predictCourses({
+    percentage, cgpa,
+    level,          // 'UG','PG','Diploma','Certificate','PhD'
+    discipline,
+    interests = '', // comma-separated: 'coding,design,finance'
+    highestQualification, // '10th','12th','UG','PG'
+    limit = 30
+  })
+ {
     const filter = { deletedAt: null };
     if (level)      filter.category   = level;
     if (discipline) filter.discipline = new RegExp(discipline.trim(), 'i');
@@ -307,18 +346,43 @@ class PredictorService {
       .select('name slug category discipline duration mode feeRange eligibility careerProspects admissionType')
       .lean();
 
-    const pct = Number(percentage) || 60;
+    const pct = cgpa ? Math.min(Number(cgpa) * 9.5, 100) : Number(percentage) || 60;
+    const interestList = interests ? interests.toLowerCase().split(',').map(s => s.trim()) : [];
 
     const results = courses.map(course => {
       let score;
-      if      (pct >= 85) score = 92;
-      else if (pct >= 75) score = 82;
-      else if (pct >= 60) score = 68;
+
+      // Base score from percentage/CGPA
+      if      (pct >= 85) score = 88;
+      else if (pct >= 75) score = 78;
+      else if (pct >= 60) score = 65;
       else if (pct >= 50) score = 50;
-      else                score = 30;
-      if (level === 'PG' && pct < 50) score = Math.min(score, 25);
+      else                score = 28;
+
+      // Qualification gate: PG courses need UG degree
+      if (level === 'PG' && ['10th','12th'].includes(highestQualification)) score = Math.min(score, 20);
+      if (level === 'PhD' && !['PG','UG'].includes(highestQualification))  score = Math.min(score, 15);
+
+      // Interest matching bonus (checks course name, discipline, careerProspects)
+      if (interestList.length > 0) {
+        const haystack = [
+          course.name, course.discipline, course.category,
+          ...(course.careerProspects || [])
+        ].join(' ').toLowerCase();
+
+        const matchCount = interestList.filter(i => haystack.includes(i)).length;
+        const interestBonus = Math.min(matchCount * 12, 20); // max +20 pts
+        score = Math.min(score + interestBonus, 98);
+      }
+
+      // Discipline filter exact-match bonus
+      if (discipline && course.discipline?.toLowerCase().includes(discipline.toLowerCase())) {
+        score = Math.min(score + 8, 98);
+      }
+
       return { ...course, chance: score, ...getProbability(score) };
     });
+
 
     results.sort((a, b) => b.chance - a.chance);
     return results.slice(0, Number(limit));
@@ -327,27 +391,69 @@ class PredictorService {
   /* ═══════════════════════════════════════════════════════════════════════════
      EXAM PREDICTOR
   ══════════════════════════════════════════════════════════════════════════════*/
-  async predictExams({ discipline, level, limit = 20 }) {
-    const filter = { deletedAt: null };
-    if (level) filter.category = level;
+  async predictExams({
+    discipline,
+    level,
+    targetCollegeIds = '',   // comma-separated college IDs
+    targetCourseIds  = '',   // comma-separated course IDs
+    limit = 20
+  })
+ {
 
-    const exams = await Exam.find(filter)
-      .select('name slug category examLevel conductingBody registrationFee examMode frequency overview officialWebsite importantDates eligibilityDetails')
-      .lean();
+    // Look up required exams for targeted colleges/courses
+    let requiredExamIds = new Set();
+
+    if (targetCollegeIds || targetCourseIds) {
+      const ccFilter = { deletedAt: null, isActive: true };
+      if (targetCollegeIds) {
+        const ids = targetCollegeIds.split(',').map(id => id.trim()).filter(Boolean);
+        if (ids.length) ccFilter.college = { $in: ids };
+      }
+      if (targetCourseIds) {
+        const ids = targetCourseIds.split(',').map(id => id.trim()).filter(Boolean);
+        if (ids.length) ccFilter.course = { $in: ids };
+      }
+      const ccRecords = await CollegeCourse.find(ccFilter)
+        .select('entranceExamRequirement')
+        .lean();
+      ccRecords.forEach(cc => {
+        (cc.entranceExamRequirement || []).forEach(eid => requiredExamIds.add(String(eid)));
+      });
+    }
+
+    // const filter = { deletedAt: null };
+    // if (level) filter.category = level;
+
+    // const exams = await Exam.find(filter)
+    //   .select('name slug category examLevel conductingBody registrationFee examMode frequency overview officialWebsite importantDates eligibilityDetails')
+    //   .lean();
 
     const results = exams.map(exam => {
-      let relevance = 55;
-      if (discipline) {
+      let relevance = 50;
+      const examIdStr = String(exam._id);
+
+      // Highest priority: exam directly required by target college/course
+      if (requiredExamIds.has(examIdStr)) {
+        relevance = 98;
+      } else if (discipline) {
         const haystack = `${exam.name} ${exam.overview || ''}`.toLowerCase();
-        const needle   = discipline.toLowerCase();
-        if (haystack.includes(needle))         relevance = 95;
-        else if (exam.examLevel === 'National') relevance = 70;
-        else                                   relevance = 50;
+        if (haystack.includes(discipline.toLowerCase())) relevance = 88;
+        else if (exam.examLevel === 'National')           relevance = 68;
+        else                                              relevance = 45;
       } else {
-        if (exam.examLevel === 'National') relevance = 80;
+        if (exam.examLevel === 'National')     relevance = 78;
+        else if (exam.examLevel === 'State')   relevance = 65;
+        else                                   relevance = 52;
       }
-      return { ...exam, chance: relevance, ...getProbability(relevance) };
+
+      // Level filter alignment
+      if (level && exam.category && exam.category.toLowerCase() !== level.toLowerCase()) {
+        relevance = Math.max(relevance - 20, 10);
+      }
+
+      return { ...exam, chance: relevance, isRequired: requiredExamIds.has(examIdStr), ...getProbability(relevance) };
     });
+
 
     results.sort((a, b) => b.chance - a.chance);
     return results.slice(0, Number(limit));

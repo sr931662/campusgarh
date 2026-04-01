@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { predictorService } from '../services/predictorService';
 import Loader from '../components/common/Loader/Loader';
+import CollegeSearchInput from '../components/predictor/CollegeSearchInput';
+import CourseSearchInput from '../components/predictor/CourseSearchInput';
 import styles from './Predictor.module.css';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -205,6 +207,11 @@ const CourseCard = ({ item }) => (
 const ExamCard = ({ item }) => (
   <div className={styles.resultCard}>
     <ChanceMeter chance={item.chance} color={item.color} bucket={item.bucket} />
+    {item.isRequired && (
+      <span className={styles.realDataBadge} style={{ marginBottom: '0.5rem', display: 'inline-block' }}>
+        Required by your target college/course
+      </span>
+    )}
     <p className={styles.cardName}>{item.name}</p>
     <p className={styles.cardMeta}>{item.category} · {item.examLevel || 'Entrance Exam'}</p>
     <div className={styles.cardDetails}>
@@ -220,58 +227,95 @@ const ExamCard = ({ item }) => (
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 const Predictor = () => {
+  const [cgpa, setCgpa]                           = useState('');
+  const [useRankOrPct, setUseRankOrPct]           = useState('percentile'); // 'percentile'|'rank'|'cgpa'
+  const [yearOfPassing, setYearOfPassing]         = useState('');
+  const [instituteName, setInstituteName]         = useState('');
+  const [examRank, setExamRank]                   = useState('');
+  const [highestQualification, setHQual]          = useState('12th');
+
   const [type, setType]       = useState('college');
   const [mode, setMode]       = useState('browse');  // 'browse' | 'analyze'
   const [triggered, setTriggered] = useState(false);
 
-  const [cForm,  setCForm]  = useState({ inputMode: 'percentile', percentile: '', rank: '', stream: '', state: '', maxFee: '', category: 'General' });
-  const [aForm,  setAForm]  = useState({ inputMode: 'percentile', percentile: '', rank: '', category: 'General', collegeId: '', courseId: '' });
-  const [crForm, setCrForm] = useState({ percentage: '', level: '', discipline: '' });
-  const [eForm,  setEForm]  = useState({ discipline: '', level: '' });
+  const [cForm,  setCForm]  = useState({ percentile: '', rank: '', stream: '', state: '', maxFee: '', category: 'General' });
+  const [aForm,  setAForm]  = useState({ percentile: '', rank: '', category: 'General', collegeId: '', courseId: '' });
+  const [crForm, setCrForm] = useState({ percentage: '', cgpa: '', level: '', discipline: '', highestQualification: '12th', interests: [] });
+  const [eForm,  setEForm]  = useState({ discipline: '', level: '', targetCollegeIds: [], targetCourseIds: [] });
 
   // ── Queries ─────────────────────────────────────────────────────────────────
 
   const { data: cData,  isLoading: cLoading,  refetch: cRefetch  } = useQuery({
-    queryKey: ['predict-colleges', cForm],
-    queryFn: () => predictorService.predictColleges({
-      percentile: cForm.inputMode === 'percentile' ? cForm.percentile : undefined,
-      rank:       cForm.inputMode === 'rank'       ? cForm.rank       : undefined,
-      stream: cForm.stream  || undefined,
-      state:  cForm.state   || undefined,
-      maxFee: cForm.maxFee  || undefined,
-      category: cForm.category,
-    }),
+    queryKey: ['predict-colleges', cForm, useRankOrPct, cgpa, examRank, highestQualification, yearOfPassing, instituteName],
+    queryFn: () => {
+      const params = {
+        ...(useRankOrPct === 'percentile' && cForm.percentile && { percentile: cForm.percentile }),
+        ...(useRankOrPct === 'rank'       && cForm.rank       && { rank: cForm.rank }),
+        ...(useRankOrPct === 'cgpa'       && cgpa             && { cgpa }),
+        ...(useRankOrPct === 'percentage' && cForm.percentile && { percentage: cForm.percentile }),
+        ...(examRank      && { examRank }),
+        ...(cForm.stream  && { stream: cForm.stream }),
+        ...(cForm.state   && { state: cForm.state }),
+        ...(cForm.maxFee  && { maxFee: cForm.maxFee }),
+        category: cForm.category,
+        highestQualification,
+        ...(yearOfPassing  && { yearOfPassing }),
+        ...(instituteName  && { instituteName }),
+        limit: 30,
+      };
+      return predictorService.predictColleges(params);
+    },
     enabled: false,
   });
 
   const { data: aData,  isLoading: aLoading,  refetch: aRefetch  } = useQuery({
-    queryKey: ['predict-college-detail', aForm],
-    queryFn: () => predictorService.getCollegeDetailedAnalysis({
-      percentile: aForm.inputMode === 'percentile' ? aForm.percentile : undefined,
-      rank:       aForm.inputMode === 'rank'       ? aForm.rank       : undefined,
-      collegeId:  aForm.collegeId || undefined,
-      courseId:   aForm.courseId  || undefined,
-      category:   aForm.category,
-    }),
+    queryKey: ['predict-college-detail', aForm, useRankOrPct, cgpa, highestQualification, yearOfPassing],
+    queryFn: () => {
+      const params = {
+        ...(useRankOrPct === 'percentile' && aForm.percentile && { percentile: aForm.percentile }),
+        ...(useRankOrPct === 'rank'       && aForm.rank       && { rank: aForm.rank }),
+        ...(useRankOrPct === 'cgpa'       && cgpa             && { cgpa }),
+        collegeId: aForm.collegeId || undefined,
+        courseId:  aForm.courseId  || undefined,
+        category:  aForm.category,
+        highestQualification,
+        ...(yearOfPassing && { yearOfPassing }),
+      };
+      return predictorService.getCollegeDetailedAnalysis(params);
+    },
     enabled: false,
   });
 
   const { data: crData, isLoading: crLoading, refetch: crRefetch } = useQuery({
     queryKey: ['predict-courses', crForm],
-    queryFn: () => predictorService.predictCourses({
-      percentage: crForm.percentage || undefined,
-      level:      crForm.level      || undefined,
-      discipline: crForm.discipline || undefined,
-    }),
+    queryFn: () => {
+      const scoreVal = Number(crForm.cgpa || crForm.percentage || 0);
+      const params = {
+        ...(crForm.cgpa       && scoreVal <= 10  ? { cgpa: crForm.cgpa }             : {}),
+        ...(crForm.percentage && scoreVal >  10  ? { percentage: crForm.percentage } : {}),
+        level:                 crForm.level      || undefined,
+        discipline:            crForm.discipline || undefined,
+        highestQualification:  crForm.highestQualification,
+        ...(crForm.interests.length && { interests: crForm.interests.join(',') }),
+        limit: 30,
+      };
+      return predictorService.predictCourses(params);
+    },
     enabled: false,
   });
 
   const { data: eData,  isLoading: eLoading,  refetch: eRefetch  } = useQuery({
     queryKey: ['predict-exams', eForm],
-    queryFn: () => predictorService.predictExams({
-      discipline: eForm.discipline || undefined,
-      level:      eForm.level      || undefined,
-    }),
+    queryFn: () => {
+      const params = {
+        discipline:      eForm.discipline || undefined,
+        level:           eForm.level      || undefined,
+        ...(eForm.targetCollegeIds.length && { targetCollegeIds: eForm.targetCollegeIds.map(c => c.id).join(',') }),
+        ...(eForm.targetCourseIds.length  && { targetCourseIds:  eForm.targetCourseIds.map(c => c.id).join(',') }),
+        limit: 20,
+      };
+      return predictorService.predictExams(params);
+    },
     enabled: false,
   });
 
@@ -296,31 +340,69 @@ const Predictor = () => {
   // ── Shared score input block ─────────────────────────────────────────────────
   const ScoreInputs = ({ form, setForm }) => (
     <>
+      {/* Score type toggle */}
       <div className={styles.field}>
         <label>Score Type</label>
-        <select value={form.inputMode} onChange={e => setForm(p => ({ ...p, inputMode: e.target.value }))}>
+        <select value={useRankOrPct} onChange={e => setUseRankOrPct(e.target.value)}>
           <option value="percentile">Percentile</option>
-          <option value="rank">Rank</option>
+          <option value="rank">Exam Rank</option>
+          <option value="cgpa">CGPA (10-pt scale)</option>
+          <option value="percentage">Percentage</option>
         </select>
       </div>
-      {form.inputMode === 'percentile' ? (
-        <div className={styles.field}>
-          <label>Your Percentile</label>
-          <input type="number" min="0" max="100" step="0.01" placeholder="e.g. 97.5"
-            value={form.percentile} onChange={e => setForm(p => ({ ...p, percentile: e.target.value }))} />
-        </div>
-      ) : (
-        <div className={styles.field}>
-          <label>Your Rank</label>
-          <input type="number" min="1" placeholder="e.g. 5000"
-            value={form.rank} onChange={e => setForm(p => ({ ...p, rank: e.target.value }))} />
-        </div>
-      )}
+
+      {/* Score value input */}
       <div className={styles.field}>
-        <label>Category</label>
-        <select value={form.category} onChange={e => setForm(p => ({ ...p, category: e.target.value }))}>
-          {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+        <label>
+          {useRankOrPct === 'cgpa'       ? 'Your CGPA'       :
+           useRankOrPct === 'rank'       ? 'Your Rank'       :
+           useRankOrPct === 'percentile' ? 'Your Percentile' : 'Your Percentage'}
+        </label>
+        <input
+          type="number"
+          placeholder={useRankOrPct === 'cgpa' ? 'e.g. 8.5' : useRankOrPct === 'rank' ? 'e.g. 15000' : 'e.g. 92.5'}
+          value={useRankOrPct === 'cgpa' ? cgpa : useRankOrPct === 'rank' ? form.rank : form.percentile}
+          onChange={e => {
+            if      (useRankOrPct === 'cgpa') setCgpa(e.target.value);
+            else if (useRankOrPct === 'rank') setForm(p => ({ ...p, rank: e.target.value }));
+            else                              setForm(p => ({ ...p, percentile: e.target.value }));
+          }}
+        />
+      </div>
+
+      {/* Highest Qualification */}
+      <div className={styles.field}>
+        <label>Highest Qualification</label>
+        <select value={highestQualification} onChange={e => setHQual(e.target.value)}>
+          <option value="10th">10th</option>
+          <option value="12th">12th / HSC</option>
+          <option value="Diploma">Diploma</option>
+          <option value="UG">Graduation (UG)</option>
+          <option value="PG">Post-Graduation (PG)</option>
         </select>
+      </div>
+
+      {/* Year of Passing */}
+      <div className={styles.field}>
+        <label>Year of Passing</label>
+        <select value={yearOfPassing} onChange={e => setYearOfPassing(e.target.value)}>
+          <option value="">Select Year</option>
+          {[...Array(7)].map((_, i) => {
+            const y = new Date().getFullYear() - i;
+            return <option key={y} value={y}>{y}</option>;
+          })}
+        </select>
+      </div>
+
+      {/* Institute / School Name */}
+      <div className={styles.field}>
+        <label>Institute / School Name (optional)</label>
+        <input
+          type="text"
+          placeholder="e.g. DPS Noida, IIT Roorkee"
+          value={instituteName}
+          onChange={e => setInstituteName(e.target.value)}
+        />
       </div>
     </>
   );
@@ -413,21 +495,62 @@ const Predictor = () => {
         <div className={styles.formCard}>
           <p className={styles.formTitle}>Enter your academic profile to find matching courses</p>
           <div className={styles.formGrid}>
+            {/* Qualification */}
             <div className={styles.field}>
-              <label>Class 12 / Graduation %</label>
-              <input type="number" min="0" max="100" step="0.1" placeholder="e.g. 85"
-                value={crForm.percentage} onChange={e => setCrForm(p => ({ ...p, percentage: e.target.value }))} />
+              <label>Highest Qualification</label>
+              <select value={crForm.highestQualification} onChange={e => setCrForm(p => ({ ...p, highestQualification: e.target.value }))}>
+                <option value="10th">10th</option>
+                <option value="12th">12th / HSC</option>
+                <option value="Diploma">Diploma</option>
+                <option value="UG">Graduation (UG)</option>
+                <option value="PG">Post-Graduation (PG)</option>
+              </select>
             </div>
+            {/* Score */}
+            <div className={styles.field}>
+              <label>Score (% or CGPA out of 10)</label>
+              <input type="number" min="0" max="100" step="0.1" placeholder="e.g. 85 or 8.5"
+                value={crForm.cgpa || crForm.percentage}
+                onChange={e => {
+                  const v = e.target.value;
+                  Number(v) <= 10
+                    ? setCrForm(p => ({ ...p, cgpa: v, percentage: '' }))
+                    : setCrForm(p => ({ ...p, percentage: v, cgpa: '' }));
+                }} />
+              <small style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>Values ≤ 10 treated as CGPA, above as %</small>
+            </div>
+            {/* Level */}
             <div className={styles.field}>
               <label>Course Level</label>
               <select value={crForm.level} onChange={e => setCrForm(p => ({ ...p, level: e.target.value }))}>
                 {LEVELS.map(l => <option key={l} value={l}>{l || 'All Levels'}</option>)}
               </select>
             </div>
+            {/* Discipline */}
             <div className={styles.field}>
               <label>Discipline / Stream</label>
               <input type="text" placeholder="e.g. Engineering, Medical, Management"
                 value={crForm.discipline} onChange={e => setCrForm(p => ({ ...p, discipline: e.target.value }))} />
+            </div>
+          </div>
+          {/* Interests */}
+          <div style={{ marginBottom: '1.25rem' }}>
+            <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.5rem' }}>Your Interests (select all that apply)</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+              {['Coding','Design','Finance','Management','Law','Medicine','Arts','Science','Engineering','Education','Media','Sports'].map(interest => {
+                const val = interest.toLowerCase();
+                const checked = crForm.interests.includes(val);
+                return (
+                  <label key={val} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.82rem', padding: '0.3rem 0.75rem', borderRadius: '20px', border: `1.5px solid ${checked ? 'var(--gold, #C9A84C)' : 'var(--border, #E8E3DB)'}`, background: checked ? 'var(--gold, #C9A84C)' : 'transparent', color: checked ? '#fff' : 'var(--charcoal)', cursor: 'pointer', userSelect: 'none' }}>
+                    <input type="checkbox" checked={checked} style={{ display: 'none' }}
+                      onChange={e => setCrForm(p => ({
+                        ...p,
+                        interests: e.target.checked ? [...p.interests, val] : p.interests.filter(i => i !== val)
+                      }))} />
+                    {interest}
+                  </label>
+                );
+              })}
             </div>
           </div>
           <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading}>
@@ -456,6 +579,22 @@ const Predictor = () => {
                 <option value="Diploma">Diploma</option>
               </select>
             </div>
+          </div>
+          {/* Target Colleges */}
+          <div className={styles.field} style={{ marginBottom: '1rem' }}>
+            <label>Colleges you are targeting (optional)</label>
+            <CollegeSearchInput
+              selected={eForm.targetCollegeIds}
+              onChange={val => setEForm(p => ({ ...p, targetCollegeIds: val }))}
+            />
+          </div>
+          {/* Target Courses */}
+          <div className={styles.field} style={{ marginBottom: '1.25rem' }}>
+            <label>Courses you are targeting (optional)</label>
+            <CourseSearchInput
+              selected={eForm.targetCourseIds}
+              onChange={val => setEForm(p => ({ ...p, targetCourseIds: val }))}
+            />
           </div>
           <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading}>
             {isLoading ? 'Predicting…' : '⚡ Predict Exams'}
