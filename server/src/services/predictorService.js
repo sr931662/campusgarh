@@ -135,7 +135,7 @@ class PredictorService {
      falls back to NIRF + fee + location heuristic otherwise.
   ══════════════════════════════════════════════════════════════════════════════*/
   async predictColleges({
-    percentile, rank, cgpa,
+    percentile, rank, cgpa, percentage,
     stream, state, maxFee,
     category = 'General',
     examId, examRank,
@@ -163,10 +163,13 @@ class PredictorService {
 
     // Normalise candidate score
     const pct = cgpa
-    ? Math.min(Number(cgpa) * 9.5, 100)
-    : percentile
-      ? Number(percentile)
-      : rank ? rankToPercentile(Number(rank)) : 70;
+      ? Math.min(Number(cgpa) * 9.5, 100)
+      : percentile
+        ? Number(percentile)
+        : percentage
+          ? Number(percentage)
+          : rank ? rankToPercentile(Number(rank)) : 70;
+
 
 
     const candidateRank = rank
@@ -254,7 +257,8 @@ class PredictorService {
      DETAILED COLLEGE ANALYSIS — specific college + course
      Uses last 3 years of real cutoff data, computes trend & reasoning.
   ══════════════════════════════════════════════════════════════════════════════*/
-  async getCollegeDetailedAnalysis({ collegeId, courseId, examId, rank, percentile, cgpa, category = 'General' }) {
+  async getCollegeDetailedAnalysis({ collegeId, courseId, examId, rank, percentile, cgpa, percentage, category = 'General' }) {
+
     const currentYear = new Date().getFullYear();
 
     const cc = await CollegeCourse.findOne({ college: collegeId, course: courseId, deletedAt: null })
@@ -290,10 +294,13 @@ class PredictorService {
 
     // Normalise candidate score
     const pct = cgpa
-    ? Math.min(Number(cgpa) * 9.5, 100)
-    : percentile
-      ? Number(percentile)
-      : rank ? rankToPercentile(Number(rank)) : null;
+      ? Math.min(Number(cgpa) * 9.5, 100)
+      : percentile
+        ? Number(percentile)
+        : percentage
+          ? Number(percentage)
+          : rank ? rankToPercentile(Number(rank)) : null;
+
 
 
     const candidateRank = rank
@@ -348,12 +355,12 @@ class PredictorService {
       chance  = Math.round(clamp(ratio * 70, 5, 90));
       reasoning = `Based on cutoff score. Your score (${pct}) vs cutoff (${latestCutoff.cutoffScore}).`;
     } else {
-      const nirfRank  = cc.college?.accreditation?.nirfRank;
-      const reqPct    = getRequiredPercentile(nirfRank);
-      const cpct      = pct || 70;
-      chance = Math.round(clamp((cpct / reqPct) * 100, 0, 100));
-      reasoning = `No historical cutoff data found. Estimated from NIRF rank (${nirfRank || 'unranked'}).`;
+      const reqPct  = estimateRequiredPercentile(cc.college || {});
+      const cpct    = pct || 70;
+      chance = chanceFromPercentiles(cpct, reqPct);
+      reasoning = `No historical cutoff data. Estimated from college profile${cc.college?.accreditation?.nirfRank ? ` (NIRF #${cc.college.accreditation.nirfRank})` : ''}.`;
     }
+
 
     const prob = getProbability(clamp(chance || 0, 0, 100));
     bucket = prob.bucket; color = prob.color;
@@ -425,9 +432,15 @@ class PredictorService {
       // Interest matching bonus (checks course name, discipline, careerProspects)
       if (interestList.length > 0) {
         const haystack = [
-          course.name, course.discipline, course.category,
-          ...(course.careerProspects || [])
+          course.name,
+          course.discipline,
+          course.category,
+          ...(course.careerProspects?.topSectors || []),
+          course.careerProspects?.description || '',
+          ...(course.jobRoles || []),
+          ...(course.skills   || []),
         ].join(' ').toLowerCase();
+
 
         const matchCount = interestList.filter(i => haystack.includes(i)).length;
         const interestBonus = Math.min(matchCount * 12, 20); // max +20 pts
@@ -549,10 +562,10 @@ class PredictorService {
         chance = chanceFromRanks(candidateRank, activeCutoff.closingRank);
       } else {
         hasRealData = false;
-        const nirfRank = cc.college?.accreditation?.nirfRank;
-        const reqPct   = getRequiredPercentile(nirfRank);
-        chance = Math.round(clamp((pct / reqPct) * 100, 0, 100));
+        const reqPct = estimateRequiredPercentile(cc.college || {});
+        chance = chanceFromPercentiles(pct, reqPct);
       }
+
 
       return {
         college:             cc.college,

@@ -487,13 +487,13 @@ const Predictor = () => {
     yearOfPassing, setYearOfPassing,
     instituteName, setInstituteName,
   };
-
   const sortedColleges = [...colleges].sort((a, b) => {
-    if (collegeSort === 'nirf')      return (a.college?.accreditation?.nirfRank || 9999) - (b.college?.accreditation?.nirfRank || 9999);
-    if (collegeSort === 'fees')      return (a.fees?.total || a.college?.fees?.total || 9999999) - (b.fees?.total || b.college?.fees?.total || 9999999);
-    if (collegeSort === 'placement') return (b.college?.placementStats?.placementPercentage || b.placementStats?.placementPercentage || 0) - (a.college?.placementStats?.placementPercentage || a.placementStats?.placementPercentage || 0);
-    return b.chance - a.chance; // default: best chance first
+    if (collegeSort === 'nirf')      return (a.accreditation?.nirfRank || 9999) - (b.accreditation?.nirfRank || 9999);
+    if (collegeSort === 'fees')      return (a.fees?.total || 9999999) - (b.fees?.total || 9999999);
+    if (collegeSort === 'placement') return (b.placementStats?.placementPercentage || 0) - (a.placementStats?.placementPercentage || 0);
+    return b.chance - a.chance;
   });
+
 
 
   // ─── Render ──────────────────────────────────────────────────────────────────
