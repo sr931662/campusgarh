@@ -1,0 +1,50 @@
+.overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: #fff; border-radius: 20px; padding: 2.5rem;
+  width: 100%; max-width: 460px; position: relative;
+  animation: slideUp 0.25s ease;
+  max-height: 90vh; overflow-y: auto;
+}
+@keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: transparent; border: none; cursor: pointer; color: #6B7280;
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%;
+  transition: background 0.2s;
+}
+.close:hover { background: #f3f4f6; }
+.eyebrow { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: #C9A84C; font-family: var(--font-mono); margin: 0 0 0.5rem; }
+.title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: #111; margin: 0 0 0.4rem; }
+.sub { color: #6B7280; font-size: 0.9rem; margin: 0 0 1.5rem; }
+.form { display: flex; flex-direction: column; gap: 0.75rem; }
+.input {
+  width: 100%; padding: 0.75rem 1rem; border-radius: 10px;
+  border: 1px solid #e5e7eb; font-size: 0.95rem;
+  font-family: inherit; outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.input:focus { border-color: #C9A84C; }
+.submit {
+  background: #C9A84C; color: #fff; border: none;
+  padding: 0.875rem; border-radius: 10px; font-size: 1rem;
+  font-weight: 700; cursor: pointer; transition: background 0.2s;
+  font-family: var(--font-display);
+}
+.submit:hover { background: #b8963f; }
+.submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.success { text-align: center; padding: 2rem 0; }
+.successIcon { width: 64px; height: 64px; background: #f0fdf4; border-radius: 50%; font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: #22c55e; }
+.success h3 { font-family: var(--font-display); font-size: 1.5rem; color: #111; margin: 0 0 0.5rem; }
+.success p { color: #6B7280; margin: 0 0 1.5rem; }
+.doneBtn { background: #C9A84C; color: #fff; border: none; padding: 0.75rem 2rem; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.95rem; }

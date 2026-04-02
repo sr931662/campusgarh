@@ -18,6 +18,7 @@ import TopCourses from '../components/home/TopCourses';
 import TopInstitutions from '../components/home/TopInstitutions';
 import LeadCapturePopup from '../components/home/LeadCapturePopup';
 import AccreditationBar from '../components/home/AccreditationBar';
+import MeetCounselors from '../components/home/MeetCounselors';
 
 const stats = [
   { num: '500+', label: 'Colleges' },
@@ -355,7 +356,7 @@ export default function Home() {
 
       
       <TrustedVoices />
-
+      <MeetCounselors />
 
       {/* ── WHY CAMPUSGARH ──────────────────────────────────────────────────── */}
       <section className={styles.whySection}>

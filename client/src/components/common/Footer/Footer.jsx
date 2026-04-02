@@ -83,10 +83,22 @@ const Footer = () => {
 
       <div className={styles.container}>
 
+        {/* Brand — above grid */}
+        <div className={styles.brandTop}>
+          <Link to="/">
+            <img src={logo} alt="CampusGarh" className={styles.footerLogoIcon} />
+          </Link>
+          <p className={styles.description}>
+            Your trusted partner in education discovery and admission guidance across India.
+          </p>
+          <div className={styles.social}>
+            {/* ...same social links... */}
+          </div>
+        </div>
                 {/* Main Grid */}
         <div className={styles.grid}>
 
-          {/* Brand */}
+          {/* Brand
           <div className={styles.brand}>
             <Link to="/">
               <img src={logo} alt="CampusGarh" className={styles.footerLogoIcon} />
@@ -101,7 +113,7 @@ const Footer = () => {
               <a href="#" aria-label="Instagram"><FaInstagram /></a>
               <a href="#" aria-label="YouTube"><FaYoutube /></a>
             </div>
-          </div>
+          </div> */}
 
           {/* Top Colleges */}
           <div className={styles.section}>

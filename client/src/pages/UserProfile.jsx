@@ -4,6 +4,8 @@ import { useUserProfile, useUpdateProfile, useUpdateAcademicDetails, useUpdatePr
 import Button from '../components/common/Button/Button';
 import Loader from '../components/common/Loader/Loader';
 import styles from './UserProfile.module.css';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../store/authStore';
 
 const TABS = ['Basic Info', 'Academic', 'Preferences', 'Role & Account'];
 const ROLE_LABELS = { student: 'Student', counsellor: 'Counsellor / Advisor', institution_rep: 'Institution Representative', admin: 'Admin', moderator: 'Moderator' };
@@ -62,7 +64,16 @@ const ROLE_PERKS = {
 
 
 const UserProfile = () => {
+  
   const [activeTab, setActiveTab] = useState(0);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
+  };
+
   const { data: userData, isLoading } = useUserProfile();
   const updateProfile      = useUpdateProfile();
   const updateAcademic     = useUpdateAcademicDetails();
@@ -91,6 +102,20 @@ const UserProfile = () => {
           <h1 className={styles.name}>{user.name}</h1>
           <span className={styles.roleBadge}>{ROLE_LABELS[user.role] || user.role}</span>
         </div>
+        <button onClick={handleLogout} style={{
+          marginLeft: 'auto',
+          background: 'transparent',
+          border: '1px solid #ef4444',
+          color: '#ef4444',
+          padding: '0.4rem 1rem',
+          borderRadius: '8px',
+          cursor: 'pointer',
+          fontWeight: 600,
+          fontSize: '0.875rem'
+        }}>
+          Logout
+        </button>
+
       </div>
 
       <div className={styles.tabs}>

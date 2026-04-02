@@ -240,10 +240,10 @@
   align-items: center;
   gap: 0.5rem;
   color: rgba(255,255,255,0.45);
-  font-family: var(--font-mono, monospace);
-  font-weight: 600;
-  font-size: 0.72rem;
-  text-decoration: none;
+  font-family: var(--font-display);  /* was var(--font-mono) */
+  font-size: 0.9rem;                 /* was 0.72rem — make it more readable */
+  letter-spacing: 0.02em;           /* was 0.1em */
+  text-transform: none;              /* was uppercase — optional, up to you */
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border: 1px solid rgba(255,255,255,0.12);

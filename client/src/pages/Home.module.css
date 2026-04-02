@@ -232,9 +232,9 @@
 }
 
 .sectionLabel {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-display);   /* change from var(--font-mono) */
+  font-size: 1.1rem;                  /* optional: make it a bit bigger */
+  letter-spacing: 0.05em;            /* reduce from 0.18em */
   color: var(--muted);
   text-transform: uppercase;
   font-weight: 500;
@@ -779,12 +779,13 @@
 }
 
 .examRowName {
-  font-size: 0.975rem;
+  font-size: 1rem;              /* was 0.975rem — match TopCourses .name */
   font-weight: 700;
-  color: var(--charcoal);
+  color: #fff;                  /* was var(--charcoal) — exam section is dark bg */
   font-family: var(--font-display);
   letter-spacing: -0.015em;
 }
+
 
 .examRowDesc {
   font-size: 0.78rem;

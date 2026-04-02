@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../store/authStore';
 import styles from './Navbar.module.css';
+import CounsellingModal from '../CounsellingModal/CounsellingModal';
 import { FiMenu, FiX, FiSearch, FiColumns, FiUser, FiPhone, FiMail, FiChevronDown, FiBookOpen } from 'react-icons/fi';
 // import { FiMenu, FiX, FiSearch, FiGitCompare, FiUser, FiPhone, FiMail, FiChevronDown, FiBookOpen } from 'react-icons/fi';
 import logo_on_light from '../../../assets/Campus png transparent-01.png';
@@ -132,6 +133,7 @@ const getDashboardPath = (role) => ({
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
+  const [showCounselling, setShowCounselling] = useState(false);
   const navigate  = useNavigate();
   const location  = useLocation();
   const navRef    = useRef(null);
@@ -269,7 +271,7 @@ const Navbar = () => {
               </Link>
             )}
 
-            <Link to="/contact" className={styles.ctaBtn}>Free Counselling</Link>
+            <button className={styles.ctaBtn} onClick={() => setShowCounselling(true)}>Free Counselling</button>
 
             <button
               className={styles.hamburger}
@@ -432,6 +434,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
+      {showCounselling && <CounsellingModal onClose={() => setShowCounselling(false)} />}
     </nav>
   );
 };

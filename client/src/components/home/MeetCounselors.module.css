@@ -1,0 +1,14 @@
+.section { padding: 5rem 0; background: var(--cream, #F8F5EF); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.header { text-align: center; margin-bottom: 3rem; }
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold, #C9A84C); margin-bottom: 0.4rem; font-family: var(--font-mono); }
+.heading { font-size: clamp(1.8rem, 3vw, 2.5rem); font-family: var(--font-display); font-weight: 700; color: var(--charcoal); margin: 0 0 0.75rem; }
+.heading span { color: var(--gold, #C9A84C); }
+.sub { color: var(--muted); font-size: 0.95rem; max-width: 520px; margin: 0 auto; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+.card { background: #fff; border-radius: 16px; padding: 2rem 1.5rem; text-align: center; border: 1px solid var(--border, #EDE8E0); transition: transform 0.2s, box-shadow 0.2s; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--gold, #C9A84C); color: #fff; font-size: 1.8rem; font-family: var(--font-display); font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+.name { font-size: 1.05rem; font-weight: 700; color: var(--charcoal); font-family: var(--font-display); margin: 0 0 0.3rem; }
+.role { font-size: 0.85rem; color: var(--muted); margin: 0 0 0.75rem; }
+.exp { font-size: 0.75rem; font-weight: 600; background: rgba(201,168,76,0.1); color: var(--gold, #C9A84C); padding: 0.25rem 0.75rem; border-radius: 20px; }
