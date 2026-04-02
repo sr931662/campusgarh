@@ -13,6 +13,54 @@ const REQUESTABLE_ROLES = [
   { value: 'institution_rep', label: 'Institution Representative' },
 ];
 
+const ROLE_PERKS = {
+  student: {
+    accentColor: '#10b981', bg: '#f0fdf4', borderColor: '#bbf7d0',
+    headingColor: '#065f46',
+    title: 'As a Student, you have access to:',
+    perks: [
+      { icon: '🔍', label: 'College Discovery',      desc: 'Browse 500+ colleges filtered by stream, state, and budget.' },
+      { icon: '⚡', label: 'Admission Predictor',    desc: 'Personalised college, course, and exam predictions by score.' },
+      { icon: '📑', label: 'Course Explorer',        desc: 'Explore UG, PG, Diploma courses across all disciplines.' },
+      { icon: '💾', label: 'Save & Compare',         desc: 'Bookmark colleges and compare them side-by-side.' },
+    ],
+  },
+  counsellor: {
+    accentColor: '#3b82f6', bg: '#eff6ff', borderColor: '#bfdbfe',
+    headingColor: '#1d4ed8',
+    title: 'As a Counsellor / Advisor, you have access to:',
+    perks: [
+      { icon: '📋', label: 'Lead Management',        desc: 'View and act on every student enquiry assigned to you.' },
+      { icon: '📞', label: 'Follow-up Tracker',      desc: 'Set follow-up dates and track all your student conversations.' },
+      { icon: '🗂️', label: 'Pipeline Status',        desc: 'Update lead stages — Contacted, Interested, Converted, Closed.' },
+      { icon: '🎓', label: 'Full Platform Access',   desc: 'All college, course, and exam data to advise students better.' },
+    ],
+  },
+  institution_rep: {
+    accentColor: '#8b5cf6', bg: '#f5f3ff', borderColor: '#ddd6fe',
+    headingColor: '#5b21b6',
+    title: 'As an Institution Representative, you have access to:',
+    perks: [
+      { icon: '🏫', label: 'College Profile Control',  desc: "Update your institution's description, photos, and key details." },
+      { icon: '📚', label: 'Course & Fee Management',  desc: 'Add or edit courses offered, annual fees, and seat intake.' },
+      { icon: '📈', label: 'Placement & Stats View',   desc: 'Showcase year-wise placement and admission trend data.' },
+      { icon: '💬', label: 'Student Enquiry Inbox',    desc: 'Receive and respond to enquiries directed at your institution.' },
+    ],
+  },
+  partner: {
+    accentColor: '#C9A84C', bg: '#FBF8F2', borderColor: '#EDE8E0',
+    headingColor: '#92400e',
+    title: 'As a Partner (Publisher), you have access to:',
+    perks: [
+      { icon: '🚀', label: 'Lead Submission',          desc: 'Refer students individually or via bulk Excel import.' },
+      { icon: '💰', label: 'Commission Earnings',      desc: 'Get paid for every student whose admission is confirmed through you.' },
+      { icon: '📊', label: 'Real-time Lead Tracking',  desc: 'Monitor lead status and conversion live in your dashboard.' },
+      { icon: '🔗', label: 'Partner Analytics',        desc: 'Conversion rate, total leads, and pipeline breakdown.' },
+    ],
+  },
+};
+
+
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState(0);
   const { data: userData, isLoading } = useUserProfile();
@@ -161,6 +209,27 @@ const UserProfile = () => {
               <span className={styles.roleLabel}>Current Role:</span>
               <span className={styles.roleBadge}>{ROLE_LABELS[user.role] || user.role}</span>
             </div>
+            {ROLE_PERKS[user.role] && (() => {
+              const rp = ROLE_PERKS[user.role];
+              return (
+                <div className={styles.rolePerksBox}
+                  style={{ background: rp.bg, borderColor: rp.borderColor, borderLeftColor: rp.accentColor }}>
+                  <p className={styles.rolePerksTitle} style={{ color: rp.accentColor }}>{rp.title}</p>
+                  <ul className={styles.rolePerksGrid}>
+                    {rp.perks.map((perk, i) => (
+                      <li key={i} className={styles.rolePerkItem} style={{ borderColor: rp.borderColor }}>
+                        <span className={styles.rolePerkIcon}>{perk.icon}</span>
+                        <div>
+                          <strong style={{ color: rp.headingColor }}>{perk.label}</strong>
+                          <span>{perk.desc}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })()}
+
 
             {['admin', 'moderator'].includes(user.role) ? (
               <p className={styles.infoNote}>Your role is managed by the platform. Contact support for changes.</p>

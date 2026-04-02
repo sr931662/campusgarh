@@ -28,6 +28,59 @@ export default function PartnerDashboard() {
           <FaUpload /> Import Leads
         </Link>
       </div>
+      {/* ─── Partner Notice Banner ─── */}
+      <div style={{
+        marginBottom: '2rem',
+        padding: '1.1rem 1.5rem',
+        background: '#FBF8F2',
+        border: '1.5px solid #EDE8E0',
+        borderLeft: '4px solid #C9A84C',
+        borderRadius: '14px',
+      }}>
+        <p style={{
+          margin: '0 0 0.85rem',
+          fontSize: '0.7rem',
+          fontWeight: 700,
+          color: '#92400e',
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+        }}>
+          Your Partner Plan — What You Can Do
+        </p>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
+          gap: '0.55rem',
+        }}>
+          {[
+            { icon: '🚀', label: 'Submit Leads',           desc: 'Refer students individually or via bulk Excel import.' },
+            { icon: '💰', label: 'Earn Commission',        desc: 'Get paid for every student whose admission is confirmed through you.' },
+            { icon: '📊', label: 'Real-time Tracking',     desc: 'Monitor lead status and pipeline conversion live here.' },
+            { icon: '🔗', label: 'Partner Analytics',      desc: 'Conversion rate, total submissions, and status breakdown.' },
+          ].map((item, i) => (
+            <div key={i} style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '0.55rem',
+              padding: '0.6rem 0.75rem',
+              background: '#fff',
+              border: '1px solid #EDE8E0',
+              borderRadius: '8px',
+            }}>
+              <span style={{ fontSize: '1rem', flexShrink: 0, marginTop: '2px' }}>{item.icon}</span>
+              <div>
+                <strong style={{ display: 'block', fontSize: '0.77rem', color: '#1C1C1E', fontWeight: 700, lineHeight: '1.3' }}>
+                  {item.label}
+                </strong>
+                <span style={{ display: 'block', fontSize: '0.7rem', color: '#6B7280', lineHeight: '1.45', marginTop: '0.1rem' }}>
+                  {item.desc}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
 
       {isLoading ? <Loader /> : (
         <>
