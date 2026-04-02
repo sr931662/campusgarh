@@ -90,7 +90,7 @@
 /* Logo */
 .logo { flex-shrink: 0; display: flex; align-items: center; }
 /* was 52px */
-.logoImg { height: 100px; width: auto; object-fit: contain; }
+.logoImg { height: 200px; width: auto; object-fit: contain; }
 
 /* was 64px */
 .mainBarInner {
