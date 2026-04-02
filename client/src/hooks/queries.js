@@ -137,6 +137,14 @@ export const useFeaturedColleges = (params) => {
   });
 };
 
+export const useOnlineColleges = (params) => {
+  return useQuery({
+    queryKey: ['onlineColleges', params],
+    queryFn: () => collegeService.getOnline(params),
+  });
+};
+
+
 export const useCollegesByCourse = (courseId, params) => {
   return useQuery({
     queryKey: ['collegesByCourse', courseId, params],

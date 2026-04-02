@@ -6,6 +6,17 @@ export const collegeService = {
 
   // Get featured colleges
   getFeatured: (params) => api.get('/colleges/featured', { params }),
+  
+  uploadLogo: (id, file) => {
+    const form = new FormData();
+    form.append('logo', file);
+    return api.patch(`/colleges/${id}/logo`, form, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+
+
+  getOnline: (params) => api.get('/colleges/online', { params }),
 
   // Get colleges by course
   getCollegesByCourse: (courseId, params) => api.get(`/colleges/course/${courseId}`, { params }),

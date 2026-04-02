@@ -7,18 +7,30 @@ import EnquiryForm from '../components/enquiries/EnquiryForm';
 import { collegeService } from '../services/collegeService';
 
 const ProgrammaticSEO = () => {
-  const { courseSlug, location } = useParams();
+  const { courseSlug, locationSlug } = useParams();
+
+  // Support both old format ("haryana") and new format ("haryana-colleges")
+  const rawLocation = locationSlug || '';
+  const location = rawLocation.endsWith('-colleges')
+    ? rawLocation.slice(0, -'-colleges'.length)   // "haryana-colleges" → "haryana"
+    : rawLocation;
+
+  const courseLabel = courseSlug ? courseSlug.toUpperCase() : '';
+  const locationLabel = location ? location.charAt(0).toUpperCase() + location.slice(1) : '';
+  const pageTitle = `${courseLabel} Colleges in ${locationLabel} ${new Date().getFullYear()}`;
+
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [showEnquiry, setShowEnquiry] = useState(false);
+  
 
-  const courseLabel = courseSlug ? courseSlug.toUpperCase() : '';
-  const locationLabel = location
-    ? location.charAt(0).toUpperCase() + location.slice(1)
-    : '';
-  const pageTitle = `${courseLabel} Colleges in ${locationLabel}`;
+  // const courseLabel = courseSlug ? courseSlug.toUpperCase() : '';
+  // const locationLabel = location
+    // ? location.charAt(0).toUpperCase() + location.slice(1)
+    // : '';
+  // const pageTitle = `${courseLabel} Colleges in ${locationLabel}`;
 
   useEffect(() => {
     if (!courseSlug || !location) return;

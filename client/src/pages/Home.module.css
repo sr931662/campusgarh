@@ -963,24 +963,38 @@
 }
 
 @media (max-width: 768px) {
+    /* Pull wrapper up only by mobile navbar height (64px) */
+  .homeWrapper {
+    margin-top: -64px;
+  }
   .container {
     padding: 0 1.25rem;
   }
   .heroContent {
-    padding: 7rem 1.25rem 4rem;
+    padding: 5.5rem 1.25rem 3rem;
   }
   .heroTitle {
-    font-size: 3rem;
+    font-size: 2.6rem;
+    letter-spacing: -0.02em;
+  }
+  .heroSubtitle {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
   }
   .heroStats {
-    gap: 1.75rem;
+    gap: 1.5rem;
+    padding-top: 2rem;
   }
   .heroActions {
     flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
   }
   .btnPrimary,
   .btnSecondary {
     justify-content: center;
+    padding: 0.85rem 1.5rem;
   }
   .categoryGrid {
     grid-template-columns: repeat(3, 1fr);
@@ -1024,6 +1038,37 @@
   .blogTopicsGrid {
     grid-template-columns: 1fr;
   }
+    .homeWrapper {
+    margin-top: -64px;
+  }
+
+  .heroContent {
+    padding: 5rem 1rem 2.5rem;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroEyebrow {
+    font-size: 0.6rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .heroStatNum {
+    font-size: 1.6rem;
+  }
+
+  .heroStats {
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  /* Show stats as 2-column grid on small phones */
+  .heroStat {
+    min-width: 80px;
+  }
+
 }
 
 

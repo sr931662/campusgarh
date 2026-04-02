@@ -91,6 +91,9 @@ router.get('/', collegeController.getAllColleges);
  */
 router.get('/featured', collegeController.getFeaturedColleges);
 
+router.get('/online', collegeController.getOnlineColleges);
+
+
 /**
  * @swagger
  * /colleges/seo/{courseSlug}/{location}:

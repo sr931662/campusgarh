@@ -63,6 +63,13 @@ class CollegeController {
     ResponseHandler.success(res, result);
   });
 
+  getOnlineColleges = catchAsync(async (req, res) => {
+    const { page, limit } = req.query;
+    const result = await collegeService.getOnline({ page, limit });
+    ResponseHandler.success(res, result);
+  });
+
+
   getCollegesByCourse = catchAsync(async (req, res) => {
     const { courseId } = req.params;
     const { page, limit } = req.query;

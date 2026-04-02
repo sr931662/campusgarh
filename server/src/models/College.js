@@ -175,6 +175,7 @@ const collegeSchema = new mongoose.Schema(
     isVerified: { type: Boolean, default: false },
     views: { type: Number, default: 0 },
     featured: { type: Boolean, default: false },
+    isOnline: { type: Boolean, default: false },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     deletedAt: Date,
@@ -192,6 +193,7 @@ collegeSchema.index({ 'contact.city': 1, 'contact.state': 1 });
 collegeSchema.index({ collegeType: 1 });
 collegeSchema.index({ isVerified: 1 });
 collegeSchema.index({ featured: 1 });
+collegeSchema.index({ isOnline: 1 });
 collegeSchema.index({ deletedAt: 1 });
 
 module.exports = mongoose.model('College', collegeSchema);

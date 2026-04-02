@@ -33,6 +33,25 @@ const ManageColleges = () => {
     },
   });
 
+  const onlineMutation = useMutation({
+    mutationFn: ({ id, isOnline }) => collegeService.updateCollege(id, { isOnline }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-colleges'] });
+      queryClient.invalidateQueries({ queryKey: ['onlineColleges'] });
+    },
+  });
+  
+  const logoMutation = useMutation({
+    mutationFn: ({ id, file }) => collegeService.uploadLogo(id, file),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-colleges'] }),
+  });
+
+
+  const handleToggleOnline = (id, current) => {
+    onlineMutation.mutate({ id, isOnline: !current });
+  };
+
+
   const handleDelete = (id, name) => {
     if (window.confirm(`Delete "${name}"? This cannot be undone.`)) {
       deleteMutation.mutate(id);
@@ -89,6 +108,7 @@ const ManageColleges = () => {
                   <th>City</th>
                   <th>Verified</th>
                   <th>Homepage</th>
+                  <th>Online</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -101,6 +121,27 @@ const ManageColleges = () => {
                       <strong>{c.name}</strong>
                       {c.shortName ? <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> ({c.shortName})</span> : ''}
                     </td>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        {c.logoUrl
+                          ? <img src={c.logoUrl} alt="" style={{ height: 32, width: 32, objectFit: 'contain', borderRadius: 4, border: '1px solid rgba(255,255,255,0.1)' }} />
+                          : <div style={{ width: 32, height: 32, borderRadius: 4, background: 'rgba(201,168,76,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', color: '#C9A84C', fontWeight: 700 }}>
+                              {(c.shortName || c.name).slice(0, 2).toUpperCase()}
+                            </div>}
+                        <div>
+                          <strong>{c.name}</strong>
+                          {c.shortName && <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> ({c.shortName})</span>}
+                          <div>
+                            <label style={{ fontSize: '0.7rem', color: '#C9A84C', cursor: 'pointer' }}>
+                              📷 {c.logoUrl ? 'Change logo' : 'Upload logo'}
+                              <input type="file" accept="image/*" style={{ display: 'none' }}
+                                onChange={e => e.target.files[0] && logoMutation.mutate({ id: c._id, file: e.target.files[0] })} />
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
                     <td><span className={styles.badge}>{c.fundingType || '—'}</span></td>
                     <td>{c.contact?.city || '—'}</td>
                     <td>
@@ -120,6 +161,16 @@ const ManageColleges = () => {
                       </button>
                     </td>
                     <td>
+                      <button
+                        className={c.isOnline ? styles.featuredBtnActive : styles.featuredBtn}
+                        onClick={() => handleToggleOnline(c._id, c.isOnline)}
+                        disabled={onlineMutation.isPending}
+                        title={c.isOnline ? 'Remove from online' : 'Mark as online'}
+                      >
+                        {c.isOnline ? '🌐 Online' : '+ Online'}
+                      </button>
+                    </td>
+                    <td>
                       <div className={styles.actionCell}>
                         <Link to={`/colleges/${c.slug}`} className={styles.viewBtn} target="_blank" rel="noopener noreferrer">View</Link>
                         <Link to={`/admin/colleges/edit/${c._id}`} className={styles.editBtn}>Edit</Link>
@@ -132,6 +183,7 @@ const ManageColleges = () => {
                         </button>
                       </div>
                     </td>
+
 
                   </tr>
                 ))}

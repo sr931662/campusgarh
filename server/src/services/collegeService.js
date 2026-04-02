@@ -192,6 +192,12 @@ class CollegeService extends BaseService {
     const query = { featured: true, deletedAt: null };
     return this.findAll(query, pagination, { views: -1 });
   }
+  
+  async getOnline(pagination = {}) {
+    const query = { isOnline: true, deletedAt: null };
+    return this.findAll(query, pagination, { views: -1 });
+  }
+
 
   async incrementViews(id) {
     await College.findByIdAndUpdate(id, { $inc: { views: 1 } });

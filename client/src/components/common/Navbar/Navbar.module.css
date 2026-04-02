@@ -318,7 +318,7 @@
 .mobileDrawer {
   display: none;
   position: fixed;
-  top: 64px;
+  top: 100px;
   left: 0; right: 0; bottom: 0;
   background: rgba(252, 250, 247, 0.98);
   backdrop-filter: blur(20px);
@@ -441,13 +441,23 @@
   .topStrip  { display: none; }
   .bottomNav { display: none; }
 
-  /* Compact mainbar */
-  .logoImg { height: 44px; }
-  .searchForm { display: none; }
-  .ctaBtn { display: none; }
-  .actionBtn { display: none; }
+  /* Shrink mainbar for mobile */
+  .mainBarInner {
+    height: 64px;
+    padding: 0 1rem;
+  }
 
+  /* Logo fits the 64px bar */
+  .logoImg { height: 42px; }
+
+  /* Hide desktop elements */
+  .searchForm { display: none; }
+  .ctaBtn     { display: none; }
+  .actionBtn  { display: none; }
+
+  /* Show hamburger */
   .hamburger { display: flex; align-items: center; justify-content: center; }
 
-  .mobileDrawer { display: block; }
+  /* Show mobile drawer — top must match mainBarInner height */
+  .mobileDrawer { display: block; top: 64px; }
 }

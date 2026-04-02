@@ -19,6 +19,7 @@ import TopInstitutions from '../components/home/TopInstitutions';
 import LeadCapturePopup from '../components/home/LeadCapturePopup';
 import AccreditationBar from '../components/home/AccreditationBar';
 import MeetCounselors from '../components/home/MeetCounselors';
+import TopOnlineUniversities from '../components/home/TopOnlineUniversities';
 
 const stats = [
   { num: '500+', label: 'Colleges' },
@@ -264,6 +265,7 @@ export default function Home() {
       <ExploreColleges />
 
       <TopInstitutions />
+      <TopOnlineUniversities />
       <TopCourses />
 
       {/* ── TOP STUDY PLACES ────────────────────────────────────────────────── */}
