@@ -7,4 +7,5 @@ export const predictorService = {
   getCollegeDetailedAnalysis: (params) => api.get('/predictor/college-detail', { params }),
   predictCollegesForCourse: (params) => api.get('/predictor/colleges-for-course', { params }),
   getExamCollegeMap:        (params) => api.get('/predictor/exam-college-map',    { params }),
+  analyzeResults: (payload) => api.post('/predictor/analyze', payload),
 };

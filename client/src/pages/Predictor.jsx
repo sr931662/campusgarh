@@ -306,6 +306,9 @@ const Predictor = () => {
   const [instituteName, setInstituteName]         = useState('');
   const [examRank, setExamRank]                   = useState('');
   const [highestQualification, setHQual]          = useState('12th');
+  const [aiAnalysis, setAiAnalysis] = useState('');
+  const [aiLoading, setAiLoading]   = useState(false);
+
 
   const [type, setType]       = useState('college');
   // College browse — sort
@@ -434,6 +437,36 @@ const Predictor = () => {
     else                                                                         eRefetch();
   };
 
+  const handleGetAIAnalysis = async () => {
+    setAiLoading(true);
+    setAiAnalysis('');
+    try {
+      let analysisType, analysisResults, userProfile;
+      if (type === 'college' && mode === 'analyze' && detail) {
+        analysisType    = 'college-detail';
+        analysisResults = detail;
+        userProfile     = { rank: aForm.rank, percentile: aForm.percentile, category: aForm.category };
+      } else if (type === 'college') {
+        analysisType    = 'colleges';
+        analysisResults = sortedColleges;
+        userProfile     = { rank: cForm.rank, percentile: cForm.percentile, stream: cForm.stream, state: cForm.state, maxFee: cForm.maxFee, category: cForm.category };
+      } else if (type === 'course') {
+        analysisType    = 'courses';
+        analysisResults = courses.length ? courses : courseColleges;
+        userProfile     = { cgpa: crForm.cgpa, percentage: crForm.percentage, level: crForm.level, interests: crForm.interests.join(','), highestQualification: crForm.highestQualification };
+      } else {
+        analysisType    = 'exams';
+        analysisResults = exams;
+        userProfile     = { discipline: eForm.discipline, level: eForm.level };
+      }
+      const res = await predictorService.analyzeResults({ type: analysisType, userProfile, results: analysisResults });
+      setAiAnalysis(res.data?.data?.analysis || 'No analysis returned.');
+    } catch {
+      setAiAnalysis('AI analysis failed. Make sure Ollama is running at localhost:11434.');
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   const handleTypeChange = (t) => { setType(t); setTriggered(false); setMode('browse'); };
 
@@ -898,6 +931,28 @@ const Predictor = () => {
                 </div>
               ))}
             </>
+      )}
+      {/* ── AI Counsellor Panel ──────────────────────────────────────────── */}
+      {triggered && !isLoading && (colleges.length > 0 || detail || courses.length > 0 || exams.length > 0 || courseColleges.length > 0) && (
+        <div style={{ margin: '1.5rem 0', padding: '1.25rem 1.5rem', background: 'var(--bg-soft,#F7F4EF)', borderRadius: 12, border: '1.5px solid var(--border,#E8E3DB)' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginBottom: aiAnalysis ? '1rem' : 0 }}>
+            <div>
+              <p style={{ fontWeight: 800, fontSize: '0.95rem', color: 'var(--charcoal)', margin: 0 }}>AI Counsellor</p>
+              <p style={{ fontSize: '0.75rem', color: 'var(--muted)', margin: '0.2rem 0 0' }}>Powered by Qwen3:1.5B via Ollama · personalized advice based on your results</p>
+            </div>
+            <button
+              onClick={handleGetAIAnalysis}
+              disabled={aiLoading}
+              style={{ flexShrink: 0, padding: '0.5rem 1.25rem', borderRadius: 8, background: 'var(--gold,#C9A84C)', color: '#fff', fontWeight: 700, fontSize: '0.85rem', border: 'none', cursor: aiLoading ? 'not-allowed' : 'pointer', opacity: aiLoading ? 0.7 : 1, transition: 'opacity 0.2s' }}>
+              {aiLoading ? '⏳ Analysing…' : '✨ Get AI Advice'}
+            </button>
+          </div>
+          {aiAnalysis && (
+            <p style={{ fontSize: '0.9rem', lineHeight: 1.75, color: 'var(--charcoal)', margin: 0, borderTop: '1px solid var(--border,#E8E3DB)', paddingTop: '0.85rem' }}>
+              {aiAnalysis}
+            </p>
+          )}
+        </div>
       )}
 
       <p className={styles.note}>

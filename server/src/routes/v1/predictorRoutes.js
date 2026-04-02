@@ -13,6 +13,7 @@ router.get('/exams',    predictorController.predictExams);
 router.get('/college-detail', predictorController.getCollegeDetailedAnalysis);
 router.get('/colleges-for-course', predictorController.predictCollegesForCourse);
 router.get('/exam-college-map',    predictorController.getExamCollegeMap);
+router.post('/analyze', predictorController.analyzeResults);
 
 
 
