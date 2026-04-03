@@ -7,11 +7,10 @@ import styles from './Footer.module.css';
 import logo from "../../../assets/Campus white color logo png-01.png";
 import { useFeaturedColleges, useCourses, useExams, useFeaturedLinks } from '../../../hooks/queries';
 
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [status, setStatus] = useState('idle');
 
   const { data: fcData } = useFeaturedColleges({ limit: 6 });
   const fcRaw = fcData?.data?.data;
@@ -50,12 +49,12 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
 
-      {/* Newsletter Strip */}
+      {/* ── Newsletter Strip ── */}
       <div className={styles.newsletter}>
         <div className={styles.newsletterInner}>
-          <div>
-            <h3 className={styles.newsletterTitle}>Stay Updated!</h3>
-            <p className={styles.newsletterSub}>Get latest updates on exams, admissions, and college news</p>
+          <div className={styles.newsletterText}>
+            <h3 className={styles.newsletterTitle}>Stay in the loop</h3>
+            <p className={styles.newsletterSub}>Exam alerts, admission deadlines &amp; college news — straight to your inbox.</p>
           </div>
           <div className={styles.newsletterRight}>
             <form className={styles.newsletterForm} onSubmit={handleSubscribe}>
@@ -63,7 +62,7 @@ const Footer = () => {
                 <MdEmail className={styles.inputIcon} />
                 <input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="your@email.com"
                   value={email}
                   onChange={e => { setEmail(e.target.value); setStatus('idle'); }}
                   className={styles.emailInput}
@@ -75,30 +74,26 @@ const Footer = () => {
                 className={styles.subscribeBtn}
                 disabled={status === 'loading' || status === 'success'}
               >
-                {status === 'loading' ? 'Subscribing…' : status === 'success' ? '✓ Subscribed!' : 'Subscribe'}
+                {status === 'loading' ? 'Subscribing…' : status === 'success' ? '✓ Subscribed' : 'Subscribe'}
               </button>
             </form>
-            {status === 'error' && (
-              <p className={styles.errorMsg}>Something went wrong. Please try again.</p>
-            )}
+            {status === 'error' && <p className={styles.errorMsg}>Something went wrong. Try again.</p>}
           </div>
         </div>
       </div>
 
+      {/* ── Main Body ── */}
       <div className={styles.container}>
+        <div className={`${styles.grid} ${featuredLinks.length > 0 ? styles.gridWithFeatured : ''}`}>
 
-        {/* Brand Row — above grid */}
-        <div className={styles.brandTop}>
-          <div className={styles.brandTopLeft}>
-            <Link to="/">
-              <img src={logo} alt="CampusGarh" className={styles.footerLogoIcon} />
+          {/* Brand Column */}
+          <div className={styles.brand}>
+            <Link to="/" className={styles.logoLink}>
+              <img src={logo} alt="CampusGarh" className={styles.logo} />
             </Link>
-            <p className={styles.description}>
+            <p className={styles.tagline}>
               Your trusted partner in education discovery and admission guidance across India.
             </p>
-          </div>
-          <div className={styles.brandTopRight}>
-            <p className={styles.followUs}>Follow Us</p>
             <div className={styles.social}>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebook /></a>
               <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><FaXTwitter /></a>
@@ -107,58 +102,66 @@ const Footer = () => {
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaYoutube /></a>
             </div>
           </div>
-        </div>
-
-        {/* Main Grid */}
-        <div className={styles.grid}>
 
           {/* Top Colleges */}
-          <div className={styles.section}>
-            <h4 className={styles.subtitle}>Top Colleges</h4>
-            <ul className={styles.links}>
+          <div className={styles.col}>
+            <h4 className={styles.colHead}>Top Colleges</h4>
+            <ul className={styles.colLinks}>
               {footerColleges.length > 0
-                ? footerColleges.map(c => <li key={c._id}><Link to={`/colleges/${c.slug}`}>{c.shortName || c.name}</Link></li>)
+                ? footerColleges.map(c => (
+                    <li key={c._id}><Link to={`/colleges/${c.slug}`}>{c.shortName || c.name}</Link></li>
+                  ))
                 : <>
-                    <li><Link to="/colleges?type=Engineering%20%26%20Technology">Engineering Colleges</Link></li>
-                    <li><Link to="/colleges?type=Medical%20%26%20Health%20Sciences">Medical Colleges</Link></li>
-                    <li><Link to="/colleges?type=Management%20%26%20Business">Management Colleges</Link></li>
+                    <li><Link to="/colleges?type=Engineering%20%26%20Technology">Engineering</Link></li>
+                    <li><Link to="/colleges?type=Medical%20%26%20Health%20Sciences">Medical</Link></li>
+                    <li><Link to="/colleges?type=Management%20%26%20Business">Management</Link></li>
+                    <li><Link to="/colleges?type=Law">Law</Link></li>
+                    <li><Link to="/colleges">All Colleges</Link></li>
                   </>}
             </ul>
           </div>
 
           {/* Top Exams */}
-          <div className={styles.section}>
-            <h4 className={styles.subtitle}>Top Exams</h4>
-            <ul className={styles.links}>
+          <div className={styles.col}>
+            <h4 className={styles.colHead}>Top Exams</h4>
+            <ul className={styles.colLinks}>
               {footerExams.length > 0
-                ? footerExams.map(e => <li key={e._id}><Link to={`/exams/${e.slug}`}>{e.name}</Link></li>)
+                ? footerExams.map(e => (
+                    <li key={e._id}><Link to={`/exams/${e.slug}`}>{e.name}</Link></li>
+                  ))
                 : <>
                     <li><Link to="/exams?category=UG">JEE Main</Link></li>
                     <li><Link to="/exams?category=UG">NEET UG</Link></li>
                     <li><Link to="/exams?category=PG">CAT</Link></li>
+                    <li><Link to="/exams?category=PG">GATE</Link></li>
+                    <li><Link to="/exams">All Exams</Link></li>
                   </>}
             </ul>
           </div>
 
           {/* Top Courses */}
-          <div className={styles.section}>
-            <h4 className={styles.subtitle}>Top Courses</h4>
-            <ul className={styles.links}>
+          <div className={styles.col}>
+            <h4 className={styles.colHead}>Top Courses</h4>
+            <ul className={styles.colLinks}>
               {footerCourses.length > 0
-                ? footerCourses.map(c => <li key={c._id}><Link to={`/courses/${c.slug}`}>{c.name}</Link></li>)
+                ? footerCourses.map(c => (
+                    <li key={c._id}><Link to={`/courses/${c.slug}`}>{c.name}</Link></li>
+                  ))
                 : <>
                     <li><Link to="/courses?discipline=Engineering%20%26%20Technology">B.Tech</Link></li>
                     <li><Link to="/courses?discipline=Medical%20%26%20Health%20Sciences">MBBS</Link></li>
                     <li><Link to="/courses?discipline=Management%20%26%20Business">MBA</Link></li>
+                    <li><Link to="/courses?discipline=Law">LLB</Link></li>
+                    <li><Link to="/courses">All Courses</Link></li>
                   </>}
             </ul>
           </div>
 
-          {/* Featured Links */}
+          {/* Featured Links — only when admin has added some */}
           {featuredLinks.length > 0 && (
-            <div className={styles.section}>
-              <h4 className={styles.subtitle}>Featured Links</h4>
-              <ul className={styles.links}>
+            <div className={styles.col}>
+              <h4 className={styles.colHead}>Featured Links</h4>
+              <ul className={styles.colLinks}>
                 {featuredLinks.map(l => (
                   <li key={l._id}>
                     {l.openInNewTab
@@ -170,59 +173,48 @@ const Footer = () => {
             </div>
           )}
 
-          {/* Useful Links */}
-          <div className={styles.section}>
-            <h4 className={styles.subtitle}>Useful Links</h4>
-            <ul className={styles.links}>
+          {/* Quick Links */}
+          <div className={styles.col}>
+            <h4 className={styles.colHead}>Quick Links</h4>
+            <ul className={styles.colLinks}>
               <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/blogs">Articles &amp; News</Link></li>
+              <li><Link to="/compare">Compare Colleges</Link></li>
+              <li><Link to="/predictor">College Predictor</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
-              <li><Link to="/blogs">Blog</Link></li>
-              <li><Link to="/compare">College Compare</Link></li>
               <li><Link to="/partner">Partner with Us</Link></li>
             </ul>
           </div>
 
-          {/* News & Articles */}
-          <div className={styles.section}>
-            <h4 className={styles.subtitle}>News & Articles</h4>
-            <ul className={styles.links}>
-              <li><Link to="/blogs?category=admission">Admission Guide</Link></li>
-              <li><Link to="/blogs?category=exam-prep">Exam Preparation</Link></li>
-              <li><Link to="/blogs?category=career">Career Advice</Link></li>
-              <li><Link to="/blogs?category=scholarship">Scholarships</Link></li>
-              <li><Link to="/blogs">All Articles</Link></li>
-            </ul>
-          </div>
-
         </div>
 
-        {/* Stats Bar */}
+        {/* ── Stats Bar ── */}
         <div className={styles.statsBar}>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>500+</span>
-            <span className={styles.statLabel}>Colleges</span>
+            <span className={styles.statNum}>500+</span>
+            <span className={styles.statLbl}>Colleges Listed</span>
           </div>
           <div className={styles.statDivider} />
           <div className={styles.stat}>
-            <span className={styles.statNumber}>10K+</span>
-            <span className={styles.statLabel}>Reviews</span>
+            <span className={styles.statNum}>10K+</span>
+            <span className={styles.statLbl}>Student Reviews</span>
           </div>
           <div className={styles.statDivider} />
           <div className={styles.stat}>
-            <span className={styles.statNumber}>1M+</span>
-            <span className={styles.statLabel}>Students Helped</span>
+            <span className={styles.statNum}>1M+</span>
+            <span className={styles.statLbl}>Students Helped</span>
           </div>
           <div className={styles.statDivider} />
           <div className={styles.stat}>
-            <span className={styles.statNumber}>100+</span>
-            <span className={styles.statLabel}>Exams Covered</span>
+            <span className={styles.statNum}>100+</span>
+            <span className={styles.statLbl}>Exams Covered</span>
           </div>
         </div>
 
-        {/* Copyright */}
+        {/* ── Copyright ── */}
         <div className={styles.copyright}>
           <p>&copy; {currentYear} CampusGarh. All rights reserved.</p>
-          <div className={styles.copyrightLinks}>
+          <div className={styles.legalLinks}>
             <Link to="/contact">Contact</Link>
             <Link to="/about">About</Link>
           </div>
