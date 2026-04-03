@@ -43,4 +43,21 @@ export const collegeService = {
   // Upload college logo (admin) — formData with field 'logo'
   uploadCollegeLogo: (id, formData) =>
     api.patch(`/colleges/${id}/logo`, formData, { headers: { 'Content-Type': undefined } }),
+  
+  uploadCoverImage: (id, file) => {
+    const formData = new FormData();
+    formData.append('coverImage', file);
+    return api.patch(`/colleges/${id}/cover-image`, formData, {
+      headers: { 'Content-Type': undefined },
+    });
+  },
+
+  uploadGalleryImages: (id, files) => {
+    const formData = new FormData();
+    files.forEach(file => formData.append('galleryImages', file));
+    return api.patch(`/colleges/${id}/gallery`, formData, {
+      headers: { 'Content-Type': undefined },
+    });
+  },
+
 };

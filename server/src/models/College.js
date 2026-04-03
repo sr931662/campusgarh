@@ -8,6 +8,7 @@ const collegeSchema = new mongoose.Schema(
     shortName: String,
     logoUrl: String,
     coverImageUrl: String,
+    galleryImages: [{ type: String }],   // ← add this line
     description: String,
     establishmentYear: Number,
     collegeType: {

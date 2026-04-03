@@ -256,6 +256,9 @@ router.post('/', createCollegeValidator, validate, collegeController.createColle
  */
 router.patch('/:id', updateCollegeValidator, validate, collegeController.updateCollege);
 router.patch('/:id/logo', upload.single('logo'), collegeController.uploadLogo);
+router.patch('/:id/cover-image', upload.single('coverImage'), collegeController.uploadCoverImage);
+router.patch('/:id/gallery', upload.array('galleryImages', 10), collegeController.uploadGalleryImages);
+
 
 /**
  * @swagger

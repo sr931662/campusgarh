@@ -29,6 +29,10 @@ const CreateCollege = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const isEditing = !!id;
+  const [coverImageFile, setCoverImageFile] = useState(null);
+  const [galleryFiles, setGalleryFiles] = useState([]);
+  const [coverPreview, setCoverPreview] = useState(null);
+  const [galleryPreviews, setGalleryPreviews] = useState([]);
 
   const [form, setForm] = useState({
     name: '',
@@ -156,12 +160,26 @@ useEffect(() => {
 
 
   const mutation = useMutation({
-    mutationFn: (data) => isEditing
+    mutationFn: (data) => isEdit
       ? collegeService.updateCollege(id, data)
       : collegeService.createCollege(data),
-    onSuccess: () => navigate('/dashboard/admin'),
-    onError: (err) => setError(err?.response?.data?.message || `Failed to ${isEditing ? 'update' : 'create'} college`),
+    onSuccess: async (res) => {
+      const collegeId = res?.data?.data?._id || id;
+      try {
+        if (coverImageFile) {
+          await collegeService.uploadCoverImage(collegeId, coverImageFile);
+        }
+        if (galleryFiles.length > 0) {
+          await collegeService.uploadGalleryImages(collegeId, galleryFiles);
+        }
+      } catch (e) {
+        console.error('Image upload failed:', e);
+      }
+      queryClient.invalidateQueries({ queryKey: ['admin-colleges'] });
+      navigate('/admin/colleges');
+    },
   });
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -267,18 +285,24 @@ useEffect(() => {
               <label>Short Name</label>
               <input name="shortName" value={form.shortName} onChange={handleChange} placeholder="e.g. IIT Delhi" />
             </div>
-            <div className={styles.field}>
-              <label>Cover Image URL</label>
+            {/* Cover Image Upload */}
+            <div className={styles.formGroup} style={{ gridColumn: '1 / -1' }}>
+              <label className={styles.label}>Cover Image</label>
               <input
-                type="url"
-                name="coverImageUrl"
-                value={form.coverImageUrl}
-                onChange={handleChange}
-                placeholder="https://... (paste any image URL for the card cover)"
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    setCoverImageFile(file);
+                    setCoverPreview(URL.createObjectURL(file));
+                  }
+                }}
+                className={styles.input}
               />
-              <small style={{ fontSize: '0.75rem', color: 'var(--muted, #888)', marginTop: '0.1rem' }}>
-                This image appears as the card photo in the colleges listing.
-              </small>
+              {coverPreview && (
+                <img src={coverPreview} alt="Cover preview" style={{ marginTop: 8, maxHeight: 160, borderRadius: 8, objectFit: 'cover', width: '100%' }} />
+              )}
             </div>
 
 
@@ -557,6 +581,32 @@ useEffect(() => {
             </div>
           </div>
         </div>
+        {/* Gallery Images */}
+        <div className={styles.formSection}>
+          <h3 className={styles.sectionTitle}>Gallery Images</h3>
+          <div className={styles.formGroup} style={{ gridColumn: '1 / -1' }}>
+            <label className={styles.label}>Upload Gallery Images (max 10)</label>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(e) => {
+                const files = Array.from(e.target.files);
+                setGalleryFiles(files);
+                setGalleryPreviews(files.map(f => URL.createObjectURL(f)));
+              }}
+              className={styles.input}
+            />
+            {galleryPreviews.length > 0 && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
+                {galleryPreviews.map((src, i) => (
+                  <img key={i} src={src} alt={`Gallery ${i + 1}`} style={{ width: 100, height: 80, objectFit: 'cover', borderRadius: 6 }} />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
 
         <div className={styles.actions}>
           <button type="submit" className={styles.submitBtn} disabled={mutation.isPending}>

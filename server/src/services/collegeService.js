@@ -48,8 +48,13 @@ class CollegeService extends BaseService {
 
   async updateCollege(id, data) {
     if (data.name && !data.slug) data.slug = slugify(data.name, { lower: true, strict: true });
+    // Support raw mongo operators like $push
+    if (Object.keys(data).some(k => k.startsWith('$'))) {
+      return College.findByIdAndUpdate(id, data, { new: true, runValidators: false }).lean();
+    }
     return this.updateById(id, data);
   }
+
 
   async getBySlug(slug) {
     try {

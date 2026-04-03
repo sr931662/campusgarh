@@ -38,19 +38,52 @@ class CollegeController {
   });
 
   uploadLogo = catchAsync(async (req, res) => {
+      if (!req.file) return ResponseHandler.error(res, { message: 'No file uploaded' }, 400);
+      const filePath = req.file.path;
+      try {
+        const result = await cloudinary.uploader.upload(filePath, {
+          folder: 'campusgarh/College/logos',
+          transformation: [{ width: 400, height: 400, crop: 'limit', quality: 'auto', fetch_format: 'auto' }],
+        });
+        const college = await collegeService.updateCollege(req.params.id, { logoUrl: result.secure_url });
+        ResponseHandler.success(res, { logoUrl: result.secure_url, college }, 'Logo uploaded');
+      } finally {
+        if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+      }
+    });
+    uploadCoverImage = catchAsync(async (req, res) => {
     if (!req.file) return ResponseHandler.error(res, { message: 'No file uploaded' }, 400);
     const filePath = req.file.path;
     try {
       const result = await cloudinary.uploader.upload(filePath, {
-        folder: 'campusgarh/College/logos',
-        transformation: [{ width: 400, height: 400, crop: 'limit', quality: 'auto', fetch_format: 'auto' }],
+        folder: 'campusgarh/College/covers',
+        transformation: [{ width: 1200, height: 600, crop: 'limit', quality: 'auto', fetch_format: 'auto' }],
       });
-      const college = await collegeService.updateCollege(req.params.id, { logoUrl: result.secure_url });
-      ResponseHandler.success(res, { logoUrl: result.secure_url, college }, 'Logo uploaded');
+      const college = await collegeService.updateCollege(req.params.id, { coverImageUrl: result.secure_url });
+      ResponseHandler.success(res, { coverImageUrl: result.secure_url, college }, 'Cover image uploaded');
     } finally {
       if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
     }
   });
+
+uploadGalleryImages = catchAsync(async (req, res) => {
+  if (!req.files || req.files.length === 0) return ResponseHandler.error(res, { message: 'No files uploaded' }, 400);
+  const uploaded = [];
+  for (const file of req.files) {
+    try {
+      const result = await cloudinary.uploader.upload(file.path, {
+        folder: 'campusgarh/College/gallery',
+        transformation: [{ width: 1200, height: 800, crop: 'limit', quality: 'auto', fetch_format: 'auto' }],
+      });
+      uploaded.push(result.secure_url);
+    } finally {
+      if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
+    }
+  }
+  // Push URLs into a galleryImages array field on the college
+  const college = await collegeService.updateCollege(req.params.id, { $push: { galleryImages: { $each: uploaded } } });
+  ResponseHandler.success(res, { galleryImages: uploaded, college }, 'Gallery images uploaded');
+});
 
   deleteCollege = catchAsync(async (req, res) => {
     const result = await collegeService.deleteById(req.params.id);
