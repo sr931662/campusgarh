@@ -13,97 +13,98 @@ const MEGA = {
   colleges: {
     sections: [
       { title: 'By Stream', links: [
-        { label: 'Engineering Colleges', to: '/colleges?type=Engineering+%26+Technology' },
-        { label: 'Medical Colleges',     to: '/colleges?type=Medical+%26+Health+Sciences' },
-        { label: 'Management Colleges',  to: '/colleges?type=Management+%26+Business'    },
-        { label: 'Law Colleges',         to: '/colleges?type=Law'                         },
-        { label: 'Design Colleges',      to: '/colleges?type=Design+%26+Fine+Arts'       },
-        { label: 'Arts & Science',       to: '/colleges?type=Arts+%26+Science'           },
+        { label: 'Engineering',        to: '/colleges?type=Engineering+%26+Technology'    },
+        { label: 'Medical & Health',   to: '/colleges?type=Medical+%26+Health+Sciences'  },
+        { label: 'Management',         to: '/colleges?type=Management+%26+Business'       },
+        { label: 'Law',                to: '/colleges?type=Law'                           },
+        { label: 'Architecture',       to: '/colleges?type=Architecture+%26+Planning'     },
+        { label: 'Arts & Science',     to: '/colleges?type=Arts+%26+Science'             },
+        { label: 'Commerce & Finance', to: '/colleges?type=Commerce+%26+Finance'          },
+        { label: 'Pharmacy',           to: '/colleges?type=Pharmacy'                      },
+        { label: 'Agriculture',        to: '/colleges?type=Agriculture'                   },
+        { label: 'Design & Fine Arts', to: '/colleges?type=Design+%26+Fine+Arts'         },
       ]},
-
       { title: 'By City', links: [
-        { label: 'Colleges in Delhi',     to: '/colleges?city=delhi'     },
-        { label: 'Colleges in Mumbai',    to: '/colleges?city=mumbai'    },
-        { label: 'Colleges in Bangalore', to: '/colleges?city=bangalore' },
-        { label: 'Colleges in Pune',      to: '/colleges?city=pune'      },
-        { label: 'Colleges in Chennai',   to: '/colleges?city=chennai'   },
-        { label: 'Colleges in Hyderabad', to: '/colleges?city=hyderabad' },
+        { label: 'Delhi',     to: '/colleges?city=delhi'     },
+        { label: 'Mumbai',    to: '/colleges?city=mumbai'    },
+        { label: 'Bangalore', to: '/colleges?city=bangalore' },
+        { label: 'Pune',      to: '/colleges?city=pune'      },
+        { label: 'Chennai',   to: '/colleges?city=chennai'   },
+        { label: 'Hyderabad', to: '/colleges?city=hyderabad' },
       ]},
       { title: 'Quick Links', links: [
-        { label: 'All Colleges',      to: '/colleges'              },
-        { label: 'Compare Colleges',  to: '/compare'               },
-        { label: 'Top Ranked',        to: '/colleges?sort=ranking' },
-        { label: 'Featured Colleges', to: '/colleges?featured=true'},
+        { label: 'All Colleges',     to: '/colleges'               },
+        { label: 'Compare Colleges', to: '/compare'                },
+        { label: 'Top Ranked',       to: '/colleges?sort=ranking'  },
+        { label: 'Featured',         to: '/colleges?featured=true' },
       ]},
     ],
   },
+
   courses: {
     sections: [
-      { title: 'Engineering', links: [
-        { label: 'B.Tech / B.E.',       to: '/courses?search=btech'       },
-        { label: 'M.Tech',              to: '/courses?search=mtech'       },
-        { label: 'Diploma Engineering', to: '/courses?search=diploma'     },
-        { label: 'B.Arch',              to: '/courses?search=architecture'},
+      { title: 'By Level', links: [
+        { label: 'Undergraduate (UG)',  to: '/courses?category=UG'          },
+        { label: 'Postgraduate (PG)',   to: '/courses?category=PG'          },
+        { label: 'Diploma',             to: '/courses?category=Diploma'     },
+        { label: 'Doctorate / Ph.D',    to: '/courses?category=Doctorate'   },
+        { label: 'Certificate',         to: '/courses?category=Certificate' },
       ]},
-      { title: 'Medical & Science', links: [
-        { label: 'MBBS',        to: '/courses?search=mbbs'     },
-        { label: 'BDS',         to: '/courses?search=bds'      },
-        { label: 'B.Pharm',     to: '/courses?search=pharmacy' },
-        { label: 'BSc Nursing', to: '/courses?search=nursing'  },
+      { title: 'By Discipline', links: [
+        { label: 'Engineering & Technology',  to: '/courses?discipline=Engineering+%26+Technology'  },
+        { label: 'Medical & Health Sciences', to: '/courses?discipline=Medical+%26+Health+Sciences' },
+        { label: 'Management & Business',     to: '/courses?discipline=Management+%26+Business'     },
+        { label: 'Law',                       to: '/courses?discipline=Law'                         },
+        { label: 'Commerce & Finance',        to: '/courses?discipline=Commerce+%26+Finance'        },
+        { label: 'Design & Fine Arts',        to: '/courses?discipline=Design+%26+Fine+Arts'        },
+        { label: 'Agriculture',               to: '/courses?discipline=Agriculture'                 },
       ]},
-      { title: 'Management & Law', links: [
-        { label: 'MBA / PGDM',   to: '/courses?search=mba'     },
-        { label: 'BBA',          to: '/courses?search=bba'     },
-        { label: 'LLB / BA LLB', to: '/courses?search=law'     },
-        { label: 'B.Com',        to: '/courses?search=commerce'},
-      ]},
-      { title: 'Arts & Design', links: [
-        { label: 'B.Design',          to: '/courses?search=design'       },
-        { label: 'BCA / BSc',         to: '/courses?search=bca'          },
-        { label: 'Mass Communication',to: '/courses?search=media'        },
-        { label: 'Hotel Management',  to: '/courses?search=hotel'        },
+      { title: 'By Mode', links: [
+        { label: 'Full-time', to: '/courses?mode=Full-time' },
+        { label: 'Online',    to: '/courses?mode=Online'    },
+        { label: 'Distance',  to: '/courses?mode=Distance'  },
+        { label: 'Part-time', to: '/courses?mode=Part-time' },
+        { label: 'All Courses', to: '/courses'              },
       ]},
     ],
   },
+
   exams: {
     sections: [
-      { title: 'Engineering', links: [
-        { label: 'JEE Main',      to: '/exams?category=engineering&search=jee'    },
-        { label: 'JEE Advanced',  to: '/exams?category=engineering&search=advanced'},
-        { label: 'GATE',          to: '/exams?search=gate'                        },
-        { label: 'BITSAT',        to: '/exams?search=bitsat'                      },
-        { label: 'All Engineering',to: '/exams?category=engineering'              },
+      { title: 'By Level', links: [
+        { label: 'UG Entrance Exams',   to: '/exams?category=UG'      },
+        { label: 'PG Entrance Exams',   to: '/exams?category=PG'      },
+        { label: 'Ph.D Entrance Exams', to: '/exams?category=PhD'     },
+        { label: 'Diploma Exams',       to: '/exams?category=Diploma' },
       ]},
-      { title: 'Medical', links: [
-        { label: 'NEET UG',     to: '/exams?category=medical&search=neet' },
-        { label: 'NEET PG',     to: '/exams?search=neet+pg'               },
-        { label: 'All Medical', to: '/exams?category=medical'             },
+      { title: 'By Reach', links: [
+        { label: 'National Level',      to: '/exams?examLevel=National'          },
+        { label: 'State Level',         to: '/exams?examLevel=State'             },
+        { label: 'University Level',    to: '/exams?examLevel=University-Level'  },
       ]},
-      { title: 'Management', links: [
-        { label: 'CAT',            to: '/exams?category=management&search=cat'},
-        { label: 'XAT',            to: '/exams?search=xat'                    },
-        { label: 'MAT',            to: '/exams?search=mat'                    },
-        { label: 'All Management', to: '/exams?category=management'           },
-      ]},
-      { title: 'Law & Others', links: [
-        { label: 'CLAT',      to: '/exams?category=law&search=clat'},
-        { label: 'NDA',       to: '/exams?search=nda'              },
-        { label: 'LSAT',      to: '/exams?search=lsat'             },
-        { label: 'All Exams', to: '/exams'                         },
+      { title: 'Popular Exams', links: [
+        { label: 'JEE Main',   to: '/exams?search=jee+main'  },
+        { label: 'NEET UG',    to: '/exams?search=neet'      },
+        { label: 'CAT',        to: '/exams?search=cat'        },
+        { label: 'GATE',       to: '/exams?search=gate'       },
+        { label: 'CLAT',       to: '/exams?search=clat'       },
+        { label: 'CUET',       to: '/exams?search=cuet'       },
+        { label: 'All Exams',  to: '/exams'                   },
       ]},
     ],
   },
+
   tools: {
     sections: [
       { title: 'Explore', links: [
-        { label: 'Compare Colleges', to: '/compare'                 },
-        { label: 'All Colleges',     to: '/colleges'                },
-        { label: 'All Courses',      to: '/courses'                 },
-        { label: 'All Exams',        to: '/exams'                   },
+        { label: 'Compare Colleges', to: '/compare'  },
+        { label: 'All Colleges',     to: '/colleges' },
+        { label: 'All Courses',      to: '/courses'  },
+        { label: 'All Exams',        to: '/exams'    },
       ]},
       { title: 'Resources', links: [
-        { label: 'Blogs & Articles',   to: '/blogs'                         },
-        { label: 'Contact Counsellor', to: '/contact'                       },
+        { label: 'Blogs & Articles',   to: '/blogs'   },
+        { label: 'Contact Counsellor', to: '/contact' },
       ]},
     ],
   },
