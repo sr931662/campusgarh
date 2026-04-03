@@ -1,4 +1,4 @@
-import { formatCurrency } from '../../utils/formatters';
+import { formatCurrency, formatLPA } from '../../utils/formatters';
 import styles from './CollegePlacements.module.css';
 
 export default function CollegePlacements({ college }) {
@@ -52,19 +52,19 @@ export default function CollegePlacements({ college }) {
         {avgPkg && (
           <div className={styles.statCard}>
             <span className={styles.statLabel}>Avg Package</span>
-            <span className={styles.statValue}>{formatCurrency(avgPkg)}</span>
+            <span className={styles.statValue}>{formatLPA(avgPkg)}</span>
           </div>
         )}
         {maxPkg && (
           <div className={styles.statCard}>
             <span className={styles.statLabel}>Highest Package</span>
-            <span className={styles.statValue}>{formatCurrency(maxPkg)}</span>
+            <span className={styles.statValue}>{formatLPA(maxPkg)}</span>
           </div>
         )}
         {medPkg && (
           <div className={styles.statCard}>
             <span className={styles.statLabel}>Median Package</span>
-            <span className={styles.statValue}>{formatCurrency(medPkg)}</span>
+            <span className={styles.statValue}>{formatLPA(medPkg)}</span>
           </div>
         )}
         {(latest?.totalStudents || latest?.placedStudents) && (
@@ -126,8 +126,8 @@ export default function CollegePlacements({ college }) {
                 {[...yps].sort((a, b) => (b.year || 0) - (a.year || 0)).map((y, i) => (
                   <tr key={i}>
                     <td>{y.year || '—'}</td>
-                    <td>{y.averagePackage ? formatCurrency(y.averagePackage) : '—'}</td>
-                    <td>{y.highestPackage ? formatCurrency(y.highestPackage) : '—'}</td>
+                    <td>{y.averagePackage ? formatLPA(y.averagePackage) : '—'}</td>
+                    <td>{y.highestPackage ? formatLPA(y.highestPackage) : '—'}</td>
                     <td>{y.placementPercentage ? `${y.placementPercentage}%` : '—'}</td>
                     <td>{y.placedStudents ?? '—'} / {y.totalStudents ?? '—'}</td>
                   </tr>

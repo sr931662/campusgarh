@@ -459,17 +459,17 @@ useEffect(() => {
             </div>
             <div className={styles.field}>
               <label>Average Package (₹ LPA)</label>
-              <input name="averagePackage" type="number" value={form.averagePackage} onChange={handleChange} placeholder="e.g. 1800000" min="0" />
+              <input name="averagePackage" type="number" value={form.averagePackage} onChange={handleChange} placeholder="e.g. 18" min="0" />
             </div>
             <div className={styles.field}>
               <label>Highest Package (₹ LPA)</label>
-              <input name="highestPackage" type="number" value={form.highestPackage} onChange={handleChange} placeholder="e.g. 8000000" min="0" />
+              <input name="highestPackage" type="number" value={form.highestPackage} onChange={handleChange} placeholder="e.g. 80" min="0" />
             </div>
           </div>
           <div className={styles.row}>
             <div className={styles.field}>
               <label>Median Package (₹ LPA)</label>
-              <input name="medianPackage" type="number" value={form.medianPackage} onChange={handleChange} placeholder="e.g. 1200000" min="0" />
+              <input name="medianPackage" type="number" value={form.medianPackage} onChange={handleChange} placeholder="e.g. 12" min="0" />
             </div>
           </div>
         </div>

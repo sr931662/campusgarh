@@ -5,8 +5,8 @@ import styles from './CollegeCard.module.css';
 
 const formatLPA = (n) => {
   if (!n) return null;
-  const l = n / 100000;
-  return `₹${l % 1 === 0 ? l.toFixed(0) : l.toFixed(1)} LPA`;
+  const v = Number(n);
+  return `₹${v % 1 === 0 ? v.toFixed(0) : v.toFixed(1)} LPA`;
 };
 
 const formatLakh = (n) => {

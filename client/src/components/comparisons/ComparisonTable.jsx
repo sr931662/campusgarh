@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './ComparisonTable.module.css';
 
-const fmt = (n) => n ? `₹${Number(n).toLocaleString('en-IN')}` : 'N/A';
+const fmt    = (n) => n ? `₹${Number(n).toLocaleString('en-IN')}` : 'N/A';
+const fmtLPA = (n) => { if (!n) return 'N/A'; const v = Number(n); return `₹${v % 1 === 0 ? v.toFixed(0) : v.toFixed(1)} LPA`; };
 
 const COLLEGE_ROWS = [
   { label: 'Location',       get: c => `${c.contact?.city || ''}${c.contact?.state ? ', ' + c.contact.state : ''}` || 'N/A' },
   { label: 'NIRF Rank',      get: c => c.accreditation?.nirfRank || 'Not Ranked' },
   { label: 'NAAC Grade',     get: c => c.accreditation?.naacGrade || 'N/A' },
   { label: 'Total Fees/yr',  get: c => fmt(c.fees?.total) },
-  { label: 'Avg Package',    get: c => fmt(c.placementStats?.averagePackage) },
+  { label: 'Avg Package',    get: c => fmtLPA(c.placementStats?.averagePackage) },
   { label: 'Placement %',    get: c => c.placementStats?.placementPercentage ? `${c.placementStats.placementPercentage}%` : 'N/A' },
   { label: 'Campus Type',    get: c => c.campusInfo?.campusType || 'N/A' },
   { label: 'Hostel',         get: c => c.hostel?.available ? 'Available' : 'N/A' },

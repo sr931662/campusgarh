@@ -1,6 +1,18 @@
 import { format, formatDistanceToNow } from 'date-fns';
 
 /**
+ * Format a package value stored in LPA (e.g. 21 → "₹21 LPA")
+ * @param {number} lpa - Package value already in Lakhs Per Annum
+ * @returns {string} Formatted LPA string
+ */
+export const formatLPA = (lpa) => {
+  if (!lpa && lpa !== 0) return 'N/A';
+  const n = Number(lpa);
+  const display = n % 1 === 0 ? n.toFixed(0) : n.toFixed(1);
+  return `₹${display} LPA`;
+};
+
+/**
  * Format currency in Indian Rupees
  * @param {number} amount - Amount in rupees
  * @returns {string} Formatted currency string

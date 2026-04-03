@@ -10,7 +10,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useCollegeBySlug, useAverageRating, useToggleSavedCollege } from '../../hooks/queries';
 import { useAuth } from '../../hooks/useAuth';
-import { formatCurrency } from '../../utils/formatters';
+import { formatCurrency, formatLPA } from '../../utils/formatters';
 import RatingStars from '../common/RatingStars/RatingStars';
 import Button from '../common/Button/Button';
 import Loader from '../common/Loader/Loader';
@@ -104,7 +104,7 @@ export default function CollegeDetail() {
     college.establishmentYear && { icon: <FaCalendarAlt />, label: 'Est.',       value: college.establishmentYear },
     college.campusInfo?.totalStudents && { icon: <FaUsers />, label: 'Students', value: college.campusInfo.totalStudents.toLocaleString('en-IN') },
     placementPct   && { icon: <FaBriefcase />,    label: 'Placement',   value: `${placementPct}%` },
-    avgPackage     && { icon: <FaRupeeSign />,    label: 'Avg Package', value: formatCurrency(avgPackage) },
+    avgPackage     && { icon: <FaRupeeSign />,    label: 'Avg Package', value: formatLPA(avgPackage) },
     college.fees?.total && { icon: <FaGraduationCap />, label: 'Annual Fees', value: formatCurrency(college.fees.total) },
   ].filter(Boolean);
 

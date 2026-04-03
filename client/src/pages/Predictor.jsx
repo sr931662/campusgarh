@@ -26,6 +26,7 @@ const BAR_COLOR  = { green: '#22c55e', yellow: '#eab308', orange: '#f97316', red
 const TREND_COLOR = { getting_harder: '#ef4444', getting_easier: '#22c55e', stable: '#3b82f6', insufficient_data: '#94a3b8' };
 
 const fmt    = (n) => n != null ? `₹${Number(n).toLocaleString('en-IN')}` : null;
+const fmtLPA = (n) => { if (n == null) return '—'; const v = Number(n); return `₹${v % 1 === 0 ? v.toFixed(0) : v.toFixed(1)} LPA`; };
 const fmtNum = (n) => n != null ? Number(n).toLocaleString('en-IN') : '—';
 
 // ─── Shared UI ────────────────────────────────────────────────────────────────
@@ -170,8 +171,8 @@ const DetailedAnalysisCard = ({ data }) => {
             {placements.map((p, i) => (
               <div key={i} className={styles.cutoffRow}>
                 <span className={styles.cutoffYear}>{p.year}</span>
-                <span>{fmt(p.averagePackage)  || '—'}</span>
-                <span>{fmt(p.highestPackage)  || '—'}</span>
+                <span>{fmtLPA(p.averagePackage)}</span>
+                <span>{fmtLPA(p.highestPackage)}</span>
                 <span>{p.placementPercentage != null ? `${p.placementPercentage}%` : '—'}</span>
               </div>
             ))}
