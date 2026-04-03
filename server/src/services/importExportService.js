@@ -189,6 +189,7 @@ class ImportExportService {
       for (let i = 0; i < data.length; i++) {
         try {
           const mapped = { ...this.mapRowToModel(data[i], modelName), ...extraData };
+          if (modelName === 'Blog' && !mapped.author) mapped.author = userId;
           if      (modelName === 'College') await service.upsertCollege(mapped);
           else if (modelName === 'Course')  await service.createCourse(mapped);
           else if (modelName === 'Exam')    await service.createExam(mapped);
@@ -318,11 +319,14 @@ class ImportExportService {
     }
     if (modelName === 'Blog') {
       return {
-        'Title':   doc.title || '',
-        'Content': doc.content || '',
-        'Excerpt': doc.excerpt || '',
-        'Status':  doc.status || '',
-        'Tags':    (doc.tags || []).join(', '),
+        'Title':             doc.title || '',
+        'Content':           doc.content || '',
+        'Excerpt':           doc.excerpt || '',
+        'Status':            doc.status || '',
+        'Tags':              (doc.tags || []).join(', '),
+        'Content Type':      doc.contentType || '',
+        'Difficulty':        doc.difficulty || '',
+        'Featured Image URL': doc.featuredImageUrl || '',
       };
     }
     if (modelName === 'AccreditationBody') {
@@ -521,18 +525,24 @@ class ImportExportService {
         ],
       },
       Blog: {
-        headers: ['Title', 'Content', 'Excerpt', 'Status', 'Tags'],
+        headers: ['Title', 'Content', 'Excerpt', 'Status', 'Tags', 'Content Type', 'Difficulty', 'Featured Image URL'],
         sample: {
           'Title': 'Top 10 Engineering Colleges in India 2025',
           'Content': 'Full article content here...',
           'Excerpt': 'A curated list of the best engineering colleges in India ranked by NIRF 2025.',
           'Status': 'draft',
           'Tags': 'engineering, rankings, NIRF, IIT',
+          'Content Type': 'Guide',
+          'Difficulty': 'Beginner',
+          'Featured Image URL': 'https://example.com/image.jpg',
         },
         notes: [
           ['Field', 'Valid Values / Notes'],
           ['Status', 'draft | published'],
           ['Tags', 'Comma-separated keywords'],
+          ['Content Type', 'Guide | News | Ranking | College Review | Exam Update | Career Advice | Scholarship | Comparison'],
+          ['Difficulty', 'Beginner | Intermediate | Advanced (optional)'],
+          ['Featured Image URL', 'Full URL to the cover image (optional)'],
         ],
       },
       AdmissionEnquiry: {
@@ -825,12 +835,27 @@ class ImportExportService {
     const get = this.makeGet(n);
     const title = get('title','blog title','heading');
     if (!title) throw new Error('Missing required field: Title');
+
+    const VALID_CONTENT_TYPES = ['Guide','News','Ranking','College Review','Exam Update','Career Advice','Scholarship','Comparison'];
+    const VALID_DIFFICULTIES  = ['Beginner','Intermediate','Advanced'];
+
+    const rawType = get('content type','contenttype','type');
+    const contentType = rawType && VALID_CONTENT_TYPES.includes(rawType) ? rawType : 'Guide';
+
+    const rawDiff = get('difficulty');
+    const difficulty = rawDiff && VALID_DIFFICULTIES.includes(rawDiff) ? rawDiff : undefined;
+
+    const featuredImageUrl = get('featured image url','featuredimageurl','image url','imageurl','cover image') || undefined;
+
     return {
-      title:   String(title).trim(),
-      content: get('content','body','article') || '',
-      excerpt: get('excerpt','summary','description') || '',
-      status:  get('status') || 'draft',
-      tags:    get('tags') ? String(get('tags')).split(',').map(t => t.trim()).filter(Boolean) : [],
+      title:            String(title).trim(),
+      content:          get('content','body','article') || '',
+      excerpt:          get('excerpt','summary','description') || '',
+      status:           get('status') || 'draft',
+      tags:             get('tags') ? String(get('tags')).split(',').map(t => t.trim()).filter(Boolean) : [],
+      contentType,
+      ...(difficulty        && { difficulty }),
+      ...(featuredImageUrl  && { featuredImageUrl }),
     };
   }
   mapAdmissionEnquiry(row) {

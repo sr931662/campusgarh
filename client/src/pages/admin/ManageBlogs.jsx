@@ -130,13 +130,16 @@ const ManageBlogs = () => {
                       </button>
                     </td>
                     <td>
-                      <button
-                        className={styles.deleteBtn}
-                        disabled={deleteMutation.isPending}
-                        onClick={() => handleDelete(b._id, b.title)}
-                      >
-                        Delete
-                      </button>
+                      <div className={styles.actionCell}>
+                        <Link to={`/admin/blogs/edit/${b._id}`} className={styles.editBtn}>Edit</Link>
+                        <button
+                          className={styles.deleteBtn}
+                          disabled={deleteMutation.isPending}
+                          onClick={() => handleDelete(b._id, b.title)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

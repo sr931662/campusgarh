@@ -147,6 +147,7 @@ function App() {
             <Route path="/admin/exams/create" element={<CreateExam />} />
             <Route path="/admin/blogs" element={<ManageBlogs />} />
             <Route path="/admin/blogs/create" element={<CreateBlog />} />
+            <Route path="/admin/blogs/edit/:id" element={<CreateBlog />} />
             <Route path="/admin/import" element={<ImportData />} />
             <Route path="/admin/leads"     element={<AdminLeads />} />
             <Route path="/admin/analytics" element={<AdminAnalytics />} />

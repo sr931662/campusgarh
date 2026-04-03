@@ -180,9 +180,9 @@ const BlogDetail = () => {
         </div>
 
         {/* Featured Image — inside hero, below text */}
-        {blog.featuredImage && (
+        {(blog.featuredImage?.url || blog.featuredImageUrl) && (
           <div className={styles.heroImage}>
-            <img src={blog.featuredImage.url} alt={blog.title} />
+            <img src={blog.featuredImage?.url || blog.featuredImageUrl} alt={blog.title} />
           </div>
         )}
       </section>

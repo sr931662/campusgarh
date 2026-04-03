@@ -43,7 +43,7 @@ const COLUMN_GUIDE = {
   },
   Blog: {
     required: ['Title'],
-    optional: ['Content', 'Excerpt', 'Status (draft/published)', 'Tags'],
+    optional: ['Content', 'Excerpt', 'Status (draft/published)', 'Tags', 'Content Type', 'Difficulty', 'Featured Image URL'],
   },
   AccreditationBody: {
     required: ['Abbreviation', 'Full Name'],

@@ -20,6 +20,7 @@ const blogSchema = new mongoose.Schema(
     },
     excerpt: String,
     featuredImage: { type: mongoose.Schema.Types.ObjectId, ref: 'Media' },
+    featuredImageUrl: String,
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
