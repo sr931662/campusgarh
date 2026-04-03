@@ -385,6 +385,21 @@
   justify-content: space-between;
   padding: 1.25rem;
   position: relative;
+  overflow: hidden;
+}
+
+.instCardImage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.instCardImage > * {
+  position: relative;
+  z-index: 1;
 }
 
 .instLogo {

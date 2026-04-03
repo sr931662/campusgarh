@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { mediaService } from '../../services/mediaService';
 import styles from './CollegeGallery.module.css';
 
-export default function CollegeGallery({ collegeId }) {
+export default function CollegeGallery({ collegeId, directImages = [], coverImageUrl }) {
   const [lightbox, setLightbox] = useState(null); // index of open image
 
   const { data, isLoading } = useQuery({
@@ -12,8 +12,15 @@ export default function CollegeGallery({ collegeId }) {
     enabled: !!collegeId,
   });
 
-  const images = (data?.data || []).filter(m => m.type === 'image');
+  const mediaImages = (data?.data || []).filter(m => m.type === 'image');
   const videos = (data?.data || []).filter(m => m.type === 'video');
+
+  // Merge: cover image first, then direct URL gallery images, then Media records
+  const directItems = [
+    ...(coverImageUrl ? [{ _id: 'cover', url: coverImageUrl, alt: 'Cover Image' }] : []),
+    ...directImages.map((url, i) => ({ _id: `direct-${i}`, url, alt: `Gallery ${i + 1}` })),
+  ];
+  const images = [...directItems, ...mediaImages];
 
   if (isLoading) return <div className={styles.loading}>Loading gallery…</div>;
   if (!images.length && !videos.length) {

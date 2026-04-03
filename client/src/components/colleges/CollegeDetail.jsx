@@ -431,7 +431,7 @@ export default function CollegeDetail() {
           {/* GALLERY ───────────────────────────────────────────── */}
           {activeTab === 'gallery' && (
             <div className={styles.section}>
-              <CollegeGallery collegeId={college._id} />
+              <CollegeGallery collegeId={college._id} directImages={college.galleryImages || []} coverImageUrl={college.coverImageUrl} />
             </div>
           )}
 

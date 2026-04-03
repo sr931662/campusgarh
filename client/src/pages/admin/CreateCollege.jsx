@@ -31,8 +31,10 @@ const CreateCollege = () => {
   const isEditing = !!id;
   const queryClient = useQueryClient();
   const [coverImageFile, setCoverImageFile] = useState(null);
+  const [logoFile, setLogoFile] = useState(null);
   const [galleryFiles, setGalleryFiles] = useState([]);
   const [coverPreview, setCoverPreview] = useState(null);
+  const [logoPreview, setLogoPreview] = useState(null);
   const [galleryPreviews, setGalleryPreviews] = useState([]);
 
   const [form, setForm] = useState({
@@ -167,6 +169,9 @@ useEffect(() => {
     onSuccess: async (res) => {
       const collegeId = res?.data?.data?._id || id;
       try {
+        if (logoFile) {
+          await collegeService.uploadLogo(collegeId, logoFile);
+        }
         if (coverImageFile) {
           await collegeService.uploadCoverImage(collegeId, coverImageFile);
         }
@@ -274,6 +279,48 @@ useEffect(() => {
       <form className={styles.form} onSubmit={handleSubmit}>
         {error && <div className={styles.error}>{error}</div>}
 
+        {/* Images */}
+        <div className={styles.section}>
+          <div className={styles.sectionTitle}>College Images</div>
+          <div className={styles.row}>
+            {/* Logo Upload */}
+            <div className={styles.field}>
+              <label>College Logo <span style={{ fontWeight: 400, color: '#888', fontSize: '0.82rem' }}>(square, shown on cards)</span></label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) { setLogoFile(file); setLogoPreview(URL.createObjectURL(file)); }
+                }}
+              />
+              {logoPreview ? (
+                <img src={logoPreview} alt="Logo preview" style={{ marginTop: 8, width: 90, height: 90, borderRadius: 10, objectFit: 'contain', border: '1px solid #e0e0e0', background: '#fafafa', padding: 4 }} />
+              ) : (
+                <div style={{ marginTop: 8, width: 90, height: 90, borderRadius: 10, border: '2px dashed #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#aaa', fontSize: '0.78rem', textAlign: 'center' }}>No logo</div>
+              )}
+            </div>
+
+            {/* Cover Image Upload */}
+            <div className={styles.field}>
+              <label>Cover / Banner Image <span style={{ fontWeight: 400, color: '#888', fontSize: '0.82rem' }}>(shown as hero background)</span></label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) { setCoverImageFile(file); setCoverPreview(URL.createObjectURL(file)); }
+                }}
+              />
+              {coverPreview ? (
+                <img src={coverPreview} alt="Cover preview" style={{ marginTop: 8, height: 90, width: '100%', borderRadius: 10, objectFit: 'cover' }} />
+              ) : (
+                <div style={{ marginTop: 8, height: 90, borderRadius: 10, border: '2px dashed #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#aaa', fontSize: '0.78rem' }}>No cover image</div>
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Basic Info */}
         <div className={styles.section}>
           <div className={styles.sectionTitle}>Basic Information</div>
@@ -286,27 +333,6 @@ useEffect(() => {
               <label>Short Name</label>
               <input name="shortName" value={form.shortName} onChange={handleChange} placeholder="e.g. IIT Delhi" />
             </div>
-            {/* Cover Image Upload */}
-            <div className={styles.formGroup} style={{ gridColumn: '1 / -1' }}>
-              <label className={styles.label}>Cover Image</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    setCoverImageFile(file);
-                    setCoverPreview(URL.createObjectURL(file));
-                  }
-                }}
-                className={styles.input}
-              />
-              {coverPreview && (
-                <img src={coverPreview} alt="Cover preview" style={{ marginTop: 8, maxHeight: 160, borderRadius: 8, objectFit: 'cover', width: '100%' }} />
-              )}
-            </div>
-
-
           </div>
           <div className={styles.row3}>
             <div className={styles.field}>

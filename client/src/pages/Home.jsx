@@ -230,7 +230,14 @@ export default function Home() {
                     variants={fadeUp}
                     whileHover={{ y: -6, transition: { duration: 0.2 } }}
                   >
-                    <div className={styles.instCardImage}>
+                    <div
+                      className={styles.instCardImage}
+                      style={college.coverImageUrl ? {
+                        backgroundImage: `url(${college.coverImageUrl})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      } : undefined}
+                    >
                       <span className={styles.instRank}>{getRankBadge(college)}</span>
                       {college.logoUrl && (
                         <img src={college.logoUrl} alt={college.name} className={styles.instLogo} />
