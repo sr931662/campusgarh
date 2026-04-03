@@ -105,7 +105,7 @@ const getCollegeMeta = (college) => {
 
 export default function Home() {
   const { data: featuredData, isLoading: featuredLoading } = useFeaturedColleges({ limit: 3 });
-  const featuredColleges = featuredData?.data?.data || [];
+  const featuredColleges = featuredData?.data?.data?.data || [];
 
   return (
     <div className={styles.homeWrapper}>
