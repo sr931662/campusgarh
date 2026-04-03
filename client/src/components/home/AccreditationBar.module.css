@@ -60,14 +60,14 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  height: 52px;
+  height: 150px;
   padding: 0 0.5rem;
 }
 
 .logo {
-  height: 44px;
-  width: auto;
-  max-width: 90px;
+  height: 70px;
+  max-width: 140px;
+  /* max-width: 90px; */
   object-fit: contain;
   background: transparent;
   border-radius: 0;
