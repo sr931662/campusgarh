@@ -33,7 +33,7 @@
   margin: 0 0 0.6rem;
   line-height: 1.2;
 }
-.title em  { font-style: italic; color: var(--gold, #C9A84C); }
+.title em  { font-style: normal; color: var(--gold, #C9A84C); }
 .subtitle  { font-size: 0.95rem; color: #6B7280; margin: 0; }
 
 /* ── Carousel layout ── */

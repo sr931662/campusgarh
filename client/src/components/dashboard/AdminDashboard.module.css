@@ -204,8 +204,8 @@
   letter-spacing: 0.04em;
 }
 
-.na { color: var(--muted); font-style: italic; }
-.empty { color: var(--muted); font-style: italic; font-size: 0.9rem; }
+.na { color: var(--muted); font-style: normal; }
+.empty { color: var(--muted); font-style: normal; font-size: 0.9rem; }
 
 .viewLink {
   color: var(--gold, #C9A84C);

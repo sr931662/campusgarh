@@ -497,7 +497,7 @@
   text-align: center;
   color: var(--muted);
   font-size: 0.9rem;
-  font-style: italic;
+  font-style: normal;
 }
 
 .error {

@@ -11,4 +11,4 @@
 .bookTitle { font-weight: 600; color: #1a202c; font-size: 0.875rem; margin-bottom: 0.2rem; }
 .bookAuthor { font-size: 0.8rem; color: #718096; margin-bottom: 0.35rem; }
 .bookSubject { background: #e2e8f0; color: #4a5568; padding: 0.15rem 0.5rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 500; }
-.emptyMsg { color: #718096; font-style: italic; }
+.emptyMsg { color: #718096; font-style: normal; }

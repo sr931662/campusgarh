@@ -27,7 +27,7 @@
 .name  { font-weight: 600; color: var(--charcoal); }
 .email { color: var(--muted); font-size: 0.82rem; }
 .date  { color: var(--muted); font-size: 0.82rem; white-space: nowrap; }
-.muted { color: var(--muted); font-style: italic; font-size: 0.82rem; }
+.muted { color: var(--muted); font-style: normal; font-size: 0.82rem; }
 .empty { text-align: center; color: var(--muted); padding: 2rem; }
 
 .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; color: #fff; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }

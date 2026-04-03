@@ -16,9 +16,10 @@
   --border: #E8E3DB;
 
   /* Typography */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'DM Mono', ui-monospace, Consolas, monospace;
+--font-display: 'Montserrat', sans-serif;
+--font-body:    'Montserrat', sans-serif;
+--font-mono:    'Montserrat', sans-serif;
+
 
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);

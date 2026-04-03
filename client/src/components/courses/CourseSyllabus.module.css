@@ -16,4 +16,4 @@
 .chevronSm { font-size: 0.65rem; color: #718096; }
 .topicList { margin: 0; padding: 0.5rem 1rem 0.625rem 2rem; background: #f7fafc; }
 .topicList li { font-size: 0.82rem; color: #4a5568; margin-bottom: 0.3rem; line-height: 1.5; }
-.emptyMsg { color: #718096; font-style: italic; }
+.emptyMsg { color: #718096; font-style: normal; }

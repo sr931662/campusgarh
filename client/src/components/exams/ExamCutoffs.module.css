@@ -14,4 +14,4 @@
 .table td { padding: 0.7rem 1rem; border-bottom: 1px solid #e2e8f0; color: #2d3748; }
 .table tbody tr:hover { background: #f7fafc; }
 .catBadge { background: #ebf5fb; color: #1a5276; padding: 0.2rem 0.5rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 600; }
-.emptyMsg { color: #718096; font-style: italic; }
+.emptyMsg { color: #718096; font-style: normal; }

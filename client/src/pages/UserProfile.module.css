@@ -78,7 +78,7 @@
 .approved { color: #16a34a; font-weight: 600; }
 .rejected { color: #dc2626; font-weight: 600; }
 .reqMeta  { font-size: 0.8rem; color: #6B7280; margin-top: 0.25rem; }
-.reqNote  { font-size: 0.8rem; color: #374151; margin-top: 0.25rem; font-style: italic; }
+.reqNote  { font-size: 0.8rem; color: #374151; margin-top: 0.25rem; font-style: normal; }
 .reqDate  { font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem; }
 
 @media (max-width: 600px) {

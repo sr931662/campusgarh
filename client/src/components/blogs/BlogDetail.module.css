@@ -153,7 +153,7 @@
 .date { color: rgba(255, 255, 255, 0.55); }
 .readTime { color: rgba(255, 255, 255, 0.4); }
 .author { color: rgba(255, 255, 255, 0.5); }
-.reviewed { color: rgba(255, 255, 255, 0.35); font-style: italic; }
+.reviewed { color: rgba(255, 255, 255, 0.35); font-style: normal; }
 
 /* Categories & Tags */
 .categories {
@@ -286,7 +286,7 @@
   padding: 0.75rem 1.25rem;
   background: var(--cream);
   border-radius: 0 var(--radius-sm, 8px) var(--radius-sm, 8px) 0;
-  font-style: italic;
+  font-style: normal;
   color: var(--charcoal);
 }
 .body code {

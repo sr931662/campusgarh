@@ -84,7 +84,7 @@
 }
 
 .heroTitle em {
-  font-style: italic;
+  font-style: normal;
   color: var(--gold);
   display: block;
 }
@@ -324,7 +324,7 @@
 
 .sectionTitle span {
   color: var(--gold);
-  font-style: italic;
+  font-style: normal;
 }
 
 .viewAll {
@@ -602,7 +602,7 @@
 
 .sectionTitleLight span {
   color: var(--gold);
-  font-style: italic;
+  font-style: normal;
 }
 
 .sectionSubLight {

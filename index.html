@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Premium UI Concept | CampusGarh</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ----- design tokens (same as your codebase) ----- */
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FFFEF9;
+      --charcoal: #1C1C1E;
+      --deep: #0A0A0F;
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-pale: #F5E9C9;
+      --emerald: #1A6B4A;
+      --muted: #8A8A8E;
+      --border: #E8E3DB;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 8px 28px rgba(0,0,0,0.08);
+      --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+
+    body {
+      background-color: var(--cream);
+      font-family: var(--font-body);
+      color: var(--charcoal);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ----- premium hero section ----- */
+    .hero {
+      position: relative;
+      padding: 5rem 0 6rem;
+      isolation: isolate;
+    }
+
+    /* animated grain / noise overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 40%, rgba(201,168,76,0.08) 0%, transparent 60%),
+                  repeating-radial-gradient(circle at 30% 70%, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 8px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero-content {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold-pale);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 100px;
+      padding: 0.3rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      color: var(--gold);
+      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-badge span {
+      background: var(--gold);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--charcoal);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-highlight {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--deep);
+      box-shadow: 0 6px 14px rgba(201,168,76,0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(201,168,76,0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--charcoal);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.05);
+    }
+
+    /* stats row */
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
+    /* ----- premium card grid ----- */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--charcoal);
+      letter-spacing: -0.02em;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    /* refined card */
+    .card {
+      background: var(--warm-white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.2, 0, 0, 1);
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-image {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-image img {
+      transform: scale(1.05);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(10,10,15,0.7);
+      backdrop-filter: blur(8px);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 40px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.03em;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-category {
+      display: inline-block;
+      background: var(--gold-pale);
+      color: var(--gold);
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .card:hover .card-title {
+      color: var(--gold);
+    }
+
+    .card-description {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
+    .read-more {
+      color: var(--gold);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: gap 0.2s;
+    }
+
+    .read-more:hover {
+      gap: 0.6rem;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1.25rem;
+      }
+      .hero {
+        padding: 3rem 0 4rem;
+      }
+      .card-grid {
+        gap: 1.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-buttons .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .hero-stats {
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span></span> TRUSTED BY 50K+ STUDENTS
+        </div>
+        <h1>
+          Your gateway to the<br>
+          <span class="hero-highlight">right campus</span>
+        </h1>
+        <p class="hero-description">
+          Discover colleges, courses, and entrance exams backed by genuine reviews and ground reports from students across India.
+        </p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary">Explore Colleges →</button>
+          <button class="btn btn-outline">Book Counselling</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number">1200+</div>
+            <div class="stat-label">Colleges</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">2500+</div>
+            <div class="stat-label">Courses</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Featured institutions</div>
+        <h2 class="section-title">Top‑rated colleges</h2>
+      </div>
+      <div class="card-grid">
+        <!-- card 1 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://placehold.co/600x400/FAF7F2/8A8A8E?text=College+Image" alt="College">
+            <span class="card-badge">#1 in Placement</span>
+          </div>
+          <div class="card-content">
+            <span class="card-category">Engineering</span>
+            <h3 class="card-title">Indian Institute of Technology, Delhi</h3>
+            <p class="card-description">Premier institute known for cutting‑edge research and exceptional placement records.</p>
+            <div class="card-meta">
+              <span>📍 New Delhi</span>
+              <a href="#" class="read-more">Explore →</a>
+            </div>
+          </div>
+        </div>
+        <!-- card 2 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://placehold.co/600x400/FAF7F2/8A8A8E?text=College+Image" alt="College">
+            <span class="card-badge">NIRF Rank 2</span>
+          </div>
+          <div class="card-content">
+            <span class="card-category">Management</span>
+            <h3 class="card-title">Indian Institute of Management, Bangalore</h3>
+            <p class="card-description">Global leader in business education with unmatched industry exposure.</p>
+            <div class="card-meta">
+              <span>📍 Bengaluru</span>
+              <a href="#" class="read-more">Explore →</a>
+            </div>
+          </div>
+        </div>
+        <!-- card 3 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://placehold.co/600x400/FAF7F2/8A8A8E?text=College+Image" alt="College">
+            <span class="card-badge">A++ NAAC</span>
+          </div>
+          <div class="card-content">
+            <span class="card-category">Medical</span>
+            <h3 class="card-title">Christian Medical College, Vellore</h3>
+            <p class="card-description">Top‑tier medical education with outstanding clinical training.</p>
+            <div class="card-meta">
+              <span>📍 Vellore</span>
+              <a href="#" class="read-more">Explore →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // optional: smooth button interactions or console greeting
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log(`CTA clicked: ${btn.innerText}`);
+        // you could add modal or redirect logic here
+      });
+    });
+  </script>
+</body>
+</html>

@@ -7,7 +7,7 @@ const PROJECT_ROOT = __dirname;
 
 // Only include these folders
 const INCLUDE_FOLDERS = new Set([
-  "server",
+  // "server",
   // "musetalk_lab",
   // "avatar_microservice",
   "client",

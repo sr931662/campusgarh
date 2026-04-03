@@ -193,7 +193,7 @@
   text-align: right;
 }
 
-.empty { color: var(--muted); font-style: italic; font-size: 0.875rem; }
+.empty { color: var(--muted); font-style: normal; font-size: 0.875rem; }
 .error { color: #ef4444; padding: 2rem; text-align: center; }
 
 /* Counsellor performance table */

@@ -813,13 +813,13 @@ const Predictor = () => {
 
       {triggered && !isLoading && type === 'college' && mode === 'analyze' && (
         !detail
-          ? <p className={styles.empty}>No data found for this college-course combination.</p>
+          ? <p className={styles.empty}>	No data available yet for this combination. Try a different college or course.</p>
           : <DetailedAnalysisCard data={detail} />
       )}
 
       {triggered && !isLoading && type === 'course' && courseMode === 'recommend' && (
         courses.length === 0
-          ? <p className={styles.empty}>No courses found. Try a different discipline or level.</p>
+          ? <p className={styles.empty}>No courses match your filters. Try adjusting your discipline or level.</p>
           : <>
               <div className={styles.resultsHeader}>
                 <span className={styles.resultsTitle}>Matching Courses</span>
@@ -833,7 +833,7 @@ const Predictor = () => {
 
       {triggered && !isLoading && type === 'exam' && (
         exams.length === 0
-          ? <p className={styles.empty}>No exams found. Try a broader discipline.</p>
+          ? <p className={styles.empty}>No exams found. Try selecting a broader discipline or removing filters.</p>
           : <>
               <div className={styles.resultsHeader}>
                 <span className={styles.resultsTitle}>Recommended Exams</span>
@@ -886,7 +886,7 @@ const Predictor = () => {
       {/* Exam-College Map results */}
       {triggered && !isLoading && type === 'exam' && examMode === 'map' && (
         examCollegeMap.length === 0
-          ? <p className={styles.empty}>No exam data found for this course.</p>
+          ? <p className={styles.empty}>No exam data found. Try adjusting your filters or selecting a different course.</p>
           : <>
               <div className={styles.resultsHeader}>
                 <span className={styles.resultsTitle}>Exam Map for {mapCourseName}</span>

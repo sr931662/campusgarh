@@ -137,7 +137,7 @@
 .emailText   { font-size: 0.75rem; color: var(--muted); }
 
 .assignedName { font-weight: 600; color: var(--charcoal); }
-.unassigned   { color: var(--muted); font-style: italic; font-size: 0.82rem; }
+.unassigned   { color: var(--muted); font-style: normal; font-size: 0.82rem; }
 .na           { color: var(--muted); }
 
 /* Assign inline UI */
@@ -169,7 +169,7 @@
 .emptyRow {
   text-align: center;
   color: var(--muted);
-  font-style: italic;
+  font-style: normal;
   padding: 3rem 1rem !important;
 }
 

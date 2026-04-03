@@ -191,7 +191,7 @@
   font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.45);
   margin: 0 0 0.75rem;
-  font-style: italic;
+  font-style: normal;
   font-family: var(--font-display);
 }
 
@@ -456,7 +456,7 @@
 
 .empty {
   color: var(--muted, #8A8A8E);
-  font-style: italic;
+  font-style: normal;
   font-size: 0.9rem;
   margin: 0;
 }

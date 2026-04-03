@@ -164,7 +164,7 @@
   text-align: center;
   padding: 3rem;
   color: var(--muted, #8A8A8E);
-  font-style: italic;
+  font-style: normal;
 }
 
 .pagination {

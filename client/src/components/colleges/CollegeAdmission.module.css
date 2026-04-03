@@ -24,4 +24,4 @@
 .docList { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .docTag { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; padding: 0.3rem 0.75rem; border-radius: 0.375rem; font-size: 0.82rem; font-weight: 500; }
 
-.emptyMsg { color: #718096; font-style: italic; }
+.emptyMsg { color: #718096; font-style: normal; }
