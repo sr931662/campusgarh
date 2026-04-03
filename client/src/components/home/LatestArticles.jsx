@@ -32,8 +32,8 @@ const ArticleCard = ({ blog }) => {
     <motion.div variants={fadeUp}>
       <Link to={`/blogs/${blog.slug}`} className={styles.card}>
         <div className={styles.imageWrap}>
-          {blog.featuredImage?.url ? (
-            <img src={blog.featuredImage.url} alt={blog.title} className={styles.image} />
+          {(blog.featuredImage?.url || blog.featuredImageUrl) ? (
+            <img src={blog.featuredImage?.url || blog.featuredImageUrl} alt={blog.title} className={styles.image} />
           ) : (
             <div className={styles.imagePlaceholder}><FaNewspaper /></div>
           )}

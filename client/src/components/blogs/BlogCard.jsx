@@ -12,14 +12,15 @@ const CONTENT_TYPE_COLORS = {
 };
 
 const BlogCard = ({ blog }) => {
-  const { title, slug, excerpt, featuredImage, publishedAt, readingTime, author, categories, contentType, difficulty, series } = blog;
+  const { title, slug, excerpt, featuredImage, featuredImageUrl, publishedAt, readingTime, author, categories, contentType, difficulty, series } = blog;
+  const coverImage = featuredImage?.url || featuredImageUrl || null;
 
   return (
     <Link to={`/blogs/${slug}`} className={styles.link}>
       <Card hover className={styles.card}>
-        {featuredImage ? (
+        {coverImage ? (
           <div className={styles.imageWrapper}>
-            <img src={featuredImage.url} alt={title} className={styles.image} />
+            <img src={coverImage} alt={title} className={styles.image} />
           </div>
         ) : (
           <div className={styles.imagePlaceholder}><FaNewspaper /></div>
