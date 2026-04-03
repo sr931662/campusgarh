@@ -25,12 +25,19 @@
    ══════════════════════════════════════ */
 .heroSection {
   position: relative;
-  min-height: 100vh;
+  height: calc(100vh);
   display: flex;
   align-items: center;
   overflow: hidden;
   background: var(--deep);
+
+  /* College campus background image */
+  background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?w=1920&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
 }
+
 
 .heroBgGradient {
   position: absolute;
@@ -38,9 +45,18 @@
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 18% 55%, rgba(201, 168, 76, 0.09) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(27, 79, 216, 0.07) 0%, transparent 45%);
+    /* Dark overlay — heavy on left where text lives, fades right */
+    linear-gradient(
+      to right,
+      rgba(10, 10, 15, 0.92) 0%,
+      rgba(10, 10, 15, 0.82) 35%,
+      rgba(10, 10, 15, 0.55) 65%,
+      rgba(10, 10, 15, 0.35) 100%
+    ),
+    /* Subtle gold tint near text */
+    radial-gradient(ellipse at 18% 55%, rgba(201, 168, 76, 0.07) 0%, transparent 50%);
 }
+
 
 .heroContent {
   position: relative;
@@ -48,7 +64,8 @@
   max-width: 1320px;
   margin: 0 auto;
   /* was padding: 9rem 2.5rem 5rem */
-  padding: 11rem 2.5rem 5rem;
+  padding: 8.5rem 2.5rem 2rem;
+
   width: 100%;
 }
 
@@ -61,7 +78,7 @@
   letter-spacing: 0.2em;
   color: var(--gold);
   text-transform: uppercase;
-  margin-bottom: 1.75rem;
+  margin-bottom: 0.75rem;
   opacity: 0.9;
 }
 
@@ -80,7 +97,7 @@
   line-height: 1.05;
   color: var(--warm-white);
   letter-spacing: -0.025em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .heroTitle em {
@@ -94,14 +111,14 @@
   color: rgba(255, 255, 255, 0.48);
   max-width: 500px;
   line-height: 1.75;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .heroActions {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 4.5rem;
+  margin-bottom: 1.75rem;
 }
 
 /* Shared button */
@@ -153,9 +170,9 @@
 /* Stats row */
 .heroStats {
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   flex-wrap: wrap;
-  padding-top: 3rem;
+  padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
@@ -963,16 +980,20 @@
 }
 
 @media (max-width: 768px) {
-    /* Pull wrapper up only by mobile navbar height (64px) */
+  /* Pull wrapper up by mobile navbar height (100px) */
   .homeWrapper {
-    margin-top: -64px;
+    margin-top: -100px;
   }
   .container {
     padding: 0 1.25rem;
   }
   .heroContent {
-    padding: 5.5rem 1.25rem 3rem;
+    padding: 6.5rem 1.25rem 1.5rem;
   }
+  .heroSection {
+    height: calc(100vh + 100px);
+  }
+
   .heroTitle {
     font-size: 2.6rem;
     letter-spacing: -0.02em;
@@ -1038,8 +1059,11 @@
   .blogTopicsGrid {
     grid-template-columns: 1fr;
   }
-    .homeWrapper {
-    margin-top: -64px;
+  .homeWrapper {
+    margin-top: -68px;
+  }
+  .heroSection {
+    height: calc(100vh + 68px);
   }
 
   .heroContent {

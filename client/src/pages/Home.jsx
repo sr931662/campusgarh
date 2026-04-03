@@ -6,7 +6,7 @@ import {
 } from 'react-icons/fa6';
 
 import { FaBriefcase, FaPalette, FaFlask, FaMapMarkerAlt, FaBullseye, FaHandshake, FaClipboardList } from 'react-icons/fa';
-import HeroCanvas from '../components/home/HeroCanvas';
+// import HeroCanvas from '../components/home/HeroCanvas';
 import { useFeaturedColleges, useCourses, useUpcomingExams, useBlogs } from '../hooks/queries';
 import styles from './Home.module.css';
 import StudyPlaces from '../components/home/StudyPlaces';
@@ -112,7 +112,7 @@ export default function Home() {
 
       {/* ── HERO ────────────────────────────────────────────────────────────── */}
       <section className={styles.heroSection}>
-        <HeroCanvas />
+        {/* <HeroCanvas /> */}
         <div className={styles.heroBgGradient} />
 
         <div className={styles.heroContent}>

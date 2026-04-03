@@ -16,9 +16,9 @@
   --border: #E8E3DB;
 
   /* Typography */
---font-display: 'Montserrat', sans-serif;
---font-body:    'Montserrat', sans-serif;
---font-mono:    'Montserrat', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-body:    'Montserrat', sans-serif;
+  --font-mono:    'Montserrat', sans-serif;
 
 
   /* Shadows */
@@ -36,6 +36,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Prevent horizontal scroll at document level.
+   overflow-x: hidden on body alone does NOT clip position:fixed elements
+   (like the mobile drawer). Setting it on html fixes that. */
+html {
+  overflow-x: hidden;
 }
 
 body {
