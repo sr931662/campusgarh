@@ -117,6 +117,7 @@ const AdminDashboard = () => {
           <Link to="/admin/video-testimonials" className={styles.actionCard}>Manage Video Testimonials</Link>
           <Link to="/admin/accreditation" className={styles.actionCard}>Accreditation Bodies</Link>
           <Link to="/admin/users" className={styles.actionCard}>Manage Users</Link>
+          <Link to="/admin/featured-links" className={styles.actionCard}>Featured Links</Link>
         </div>
 
       </div>

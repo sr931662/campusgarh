@@ -54,6 +54,7 @@ import PartnerImport from './pages/partner/PartnerImport';
 import ManageUsers from './pages/admin/ManageUsers';
 import AdminUserDetail from './pages/admin/AdminUserDetail';
 import CreateUser from './pages/admin/CreateUser';
+import ManageFeaturedLinks from './pages/admin/ManageFeaturedLinks';
 
 import { ROLES } from './utils/constants';
 export const getDashboardPath = (role) => {
@@ -159,6 +160,7 @@ function App() {
             <Route path="/admin/users" element={<ManageUsers />} />
             <Route path="/admin/users/:userId" element={<AdminUserDetail />} />
             <Route path="/admin/users/create" element={<CreateUser />} />
+            <Route path="/admin/featured-links" element={<ManageFeaturedLinks />} />
           </Route>
 
         </Route>

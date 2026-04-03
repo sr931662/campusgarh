@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter, FaYoutube } from 'react-icons/fa6';
 import { MdEmail } from 'react-icons/md';
 import styles from './Footer.module.css';
 import logo from "../../../assets/Campus white color logo png-01.png";
-import { useFeaturedColleges, useCourses, useExams } from '../../../hooks/queries';
+import { useFeaturedColleges, useCourses, useExams, useFeaturedLinks } from '../../../hooks/queries';
 
 
 const Footer = () => {
@@ -24,6 +24,10 @@ const Footer = () => {
   const { data: exData } = useExams({ limit: 6 });
   const exRaw = exData?.data?.data;
   const footerExams = Array.isArray(exRaw) ? exRaw : Array.isArray(exRaw?.data) ? exRaw.data : [];
+
+  const { data: flData } = useFeaturedLinks();
+  const flRaw = flData?.data?.data;
+  const featuredLinks = Array.isArray(flRaw) ? flRaw : [];
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -83,37 +87,30 @@ const Footer = () => {
 
       <div className={styles.container}>
 
-        {/* Brand — above grid */}
+        {/* Brand Row — above grid */}
         <div className={styles.brandTop}>
-          <Link to="/">
-            <img src={logo} alt="CampusGarh" className={styles.footerLogoIcon} />
-          </Link>
-          <p className={styles.description}>
-            Your trusted partner in education discovery and admission guidance across India.
-          </p>
-          <div className={styles.social}>
-            {/* ...same social links... */}
-          </div>
-        </div>
-                {/* Main Grid */}
-        <div className={styles.grid}>
-
-          {/* Brand
-          <div className={styles.brand}>
+          <div className={styles.brandTopLeft}>
             <Link to="/">
               <img src={logo} alt="CampusGarh" className={styles.footerLogoIcon} />
             </Link>
             <p className={styles.description}>
               Your trusted partner in education discovery and admission guidance across India.
             </p>
+          </div>
+          <div className={styles.brandTopRight}>
+            <p className={styles.followUs}>Follow Us</p>
             <div className={styles.social}>
-              <a href="#" aria-label="Facebook"><FaFacebook /></a>
-              <a href="#" aria-label="X / Twitter"><FaXTwitter /></a>
-              <a href="#" aria-label="LinkedIn"><FaLinkedinIn /></a>
-              <a href="#" aria-label="Instagram"><FaInstagram /></a>
-              <a href="#" aria-label="YouTube"><FaYoutube /></a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebook /></a>
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><FaXTwitter /></a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaYoutube /></a>
             </div>
-          </div> */}
+          </div>
+        </div>
+
+        {/* Main Grid */}
+        <div className={styles.grid}>
 
           {/* Top Colleges */}
           <div className={styles.section}>
@@ -129,7 +126,6 @@ const Footer = () => {
             </ul>
           </div>
 
-
           {/* Top Exams */}
           <div className={styles.section}>
             <h4 className={styles.subtitle}>Top Exams</h4>
@@ -143,7 +139,6 @@ const Footer = () => {
                   </>}
             </ul>
           </div>
-
 
           {/* Top Courses */}
           <div className={styles.section}>
@@ -159,6 +154,21 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Featured Links */}
+          {featuredLinks.length > 0 && (
+            <div className={styles.section}>
+              <h4 className={styles.subtitle}>Featured Links</h4>
+              <ul className={styles.links}>
+                {featuredLinks.map(l => (
+                  <li key={l._id}>
+                    {l.openInNewTab
+                      ? <a href={l.url} target="_blank" rel="noopener noreferrer">{l.title}</a>
+                      : <Link to={l.url}>{l.title}</Link>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Useful Links */}
           <div className={styles.section}>
@@ -185,7 +195,6 @@ const Footer = () => {
           </div>
 
         </div>
-
 
         {/* Stats Bar */}
         <div className={styles.statsBar}>
@@ -215,6 +224,7 @@ const Footer = () => {
           <p>&copy; {currentYear} CampusGarh. All rights reserved.</p>
           <div className={styles.copyrightLinks}>
             <Link to="/contact">Contact</Link>
+            <Link to="/about">About</Link>
           </div>
         </div>
 

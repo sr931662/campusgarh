@@ -14,6 +14,7 @@ import { mediaService } from '../services/mediaService';
 import { importExportService } from '../services/importExportService';
 import { adminService } from '../services/adminService';
 import { collegeCourseService } from '../services/collegeCourseService';
+import { featuredLinkService } from '../services/featuredLinkService';
 
 // ========== Auth Hooks ==========
 export const useRegister = () => {
@@ -812,4 +813,12 @@ export const usePartnerLeads = (params) =>
     queryKey: ['partnerLeads', params],
     queryFn: () => enquiryService.getPartnerLeads(params),
     placeholderData: keepPreviousData,
+  });
+
+// ========== Featured Links Hooks ==========
+export const useFeaturedLinks = (params) =>
+  useQuery({
+    queryKey: ['featuredLinks', params],
+    queryFn: () => featuredLinkService.getAll(params),
+    staleTime: 5 * 60 * 1000,
   });
