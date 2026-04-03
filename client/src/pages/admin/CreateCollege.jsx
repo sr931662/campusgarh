@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { collegeService } from '../../services/collegeService';
 import styles from './AdminForm.module.css';
 
@@ -29,6 +29,7 @@ const CreateCollege = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const isEditing = !!id;
+  const queryClient = useQueryClient();
   const [coverImageFile, setCoverImageFile] = useState(null);
   const [galleryFiles, setGalleryFiles] = useState([]);
   const [coverPreview, setCoverPreview] = useState(null);
@@ -160,7 +161,7 @@ useEffect(() => {
 
 
   const mutation = useMutation({
-    mutationFn: (data) => isEdit
+    mutationFn: (data) => isEditing
       ? collegeService.updateCollege(id, data)
       : collegeService.createCollege(data),
     onSuccess: async (res) => {
