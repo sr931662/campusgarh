@@ -48,6 +48,20 @@
   overflow: hidden;
 }
 
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.55) 55%,
+    rgba(0, 0, 0, 0.30) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* ══════════════════════════════════════
    HERO
    ══════════════════════════════════════ */
