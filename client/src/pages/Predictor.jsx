@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import {
+  FaBolt, FaRobot, FaSpinner, FaCheckCircle, FaExclamationTriangle,
+  FaUniversity, FaGraduationCap, FaFileAlt,
+} from 'react-icons/fa';
 import { predictorService } from '../services/predictorService';
 import Loader from '../components/common/Loader/Loader';
 import CollegeSearchInput from '../components/predictor/CollegeSearchInput';
@@ -66,7 +70,7 @@ const CollegeCard = ({ item }) => (
       )}
     </div>
     <span className={item.hasRealData ? styles.realDataBadge : styles.estimateBadge}>
-      {item.hasRealData ? '✓ Actual cutoff data' : '~ NIRF estimate'}
+      {item.hasRealData ? <><FaCheckCircle /> Actual cutoff data</> : '~ NIRF estimate'}
     </span>
     <Link to={`/colleges/${item.slug}`} className={styles.cardLink}>View College →</Link>
   </div>
@@ -309,6 +313,7 @@ const Predictor = () => {
   const [highestQualification, setHQual]          = useState('12th');
   const [aiAnalysis, setAiAnalysis] = useState('');
   const [aiLoading, setAiLoading]   = useState(false);
+  const [aiError, setAiError]       = useState(''); // 'unavailable' | 'failed' | ''
 
 
   const [type, setType]       = useState('college');
@@ -441,6 +446,7 @@ const Predictor = () => {
   const handleGetAIAnalysis = async () => {
     setAiLoading(true);
     setAiAnalysis('');
+    setAiError('');
     try {
       let analysisType, analysisResults, userProfile;
       if (type === 'college' && mode === 'analyze' && detail) {
@@ -461,9 +467,18 @@ const Predictor = () => {
         userProfile     = { discipline: eForm.discipline, level: eForm.level };
       }
       const res = await predictorService.analyzeResults({ type: analysisType, userProfile, results: analysisResults });
-      setAiAnalysis(res.data?.data?.analysis || 'No analysis returned.');
-    } catch {
-      setAiAnalysis('AI analysis failed. Make sure Ollama is running at localhost:11434.');
+      if (res.data?.code === 'OLLAMA_UNAVAILABLE' || res.status === 503) {
+        setAiError('unavailable');
+      } else {
+        setAiAnalysis(res.data?.data?.analysis || 'No analysis returned.');
+      }
+    } catch (err) {
+      const code = err?.response?.data?.code;
+      if (code === 'OLLAMA_UNAVAILABLE' || err?.response?.status === 503) {
+        setAiError('unavailable');
+      } else {
+        setAiError('failed');
+      }
     } finally {
       setAiLoading(false);
     }
@@ -555,7 +570,7 @@ const Predictor = () => {
                 </div>
               </div>
               <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading}>
-                {isLoading ? 'Predicting…' : '⚡ Predict Colleges'}
+                {isLoading ? 'Predicting…' : <><FaBolt /> Predict Colleges</>}
               </button>
             </div>
           )}
@@ -591,7 +606,7 @@ const Predictor = () => {
               </div>
               <button className={styles.predictBtn} onClick={handlePredict}
                 disabled={isLoading || !aForm.collegeId || !aForm.courseId}>
-                {isLoading ? 'Analysing…' : '⚡ Analyse My Chances'}
+                {isLoading ? 'Analysing…' : <><FaBolt /> Analyse My Chances</>}
               </button>
             </div>
           )}
@@ -664,7 +679,7 @@ const Predictor = () => {
                 </div>
               </div>
               <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading}>
-                {isLoading ? 'Predicting…' : '⚡ Recommend Courses'}
+                {isLoading ? 'Predicting…' : <><FaBolt /> Recommend Courses</>}
               </button>
             </div>
           )}
@@ -710,7 +725,7 @@ const Predictor = () => {
                 </div>
               </div>
               <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading || !cfForm.courseId}>
-                {isLoading ? 'Predicting…' : '⚡ Show My Chances'}
+                {isLoading ? 'Predicting…' : <><FaBolt /> Show My Chances</>}
               </button>
             </div>
           )}
@@ -758,7 +773,7 @@ const Predictor = () => {
                 <CourseSearchInput selected={eForm.targetCourseIds} onChange={val => setEForm(p => ({ ...p, targetCourseIds: val }))} />
               </div>
               <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading}>
-                {isLoading ? 'Predicting…' : '⚡ Predict Exams'}
+                {isLoading ? 'Predicting…' : <><FaBolt /> Predict Exams</>}
               </button>
             </div>
           )}
@@ -776,7 +791,7 @@ const Predictor = () => {
                 />
               </div>
               <button className={styles.predictBtn} onClick={handlePredict} disabled={isLoading || !mapCourseId}>
-                {isLoading ? 'Loading…' : '⚡ Show Exam Map'}
+                {isLoading ? 'Loading…' : <><FaBolt /> Show Exam Map</>}
               </button>
             </div>
           )}
@@ -875,7 +890,7 @@ const Predictor = () => {
                       </p>
                     )}
                     <span className={item.hasRealData ? styles.realDataBadge : styles.estimateBadge}>
-                      {item.hasRealData ? '✓ Cutoff data' : '~ NIRF estimate'}
+                      {item.hasRealData ? <><FaCheckCircle /> Cutoff data</> : '~ NIRF estimate'}
                     </span>
                     <Link to={`/colleges/${item.college?.slug}`} className={styles.cardLink}>View College →</Link>
                   </div>
@@ -935,23 +950,55 @@ const Predictor = () => {
       )}
       {/* ── AI Counsellor Panel ──────────────────────────────────────────── */}
       {triggered && !isLoading && (colleges.length > 0 || detail || courses.length > 0 || exams.length > 0 || courseColleges.length > 0) && (
-        <div style={{ margin: '1.5rem 0', padding: '1.25rem 1.5rem', background: 'var(--bg-soft,#F7F4EF)', borderRadius: 12, border: '1.5px solid var(--border,#E8E3DB)' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem', marginBottom: aiAnalysis ? '1rem' : 0 }}>
-            <div>
-              <p style={{ fontWeight: 800, fontSize: '0.95rem', color: 'var(--charcoal)', margin: 0 }}>AI Counsellor</p>
-              <p style={{ fontSize: '0.75rem', color: 'var(--muted)', margin: '0.2rem 0 0' }}>Powered by Qwen3:1.5B via Ollama · personalized advice based on your results</p>
+        <div className={styles.aiPanel}>
+          <div className={styles.aiPanelHeader}>
+            <div className={styles.aiPanelInfo}>
+              <span className={styles.aiPanelIcon}><FaRobot /></span>
+              <div>
+                <p className={styles.aiPanelTitle}>AI Counsellor</p>
+                <p className={styles.aiPanelSub}>Powered by Qwen3:1.5B via Ollama · personalized advice based on your results</p>
+              </div>
             </div>
             <button
+              className={styles.aiBtn}
               onClick={handleGetAIAnalysis}
               disabled={aiLoading}
-              style={{ flexShrink: 0, padding: '0.5rem 1.25rem', borderRadius: 8, background: 'var(--gold,#C9A84C)', color: '#fff', fontWeight: 700, fontSize: '0.85rem', border: 'none', cursor: aiLoading ? 'not-allowed' : 'pointer', opacity: aiLoading ? 0.7 : 1, transition: 'opacity 0.2s' }}>
-              {aiLoading ? '⏳ Analysing…' : '✨ Get AI Advice'}
+            >
+              {aiLoading
+                ? <><FaSpinner className={styles.spinIcon} /> Analysing…</>
+                : <><FaRobot /> Get AI Advice</>
+              }
             </button>
           </div>
+
+          {/* Analysis result */}
           {aiAnalysis && (
-            <p style={{ fontSize: '0.9rem', lineHeight: 1.75, color: 'var(--charcoal)', margin: 0, borderTop: '1px solid var(--border,#E8E3DB)', paddingTop: '0.85rem' }}>
-              {aiAnalysis}
-            </p>
+            <p className={styles.aiResult}>{aiAnalysis}</p>
+          )}
+
+          {/* Ollama not running */}
+          {aiError === 'unavailable' && (
+            <div className={styles.aiUnavailable}>
+              <FaExclamationTriangle className={styles.aiUnavailableIcon} />
+              <div>
+                <p className={styles.aiUnavailableTitle}>AI service unavailable</p>
+                <p className={styles.aiUnavailableSub}>
+                  This feature requires Ollama to be running locally.
+                  Run <code>ollama serve</code> and ensure the <strong>qwen3:1.5b</strong> model is pulled.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Generic error */}
+          {aiError === 'failed' && (
+            <div className={styles.aiUnavailable}>
+              <FaExclamationTriangle className={styles.aiUnavailableIcon} />
+              <div>
+                <p className={styles.aiUnavailableTitle}>Analysis failed</p>
+                <p className={styles.aiUnavailableSub}>Something went wrong. Please try again.</p>
+              </div>
+            </div>
           )}
         </div>
       )}

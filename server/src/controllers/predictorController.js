@@ -50,8 +50,19 @@ class PredictorController {
     else if (type === 'exams')          prompt = ollamaService.buildExamPredictionPrompt(profile, results);
     else return ResponseHandler.error(res, { message: 'Invalid type. Use: colleges, college-detail, courses, exams' }, 400);
 
-    const analysis = await ollamaService.generateAnalysis(prompt);
-    ResponseHandler.success(res, { analysis }, 'AI analysis generated');
+    try {
+      const analysis = await ollamaService.generateAnalysis(prompt);
+      ResponseHandler.success(res, { analysis }, 'AI analysis generated');
+    } catch (err) {
+      if (err.code === 'OLLAMA_UNAVAILABLE') {
+        return res.status(503).json({
+          status: 'error',
+          code: 'OLLAMA_UNAVAILABLE',
+          message: 'AI service is currently unavailable. Please start Ollama locally to use this feature.',
+        });
+      }
+      throw err;
+    }
   });
 
 

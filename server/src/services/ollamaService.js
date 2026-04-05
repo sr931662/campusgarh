@@ -4,21 +4,50 @@ const MODEL = process.env.OLLAMA_MODEL || 'qwen3:1.5b';
 // Strips Qwen3 thinking tags from response (Qwen3 outputs <think>...</think> by default)
 const stripThinking = (text) => text.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
 
-class OllamaService {
-  async generateAnalysis(prompt) {
-    const response = await fetch(`${OLLAMA_BASE}/api/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: MODEL,
-        prompt: `/no_think\n${prompt}`,
-        stream: false,
-        options: { temperature: 0.7, num_predict: 400 },
-      }),
-      signal: AbortSignal.timeout(35000),
-    });
+class OllamaUnavailableError extends Error {
+  constructor() {
+    super('Ollama service is not running');
+    this.statusCode = 503;
+    this.code = 'OLLAMA_UNAVAILABLE';
+  }
+}
 
-    if (!response.ok) throw new Error(`Ollama API error: ${response.status}`);
+class OllamaService {
+  async isAvailable() {
+    try {
+      const res = await fetch(`${OLLAMA_BASE}/api/tags`, { signal: AbortSignal.timeout(3000) });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  async generateAnalysis(prompt) {
+    let response;
+    try {
+      response = await fetch(`${OLLAMA_BASE}/api/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: MODEL,
+          prompt: `/no_think\n${prompt}`,
+          stream: false,
+          options: { temperature: 0.7, num_predict: 400 },
+        }),
+        signal: AbortSignal.timeout(35000),
+      });
+    } catch (err) {
+      // Network/connection error — Ollama not running
+      if (err.name === 'TypeError' || err.code === 'ECONNREFUSED' || err.name === 'AbortError') {
+        throw new OllamaUnavailableError();
+      }
+      throw err;
+    }
+
+    if (!response.ok) {
+      if (response.status === 404) throw new OllamaUnavailableError(); // model not found
+      throw new Error(`Ollama API error: ${response.status}`);
+    }
     const data = await response.json();
     return stripThinking(data.response || '') || 'Analysis unavailable.';
   }

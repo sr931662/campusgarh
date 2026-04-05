@@ -147,3 +147,122 @@
 
 .detailViewBtn  { display: inline-block; margin-top: 1rem; padding: 0.6rem 1.4rem; border-radius: 8px; background: var(--gold, #C9A84C); color: #fff; font-weight: 700; font-size: 0.88rem; text-decoration: none; }
 .detailViewBtn:hover { opacity: 0.87; }
+
+/* ── AI Counsellor Panel ─────────────────────────────────────────────────── */
+.aiPanel {
+  margin: 1.5rem 0;
+  background: var(--warm-white, #FFFEF9);
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--gold, #C9A84C);
+}
+
+.aiPanelHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.aiPanelInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.aiPanelIcon {
+  font-size: 1.35rem;
+  color: var(--gold, #C9A84C);
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+.aiPanelTitle {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--charcoal, #1C1C1E);
+  margin: 0;
+}
+
+.aiPanelSub {
+  font-size: 0.74rem;
+  color: var(--muted, #8A8A8E);
+  margin: 0.2rem 0 0;
+  font-family: var(--font-mono, monospace);
+}
+
+.aiBtn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  background: var(--gold, #C9A84C);
+  color: var(--deep, #0A0A0F);
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  font-family: var(--font-body, sans-serif);
+}
+.aiBtn:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+.aiBtn:disabled { opacity: 0.65; cursor: not-allowed; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinIcon { animation: spin 0.9s linear infinite; }
+
+.aiResult {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--charcoal, #1C1C1E);
+  margin: 1rem 0 0;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--border, #E8E3DB);
+}
+
+/* ── Unavailable / Error state ───────────────────────────────────────────── */
+.aiUnavailable {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.875rem;
+  padding: 0.875rem 1rem;
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-radius: 10px;
+}
+
+.aiUnavailableIcon {
+  color: #ef4444;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.aiUnavailableTitle {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--charcoal, #1C1C1E);
+  margin: 0 0 0.2rem;
+}
+
+.aiUnavailableSub {
+  font-size: 0.8rem;
+  color: var(--muted, #8A8A8E);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.aiUnavailableSub code {
+  background: var(--cream, #FAF7F2);
+  border: 1px solid var(--border, #E8E3DB);
+  border-radius: 4px;
+  padding: 0.05em 0.35em;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9em;
+  color: var(--charcoal);
+}

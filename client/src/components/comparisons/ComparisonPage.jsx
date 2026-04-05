@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaUniversity, FaGraduationCap, FaFileAlt } from 'react-icons/fa';
 import { useAuth } from '../../store/authStore';
 import { useCreateComparison } from '../../hooks/queries';
 import ComparisonSelector from './ComparisonSelector';
@@ -7,9 +8,9 @@ import Button from '../common/Button/Button';
 import styles from './ComparisonPage.module.css';
 
 const TYPES = [
-  { key: 'college', label: 'Colleges', icon: '🏛️', desc: 'Compare fees, placements, rankings & more' },
-  { key: 'course',  label: 'Courses',  icon: '🎓', desc: 'Compare duration, eligibility & fee ranges' },
-  { key: 'exam',    label: 'Exams',    icon: '📝', desc: 'Compare exam modes, frequency & fees' },
+  { key: 'college', label: 'Colleges', icon: <FaUniversity />, desc: 'Compare fees, placements, rankings & more' },
+  { key: 'course',  label: 'Courses',  icon: <FaGraduationCap />, desc: 'Compare duration, eligibility & fee ranges' },
+  { key: 'exam',    label: 'Exams',    icon: <FaFileAlt />, desc: 'Compare exam modes, frequency & fees' },
 ];
 
 const ComparisonPage = () => {
