@@ -956,7 +956,7 @@ const Predictor = () => {
               <span className={styles.aiPanelIcon}><FaRobot /></span>
               <div>
                 <p className={styles.aiPanelTitle}>AI Counsellor</p>
-                <p className={styles.aiPanelSub}>Powered by Qwen3:1.5B via Ollama · personalized advice based on your results</p>
+                <p className={styles.aiPanelSub}>AI-powered · personalized advice based on your results</p>
               </div>
             </div>
             <button
@@ -983,8 +983,8 @@ const Predictor = () => {
               <div>
                 <p className={styles.aiUnavailableTitle}>AI service unavailable</p>
                 <p className={styles.aiUnavailableSub}>
-                  This feature requires Ollama to be running locally.
-                  Run <code>ollama serve</code> and ensure the <strong>qwen3:1.5b</strong> model is pulled.
+                  Set a <code>GROQ_API_KEY</code> in your backend <code>.env</code> for cloud AI,
+                  or run Ollama locally with <code>ollama serve</code>.
                 </p>
               </div>
             </div>

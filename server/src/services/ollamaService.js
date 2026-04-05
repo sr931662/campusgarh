@@ -1,56 +1,129 @@
-const OLLAMA_BASE = process.env.OLLAMA_URL || 'http://localhost:11434';
-const MODEL = process.env.OLLAMA_MODEL || 'qwen3:1.5b';
+/**
+ * AI Analysis Service
+ *
+ * Priority order:
+ *   1. Groq API  — if GROQ_API_KEY is set (free, cloud, fast, works on Vercel/any host)
+ *   2. Ollama    — local fallback at OLLAMA_URL (default: http://localhost:11434)
+ *
+ * Setup for production (Groq — recommended):
+ *   1. Sign up free at https://console.groq.com
+ *   2. Create an API key
+ *   3. Add to backend .env:  GROQ_API_KEY=gsk_xxxxxxxxxxxx
+ *
+ * Setup for local dev (Ollama):
+ *   1. Install Ollama: https://ollama.com
+ *   2. Run: ollama pull qwen3:1.5b && ollama serve
+ *   3. Leave GROQ_API_KEY unset and backend will auto-use Ollama
+ */
 
-// Strips Qwen3 thinking tags from response (Qwen3 outputs <think>...</think> by default)
+const GROQ_API_KEY  = process.env.GROQ_API_KEY;
+const GROQ_MODEL    = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+const GROQ_BASE     = 'https://api.groq.com/openai/v1';
+
+const OLLAMA_BASE   = process.env.OLLAMA_URL  || 'http://localhost:11434';
+const OLLAMA_MODEL  = process.env.OLLAMA_MODEL || 'qwen3:1.5b';
+
+// Strips Qwen3 thinking tags
 const stripThinking = (text) => text.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
 
-class OllamaUnavailableError extends Error {
-  constructor() {
-    super('Ollama service is not running');
+// ─── Custom errors ────────────────────────────────────────────────────────────
+
+class AIUnavailableError extends Error {
+  constructor(message = 'AI service is unavailable') {
+    super(message);
     this.statusCode = 503;
-    this.code = 'OLLAMA_UNAVAILABLE';
+    this.code = 'OLLAMA_UNAVAILABLE'; // keep same code for frontend compat
   }
 }
 
+// ─── Groq provider ───────────────────────────────────────────────────────────
+
+async function callGroq(prompt) {
+  const response = await fetch(`${GROQ_BASE}/chat/completions`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${GROQ_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.7,
+      max_tokens: 400,
+    }),
+    signal: AbortSignal.timeout(30000),
+  });
+
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(`Groq API error ${response.status}: ${err?.error?.message || 'unknown'}`);
+  }
+
+  const data = await response.json();
+  return data.choices?.[0]?.message?.content?.trim() || 'Analysis unavailable.';
+}
+
+// ─── Ollama provider ──────────────────────────────────────────────────────────
+
+async function callOllama(prompt) {
+  let response;
+  try {
+    response = await fetch(`${OLLAMA_BASE}/api/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: OLLAMA_MODEL,
+        prompt: `/no_think\n${prompt}`,
+        stream: false,
+        options: { temperature: 0.7, num_predict: 400 },
+      }),
+      signal: AbortSignal.timeout(35000),
+    });
+  } catch (err) {
+    // Connection refused / network error — Ollama not running
+    throw new AIUnavailableError(
+      'Ollama is not reachable. Start it with: ollama serve'
+    );
+  }
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new AIUnavailableError(
+        `Ollama model "${OLLAMA_MODEL}" not found. Run: ollama pull ${OLLAMA_MODEL}`
+      );
+    }
+    throw new Error(`Ollama error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return stripThinking(data.response || '') || 'Analysis unavailable.';
+}
+
+// ─── OllamaService (main export) ─────────────────────────────────────────────
+
 class OllamaService {
-  async isAvailable() {
+  /**
+   * Generate AI analysis — tries Groq first if key is set, else Ollama.
+   */
+  async generateAnalysis(prompt) {
+    if (GROQ_API_KEY) {
+      return callGroq(prompt);
+    }
+    return callOllama(prompt);
+  }
+
+  /** Health check — returns { available: bool, provider: string } */
+  async checkHealth() {
+    if (GROQ_API_KEY) return { available: true, provider: 'groq' };
     try {
       const res = await fetch(`${OLLAMA_BASE}/api/tags`, { signal: AbortSignal.timeout(3000) });
-      return res.ok;
+      return { available: res.ok, provider: 'ollama' };
     } catch {
-      return false;
+      return { available: false, provider: 'ollama' };
     }
   }
 
-  async generateAnalysis(prompt) {
-    let response;
-    try {
-      response = await fetch(`${OLLAMA_BASE}/api/generate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: MODEL,
-          prompt: `/no_think\n${prompt}`,
-          stream: false,
-          options: { temperature: 0.7, num_predict: 400 },
-        }),
-        signal: AbortSignal.timeout(35000),
-      });
-    } catch (err) {
-      // Network/connection error — Ollama not running
-      if (err.name === 'TypeError' || err.code === 'ECONNREFUSED' || err.name === 'AbortError') {
-        throw new OllamaUnavailableError();
-      }
-      throw err;
-    }
-
-    if (!response.ok) {
-      if (response.status === 404) throw new OllamaUnavailableError(); // model not found
-      throw new Error(`Ollama API error: ${response.status}`);
-    }
-    const data = await response.json();
-    return stripThinking(data.response || '') || 'Analysis unavailable.';
-  }
+  // ─── Prompt builders (unchanged) ───────────────────────────────────────────
 
   buildCollegePredictionPrompt(userProfile, topColleges) {
     const top5 = topColleges.slice(0, 5).map((c, i) =>
