@@ -6,8 +6,8 @@
 export function parseMarkdown(md) {
   if (!md) return '';
 
-  // If content already looks like HTML, return as-is
-  if (/^[\s\S]*?<(h[1-6]|p|div|ul|ol|table|section)\b/i.test(md)) return md;
+  // If content starts with an HTML tag, return as-is (rich-text editor output)
+  if (md.trimStart().startsWith('<')) return md;
 
   let html = md;
 

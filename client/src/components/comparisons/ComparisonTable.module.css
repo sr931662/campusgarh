@@ -1,62 +1,145 @@
+/* ══════════════════════════════════════
+   COMPARISON TABLE — CAMPUSGARH THEME
+   ══════════════════════════════════════ */
+
 .tableWrapper {
   overflow-x: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-  border: 1px solid #E8E3DB;
-  margin-top: 1.5rem;
+  border-radius: var(--radius, 16px);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+  border: 1.5px solid var(--border, #E8E3DB);
+  margin-top: 2rem;
+  -webkit-overflow-scrolling: touch;
 }
+
 .table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-}
-.table th,
-.table td {
-  padding: 0.85rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #F0EBE1;
-  color: #1C1C1E;
-}
-.table thead tr {
-  border-top: 3px solid #C9A84C;
-}
-.table th {
-  background: #FBF8F2;
-  font-weight: 700;
-  font-size: 0.875rem;
-  color: #C9A84C;
-}
-.table th:first-child {
-  color: #9CA3AF;
-  font-weight: 600;
-}
-.table tbody tr:nth-child(even) td {
-  background: #FAFAF8;
-}
-.table tbody tr:hover td {
-  background: #FBF8F2;
-  transition: background 0.15s;
-}
-.paramLabel {
-  font-weight: 600;
-  background: #F5F0E8 !important;
-  color: #374151;
-  min-width: 130px;
-  font-size: 0.82rem;
+  background: var(--warm-white, #FFFEF9);
+  min-width: 520px;
 }
 
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.table thead tr {
+  border-bottom: 2px solid var(--border, #E8E3DB);
+  background: var(--deep, #0A0A0F);
+}
+
+.table th {
+  padding: 1.125rem 1.25rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--warm-white, #FFFEF9);
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  letter-spacing: -0.01em;
+  vertical-align: middle;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.table th:last-child {
+  border-right: none;
+}
+
+/* First column header (Parameter label) */
+.table th:first-child {
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  min-width: 140px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Gold top accent line on header */
+.table thead tr::before {
+  display: none;
+}
+
+/* ── Body rows ───────────────────────────────────────────────────────────── */
+.table td {
+  padding: 0.875rem 1.25rem;
+  text-align: left;
+  font-size: 0.875rem;
+  color: var(--charcoal, #1C1C1E);
+  border-bottom: 1px solid var(--border, #E8E3DB);
+  border-right: 1px solid var(--border, #E8E3DB);
+  vertical-align: middle;
+  transition: background 0.12s;
+  line-height: 1.5;
+}
+
+.table td:last-child {
+  border-right: none;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Alternating rows */
+.table tbody tr:nth-child(even) td {
+  background: var(--cream, #FAF7F2);
+}
+
+/* Row hover */
+.table tbody tr:hover td {
+  background: rgba(201, 168, 76, 0.05);
+}
+
+/* ── Parameter label (first column) ──────────────────────────────────────── */
+.paramLabel {
+  font-weight: 600;
+  color: var(--charcoal, #1C1C1E);
+  font-size: 0.78rem;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  background: var(--cream, #FAF7F2) !important;
+  border-right: 2px solid var(--border, #E8E3DB) !important;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+/* N/A values — dimmed */
+.table td:not(.paramLabel) {
+  font-weight: 500;
+}
+
+/* ── Gold top border accent ──────────────────────────────────────────────── */
+.tableWrapper {
+  border-top: 3px solid var(--gold, #C9A84C);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .table th, .table td {
-    padding: 0.5rem 0.6rem;
+  .table th,
+  .table td {
+    padding: 0.7rem 0.875rem;
     font-size: 0.8rem;
   }
+  .table th:first-child,
+  .paramLabel {
+    font-size: 0.65rem;
+    min-width: 110px;
+    padding: 0.7rem 0.75rem;
+  }
 }
+
 @media (max-width: 480px) {
-  .table th, .table td {
-    padding: 0.4rem 0.35rem;
+  .table th,
+  .table td {
+    padding: 0.55rem 0.6rem;
     font-size: 0.72rem;
   }
-  .tableWrapper {
-    -webkit-overflow-scrolling: touch;
+  .table th:first-child,
+  .paramLabel {
+    font-size: 0.6rem;
+    min-width: 90px;
+    padding: 0.55rem 0.5rem;
   }
 }

@@ -54,16 +54,17 @@
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.82) 0%,
-    rgba(0, 0, 0, 0.55) 55%,
-    rgba(0, 0, 0, 0.30) 100%
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.80) 30%,
+    rgba(0, 0, 0, 0.45) 58%,
+    rgba(0, 0, 0, 0.05) 100%
   );
   z-index: 0;
   pointer-events: none;
 }
 
 /* ══════════════════════════════════════
-   HERO
+   HERO NOISE — subtle color accents only, no heavy dark overlay
    ══════════════════════════════════════ */
 .heroNoise {
   position: absolute;
@@ -71,26 +72,8 @@
   pointer-events: none;
   z-index: 0;
   background:
-    linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.75) 100%),
-    radial-gradient(ellipse at 15% 60%, rgba(201, 168, 76, 0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 20%, rgba(26, 107, 74, 0.07) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 100%, rgba(201, 168, 76, 0.05) 0%, transparent 40%);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
-}
-
-
-
-/* Noise / grain texture */
-.heroNoise {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse at 15% 60%, rgba(201, 168, 76, 0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 20%, rgba(26, 107, 74, 0.07) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 100%, rgba(201, 168, 76, 0.05) 0%, transparent 40%);
+    radial-gradient(ellipse at 10% 70%, rgba(201, 168, 76, 0.10) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 100%, rgba(201, 168, 76, 0.04) 0%, transparent 35%);
 }
 
 .heroInner {
@@ -99,6 +82,10 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 4rem 0 5rem;
+  /* Constrain content to left ~58% so background image is visible on right */
+  width: 58%;
+  margin-left: max(2rem, calc((100vw - 1200px) / 2));
+  margin-right: 0;
 }
 
 /* Breadcrumb */
@@ -682,7 +669,7 @@
 
 /* ── Responsive ────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .heroInner { padding: 0 1.25rem 0 1.5rem; }
+  .heroInner { padding: 0 1.25rem 0 1.5rem; width: 100%; margin-left: 0; }
   .hero { padding: 2.5rem 0 2rem; }
   .heroName { font-size: 2rem; }
   .statsStrip { gap: 0.5rem; }

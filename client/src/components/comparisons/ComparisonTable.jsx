@@ -47,14 +47,28 @@ const ComparisonTable = ({ type = 'college', items }) => {
         <thead>
           <tr>
             <th>Parameter</th>
-            {items.map(item => <th key={item._id}>{item.name}</th>)}
+            {items.map((item, idx) => (
+              <th key={item._id}>
+                {item.logoUrl
+                  ? <img src={item.logoUrl} alt={item.name} style={{ width: 28, height: 28, objectFit: 'contain', borderRadius: 6, verticalAlign: 'middle', marginRight: '0.5rem', background: 'rgba(255,255,255,0.08)', padding: 2 }} />
+                  : null}
+                {item.name}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {rows.map(row => (
             <tr key={row.label}>
               <td className={styles.paramLabel}>{row.label}</td>
-              {items.map(item => <td key={item._id}>{row.get(item) ?? 'N/A'}</td>)}
+              {items.map(item => {
+                const val = row.get(item);
+                return (
+                  <td key={item._id} style={val === 'N/A' || val === 'Not Ranked' ? { color: 'var(--muted, #8A8A8E)', fontWeight: 400 } : {}}>
+                    {val ?? 'N/A'}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

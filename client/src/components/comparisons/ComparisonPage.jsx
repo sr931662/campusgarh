@@ -7,9 +7,9 @@ import Button from '../common/Button/Button';
 import styles from './ComparisonPage.module.css';
 
 const TYPES = [
-  { key: 'college', label: 'Colleges' },
-  { key: 'course',  label: 'Courses'  },
-  { key: 'exam',    label: 'Exams'    },
+  { key: 'college', label: 'Colleges', icon: '🏛️', desc: 'Compare fees, placements, rankings & more' },
+  { key: 'course',  label: 'Courses',  icon: '🎓', desc: 'Compare duration, eligibility & fee ranges' },
+  { key: 'exam',    label: 'Exams',    icon: '📝', desc: 'Compare exam modes, frequency & fees' },
 ];
 
 const ComparisonPage = () => {
@@ -18,6 +18,8 @@ const ComparisonPage = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [saveStatus, setSaveStatus] = useState('');
   const createComparisonMutation = useCreateComparison();
+
+  const activeType = TYPES.find(t => t.key === type);
 
   const handleTypeChange = (newType) => {
     setType(newType);
@@ -44,73 +46,106 @@ const ComparisonPage = () => {
 
     try {
       await createComparisonMutation.mutateAsync(payload);
-      setSaveStatus('Comparison saved!');
+      setSaveStatus('saved');
     } catch {
-      setSaveStatus('Failed to save.');
+      setSaveStatus('error');
     }
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Compare</h1>
-      <p className={styles.subtitle}>Select up to 4 items to compare side by side</p>
-
-      {/* Type Tabs */}
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
-        {TYPES.map(t => (
-          <button
-            key={t.key}
-            onClick={() => handleTypeChange(t.key)}
-            style={{
-              padding: '0.45rem 1.2rem',
-              borderRadius: '20px',
-              border: '1px solid',
-              cursor: 'pointer',
-              fontWeight: 600,
-              fontSize: '0.875rem',
-              background: type === t.key ? 'var(--gold, #C9A84C)' : 'transparent',
-              color: type === t.key ? '#fff' : 'var(--charcoal, #1C1C1E)',
-              borderColor: type === t.key ? 'var(--gold, #C9A84C)' : 'var(--border, #E8E3DB)',
-              transition: 'all 0.2s',
-            }}
-          >
-            {t.label}
-          </button>
-        ))}
+    <div className={styles.page}>
+      {/* ── Hero Header ── */}
+      <div className={styles.hero}>
+        <div className={styles.heroInner}>
+          <p className={styles.heroEyebrow}>Side-by-side comparison</p>
+          <h1 className={styles.heroTitle}>Compare &amp; Decide</h1>
+          <p className={styles.heroDesc}>
+            Add up to 4 {activeType?.label.toLowerCase()} and compare them across all key parameters to make the right choice.
+          </p>
+        </div>
       </div>
 
-      <ComparisonSelector
-        key={type}
-        type={type}
-        selectedItems={selectedItems}
-        onAdd={addItem}
-        onRemove={removeItem}
-      />
+      <div className={styles.container}>
+        {/* ── Type Tabs ── */}
+        <div className={styles.typeGroup}>
+          {TYPES.map(t => (
+            <button
+              key={t.key}
+              className={`${styles.typeTab} ${type === t.key ? styles.typeTabActive : ''}`}
+              onClick={() => handleTypeChange(t.key)}
+            >
+              <span className={styles.typeIcon}>{t.icon}</span>
+              <span>{t.label}</span>
+            </button>
+          ))}
+        </div>
 
+        {/* ── Selector ── */}
+        <div className={styles.selectorWrap}>
+          <div className={styles.selectorLabel}>
+            <span className={styles.selectorCount}>
+              {selectedItems.length} / 4 selected
+            </span>
+            {selectedItems.length < 2 && (
+              <span className={styles.selectorHint}>Add at least 2 {activeType?.label.toLowerCase()} to compare</span>
+            )}
+          </div>
+          <ComparisonSelector
+            key={type}
+            type={type}
+            selectedItems={selectedItems}
+            onAdd={addItem}
+            onRemove={removeItem}
+          />
+        </div>
 
-      {selectedItems.length >= 2 && (
-        <>
-          <ComparisonTable type={type} items={selectedItems} />
-          {isAuthenticated && (
-            <div className={styles.actions}>
-              <Button
-                variant="primary"
-                onClick={saveComparison}
-                loading={createComparisonMutation.isPending}
-              >
-                Save Comparison
-              </Button>
-              {saveStatus && <span style={{ marginLeft: '1rem', fontSize: '0.875rem', color: '#10b981' }}>{saveStatus}</span>}
+        {/* ── Comparison Table ── */}
+        {selectedItems.length >= 2 ? (
+          <>
+            <ComparisonTable type={type} items={selectedItems} />
+
+            {isAuthenticated && (
+              <div className={styles.actions}>
+                <Button
+                  variant="primary"
+                  onClick={saveComparison}
+                  loading={createComparisonMutation.isPending}
+                >
+                  Save Comparison
+                </Button>
+                {saveStatus === 'saved' && (
+                  <span className={styles.saveSuccess}>Comparison saved successfully!</span>
+                )}
+                {saveStatus === 'error' && (
+                  <span className={styles.saveError}>Failed to save. Please try again.</span>
+                )}
+              </div>
+            )}
+          </>
+        ) : (
+          <div className={styles.emptyState}>
+            <div className={styles.emptyIcon}>{activeType?.icon}</div>
+            <h3 className={styles.emptyTitle}>No comparison yet</h3>
+            <p className={styles.emptyDesc}>{activeType?.desc}</p>
+            <div className={styles.emptySteps}>
+              <div className={styles.emptyStep}>
+                <span className={styles.stepNum}>1</span>
+                <span>Search for a {activeType?.label.slice(0, -1).toLowerCase()}</span>
+              </div>
+              <div className={styles.emptyStepArrow}>→</div>
+              <div className={styles.emptyStep}>
+                <span className={styles.stepNum}>2</span>
+                <span>Add at least 2 items</span>
+              </div>
+              <div className={styles.emptyStepArrow}>→</div>
+              <div className={styles.emptyStep}>
+                <span className={styles.stepNum}>3</span>
+                <span>Compare side by side</span>
+              </div>
             </div>
-          )}
-        </>
-      )}
-
-      {selectedItems.length < 2 && selectedItems.length > 0 && (
-        <p style={{ color: '#9ca3af', marginTop: '1rem', textAlign: 'center' }}>
-          Add at least one more {type} to compare.
-        </p>
-      )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
