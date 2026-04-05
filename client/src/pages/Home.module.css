@@ -811,9 +811,9 @@
 }
 
 .examRowName {
-  font-size: 1rem;              /* was 0.975rem — match TopCourses .name */
+  font-size: 1rem;
   font-weight: 700;
-  color: #fff;                  /* was var(--charcoal) — exam section is dark bg */
+  color: var(--charcoal, #1C1C1E);
   font-family: var(--font-display);
   letter-spacing: -0.015em;
 }

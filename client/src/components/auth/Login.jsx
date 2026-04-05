@@ -5,14 +5,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLogin } from '../../hooks/queries';
 import { loginValidationSchema } from '../../utils/validators';
-import Button from '../common/Button/Button';
-import Card from '../common/Card/Card';
 import styles from './Login.module.css';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../../store/authStore';
 import { authService } from '../../services/authService';
 import { toast } from 'react-toastify';
-
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,12 +35,7 @@ const Login = () => {
     }
   };
 
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(loginValidationSchema),
   });
 
@@ -51,96 +43,122 @@ const Login = () => {
     try {
       const result = await loginMutation.mutateAsync(data);
       const { user } = result.data.data;
-      if (user.role === 'admin')           navigate('/dashboard/admin');
-      else if (user.role === 'counsellor') navigate('/dashboard/counsellor');
-      else if (user.role === 'moderator')  navigate('/dashboard/moderator');
+      if (user.role === 'admin')               navigate('/dashboard/admin');
+      else if (user.role === 'counsellor')     navigate('/dashboard/counsellor');
+      else if (user.role === 'moderator')      navigate('/dashboard/moderator');
       else if (user.role === 'institution_rep') navigate('/dashboard/institution-rep');
-      else if (user.role === 'partner')    navigate('/partner/dashboard');
-      else                                 navigate('/dashboard/student');
-    } catch (error) {
-      // Error is already handled by the mutation's onError
-    }
+      else if (user.role === 'partner')        navigate('/partner/dashboard');
+      else                                     navigate('/dashboard/student');
+    } catch {}
   };
 
   return (
-    <div className={styles.container}>
-      <Card className={styles.card} padding="lg">
-        <h2 className={styles.title}>Welcome Back</h2>
-        <p className={styles.subtitle}>Login to your CampusGarh account</p>
-
-        {stateMessage && (
-          <div className={styles.successBanner}>{stateMessage}</div>
-        )}
-
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              {...register('email')}
-              className={errors.email ? styles.error : ''}
-              placeholder="you@example.com"
-            />
-            {errors.email && <span className={styles.errorMsg}>{errors.email.message}</span>}
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="password">Password</label>
-            <div className={styles.passwordWrapper}>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                id="password"
-                {...register('password')}
-                className={errors.password ? styles.error : ''}
-                placeholder="••••••"
-              />
-              <button
-                type="button"
-                className={styles.togglePassword}
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
+    <div className={styles.page}>
+      {/* ── LEFT PANEL ── */}
+      <div className={styles.leftPanel}>
+        <div className={styles.leftInner}>
+          <Link to="/" className={styles.brandLink}>
+            <span className={styles.brandDot} />
+            CampusGarh
+          </Link>
+          <div className={styles.leftBody}>
+            <h2 className={styles.leftHeading}>
+              Your dream college<br />starts here.
+            </h2>
+            <p className={styles.leftSub}>
+              5,000+ colleges · 200+ courses · Expert counselling — all free.
+            </p>
+            <div className={styles.leftStats}>
+              {[['10L+', 'Students'],['5K+','Colleges'],['Free','Counselling']].map(([n,l]) => (
+                <div key={l} className={styles.leftStat}>
+                  <span className={styles.leftStatNum}>{n}</span>
+                  <span className={styles.leftStatLabel}>{l}</span>
+                </div>
+              ))}
             </div>
-            {errors.password && <span className={styles.errorMsg}>{errors.password.message}</span>}
+          </div>
+          <p className={styles.leftFooter}>© 2025 CampusGarh</p>
+        </div>
+      </div>
+
+      {/* ── RIGHT PANEL (form) ── */}
+      <div className={styles.rightPanel}>
+        <div className={styles.formWrap}>
+
+          <div className={styles.formHeader}>
+            <h1 className={styles.title}>Welcome back</h1>
+            <p className={styles.subtitle}>Sign in to your account</p>
           </div>
 
-          <div className={styles.forgotPassword}>
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </div>
+          {stateMessage && (
+            <div className={styles.successBanner}>{stateMessage}</div>
+          )}
 
-          <Button
-            type="submit"
-            variant="primary"
-            fullWidth
-            loading={loginMutation.isPending}
-            disabled={loginMutation.isPending}
-          >
-            Login
-          </Button>
-
-          <div className={styles.divider}>
-            <span>or</span>
-          </div>
-
+          {/* Google */}
           <div className={styles.googleBtn}>
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               onError={() => toast.error('Google sign-in failed.')}
-              // useOneTap
               text="signin_with"
               shape="rectangular"
+              width="100%"
             />
           </div>
 
+          <div className={styles.divider}><span>or continue with email</span></div>
 
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+            <div className={styles.formGroup}>
+              <label htmlFor="email">Email address</label>
+              <input
+                type="email"
+                id="email"
+                {...register('email')}
+                className={errors.email ? styles.inputError : styles.input}
+                placeholder="you@example.com"
+                autoComplete="email"
+              />
+              {errors.email && <span className={styles.errorMsg}>{errors.email.message}</span>}
+            </div>
 
-          <div className={styles.registerLink}>
-            Don't have an account? <Link to="/register">Register here</Link>
-          </div>
-        </form>
-      </Card>
+            <div className={styles.formGroup}>
+              <div className={styles.labelRow}>
+                <label htmlFor="password">Password</label>
+                <Link to="/forgot-password" className={styles.forgotLink}>Forgot password?</Link>
+              </div>
+              <div className={styles.passwordWrapper}>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  {...register('password')}
+                  className={errors.password ? styles.inputError : styles.input}
+                  placeholder="••••••••"
+                  autoComplete="current-password"
+                />
+                <button type="button" className={styles.togglePassword} onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+              {errors.password && <span className={styles.errorMsg}>{errors.password.message}</span>}
+            </div>
+
+            <button
+              type="submit"
+              className={styles.submitBtn}
+              disabled={loginMutation.isPending}
+            >
+              {loginMutation.isPending ? (
+                <span className={styles.spinner} />
+              ) : 'Sign in'}
+            </button>
+          </form>
+
+          <p className={styles.switchLink}>
+            Don't have an account?{' '}
+            <Link to="/register">Create one free →</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

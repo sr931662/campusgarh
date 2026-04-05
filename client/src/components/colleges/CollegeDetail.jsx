@@ -242,15 +242,9 @@ export default function CollegeDetail() {
                 Visit Website ↗
               </a>
             )}
-            {/* Apply Now always opens enquiry modal */}
+            {/* Apply Now opens enquiry modal */}
             <button className={styles.btnPrimary} onClick={() => setShowEnquiryModal(true)}>
               Apply Now ↗
-            </button>
-            <button
-              className={styles.btnEnquiry}
-              onClick={() => setShowEnquiryModal(true)}
-            >
-              <FaEnvelope /> Enquire Now
             </button>
             {isAuthenticated && (
               <button
