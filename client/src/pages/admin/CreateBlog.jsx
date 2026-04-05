@@ -4,6 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { blogService } from '../../services/blogService';
 import { mediaService } from '../../services/mediaService';
 import { BLOG_STATUS } from '../../utils/constants';
+import { parseMarkdown } from '../../utils/parseMarkdown';
 import styles from './AdminForm.module.css';
 
 const EMPTY_FORM = {
@@ -208,18 +209,39 @@ const CreateBlog = () => {
         {/* ── Content ── */}
         <div className={styles.section}>
           <div className={styles.sectionTitle}>Content <span style={{ color: 'var(--gold)' }}>*</span></div>
-          <div className={styles.field}>
-            <textarea
-              name="content"
-              value={form.content}
-              onChange={handleChange}
-              required
-              placeholder="Write the full blog post content here. Markdown is supported..."
-              rows={20}
-              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}
-            />
-            <span className={styles.hint}>Markdown supported</span>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div className={styles.field}>
+              <label style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.4)', marginBottom: '0.4rem', display: 'block' }}>Markdown Editor</label>
+              <textarea
+                name="content"
+                value={form.content}
+                onChange={handleChange}
+                required
+                placeholder="Write the full blog post content here. Markdown is supported..."
+                rows={24}
+                style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', width: '100%', resize: 'vertical' }}
+              />
+            </div>
+            <div className={styles.field}>
+              <label style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.4)', marginBottom: '0.4rem', display: 'block' }}>Preview</label>
+              <div
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(form.content) || '<p style="color:#6b7280">Preview will appear here…</p>' }}
+                style={{
+                  background: '#fff',
+                  borderRadius: '8px',
+                  padding: '1.25rem',
+                  minHeight: '200px',
+                  fontSize: '0.9rem',
+                  lineHeight: '1.75',
+                  color: '#1C1C1E',
+                  overflowY: 'auto',
+                  maxHeight: '600px',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
+              />
+            </div>
           </div>
+          <span className={styles.hint}>Markdown supported — preview updates live</span>
         </div>
 
         {/* ── Content Classification ── */}

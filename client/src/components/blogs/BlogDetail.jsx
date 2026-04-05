@@ -6,6 +6,7 @@ import Loader from '../common/Loader/Loader';
 import Button from '../common/Button/Button';
 import styles from './BlogDetail.module.css';
 import { formatDate } from '../../utils/formatters';
+import { parseMarkdown } from '../../utils/parseMarkdown';
 
 const CONTENT_TYPE_COLORS = {
   Guide: '#3b82f6', News: '#f59e0b', Ranking: '#8b5cf6',
@@ -193,7 +194,7 @@ const BlogDetail = () => {
           <div className={`${styles.layout} ${hasSidebar ? styles.withSidebar : ''}`}>
             {/* Main Article */}
             <article className={styles.main}>
-              <div ref={bodyRef} className={styles.body} dangerouslySetInnerHTML={{ __html: blog.content }} />
+              <div ref={bodyRef} className={styles.body} dangerouslySetInnerHTML={{ __html: parseMarkdown(blog.content) }} />
 
               {blog.relatedBlogs?.length > 0 && (
                 <div className={styles.related}>

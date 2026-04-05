@@ -168,6 +168,61 @@
 
 .logoutBtn { font-size: 0.78rem; }
 
+/* ── User dropdown ── */
+.userMenu {
+  position: relative;
+}
+
+.userMenuTrigger {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  border: none;
+}
+
+.userDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.06);
+  border: 1px solid #E8E3DB;
+  border-top: 2px solid #C9A84C;
+  min-width: 160px;
+  padding: 0.4rem;
+  z-index: 300;
+  animation: megaIn 0.15s ease;
+}
+
+.userDropdownLink {
+  display: block;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.85rem;
+  color: #374151;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.userDropdownLink:hover { background: #FBF8F2; color: #C9A84C; }
+
+.userDropdownLogout {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.85rem;
+  color: #ef4444;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.userDropdownLogout:hover { background: rgba(239,68,68,0.07); }
+
 .actionLabel { font-size: 0.68rem; font-weight: 500; line-height: 1; }
 
 .ctaBtn {
@@ -199,7 +254,7 @@
 .opaque .hamburger { color: #1C1C1E; }
 
 /* ══ BOTTOM NAV ══ */
-.bottomNav { /* desktop only */ }
+.bottomNav { display: block; }
 
 .bottomNavInner {
   max-width: 1320px;
@@ -288,7 +343,7 @@
 .megaCols3 { grid-template-columns: repeat(3, 1fr); }
 .megaCols4 { grid-template-columns: repeat(4, 1fr); }
 
-.megaSection { /* column */ }
+.megaSection { display: flex; flex-direction: column; }
 
 .megaSectionTitle {
   font-size: 0.68rem;

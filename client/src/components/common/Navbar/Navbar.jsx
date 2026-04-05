@@ -144,6 +144,7 @@ const Navbar = () => {
   const [activeMenu,   setActiveMenu]   = useState(null);  // key or null
   const [searchQuery,  setSearchQuery]  = useState('');
   const [mobileExpanded, setMobileExpanded] = useState(null);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const isHome   = location.pathname === '/';
   const isOpaque = !isHome || isScrolled;
@@ -252,19 +253,30 @@ const Navbar = () => {
             </Link>
 
             {isAuthenticated ? (
-              <>
-                <Link to="/profile" className={styles.actionBtn}>
+              <div
+                className={styles.userMenu}
+                onMouseEnter={() => setUserMenuOpen(true)}
+                onMouseLeave={() => setUserMenuOpen(false)}
+              >
+                <button className={`${styles.actionBtn} ${styles.userMenuTrigger}`}>
                   <FiUser size={18} />
                   <span className={styles.actionLabel}>{user?.name?.split(' ')[0] || 'Me'}</span>
-                </Link>
-                <Link to={getDashboardPath(user?.role)} className={styles.actionBtn}>
-                  <span className={styles.actionLabel}>Dashboard</span>
-                </Link>
-
-                <button onClick={handleLogout} className={`${styles.actionBtn} ${styles.logoutBtn}`}>
-                  <span className={styles.actionLabel}>Logout</span>
+                  <FiChevronDown size={12} className={`${styles.chevron} ${userMenuOpen ? styles.chevronOpen : ''}`} />
                 </button>
-              </>
+                {userMenuOpen && (
+                  <div className={styles.userDropdown}>
+                    <Link to="/profile" className={styles.userDropdownLink} onClick={() => setUserMenuOpen(false)}>
+                      Profile
+                    </Link>
+                    <Link to={getDashboardPath(user?.role)} className={styles.userDropdownLink} onClick={() => setUserMenuOpen(false)}>
+                      Dashboard
+                    </Link>
+                    <button onClick={() => { handleLogout(); setUserMenuOpen(false); }} className={styles.userDropdownLogout}>
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <Link to="/login" className={styles.actionBtn}>
                 <FiUser size={18} />
