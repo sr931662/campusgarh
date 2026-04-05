@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-// Add FaEnvelope to the existing fa import line:
 import {
   FaTrophy, FaCalendarAlt, FaUsers, FaBriefcase, FaRupeeSign, FaGraduationCap, FaMapMarkerAlt,
   FaFacebook, FaInstagram, FaLinkedinIn, FaYoutube, FaEnvelope,
@@ -27,7 +26,7 @@ import CollegeGallery from './CollegeGallery';
 
 import styles from './CollegeDetail.module.css';
 
-const TABS = [
+const SECTIONS = [
   { id: 'info',       label: 'Info' },
   { id: 'admission',  label: 'Admission' },
   { id: 'placements', label: 'Placements' },
@@ -38,14 +37,13 @@ const TABS = [
   { id: 'reviews',    label: 'Reviews' },
 ];
 
-
 export default function CollegeDetail() {
   const { slug } = useParams();
-  const [activeTab, setActiveTab] = useState('info');
+  const [activeSection, setActiveSection] = useState('info');
   const [showEnquiryModal, setShowEnquiryModal] = useState(false);
+  const sectionRefs = useRef({});
 
   // ── Data fetching ────────────────────────────────────────────────────────────
-  // axios response shape: { data: { success, message, data: collegeObject } }
   const { data: axiosRes, isLoading, error } = useCollegeBySlug(slug);
   const college = axiosRes?.data?.data;
 
@@ -65,6 +63,34 @@ export default function CollegeDetail() {
   const isSaved = user?.savedColleges?.some(
     id => id === college?._id || id?._id === college?._id || id?.toString() === college?._id?.toString()
   );
+
+  // ── IntersectionObserver: highlight active tab on scroll ─────────────────────
+  useEffect(() => {
+    if (!college) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-15% 0% -70% 0%', threshold: 0 }
+    );
+    SECTIONS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [college]);
+
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const offset = 140; // navbar + tab bar height
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
 
   if (isLoading) {
     return (
@@ -216,16 +242,10 @@ export default function CollegeDetail() {
                 Visit Website ↗
               </a>
             )}
-            {college.admissionProcess?.applicationLink ? (
-              <a href={college.admissionProcess.applicationLink} target="_blank" rel="noopener noreferrer"
-                className={styles.btnPrimary}>
-                Apply Now ↗
-              </a>
-            ) : (
-              <button className={styles.btnPrimary} onClick={() => setActiveTab('admission')}>
-                Apply Now
-              </button>
-            )}
+            {/* Apply Now always opens enquiry modal */}
+            <button className={styles.btnPrimary} onClick={() => setShowEnquiryModal(true)}>
+              Apply Now ↗
+            </button>
             <button
               className={styles.btnEnquiry}
               onClick={() => setShowEnquiryModal(true)}
@@ -248,26 +268,25 @@ export default function CollegeDetail() {
       {/* ── STICKY TAB BAR ────────────────────────────────────────────────────── */}
       <div className={styles.tabBarWrap}>
         <div className={styles.tabBar}>
-          {TABS.map(tab => (
+          {SECTIONS.map(sec => (
             <button
-              key={tab.id}
-              className={`${styles.tabBtn} ${activeTab === tab.id ? styles.tabBtnActive : ''}`}
-              onClick={() => setActiveTab(tab.id)}
+              key={sec.id}
+              className={`${styles.tabBtn} ${activeSection === sec.id ? styles.tabBtnActive : ''}`}
+              onClick={() => scrollToSection(sec.id)}
             >
-              {tab.label}
+              {sec.label}
             </button>
           ))}
         </div>
       </div>
 
-      {/* ── TAB CONTENT ───────────────────────────────────────────────────────── */}
+      {/* ── ALL SECTIONS (single page, scroll-based) ──────────────────────────── */}
       <div className={styles.contentWrap}>
         <div className={styles.contentLayout}>
-        <div className={styles.content}>
+          <div className={styles.content}>
 
-          {/* INFO ────────────────────────────────────────────────────── */}
-          {activeTab === 'info' && (
-            <div className={styles.section}>
+            {/* INFO ────────────────────────────────────────────────────── */}
+            <div id="info" className={styles.section}>
               {/* About */}
               <div className={styles.card}>
                 <h2 className={styles.cardTitle}>About {college.name}</h2>
@@ -402,71 +421,62 @@ export default function CollegeDetail() {
                 </div>
               )}
             </div>
-          )}
 
-          {/* ADMISSION ──────────────────────────────────────────────── */}
-          {activeTab === 'admission' && (
-            <CollegeAdmission college={college} />
-          )}
+            {/* ADMISSION ──────────────────────────────────────────────── */}
+            <div id="admission" className={styles.section}>
+              <CollegeAdmission college={college} />
+            </div>
 
-          {/* PLACEMENTS ─────────────────────────────────────────────── */}
-          {activeTab === 'placements' && (
-            <CollegePlacements college={college} />
-          )}
+            {/* PLACEMENTS ─────────────────────────────────────────────── */}
+            <div id="placements" className={styles.section}>
+              <CollegePlacements college={college} />
+            </div>
 
-          {/* CUTOFFS ────────────────────────────────────────────────── */}
-          {activeTab === 'cutoffs' && (
-            <CollegeCutoffs college={college} />
-          )}
+            {/* CUTOFFS ────────────────────────────────────────────────── */}
+            <div id="cutoffs" className={styles.section}>
+              <CollegeCutoffs college={college} />
+            </div>
 
-          {/* HOSTEL & CAMPUS ────────────────────────────────────────── */}
-          {activeTab === 'hostel' && (
-            <CollegeHostelCampus college={college} />
-          )}
+            {/* HOSTEL & CAMPUS ────────────────────────────────────────── */}
+            <div id="hostel" className={styles.section}>
+              <CollegeHostelCampus college={college} />
+            </div>
 
-          {/* FACILITIES ─────────────────────────────────────────────── */}
-          {activeTab === 'facilities' && (
-            <CollegeFacilities college={college} />
-          )}
-          {/* GALLERY ───────────────────────────────────────────── */}
-          {activeTab === 'gallery' && (
-            <div className={styles.section}>
+            {/* FACILITIES ─────────────────────────────────────────────── */}
+            <div id="facilities" className={styles.section}>
+              <CollegeFacilities college={college} />
+            </div>
+
+            {/* GALLERY ───────────────────────────────────────────── */}
+            <div id="gallery" className={styles.section}>
               <CollegeGallery collegeId={college._id} directImages={college.galleryImages || []} coverImageUrl={college.coverImageUrl} />
             </div>
-          )}
 
-          {/* REVIEWS ────────────────────────────────────────────────── */}
-          {activeTab === 'reviews' && (
-            <div className={styles.section}>
+            {/* REVIEWS ────────────────────────────────────────────────── */}
+            <div id="reviews" className={styles.section}>
               <CollegeReviews collegeId={college._id} />
             </div>
-          )}
-        </div>
 
-        {/* ── SIDEBAR: Lead capture form ─────────────────────────────── */}
-        <aside className={styles.sidebar}>
-          <CollegeEnquiryForm college={college} />
-        </aside>
+          </div>
+
+          {/* ── SIDEBAR: Lead capture form ─────────────────────────────── */}
+          <aside className={styles.sidebar}>
+            <CollegeEnquiryForm college={college} />
+          </aside>
         </div>
       </div>
-          {/* ── MOBILE STICKY CTA BAR ─────────────────────────────────────────────── */}
+
+      {/* ── MOBILE STICKY CTA BAR ─────────────────────────────────────────────── */}
       <div className={styles.mobileCTA}>
-        {college.admissionProcess?.applicationLink ? (
-          <a href={college.admissionProcess.applicationLink} target="_blank" rel="noopener noreferrer"
-            className={styles.mobileCTAApply}>
-            Apply Now ↗
-          </a>
-        ) : (
-          <button className={styles.mobileCTAApply} onClick={() => setActiveTab('admission')}>
-            Apply Now
-          </button>
-        )}
+        <button className={styles.mobileCTAApply} onClick={() => setShowEnquiryModal(true)}>
+          Apply Now ↗
+        </button>
         <button className={styles.mobileCTAEnquire} onClick={() => setShowEnquiryModal(true)}>
           <FaEnvelope /> Enquire
         </button>
       </div>
 
-            {/* ── ENQUIRY MODAL ─────────────────────────────────────────────────────── */}
+      {/* ── ENQUIRY MODAL ─────────────────────────────────────────────────────── */}
       <Modal isOpen={showEnquiryModal} onClose={() => setShowEnquiryModal(false)}>
         <CollegeEnquiryForm college={college} />
       </Modal>
@@ -481,9 +491,7 @@ export default function CollegeDetail() {
         <span>Enquire</span>
       </button>
     </div>
-
   );
-
 }
 
 // Small stat box helper component

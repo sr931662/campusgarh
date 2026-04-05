@@ -96,9 +96,9 @@
 .heroInner {
   position: relative;
   z-index: 1;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2.5rem;
+  padding: 0 4rem 0 5rem;
 }
 
 /* Breadcrumb */
@@ -431,6 +431,14 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  border-top: 1.5px solid var(--border, #E8E3DB);
+  scroll-margin-top: 160px;
+}
+.section:first-child {
+  border-top: none;
+  padding-top: 0;
 }
 
 /* ── Cards ────────────────────────────────────────────────────────────────── */
@@ -674,7 +682,7 @@
 
 /* ── Responsive ────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .heroInner { padding: 0 1.25rem; }
+  .heroInner { padding: 0 1.25rem 0 1.5rem; }
   .hero { padding: 2.5rem 0 2rem; }
   .heroName { font-size: 2rem; }
   .statsStrip { gap: 0.5rem; }
