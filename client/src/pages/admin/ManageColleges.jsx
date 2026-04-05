@@ -13,11 +13,7 @@ const ManageColleges = () => {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['admin-colleges', page, search],
-    queryFn: () => collegeService.getColleges({
-      page,
-      limit: 20,
-      ...(search && { search }),
-    }),
+    queryFn: () => collegeService.getColleges({ page, limit: 20, ...(search && { search }) }),
   });
 
   const deleteMutation = useMutation({
@@ -40,26 +36,16 @@ const ManageColleges = () => {
       queryClient.invalidateQueries({ queryKey: ['onlineColleges'] });
     },
   });
-  
+
   const logoMutation = useMutation({
     mutationFn: ({ id, file }) => collegeService.uploadLogo(id, file),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-colleges'] }),
   });
 
-
-  const handleToggleOnline = (id, current) => {
-    onlineMutation.mutate({ id, isOnline: !current });
-  };
-
-
   const handleDelete = (id, name) => {
     if (window.confirm(`Delete "${name}"? This cannot be undone.`)) {
       deleteMutation.mutate(id);
     }
-  };
-
-  const handleToggleFeatured = (id, current) => {
-    featureMutation.mutate({ id, featured: !current });
   };
 
   const raw = data?.data?.data;
@@ -85,7 +71,6 @@ const ManageColleges = () => {
         <Link to="/admin/colleges/create" className={styles.addBtn}>+ Add College</Link>
       </div>
 
-      {/* Search */}
       <div className={styles.searchWrap}>
         <input
           type="text"
@@ -103,7 +88,7 @@ const ManageColleges = () => {
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>Name</th>
+                  <th>College</th>
                   <th>Type</th>
                   <th>City</th>
                   <th>Verified</th>
@@ -114,76 +99,90 @@ const ManageColleges = () => {
               </thead>
               <tbody>
                 {colleges.length === 0 ? (
-                  <tr><td colSpan={6} className={styles.empty}>No colleges found.</td></tr>
+                  <tr><td colSpan={7} className={styles.empty}>No colleges found.</td></tr>
                 ) : colleges.map((c) => (
                   <tr key={c._id}>
+
+                    {/* ── College (logo + name) ── */}
                     <td>
-                      <strong>{c.name}</strong>
-                      {c.shortName ? <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> ({c.shortName})</span> : ''}
-                    </td>
-                    <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <div className={styles.collegeCell}>
                         {c.logoUrl
-                          ? <img src={c.logoUrl} alt="" style={{ height: 32, width: 32, objectFit: 'contain', borderRadius: 4, border: '1px solid rgba(255,255,255,0.1)' }} />
-                          : <div style={{ width: 32, height: 32, borderRadius: 4, background: 'rgba(201,168,76,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', color: '#C9A84C', fontWeight: 700 }}>
+                          ? <img src={c.logoUrl} alt="" className={styles.collegeLogo} />
+                          : <div className={styles.collegeLogoPlaceholder}>
                               {(c.shortName || c.name).slice(0, 2).toUpperCase()}
-                            </div>}
+                            </div>
+                        }
                         <div>
-                          <strong>{c.name}</strong>
-                          {c.shortName && <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 400 }}> ({c.shortName})</span>}
-                          <div>
-                            <label style={{ fontSize: '0.7rem', color: '#C9A84C', cursor: 'pointer' }}>
-                              📷 {c.logoUrl ? 'Change logo' : 'Upload logo'}
-                              <input type="file" accept="image/*" style={{ display: 'none' }}
-                                onChange={e => e.target.files[0] && logoMutation.mutate({ id: c._id, file: e.target.files[0] })} />
-                            </label>
-                          </div>
+                          <div className={styles.collegeName}>{c.name}</div>
+                          {c.shortName && c.shortName !== c.name && (
+                            <div className={styles.collegeShort}>{c.shortName}</div>
+                          )}
+                          <label className={styles.logoUploadLabel}>
+                            📷 {c.logoUrl ? 'Change logo' : 'Upload logo'}
+                            <input
+                              type="file"
+                              accept="image/*"
+                              style={{ display: 'none' }}
+                              onChange={e => e.target.files[0] && logoMutation.mutate({ id: c._id, file: e.target.files[0] })}
+                            />
+                          </label>
                         </div>
                       </div>
                     </td>
 
-                    <td><span className={styles.badge}>{c.fundingType || '—'}</span></td>
-                    <td>{c.contact?.city || '—'}</td>
+                    {/* ── Type ── */}
                     <td>
-                      <span style={{ color: c.isVerified ? '#10b981' : 'rgba(255,255,255,0.3)' }}>
+                      <span className={styles.badge}>{c.fundingType || '—'}</span>
+                    </td>
+
+                    {/* ── City ── */}
+                    <td>{c.contact?.city || '—'}</td>
+
+                    {/* ── Verified ── */}
+                    <td>
+                      <span className={c.isVerified ? styles.verifiedBadge : styles.unverifiedBadge}>
                         {c.isVerified ? '✓ Verified' : 'Unverified'}
                       </span>
                     </td>
+
+                    {/* ── Homepage (featured) ── */}
                     <td>
                       <button
                         className={c.featured ? styles.featuredBtnActive : styles.featuredBtn}
-                        onClick={() => handleToggleFeatured(c._id, c.featured)}
+                        onClick={() => featureMutation.mutate({ id: c._id, featured: !c.featured })}
                         disabled={featureMutation.isPending}
-                        title={c.featured ? 'Remove from homepage' : 'Show on homepage'}
+                        title={c.featured ? 'Remove from homepage' : 'Add to homepage'}
                       >
-                        {c.featured ? <FaStar /> : <FaRegStar />}
-                        {c.featured ? ' Featured' : ' Feature'}
+                        {c.featured ? <><FaStar /> Featured</> : <><FaRegStar /> Feature</>}
                       </button>
                     </td>
+
+                    {/* ── Online ── */}
                     <td>
                       <button
-                        className={c.isOnline ? styles.featuredBtnActive : styles.featuredBtn}
-                        onClick={() => handleToggleOnline(c._id, c.isOnline)}
+                        className={c.isOnline ? styles.onlineBtnActive : styles.onlineBtn}
+                        onClick={() => onlineMutation.mutate({ id: c._id, isOnline: !c.isOnline })}
                         disabled={onlineMutation.isPending}
-                        title={c.isOnline ? 'Remove from online' : 'Mark as online'}
+                        title={c.isOnline ? 'Mark as offline' : 'Mark as online'}
                       >
                         {c.isOnline ? '🌐 Online' : '+ Online'}
                       </button>
                     </td>
+
+                    {/* ── Actions ── */}
                     <td>
                       <div className={styles.actionCell}>
                         <Link to={`/colleges/${c.slug}`} className={styles.viewBtn} target="_blank" rel="noopener noreferrer">View</Link>
                         <Link to={`/admin/colleges/edit/${c._id}`} className={styles.editBtn}>Edit</Link>
                         <button
                           className={styles.deleteBtn}
-                         disabled={deleteMutation.isPending}
+                          disabled={deleteMutation.isPending}
                           onClick={() => handleDelete(c._id, c.name)}
                         >
                           Delete
                         </button>
                       </div>
                     </td>
-
 
                   </tr>
                 ))}
