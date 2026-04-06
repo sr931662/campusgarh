@@ -6,31 +6,38 @@
   height: 100%;
 }
 
-/* ── EXACT MATCH WITH LatestArticles CARD ── */
+/* ── CARD ── */
 .card {
   display: flex;
   flex-direction: column;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 16px;
   overflow: hidden;
   height: 100%;
   box-sizing: border-box;
-  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+
+  /* 🔥 clean elevation */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+
+  transition: all 0.25s ease;
 }
 
 .link:hover .card {
-  border-color: rgba(201,168,76,0.35);
   transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+
+  /* 🔥 premium hover */
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+
+  border-color: rgba(201,168,76,0.35);
 }
 
-/* ── Image ── */
+/* ── IMAGE ── */
 .imageWrap {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: rgba(255,255,255,0.05);
+  background: #f3f4f6; /* light neutral */
 }
 
 .image {
@@ -38,10 +45,11 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
+  display: block;
 }
 
 .link:hover .image {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .imagePlaceholder {
@@ -50,73 +58,85 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  color: rgba(255,255,255,0.12);
+  font-size: 2.2rem;
+  color: rgba(0,0,0,0.2);
+  background: #f3f4f6;
 }
 
-/* ── Badge ── */
+/* ── BADGE ── */
 .badge {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  padding: 0.2rem 0.65rem;
-  border-radius: 20px;
-  font-size: 0.72rem;
+  top: 0.7rem;
+  left: 0.7rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
   font-family: var(--font-mono, 'DM Mono', monospace);
 }
 
-/* ── Body ── */
+/* ── BODY ── */
 .body {
-  padding: 1.25rem;
+  padding: 1.2rem;
   display: flex;
   flex-direction: column;
   flex: 1;
+
+  /* 🔥 subtle gradient for depth (light version) */
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.8) 40%,
+    #ffffff 100%
+  );
 }
 
-/* ── Categories (keep but subtle like system) ── */
+/* ── CATEGORIES ── */
 .categories {
   display: flex;
   gap: 0.35rem;
   flex-wrap: wrap;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 
 .category {
   font-size: 0.6rem;
   font-weight: 600;
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.7);
-  padding: 0.12rem 0.45rem;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.15rem 0.45rem;
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-family: var(--font-mono, 'DM Mono', monospace);
 }
 
-/* ── Series ── */
+/* ── SERIES ── */
 .seriesLabel {
-  font-size: 0.65rem;
-  color: var(--gold, #C9A84C);
-  background: rgba(201,168,76,0.1);
-  border: 1px solid rgba(201,168,76,0.2);
-  padding: 0.1rem 0.4rem;
+  font-size: 0.62rem;
+  color: #b8962e;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.25);
+  padding: 0.12rem 0.4rem;
   border-radius: 4px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
   display: inline-block;
   font-family: var(--font-mono, 'DM Mono', monospace);
 }
 
-/* ── Typography (MATCHED) ── */
+/* ── TYPOGRAPHY ── */
 .title {
   font-family: var(--font-display, 'Playfair Display', Georgia, serif);
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--warm-white, #FFFEF9);
+  color: #0f172a; /* 🔥 strong contrast */
   line-height: 1.45;
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.5rem;
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -126,10 +146,10 @@
 
 .excerpt {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.4);
+  color: #64748b; /* readable but soft */
   line-height: 1.6;
   flex: 1;
-  margin: 0 0 1rem;
+  margin: 0 0 0.9rem;
 
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -137,11 +157,11 @@
   overflow: hidden;
 }
 
-/* ── Meta ── */
+/* ── META ── */
 .meta {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.9rem;
   flex-wrap: wrap;
 }
 
@@ -149,11 +169,11 @@
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.3);
+  font-size: 0.72rem;
+  color: #94a3b8;
   font-family: var(--font-mono, 'DM Mono', monospace);
 }
 
 .metaIcon {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
 }
