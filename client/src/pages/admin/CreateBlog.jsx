@@ -242,7 +242,7 @@ const CreateBlog = () => {
               <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Blockquote & Code</strong>
               <code style={cs}>{'> Blockquote text'}</code><br />
               <code style={cs}>`inline code`</code><br />
-              <code style={cs}>```js ... ```</code> (code block)
+              <code style={cs}>```js ... ```</code> <span style={{color:'#4b5563'}}>(code block)</span>
             </div>
             <div>
               <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Table</strong>
@@ -252,8 +252,9 @@ const CreateBlog = () => {
             </div>
             <div>
               <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Separator & Line Break</strong>
-              <code style={cs}>---</code> (horizontal rule)<br />
-              Two spaces at end of line = line break
+              <code style={cs}>---</code> <span style={{color:'#4b5563'}}>(horizontal rule)</span><br />
+              <span style={{color:'#4b5563'}}>Two spaces at end of line = line break</span>
+
             </div>
 
             </div>
