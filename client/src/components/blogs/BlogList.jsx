@@ -58,6 +58,7 @@ const BlogList = () => {
         <p className={styles.heroSub}>Expert insights, college news, and admission guidance — all in one place.</p>
       </div>
 
+      <div className={styles.pageBody}>
       <div className={styles.container}>
         {filterOpen && <div className={styles.backdrop} onClick={() => setFilterOpen(false)} />}
         <div className={`${styles.sidebar} ${filterOpen ? styles.sidebarOpen : ''}`}>
@@ -109,6 +110,7 @@ const BlogList = () => {
             </div>
           )}
         </div>
+      </div>
       </div>
     </>
   );

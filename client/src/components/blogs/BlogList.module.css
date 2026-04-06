@@ -45,6 +45,10 @@
   position: relative;
 }
 
+.pageBody {
+  background: var(--deep, #0A0A0F);
+}
+
 .container {
   max-width: 1320px;
   margin: 0 auto;
