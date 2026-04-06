@@ -14,38 +14,45 @@ const CONTENT_TYPE_COLORS = {
 const BlogCard = ({ blog }) => {
   const { title, slug, excerpt, featuredImage, featuredImageUrl, publishedAt, readingTime, author, categories, contentType, difficulty, series } = blog;
   const coverImage = featuredImage?.url || featuredImageUrl || null;
+  const badgeColor = CONTENT_TYPE_COLORS[contentType] || '#64748b';
 
   return (
     <Link to={`/news/${slug}`} className={styles.link}>
       <Card hover className={styles.card}>
-        {coverImage ? (
-          <div className={styles.imageWrapper}>
+        {/* Image / Placeholder */}
+        <div className={styles.imageArea}>
+          {coverImage ? (
             <img src={coverImage} alt={title} className={styles.image} />
-          </div>
-        ) : (
-          <div className={styles.imagePlaceholder}><FaNewspaper /></div>
-        )}
+          ) : (
+            <div className={styles.imagePlaceholder}><FaNewspaper /></div>
+          )}
+          {contentType && (
+            <span className={styles.typeBadge} style={{ background: badgeColor }}>
+              {contentType}
+            </span>
+          )}
+        </div>
+
+        {/* Content */}
         <div className={styles.content}>
-          <div className={styles.topRow}>
+          {categories?.length > 0 && (
             <div className={styles.categories}>
-              {categories?.slice(0, 2).map((cat) => (
+              {categories.slice(0, 2).map((cat) => (
                 <span key={cat._id} className={styles.category}>{cat.name}</span>
               ))}
             </div>
-            {contentType && (
-              <span className={styles.contentType} style={{ background: CONTENT_TYPE_COLORS[contentType] || '#64748b' }}>
-                {contentType}
-              </span>
-            )}
-          </div>
+          )}
+
           {series?.name && (
             <div className={styles.seriesLabel}>Part {series.partNumber} · {series.name}</div>
           )}
+
           <h3 className={styles.title}>{title}</h3>
-          <p className={styles.excerpt}>{truncateText(excerpt || '', 120)}</p>
+          {excerpt && <p className={styles.excerpt}>{truncateText(excerpt, 120)}</p>}
+
           <div className={styles.meta}>
             {author?.name && <span className={styles.author}>{author.name}</span>}
-            <span className={styles.date}>{formatDate(publishedAt, 'dd MMM yyyy')}</span>
+            <span>{formatDate(publishedAt, 'dd MMM yyyy')}</span>
             {readingTime && <span className={styles.readTime}>{readingTime} min read</span>}
             {difficulty && <span className={styles.difficulty}>{difficulty}</span>}
           </div>

@@ -47,58 +47,59 @@ const BlogList = () => {
 
   const { data: blogs, pagination } = blogsData?.data?.data || { data: [], pagination: {} };
   const categories = categoriesData?.data?.data || [];
-  const { total, pages, currentPage = page } = pagination;
+  const { pages, currentPage = page } = pagination;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.sidebar}>
-        <BlogFilters
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          onReset={handleResetFilters}
-          categories={categories}
-        />
+    <>
+      <div className={styles.hero}>
+        <p className={styles.heroEyebrow}>Knowledge Hub</p>
+        <h1 className={styles.heroTitle}>News &amp; <span>Articles</span></h1>
+        <p className={styles.heroSub}>Expert insights, college news, and admission guidance — all in one place.</p>
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>News & Articles</h1>
-          <p className={styles.subtitle}>
-            Expert insights, college news, and admission guidance for students
-          </p>
+      <div className={styles.container}>
+        <div className={styles.sidebar}>
+          <BlogFilters
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onReset={handleResetFilters}
+            categories={categories}
+          />
         </div>
 
-        <div className={styles.grid}>
-          {blogs.map((blog) => (
-            <BlogCard key={blog._id} blog={blog} />
-          ))}
-        </div>
-
-        {pages > 1 && (
-          <div className={styles.pagination}>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={currentPage === 1}
-              onClick={() => setPage(currentPage - 1)}
-            >
-              Previous
-            </Button>
-            <span className={styles.pageInfo}>
-              Page {currentPage} of {pages}
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={currentPage === pages}
-              onClick={() => setPage(currentPage + 1)}
-            >
-              Next
-            </Button>
+        <div className={styles.content}>
+          <div className={styles.grid}>
+            {blogs.map((blog) => (
+              <BlogCard key={blog._id} blog={blog} />
+            ))}
           </div>
-        )}
+
+          {pages > 1 && (
+            <div className={styles.pagination}>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={currentPage === 1}
+                onClick={() => setPage(currentPage - 1)}
+              >
+                Previous
+              </Button>
+              <span className={styles.pageInfo}>
+                Page {currentPage} of {pages}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={currentPage === pages}
+                onClick={() => setPage(currentPage + 1)}
+              >
+                Next
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
