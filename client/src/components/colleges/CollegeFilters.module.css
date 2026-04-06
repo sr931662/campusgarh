@@ -1,12 +1,7 @@
 .filters {
   background: var(--warm-white, #FFFEF9);
-  border: 1.5px solid var(--border, #E8E3DB);
-  border-radius: var(--radius, 16px);
   overflow: hidden;
-  position: sticky;
-  top: 96px;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
+  min-height: 100%;
   scrollbar-width: thin;
   scrollbar-color: #E8E3DB transparent;
 }
