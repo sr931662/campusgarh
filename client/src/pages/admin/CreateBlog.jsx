@@ -216,42 +216,42 @@ const CreateBlog = () => {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '0.75rem', marginTop: '0.75rem', fontSize: '0.78rem', color: 'rgba(255,255,255,0.55)', lineHeight: 1.8 }}>
 
             <div>
-              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Headings</strong>
+              <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Headings</strong>
               <code style={cs}># H1 Heading</code><br />
               <code style={cs}>## H2 Heading</code><br />
               <code style={cs}>### H3 Heading</code>
             </div>
             <div>
-              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Text Formatting</strong>
+              <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Text Formatting</strong>
               <code style={cs}>**bold text**</code><br />
               <code style={cs}>*italic text*</code><br />
               <code style={cs}>~~strikethrough~~</code>
             </div>
             <div>
-              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Lists</strong>
+              <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Lists</strong>
               <code style={cs}>- Bullet item</code><br />
               <code style={cs}>1. Numbered item</code><br />
               <code style={cs}>- [ ] Checklist item</code>
             </div>
             <div>
-              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Links & Images</strong>
+              <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Links & Images</strong>
               <code style={cs}>[Link text](https://url)</code><br />
               <code style={cs}>![Alt](image-url)</code>
             </div>
             <div>
-              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Blockquote & Code</strong>
+              <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Blockquote & Code</strong>
               <code style={cs}>{'> Blockquote text'}</code><br />
               <code style={cs}>`inline code`</code><br />
               <code style={cs}>```js ... ```</code> (code block)
             </div>
             <div>
-              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Table</strong>
+              <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Table</strong>
               <code style={cs}>| Col1 | Col2 |</code><br />
               <code style={cs}>|------|------|</code><br />
               <code style={cs}>| Val1 | Val2 |</code>
             </div>
             <div>
-              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Separator & Line Break</strong>
+              <strong style={{ color: 'rgba(0, 0, 0,0.9)', display: 'block', marginBottom: '0.25rem' }}>Separator & Line Break</strong>
               <code style={cs}>---</code> (horizontal rule)<br />
               Two spaces at end of line = line break
             </div>
