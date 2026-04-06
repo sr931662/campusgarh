@@ -475,6 +475,26 @@ export default function CollegeDetail() {
         </button>
       </div>
 
+      {/* ── SIMILAR COLLEGES ──────────────────────────────────────────────────── */}
+      {similarColleges.length > 0 && (
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '3rem 2rem', borderTop: '1px solid #E8E3DB' }}>
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '1.5rem' }}>Similar Colleges</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem' }}>
+            {similarColleges.map(c => (
+              <Link key={c._id} to={`/colleges/${c.slug}`}
+                style={{ padding: '1.25rem', border: '1px solid #E8E3DB', borderRadius: '12px',
+                  textDecoration: 'none', color: '#1C1C1E', transition: 'box-shadow 0.2s',
+                  display: 'flex', flexDirection: 'column', gap: '0.3rem',
+                  background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                <span style={{ fontSize: '0.68rem', color: '#C9A84C', fontWeight: 700, textTransform: 'uppercase' }}>{c.collegeType}</span>
+                <strong style={{ fontSize: '0.9rem' }}>{c.name}</strong>
+                {c.contact?.city && <span style={{ fontSize: '0.78rem', color: '#9CA3AF' }}>{c.contact.city}, {c.contact?.state}</span>}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* ── ENQUIRY MODAL ─────────────────────────────────────────────────────── */}
       <Modal isOpen={showEnquiryModal} onClose={() => setShowEnquiryModal(false)}>
         <CollegeEnquiryForm college={college} />
@@ -521,25 +541,6 @@ function StatBox({ label, value }) {
         fontFamily: 'var(--font-display)',
         letterSpacing: '-0.02em',
       }}>{value}</span>
-      {similarColleges.length > 0 && (
-        <div style={{ padding: '3rem 0', borderTop: '1px solid #E8E3DB' }}>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '1.5rem' }}>Similar Colleges</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem' }}>
-            {similarColleges.map(c => (
-              <Link key={c._id} to={`/colleges/${c.slug}`}
-                style={{ padding: '1.25rem', border: '1px solid #E8E3DB', borderRadius: '12px',
-                  textDecoration: 'none', color: '#1C1C1E', transition: 'box-shadow 0.2s',
-                  display: 'flex', flexDirection: 'column', gap: '0.3rem',
-                  background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-                <span style={{ fontSize: '0.68rem', color: '#C9A84C', fontWeight: 700, textTransform: 'uppercase' }}>{c.collegeType}</span>
-                <strong style={{ fontSize: '0.9rem' }}>{c.name}</strong>
-                {c.contact?.city && <span style={{ fontSize: '0.78rem', color: '#9CA3AF' }}>{c.contact.city}, {c.contact?.state}</span>}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-
     </div>
   );
 }
