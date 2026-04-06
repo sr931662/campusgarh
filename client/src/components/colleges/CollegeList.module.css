@@ -75,8 +75,6 @@
   max-width: 1320px;
   margin: 0 auto;
   padding: 2.5rem 2.5rem 3rem;
-  display: flex;
-  gap: 2.5rem;
 }
 
 .errorWrap {
@@ -89,9 +87,22 @@
 }
 
 .sidebar {
-  width: 260px;
-  flex-shrink: 0;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-height: 85vh;
+  z-index: 1000;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
 }
+
+.sidebarOpen {
+  display: block !important;
+}
+
 
 .content {
   flex: 1;
@@ -159,8 +170,21 @@
 
 /* ── Mobile filter drawer ─────────────────────────── */
 .mobileFilterBtn {
-  display: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--charcoal, #1C1C1E);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  flex-shrink: 0;
 }
+
 
 .backdrop {
   display: none;
@@ -176,7 +200,7 @@
   .title { font-size: 1.75rem; }
 
   /* Hide sidebar by default on mobile */
-  .sidebar {
+  /* .sidebar {
     display: none;
     position: fixed;
     bottom: 0;
@@ -187,7 +211,7 @@
     z-index: 1000;
     border-radius: 20px 20px 0 0;
     overflow: hidden;
-  }
+  } */
 
   /* Show sidebar when filter is open */
   .sidebarOpen {
@@ -205,7 +229,7 @@
   }
 
   /* Mobile filter toggle button */
-  .mobileFilterBtn {
+  /* .mobileFilterBtn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -219,7 +243,7 @@
     cursor: pointer;
     font-family: var(--font-body);
     flex-shrink: 0;
-  }
+  } */
 
   .mobileFilterBadge {
     background: var(--gold, #C9A84C);

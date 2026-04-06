@@ -72,10 +72,6 @@ const CollegeList = () => {
         </div>
       </section>
 
-    {error ? (
-      <div className={styles.errorWrap}>Error loading colleges: {error.message}</div>
-    ) : (
-    <div className={styles.container}>
       {filterOpen && <div className={styles.backdrop} onClick={() => setFilterOpen(false)} />}
       <div className={`${styles.sidebar} ${filterOpen ? styles.sidebarOpen : ''}`}>
         <CollegeFilters
@@ -86,12 +82,18 @@ const CollegeList = () => {
         />
       </div>
 
+    {error ? (
+      <div className={styles.errorWrap}>Error loading colleges: {error.message}</div>
+    ) : (
+    <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.header}>
           <div className={styles.headerTop}>
             <div>
               <h1 className={styles.title}>Colleges in India</h1>
-              <p className={styles.subtitle}>...</p>
+              <p className={styles.subtitle}>
+                {total > 0 ? `${total} colleges found` : isLoading ? 'Searching...' : 'No colleges found'}
+              </p>
             </div>
             <div className={styles.headerControls}>
               <button className={styles.mobileFilterBtn} onClick={() => setFilterOpen(true)}>
