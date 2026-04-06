@@ -42,7 +42,10 @@ const TopInstitutions = () => {
   const featRaw = featData?.data?.data;
   const featured = Array.isArray(featRaw) ? featRaw : Array.isArray(featRaw?.data) ? featRaw.data : [];
 
-  const { data: stateData, isLoading: stateLoading } = useColleges({ limit: 8, state });
+  const { data: stateData, isLoading: stateLoading } = useColleges(
+    { limit: 8, state },
+    { enabled: tab === 'state' },
+  );
   const stateRaw = stateData?.data?.data;
   const byState = Array.isArray(stateRaw) ? stateRaw : Array.isArray(stateRaw?.data) ? stateRaw.data : [];
 

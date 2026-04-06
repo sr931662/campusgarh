@@ -175,7 +175,7 @@ class CollegeService extends BaseService {
     }
 
     if (filters.city) query['contact.city'] = { $regex: filters.city, $options: 'i' };
-    if (filters.state) query['contact.state'] = { $regex: filters.state, $options: 'i' };
+    if (filters.state) query['contact.state'] = { $regex: `^${filters.state.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, $options: 'i' };
     if (filters.type) query.collegeType = filters.type;
     if (filters.fundingType) query.fundingType = filters.fundingType;
     if (filters.ranking) query['rankings.rank'] = { $lte: parseInt(filters.ranking) };

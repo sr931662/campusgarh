@@ -123,12 +123,13 @@ export const useToggleSavedCourse = () => {
 };
 
 // ========== College Hooks ==========
-export const useColleges = (params) => {
+export const useColleges = (params, options = {}) => {
   return useQuery({
     queryKey: ['colleges', params],
     queryFn: () => collegeService.getColleges(params),
     placeholderData: keepPreviousData,
     staleTime: 5 * 60 * 1000,
+    ...options,
   });
 };
 
