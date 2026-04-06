@@ -208,7 +208,7 @@ const CreateBlog = () => {
         </div>
 
         {/* ── Markdown Guide ── */}
-        <div style={{ background: '#1a1a2e', border: '1.5px solid rgba(201,168,76,0.2)', borderRadius: '12px', padding: '1rem 1.25rem', marginBottom: '1rem' }}>
+        <div style={{ background: '#fff', border: '1.5px solid #E8E3DB', borderRadius: '12px', padding: '1rem 1.25rem', marginBottom: '1rem' }}>
           <details style={{ cursor: 'pointer' }}>
             <summary style={{ fontSize: '0.82rem', color: '#C9A84C', fontWeight: 600, userSelect: 'none', padding: '0.25rem 0' }}>
               Markdown Guide — click to expand
