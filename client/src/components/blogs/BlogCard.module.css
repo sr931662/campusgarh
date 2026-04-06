@@ -17,18 +17,13 @@
   height: 100%;
   box-sizing: border-box;
 
-  /* 🔥 clean elevation */
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
   transition: all 0.25s ease;
 }
 
 .link:hover .card {
   transform: translateY(-4px);
-
-  /* 🔥 premium hover */
-  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-
+  box-shadow: 0 14px 32px rgba(0,0,0,0.12);
   border-color: rgba(201,168,76,0.35);
 }
 
@@ -37,7 +32,7 @@
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #f3f4f6; /* light neutral */
+  background: #e5e7eb;
 }
 
 .image {
@@ -49,7 +44,7 @@
 }
 
 .link:hover .image {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .imagePlaceholder {
@@ -58,17 +53,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   color: rgba(0,0,0,0.2);
-  background: #f3f4f6;
 }
 
 /* ── BADGE ── */
 .badge {
   position: absolute;
-  top: 0.7rem;
-  left: 0.7rem;
-  padding: 0.25rem 0.7rem;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 999px;
   font-size: 0.7rem;
   font-weight: 700;
@@ -76,24 +70,36 @@
   letter-spacing: 0.03em;
 
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-
   font-family: var(--font-mono, 'DM Mono', monospace);
 }
 
 /* ── BODY ── */
 .body {
+  position: relative;
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
   flex: 1;
 
-  /* 🔥 subtle gradient for depth (light version) */
+  background: #ffffff;
+}
+
+/* 🔥 THIS IS THE MAGIC (dark-layout feel in light theme) */
+.body::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+
   background: linear-gradient(
-    180deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.8) 40%,
-    #ffffff 100%
+    to bottom,
+    rgba(0,0,0,0.12),
+    rgba(0,0,0,0)
   );
+
+  pointer-events: none;
 }
 
 /* ── CATEGORIES ── */
@@ -134,7 +140,7 @@
   font-family: var(--font-display, 'Playfair Display', Georgia, serif);
   font-size: 0.95rem;
   font-weight: 700;
-  color: #0f172a; /* 🔥 strong contrast */
+  color: #0f172a;
   line-height: 1.45;
   margin: 0 0 0.5rem;
 
@@ -146,7 +152,7 @@
 
 .excerpt {
   font-size: 0.82rem;
-  color: #64748b; /* readable but soft */
+  color: #64748b;
   line-height: 1.6;
   flex: 1;
   margin: 0 0 0.9rem;
