@@ -12,18 +12,18 @@
   flex-direction: column;
   background: #ffffff;
   border: 1px solid #F1F5F9; /* Softer, modern border */
-  border-radius: 12px; /* Slightly tighter radius for a professional look */
+  border-radius: 12px; /* Professional, not overly-rounded */
   overflow: hidden;
   height: 100%;
   box-sizing: border-box;
-  /* Premium, buttery-smooth transition curve */
+  /* Premium, buttery-smooth transition */
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
 }
 
 .link:hover .card {
   border-color: #E2E8F0;
   transform: translateY(-4px);
-  /* A deeper, softer layered shadow for a premium floating effect */
+  /* Deeper, layered shadow for floating effect */
   box-shadow: 0 20px 40px -8px rgba(15, 23, 42, 0.05), 
               0 4px 12px -2px rgba(15, 23, 42, 0.03);
 }
@@ -50,6 +50,7 @@
   transform: scale(1.04); 
 }
 
+/* ── Refined Placeholder for "Bekaar" Look ── */
 .imagePlaceholder {
   width: 100%;
   height: 100%;
@@ -58,6 +59,7 @@
   justify-content: center;
   font-size: 2.2rem;
   color: #CBD5E1;
+  /* Soft gradient texture for placeholder */
   background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
 }
 
@@ -67,7 +69,7 @@
   top: 1rem;
   left: 1rem;
   padding: 0.35rem 0.8rem;
-  border-radius: 6px; /* Sleeker than a pill shape */
+  border-radius: 6px; /* Sleeker, not a simple pill */
   font-size: 0.65rem;
   font-weight: 600;
   color: #fff;
@@ -85,7 +87,7 @@
   flex: 1;
 }
 
-/* ── Secondary Tags (Muted to let the main image/title shine) ── */
+/* ── Categories (Muted & Sleek) ── */
 .categories {
   display: flex;
   gap: 0.5rem;
@@ -96,7 +98,7 @@
 .category {
   font-size: 0.65rem;
   font-weight: 500;
-  background: #F1F5F9; /* Clean gray instead of harsh yellow */
+  background: #F1F5F9; /* Neutral gray instead of yellow */
   color: #475569;
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
@@ -123,7 +125,7 @@
   font-family: var(--font-display, 'Playfair Display', Georgia, serif);
   font-size: 1.15rem; /* Slightly larger for better hierarchy */
   font-weight: 700;
-  color: #0F172A;
+  color: #0F172A; /* Softened from pure black */
   line-height: 1.4;
   margin: 0 0 0.75rem;
   display: -webkit-box;
@@ -145,7 +147,7 @@
   overflow: hidden;
 }
 
-/* ── Meta row (Anchored to bottom with an elegant divider) ── */
+/* ── Meta row (Anchored to bottom with a divider) ── */
 .meta {
   display: flex;
   align-items: center;
