@@ -91,33 +91,28 @@ const CollegeList = () => {
           <div className={styles.headerTop}>
             <div>
               <h1 className={styles.title}>Colleges in India</h1>
-              <p className={styles.subtitle}>
-                {total > 0 ? `${total} colleges found` : isLoading ? 'Searching...' : 'No colleges found'}
-              </p>
+              <p className={styles.subtitle}>...</p>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <div className={styles.headerControls}>
               <button className={styles.mobileFilterBtn} onClick={() => setFilterOpen(true)}>
                 Filters
                 {Object.values(filters).filter(v => v && v !== 'ranking').length > 0 && (
                   <span className={styles.mobileFilterBadge}>{Object.values(filters).filter(v => v && v !== 'ranking').length}</span>
                 )}
               </button>
-            <div className={styles.sortBar}>
-              <label className={styles.sortLabel}>Sort by</label>
-              <select
-                className={styles.sortSelect}
-                value={filters.sort || 'ranking'}
-                onChange={(e) => handleFilterChange({ ...filters, sort: e.target.value })}
-              >
-                <option value="ranking">NIRF Ranking</option>
-                <option value="placement">Placement %</option>
-                <option value="package">Avg Package</option>
-                <option value="fees_asc">Fees: Low to High</option>
-                <option value="fees_desc">Fees: High to Low</option>
-              </select>
-            </div>
+              <div className={styles.sortBar}>
+                <span className={styles.sortLabel}>Sort by</span>
+                <select className={styles.sortSelect} value={filters.sort || 'ranking'} onChange={(e) => handleFilterChange({ ...filters, sort: e.target.value })}>
+                  <option value="ranking">NIRF Ranking</option>
+                  <option value="placement">Placement %</option>
+                  <option value="package">Avg Package</option>
+                  <option value="fees_asc">Fees: Low to High</option>
+                  <option value="fees_desc">Fees: High to Low</option>
+                </select>
+              </div>
             </div>
           </div>
+
 
           {/* Active filter chips */}
           {Object.entries(filters).some(([k, v]) => v && k !== 'sort') && (

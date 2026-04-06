@@ -135,7 +135,8 @@ const Footer = () => {
                     <li><Link to="/exams?category=PG">CAT</Link></li>
                     <li><Link to="/exams?category=PG">GATE</Link></li>
                     <li><Link to="/exams">All Exams</Link></li>
-                  </>}
+                  </>
+              }
             </ul>
           </div>
 
