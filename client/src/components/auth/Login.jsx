@@ -59,7 +59,7 @@ const Login = () => {
       <div className={styles.leftPanel}>
         <div className={styles.leftInner}>
           <Link to="/" className={styles.brandLink}>
-            <img src={logo} alt="CampusGarh" style={{ height: '52px', width: 'auto', objectFit: 'contain' }} />
+            <img src={logo} alt="CampusGarh" style={{ height: '150px', width: 'auto', objectFit: 'contain' }} />
           </Link>
 
           <div className={styles.leftBody}>

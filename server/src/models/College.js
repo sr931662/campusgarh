@@ -195,7 +195,8 @@ collegeSchema.index({ 'contact.state': 1 });
 collegeSchema.index({ 'accreditation.nirfRank': 1 });
 collegeSchema.index({ collegeType: 1 });
 collegeSchema.index({ isVerified: 1 });
-collegeSchema.index({ featured: 1 });
+collegeSchema.index({ featured: 1, deletedAt: 1 });
+collegeSchema.index({ views: -1 });
 collegeSchema.index({ isOnline: 1 });
 collegeSchema.index({ deletedAt: 1 });
 

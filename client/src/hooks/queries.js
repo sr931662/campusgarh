@@ -137,6 +137,7 @@ export const useFeaturedColleges = (params) => {
   return useQuery({
     queryKey: ['featuredColleges', params],
     queryFn: () => collegeService.getFeatured(params),
+    staleTime: 5 * 60 * 1000,
   });
 };
 
