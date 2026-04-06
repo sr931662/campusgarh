@@ -131,6 +131,7 @@ function App() {
 
           {/* Partner routes */}
           <Route element={<RoleBasedRoute allowedRoles={[ROLES.PARTNER]} />}>
+            <Route path="/partner" element={<PartnershipProgram />} />
             <Route path="/partner/dashboard" element={<PartnerDashboard />} />
             <Route path="/partner/leads"     element={<PartnerLeads />} />
             <Route path="/partner/import"    element={<PartnerImport />} />

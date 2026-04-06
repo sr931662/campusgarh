@@ -519,12 +519,13 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-        <div style={{ marginTop: '1rem', fontSize: '0.9rem' }}>
+        <div className={styles.partnerCta}>
           Are you an educator, counsellor, or institution?{' '}
-          <Link to="/partnership" style={{ color: '#6366f1', fontWeight: 600 }}>
+          <Link to="/partner" className={styles.partnerCtaLink}>
             Join our Partner Program →
           </Link>
         </div>
+
 
       </section>
       

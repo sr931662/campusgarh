@@ -65,6 +65,16 @@
   text-decoration: none;
   transition: border-color 0.25s, transform 0.25s, background 0.25s;
   cursor: pointer;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+
+.grid > * {
+  display: flex;
+}
+.skeletonGrid > * {
+  display: flex;
 }
 
 .card:hover {
