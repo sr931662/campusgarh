@@ -129,21 +129,43 @@ class CollegeService extends BaseService {
   async searchColleges(filters, pagination = {}, sort = {}) {
     const query = { deletedAt: null };
 
-    // NEW (name + shortName + city + state + description):
+    // NLP abbreviation map for college name expansion
+    const COLLEGE_ABBR_MAP = {
+      'iit':   'indian institute of technology',
+      'nit':   'national institute of technology',
+      'iiit':  'indian institute of information technology',
+      'iim':   'indian institute of management',
+      'aiims': 'all india institute of medical sciences',
+      'bits':  'birla institute',
+      'nlu':   'national law university',
+      'du':    'delhi university',
+      'bu':    'bangalore university',
+      'mu':    'mumbai university',
+    };
+
     if (filters.search) {
-      const terms = filters.search.trim().split(/\s+/)
+      const raw = filters.search.trim();
+      const terms = raw.split(/\s+/)
         .filter(Boolean)
         .map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
 
       const makeOr = (t) => [
-        { name:              { $regex: t, $options: 'i' } },
-        { shortName:         { $regex: t, $options: 'i' } },
-        { 'contact.city':   { $regex: t, $options: 'i' } },
-        { 'contact.state':  { $regex: t, $options: 'i' } },
-        { description:      { $regex: t, $options: 'i' } },
+        { name:             { $regex: t, $options: 'i' } },
+        { shortName:        { $regex: t, $options: 'i' } },
+        { 'contact.city':  { $regex: t, $options: 'i' } },
+        { 'contact.state': { $regex: t, $options: 'i' } },
+        { description:     { $regex: t, $options: 'i' } },
       ];
 
-      if (terms.length === 1) {
+      const expanded = COLLEGE_ABBR_MAP[raw.toLowerCase()];
+      if (expanded) {
+        const expEsc = expanded.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        query.$or = [
+          ...makeOr(terms[0]),
+          { name:      { $regex: expEsc, $options: 'i' } },
+          { shortName: { $regex: expEsc, $options: 'i' } },
+        ];
+      } else if (terms.length === 1) {
         query.$or = makeOr(terms[0]);
       } else {
         query.$and = (query.$and || []).concat(
@@ -176,12 +198,12 @@ class CollegeService extends BaseService {
     if (filters.featured === 'true') query.featured = true;
 
     let sortObj = {};
-    if (filters.sort === 'ranking') sortObj = { 'rankings.rank': 1, name: 1 };
+    if (filters.sort === 'ranking') sortObj = { 'accreditation.nirfRank': 1, name: 1 };
     else if (filters.sort === 'fees_asc') sortObj = { 'fees.total': 1, name: 1 };
     else if (filters.sort === 'fees_desc') sortObj = { 'fees.total': -1, name: 1 };
     else if (filters.sort === 'placement') sortObj = { 'placementStats.placementPercentage': -1, name: 1 };
     else if (filters.sort === 'package') sortObj = { 'placementStats.averagePackage': -1, name: 1 };
-    else sortObj = { 'rankings.rank': 1, name: 1 };
+    else sortObj = { 'accreditation.nirfRank': 1, name: 1 };
 
     return this.findAll(query, pagination, sortObj);
   }

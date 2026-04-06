@@ -128,6 +128,7 @@ export const useColleges = (params) => {
     queryKey: ['colleges', params],
     queryFn: () => collegeService.getColleges(params),
     placeholderData: keepPreviousData,
+    staleTime: 5 * 60 * 1000,
   });
 };
 

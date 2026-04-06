@@ -191,6 +191,8 @@ collegeSchema.pre('save', async function () {
 });
 
 collegeSchema.index({ 'contact.city': 1, 'contact.state': 1 });
+collegeSchema.index({ 'contact.state': 1 });
+collegeSchema.index({ 'accreditation.nirfRank': 1 });
 collegeSchema.index({ collegeType: 1 });
 collegeSchema.index({ isVerified: 1 });
 collegeSchema.index({ featured: 1 });

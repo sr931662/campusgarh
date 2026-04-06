@@ -33,14 +33,47 @@ class CourseService extends BaseService {
   async searchCourses(filters, pagination) {
     const query = { deletedAt: null, isActive: { $ne: false } };
 
-    // NEW (name + discipline + description):
+    // NLP abbreviation map — expands common short-forms to match full course names
+    const ABBR_MAP = {
+      'btech': 'technology', 'b.tech': 'technology', 'b tech': 'technology',
+      'mtech': 'technology', 'm.tech': 'technology', 'm tech': 'technology',
+      'be': 'engineering',   'b.e': 'engineering',
+      'me': 'engineering',   'm.e': 'engineering',
+      'mba': 'business administration',
+      'bba': 'business administration',
+      'mca': 'computer applications',
+      'bca': 'computer applications',
+      'bsc': 'science',  'b.sc': 'science',
+      'msc': 'science',  'm.sc': 'science',
+      'bcom': 'commerce', 'b.com': 'commerce',
+      'mcom': 'commerce', 'm.com': 'commerce',
+      'llb': 'law', 'll.b': 'law',
+      'llm': 'law', 'll.m': 'law',
+      'mbbs': 'medicine',
+      'bds': 'dental',
+      'barch': 'architecture', 'b.arch': 'architecture',
+      'bpharm': 'pharmacy',    'b.pharm': 'pharmacy',
+      'phd': 'philosophy',
+    };
+
     if (filters.search) {
-      const esc = filters.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').trim();
-      query.$or = [
+      const raw = filters.search.trim();
+      const esc = raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const orConditions = [
         { name:        { $regex: esc, $options: 'i' } },
         { discipline:  { $regex: esc, $options: 'i' } },
         { description: { $regex: esc, $options: 'i' } },
       ];
+      // Expand abbreviation if found (e.g. "B.Tech" → also search "technology")
+      const expanded = ABBR_MAP[raw.toLowerCase()];
+      if (expanded) {
+        const expEsc = expanded.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        orConditions.push(
+          { name:       { $regex: expEsc, $options: 'i' } },
+          { discipline: { $regex: expEsc, $options: 'i' } },
+        );
+      }
+      query.$or = orConditions;
     }
     if (filters.category) query.category = filters.category;
     if (filters.mode)     query.mode = filters.mode;
