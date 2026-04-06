@@ -50,7 +50,7 @@ export default function CollegeDetail() {
     type: college?.collegeType,
     limit: 5,
   });
-  const similarColleges = (similarData?.data?.data?.data || []).filter(c => c._id !== college?._id).slice(0, 4);
+  const similarColleges = (similarData?.data?.data?.data || []).filter(c => c?._id && c._id !== college?._id).slice(0, 4);
 
   // Auto-open enquiry popup once college data is ready
   useEffect(() => {

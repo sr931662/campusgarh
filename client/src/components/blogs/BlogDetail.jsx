@@ -66,7 +66,7 @@ const BlogDetail = () => {
   const blog = data?.data?.data;
   const contentType = blog?.contentType;
   const { data: similarData } = useBlogs({ contentType, limit: 4 });
-  const similarBlogs = (similarData?.data?.data?.data || []).filter(b => b._id !== blog._id).slice(0, 4);
+  const similarBlogs = (similarData?.data?.data?.data || []).filter(b => b?._id && b._id !== blog?._id).slice(0, 4);
 
   useEffect(() => {
     if (!blog) return;
