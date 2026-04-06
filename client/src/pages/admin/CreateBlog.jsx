@@ -129,6 +129,7 @@ const CreateBlog = () => {
       </div>
     );
   }
+  const cs = { background: 'rgba(201,168,76,0.12)', color: '#C9A84C', padding: '0.1rem 0.4rem', borderRadius: '4px', fontFamily: 'monospace', fontSize: '0.78rem' };
 
   return (
     <div className={styles.container}>
