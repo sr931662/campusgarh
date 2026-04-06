@@ -205,7 +205,7 @@ const CreateBlog = () => {
             </div>
           </div>
         </div>
-        
+
         {/* ── Markdown Guide ── */}
         <div className={styles.section}>
           <details style={{ cursor: 'pointer' }}>
@@ -214,42 +214,42 @@ const CreateBlog = () => {
             </summary>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '0.75rem', marginTop: '0.75rem', fontSize: '0.78rem', color: 'rgba(255,255,255,0.55)', lineHeight: 1.8 }}>
               <div>
-                <strong style={{ color: 'rgba(255,255,255,0.75)', display: 'block', marginBottom: '0.25rem' }}>Headings</strong>
+                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Headings</strong>
                 <code># H1 Heading</code><br />
                 <code>## H2 Heading</code><br />
                 <code>### H3 Heading</code>
               </div>
               <div>
-                <strong style={{ color: 'rgba(255,255,255,0.75)', display: 'block', marginBottom: '0.25rem' }}>Text Formatting</strong>
+                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Text Formatting</strong>
                 <code>**bold text**</code><br />
                 <code>*italic text*</code><br />
                 <code>~~strikethrough~~</code>
               </div>
               <div>
-                <strong style={{ color: 'rgba(255,255,255,0.75)', display: 'block', marginBottom: '0.25rem' }}>Lists</strong>
+                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Lists</strong>
                 <code>- Bullet item</code><br />
                 <code>1. Numbered item</code><br />
                 <code>- [ ] Checklist item</code>
               </div>
               <div>
-                <strong style={{ color: 'rgba(255,255,255,0.75)', display: 'block', marginBottom: '0.25rem' }}>Links & Images</strong>
+                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Links & Images</strong>
                 <code>[Link text](https://url)</code><br />
                 <code>![Alt](image-url)</code>
               </div>
               <div>
-                <strong style={{ color: 'rgba(255,255,255,0.75)', display: 'block', marginBottom: '0.25rem' }}>Blockquote & Code</strong>
+                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Blockquote & Code</strong>
                 <code>{'> Blockquote text'}</code><br />
                 <code>`inline code`</code><br />
                 <code>```js ... ```</code> (code block)
               </div>
               <div>
-                <strong style={{ color: 'rgba(255,255,255,0.75)', display: 'block', marginBottom: '0.25rem' }}>Table</strong>
+                <strong style={{ color: 'rgba(0,0,05,0.75)', display: 'block', marginBottom: '0.25rem' }}>Table</strong>
                 <code>| Col1 | Col2 |</code><br />
                 <code>|------|------|</code><br />
                 <code>| Val1 | Val2 |</code>
               </div>
               <div>
-                <strong style={{ color: 'rgba(255,255,255,0.75)', display: 'block', marginBottom: '0.25rem' }}>Separator & Line Break</strong>
+                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Separator & Line Break</strong>
                 <code>---</code> (horizontal rule)<br />
                 Two spaces at end of line = line break
               </div>
