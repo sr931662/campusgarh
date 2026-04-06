@@ -207,52 +207,54 @@ const CreateBlog = () => {
         </div>
 
         {/* ── Markdown Guide ── */}
-        <div className={styles.section}>
+        <div style={{ background: '#1a1a2e', border: '1.5px solid rgba(201,168,76,0.2)', borderRadius: '12px', padding: '1rem 1.25rem', marginBottom: '1rem' }}>
           <details style={{ cursor: 'pointer' }}>
-            <summary style={{ fontSize: '0.82rem', color: 'var(--gold)', fontWeight: 600, userSelect: 'none', padding: '0.5rem 0' }}>
+            <summary style={{ fontSize: '0.82rem', color: '#C9A84C', fontWeight: 600, userSelect: 'none', padding: '0.25rem 0' }}>
               Markdown Guide — click to expand
             </summary>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '0.75rem', marginTop: '0.75rem', fontSize: '0.78rem', color: 'rgba(255,255,255,0.55)', lineHeight: 1.8 }}>
-              <div>
-                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Headings</strong>
-                <code># H1 Heading</code><br />
-                <code>## H2 Heading</code><br />
-                <code>### H3 Heading</code>
-              </div>
-              <div>
-                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Text Formatting</strong>
-                <code>**bold text**</code><br />
-                <code>*italic text*</code><br />
-                <code>~~strikethrough~~</code>
-              </div>
-              <div>
-                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Lists</strong>
-                <code>- Bullet item</code><br />
-                <code>1. Numbered item</code><br />
-                <code>- [ ] Checklist item</code>
-              </div>
-              <div>
-                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Links & Images</strong>
-                <code>[Link text](https://url)</code><br />
-                <code>![Alt](image-url)</code>
-              </div>
-              <div>
-                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Blockquote & Code</strong>
-                <code>{'> Blockquote text'}</code><br />
-                <code>`inline code`</code><br />
-                <code>```js ... ```</code> (code block)
-              </div>
-              <div>
-                <strong style={{ color: 'rgba(0,0,05,0.75)', display: 'block', marginBottom: '0.25rem' }}>Table</strong>
-                <code>| Col1 | Col2 |</code><br />
-                <code>|------|------|</code><br />
-                <code>| Val1 | Val2 |</code>
-              </div>
-              <div>
-                <strong style={{ color: 'rgba(0,0,0,0.75)', display: 'block', marginBottom: '0.25rem' }}>Separator & Line Break</strong>
-                <code>---</code> (horizontal rule)<br />
-                Two spaces at end of line = line break
-              </div>
+
+            <div>
+              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Headings</strong>
+              <code style={cs}># H1 Heading</code><br />
+              <code style={cs}>## H2 Heading</code><br />
+              <code style={cs}>### H3 Heading</code>
+            </div>
+            <div>
+              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Text Formatting</strong>
+              <code style={cs}>**bold text**</code><br />
+              <code style={cs}>*italic text*</code><br />
+              <code style={cs}>~~strikethrough~~</code>
+            </div>
+            <div>
+              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Lists</strong>
+              <code style={cs}>- Bullet item</code><br />
+              <code style={cs}>1. Numbered item</code><br />
+              <code style={cs}>- [ ] Checklist item</code>
+            </div>
+            <div>
+              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Links & Images</strong>
+              <code style={cs}>[Link text](https://url)</code><br />
+              <code style={cs}>![Alt](image-url)</code>
+            </div>
+            <div>
+              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Blockquote & Code</strong>
+              <code style={cs}>{'> Blockquote text'}</code><br />
+              <code style={cs}>`inline code`</code><br />
+              <code style={cs}>```js ... ```</code> (code block)
+            </div>
+            <div>
+              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Table</strong>
+              <code style={cs}>| Col1 | Col2 |</code><br />
+              <code style={cs}>|------|------|</code><br />
+              <code style={cs}>| Val1 | Val2 |</code>
+            </div>
+            <div>
+              <strong style={{ color: 'rgba(255,255,255,0.9)', display: 'block', marginBottom: '0.25rem' }}>Separator & Line Break</strong>
+              <code style={cs}>---</code> (horizontal rule)<br />
+              Two spaces at end of line = line break
+            </div>
+
             </div>
           </details>
         </div>
