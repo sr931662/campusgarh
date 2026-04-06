@@ -15,6 +15,16 @@ import ReviewForm from './ReviewForm';
 import styles from './CollegeReviews.module.css';
 import { formatRelativeTime } from '../../utils/formatters';
 
+const getInitials = (name = '') =>
+  name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || '?';
+
+const roleLabel = {
+  student: 'Student',
+  alumni: 'Alumni',
+  counsellor: 'Counsellor',
+};
+
+
 const PAGE_SIZE = 5;
 
 const CollegeReviews = ({ collegeId }) => {
@@ -77,17 +87,47 @@ const CollegeReviews = ({ collegeId }) => {
             {reviews.map((review) => (
               <div key={review._id} className={styles.reviewCard}>
                 <div className={styles.reviewHeader}>
-                  <div className={styles.userInfo}>
-                    <span className={styles.userName}>{review.user?.name || 'Anonymous'}</span>
+                  {/* Avatar */}
+                  <div className={styles.reviewerAvatar}>
+                    {getInitials(review.user?.name)}
+                  </div>
+
+                  {/* Name + details */}
+                  <div className={styles.reviewerMeta}>
+                    <div className={styles.reviewerTopRow}>
+                      <span className={styles.userName}>
+                        {review.user?.name || 'CampusGarh User'}
+                      </span>
+                      {review.user?.role && (
+                        <span className={styles.roleTag}>
+                          {roleLabel[review.user.role] || review.user.role}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Academic info */}
+                    {review.user?.academicBackground && (
+                      <div className={styles.reviewerAcademic}>
+                        {[
+                          review.user.academicBackground.qualification,
+                          review.user.academicBackground.stream,
+                          review.user.academicBackground.institution,
+                        ].filter(Boolean).join(' · ')}
+                      </div>
+                    )}
+
                     <span className={styles.reviewDate}>{formatRelativeTime(review.createdAt)}</span>
                   </div>
+
                   <RatingStars rating={review.rating} size="sm" />
                 </div>
+
                 <h3 className={styles.reviewTitle}>{review.title}</h3>
                 <p className={styles.reviewContent}>{review.content}</p>
                 {review.courseStudied && (
                   <div className={styles.courseStudied}>Course: {review.courseStudied}</div>
                 )}
+
                 <div className={styles.reviewFooter}>
                   <button
                     className={`${styles.helpfulBtn} ${review.helpfulBy?.some(id => String(id) === String(user?._id)) ? styles.helpfulActive : ''}`}
@@ -105,6 +145,7 @@ const CollegeReviews = ({ collegeId }) => {
                   </button>
                 </div>
               </div>
+
             ))}
           </div>
 

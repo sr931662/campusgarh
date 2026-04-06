@@ -24,8 +24,26 @@ class ReviewService extends BaseService {
 
   // Get reviews for a college (approved only)
   async getCollegeReviews(collegeId, pagination = {}) {
+    const page  = parseInt(pagination.page)  || 1;
+    const limit = parseInt(pagination.limit) || 10;
+    const skip  = (page - 1) * limit;
+
     const query = { college: collegeId, status: 'approved', deletedAt: null };
-    return this.findAll(query, pagination, { createdAt: -1 });
+
+    const [data, total] = await Promise.all([
+      Review.find(query)
+        .populate('user', 'name role academicBackground profilePicture')
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .lean(),
+      Review.countDocuments(query),
+    ]);
+
+    return {
+      data,
+      pagination: { total, page, limit, pages: Math.ceil(total / limit) },
+    };
   }
 
   // Get average rating for a college
