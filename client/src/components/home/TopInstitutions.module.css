@@ -12,7 +12,8 @@
 .tabActive { padding: 0.4rem 1.1rem; border-radius: 6px; border: none; background: var(--gold, #C9A84C); color: #000; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
 .stateSelect { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.4rem 0.8rem; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
 .stateSelect option { background: #1a1a1a; }
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; align-items: stretch; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; grid-auto-rows: 1fr; }
+.grid > * { display: flex; flex-direction: column; }
 .skeleton { height: 180px; border-radius: 12px; background: rgba(255,255,255,0.05); animation: pulse 1.5s ease infinite; }
 @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
 .empty { color: rgba(255,255,255,0.4); font-size: 0.9rem; padding: 2rem 0; }

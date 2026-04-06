@@ -55,42 +55,78 @@ const Contact = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.hero}>
-        <h1>Get in Touch</h1>
-        <p>We'd love to hear from you</p>
-      </div>
-      <div className={styles.content}>
-        <Card padding="lg" className={styles.card}>
-          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-            <div className={styles.formGroup}>
-              <label>Name</label>
-              <input {...register('studentName', { required: 'Name is required' })} />
-              {errors.studentName && <span>{errors.studentName.message}</span>}
-            </div>
-            <div className={styles.formGroup}>
-              <label>Email</label>
-              <input type="email" {...register('email', { required: 'Email is required' })} />
-              {errors.email && <span>{errors.email.message}</span>}
-            </div>
-            <div className={styles.formGroup}>
-              <label>Phone</label>
-              <input type="tel" {...register('phone', { required: 'Phone is required' })} />
-              {errors.phone && <span>{errors.phone.message}</span>}
-            </div>
-            <div className={styles.formGroup}>
-              <label>Message</label>
-              <textarea rows="5" {...register('message')} />
-            </div>
-            <Button type="submit" variant="primary" fullWidth loading={createEnquiry.isPending}>
-              Send Message
-            </Button>
-          </form>
-        </Card>
-      </div>
-      <FAQSection faqs={CONTACT_FAQS} />
+  <div className={styles.container}>
+    <div className={styles.hero}>
+      <h1>Get in Touch</h1>
+      <p>Have a question? We're here to help — reach out anytime.</p>
     </div>
-  );
+
+    <div className={styles.content}>
+      {/* Info panel */}
+      <div className={styles.infoPanel}>
+        <div className={styles.infoItem}>
+          <div className={styles.infoIcon}>📞</div>
+          <div>
+            <div className={styles.infoLabel}>Phone</div>
+            <div className={styles.infoValue}>1800-123-4567</div>
+          </div>
+        </div>
+        <div className={styles.infoItem}>
+          <div className={styles.infoIcon}>✉️</div>
+          <div>
+            <div className={styles.infoLabel}>Email</div>
+            <div className={styles.infoValue}>support@campusgarh.com</div>
+          </div>
+        </div>
+        <div className={styles.infoItem}>
+          <div className={styles.infoIcon}>🕐</div>
+          <div>
+            <div className={styles.infoLabel}>Response Time</div>
+            <div className={styles.infoValue}>Within 24–48 hours</div>
+          </div>
+        </div>
+        <div className={styles.infoItem}>
+          <div className={styles.infoIcon}>🎓</div>
+          <div>
+            <div className={styles.infoLabel}>Free Counselling</div>
+            <div className={styles.infoValue}>Talk to an expert — no charges</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Form */}
+      <Card padding="lg" className={styles.card}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label>Name</label>
+            <input {...register('studentName', { required: 'Name is required' })} placeholder="Your full name" />
+            {errors.studentName && <span>{errors.studentName.message}</span>}
+          </div>
+          <div className={styles.formGroup}>
+            <label>Email</label>
+            <input type="email" {...register('email', { required: 'Email is required' })} placeholder="you@email.com" />
+            {errors.email && <span>{errors.email.message}</span>}
+          </div>
+          <div className={styles.formGroup}>
+            <label>Phone</label>
+            <input type="tel" {...register('phone', { required: 'Phone is required' })} placeholder="10-digit mobile number" />
+            {errors.phone && <span>{errors.phone.message}</span>}
+          </div>
+          <div className={styles.formGroup}>
+            <label>Message</label>
+            <textarea rows="5" {...register('message')} placeholder="Tell us how we can help you..." />
+          </div>
+          <Button type="submit" variant="primary" fullWidth loading={createEnquiry.isPending}>
+            Send Message
+          </Button>
+        </form>
+      </Card>
+    </div>
+
+    <FAQSection faqs={CONTACT_FAQS} />
+  </div>
+);
+
 };
 
 export default Contact;

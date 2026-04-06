@@ -1,13 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useExamBySlug, useCoursesForExam } from '../../hooks/queries';
+import { useExamBySlug, useCoursesForExam, useExams } from '../../hooks/queries';
 import { formatDate, formatCurrency } from '../../utils/formatters';
 import Loader from '../common/Loader/Loader';
 import Button from '../common/Button/Button';
 import styles from './ExamDetail.module.css';
 import { FaBook, FaExternalLinkAlt, FaFileAlt, FaUniversity, FaLaptop, FaCalendarAlt, FaMapPin } from 'react-icons/fa';
 
-const TABS = ['Overview', 'Eligibility', 'Pattern & Syllabus', 'Dates & Cutoffs', 'Preparation', 'Registration'];
+const SECTIONS = [
+  { id: 'overview',   label: 'Overview' },
+  { id: 'eligibility',label: 'Eligibility' },
+  { id: 'pattern',    label: 'Pattern & Syllabus' },
+  { id: 'dates',      label: 'Dates & Cutoffs' },
+  { id: 'preparation',label: 'Preparation' },
+  { id: 'registration',label: 'Registration' },
+];
 
 const ExamDetail = () => {
   const { slug } = useParams();
@@ -15,12 +22,40 @@ const ExamDetail = () => {
   const exam = examRes?.data?.data;
 
   const { data: coursesRes } = useCoursesForExam(exam?._id);
-  const [activeTab, setActiveTab] = useState('Overview');
+  const { data: similarExamsData } = useExams({ category: exam?.category, limit: 5 });
+
+  const [activeSection, setActiveSection] = useState('overview');
   const [showFullSyllabus, setShowFullSyllabus] = useState(false);
+  const sectionRefs = useRef({});
+
+  const courses = coursesRes?.data?.data || [];
+  const similarExams = (similarExamsData?.data?.data?.data || []).filter(e => e._id !== exam?._id).slice(0, 4);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // IntersectionObserver — highlight active nav on scroll
+  useEffect(() => {
+    if (!exam) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: '-15% 0% -70% 0%', threshold: 0 }
+    );
+    SECTIONS.forEach(({ id }) => {
+      const el = sectionRefs.current[id];
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [exam]);
+
+  const scrollTo = (id) => {
+    sectionRefs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   if (isLoading) {
     return (
@@ -42,14 +77,79 @@ const ExamDetail = () => {
     );
   }
 
-  const courses = coursesRes?.data?.data || [];
+  return (
+    <div className={styles.page}>
+      {/* ── HERO ──────────────────────────────────────────────────────────────── */}
+      <section className={styles.hero}>
+        <div className={styles.heroNoise} />
+        <div className={styles.heroInner}>
+          <nav className={styles.breadcrumb}>
+            <Link to="/exams">Exams</Link>
+            <span>/</span>
+            <span>{exam.name}</span>
+          </nav>
 
-  // Helper to render tab content
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'Overview':
-        return (
-          <div className={styles.section}>
+          <div className={styles.heroBadges}>
+            {exam.category && <span className={styles.categoryBadge}>{exam.category}</span>}
+            {exam.examLevel && <span className={styles.levelBadge}>{exam.examLevel}</span>}
+          </div>
+
+          <h1 className={styles.name}>{exam.name}</h1>
+
+          <div className={styles.heroStats}>
+            {exam.conductingBody && (
+              <div className={styles.heroStat}><span><FaUniversity /></span><span>{exam.conductingBody}</span></div>
+            )}
+            {exam.examMode && (
+              <div className={styles.heroStat}><span><FaLaptop /></span><span>{exam.examMode}</span></div>
+            )}
+            {exam.frequency && (
+              <div className={styles.heroStat}><span><FaCalendarAlt /></span><span>{exam.frequency}</span></div>
+            )}
+            {exam.importantDates?.find(d => d.event === 'Exam Date') && (
+              <div className={styles.heroStat}>
+                <span><FaMapPin /></span>
+                <span>{formatDate(exam.importantDates.find(d => d.event === 'Exam Date').date)}</span>
+              </div>
+            )}
+          </div>
+
+          <div className={styles.heroActions}>
+            {exam.officialWebsite && (
+              <a href={exam.officialWebsite} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>
+                Official Website <FaExternalLinkAlt />
+              </a>
+            )}
+            {exam.registrationLink && (
+              <a href={exam.registrationLink} target="_blank" rel="noopener noreferrer" className={styles.ctaBtnOutline}>
+                Registration Portal
+              </a>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ── STICKY NAV ────────────────────────────────────────────────────────── */}
+      <div className={styles.tabBarWrap}>
+        <div className={styles.tabBar}>
+          {SECTIONS.map(sec => (
+            <button
+              key={sec.id}
+              className={`${styles.tabBtn} ${activeSection === sec.id ? styles.tabBtnActive : ''}`}
+              onClick={() => scrollTo(sec.id)}
+            >
+              {sec.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── ALL SECTIONS (always rendered, scroll-based) ───────────────────────── */}
+      <div className={styles.contentWrap}>
+        <div className={styles.content}>
+
+          {/* OVERVIEW */}
+          <div id="overview" ref={el => sectionRefs.current['overview'] = el} className={styles.section}>
             <div className={styles.card}>
               <h2 className={styles.sectionTitle}>About {exam.name}</h2>
               <div className={styles.overviewBox}>{exam.overview || 'No overview provided.'}</div>
@@ -87,11 +187,9 @@ const ExamDetail = () => {
               </div>
             </div>
           </div>
-        );
 
-      case 'Eligibility':
-        return (
-          <div className={styles.section}>
+          {/* ELIGIBILITY */}
+          <div id="eligibility" ref={el => sectionRefs.current['eligibility'] = el} className={styles.section}>
             <div className={styles.card}>
               <h2 className={styles.sectionTitle}>Eligibility Criteria</h2>
               <div className={styles.eligibilityBox}>
@@ -109,9 +207,7 @@ const ExamDetail = () => {
                     {exam.eligibilityDetails.otherCriteria?.length > 0 && (
                       <>
                         <p><strong>Other Criteria:</strong></p>
-                        <ul>
-                          {exam.eligibilityDetails.otherCriteria.map((c, i) => <li key={i}>{c}</li>)}
-                        </ul>
+                        <ul>{exam.eligibilityDetails.otherCriteria.map((c, i) => <li key={i}>{c}</li>)}</ul>
                       </>
                     )}
                   </>
@@ -121,11 +217,9 @@ const ExamDetail = () => {
               </div>
             </div>
           </div>
-        );
 
-      case 'Pattern & Syllabus':
-        return (
-          <div className={styles.section}>
+          {/* PATTERN & SYLLABUS */}
+          <div id="pattern" ref={el => sectionRefs.current['pattern'] = el} className={styles.section}>
             <div className={styles.card}>
               <h2 className={styles.sectionTitle}>Exam Pattern</h2>
               <div className={styles.patternCards}>
@@ -155,20 +249,13 @@ const ExamDetail = () => {
                   <div className={styles.tableWrapper}>
                     <table className={styles.sectionTable}>
                       <thead>
-                        <tr>
-                          <th>Section</th>
-                          <th>Questions</th>
-                          <th>Marks</th>
-                          <th>Time</th>
-                        </tr>
+                        <tr><th>Section</th><th>Questions</th><th>Marks</th><th>Time</th></tr>
                       </thead>
                       <tbody>
                         {exam.sectionDetails.map((sec, idx) => (
                           <tr key={idx}>
-                            <td>{sec.name}</td>
-                            <td>{sec.totalQuestions}</td>
-                            <td>{sec.maxMarks}</td>
-                            <td>{sec.timeAllotted}</td>
+                            <td>{sec.name}</td><td>{sec.totalQuestions}</td>
+                            <td>{sec.maxMarks}</td><td>{sec.timeAllotted}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -190,13 +277,11 @@ const ExamDetail = () => {
               <div className={styles.syllabusBox}>
                 {exam.syllabus ? (
                   <>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: showFullSyllabus
-                          ? exam.syllabus
-                          : exam.syllabus.substring(0, 500) + (exam.syllabus.length > 500 ? '...' : ''),
-                      }}
-                    />
+                    <div dangerouslySetInnerHTML={{
+                      __html: showFullSyllabus
+                        ? exam.syllabus
+                        : exam.syllabus.substring(0, 500) + (exam.syllabus.length > 500 ? '...' : ''),
+                    }} />
                     {exam.syllabus.length > 500 && (
                       <button className={styles.readMoreBtn} onClick={() => setShowFullSyllabus(!showFullSyllabus)}>
                         {showFullSyllabus ? '↑ Show less' : '↓ Read more'}
@@ -209,11 +294,9 @@ const ExamDetail = () => {
               </div>
             </div>
           </div>
-        );
 
-      case 'Dates & Cutoffs':
-        return (
-          <div className={styles.section}>
+          {/* DATES & CUTOFFS */}
+          <div id="dates" ref={el => sectionRefs.current['dates'] = el} className={styles.section}>
             <div className={styles.card}>
               <h2 className={styles.sectionTitle}>Important Dates</h2>
               {exam.importantDates?.length > 0 ? (
@@ -244,20 +327,13 @@ const ExamDetail = () => {
                 <div className={styles.tableWrapper}>
                   <table className={styles.sectionTable}>
                     <thead>
-                      <tr>
-                        <th>Year</th>
-                        <th>Category</th>
-                        <th>Cutoff Score</th>
-                        <th>Cutoff Rank</th>
-                      </tr>
+                      <tr><th>Year</th><th>Category</th><th>Cutoff Score</th><th>Cutoff Rank</th></tr>
                     </thead>
                     <tbody>
                       {exam.examCutoffs.map((cut, idx) => (
                         <tr key={idx}>
-                          <td>{cut.year}</td>
-                          <td>{cut.category}</td>
-                          <td>{cut.cutoffScore || '—'}</td>
-                          <td>{cut.cutoffRank || '—'}</td>
+                          <td>{cut.year}</td><td>{cut.category}</td>
+                          <td>{cut.cutoffScore || '—'}</td><td>{cut.cutoffRank || '—'}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -268,11 +344,9 @@ const ExamDetail = () => {
               )}
             </div>
           </div>
-        );
 
-      case 'Preparation':
-        return (
-          <div className={styles.section}>
+          {/* PREPARATION */}
+          <div id="preparation" ref={el => sectionRefs.current['preparation'] = el} className={styles.section}>
             <div className={styles.card}>
               <h2 className={styles.sectionTitle}>Preparation Tips</h2>
               {exam.preparationTips?.length > 0 ? (
@@ -307,11 +381,9 @@ const ExamDetail = () => {
               </div>
             )}
           </div>
-        );
 
-      case 'Registration':
-        return (
-          <div className={styles.section}>
+          {/* REGISTRATION */}
+          <div id="registration" ref={el => sectionRefs.current['registration'] = el} className={styles.section}>
             <div className={styles.card}>
               <h2 className={styles.sectionTitle}>Registration Details</h2>
 
@@ -341,9 +413,7 @@ const ExamDetail = () => {
                 <>
                   <h3 className={styles.subTitle}>Registration Steps</h3>
                   <ol className={styles.stepsList}>
-                    {exam.registrationSteps.map((step, idx) => (
-                      <li key={idx}>{step}</li>
-                    ))}
+                    {exam.registrationSteps.map((step, idx) => <li key={idx}>{step}</li>)}
                   </ol>
                 </>
               )}
@@ -368,119 +438,18 @@ const ExamDetail = () => {
               )}
             </div>
           </div>
-        );
 
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div className={styles.page}>
-      {/* ── HERO ──────────────────────────────────────────────────────────────── */}
-      <section className={styles.hero}>
-        <div className={styles.heroNoise} />
-        <div className={styles.heroInner}>
-          {/* Breadcrumb */}
-          <nav className={styles.breadcrumb}>
-            <Link to="/exams">Exams</Link>
-            <span>/</span>
-            <span>{exam.name}</span>
-          </nav>
-
-          {/* Badges */}
-          <div className={styles.heroBadges}>
-            {exam.category && (
-              <span className={styles.categoryBadge}>{exam.category}</span>
-            )}
-            {exam.examLevel && (
-              <span className={styles.levelBadge}>{exam.examLevel}</span>
-            )}
-          </div>
-
-          {/* Name */}
-          <h1 className={styles.name}>{exam.name}</h1>
-
-          {/* Quick stats strip */}
-          <div className={styles.heroStats}>
-            {exam.conductingBody && (
-              <div className={styles.heroStat}>
-                <span><FaUniversity /></span>
-                <span>{exam.conductingBody}</span>
-              </div>
-            )}
-            {exam.examMode && (
-              <div className={styles.heroStat}>
-                <span><FaLaptop /></span>
-                <span>{exam.examMode}</span>
-              </div>
-            )}
-            {exam.frequency && (
-              <div className={styles.heroStat}>
-                <span><FaCalendarAlt /></span>
-                <span>{exam.frequency}</span>
-              </div>
-            )}
-            {exam.importantDates?.find(d => d.event === 'Exam Date') && (
-              <div className={styles.heroStat}>
-                <span><FaMapPin /></span>
-                <span>{formatDate(exam.importantDates.find(d => d.event === 'Exam Date').date)}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Action buttons */}
-          <div className={styles.heroActions}>
-            {exam.officialWebsite && (
-              <a href={exam.officialWebsite} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>
-                Official Website <FaExternalLinkAlt />
-              </a>
-            )}
-            {exam.registrationLink && (
-              <a href={exam.registrationLink} target="_blank" rel="noopener noreferrer" className={styles.ctaBtnOutline}>
-                Registration Portal
-              </a>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ── STICKY TAB BAR ────────────────────────────────────────────────────── */}
-      <div className={styles.tabBarWrap}>
-        <div className={styles.tabBar}>
-          {TABS.map(tab => (
-            <button
-              key={tab}
-              className={`${styles.tabBtn} ${activeTab === tab ? styles.tabBtnActive : ''}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* ── TAB CONTENT ───────────────────────────────────────────────────────── */}
-      <div className={styles.contentWrap}>
-        <div className={styles.content}>
-          {renderTabContent()}
-
-          {/* Colleges Accepting this Exam */}
+          {/* COLLEGES ACCEPTING THIS EXAM */}
           {courses.length > 0 && (
             <div className={styles.section}>
               <div className={styles.card}>
                 <h2 className={styles.sectionTitle}>Colleges Accepting {exam.name}</h2>
                 <div className={styles.collegesGrid}>
                   {courses.map(course => (
-                    <Link
-                      to={`/colleges/${course.college?.slug}`}
-                      key={course._id}
-                      className={styles.collegeCard}
-                    >
+                    <Link to={`/colleges/${course.college?.slug}`} key={course._id} className={styles.collegeCard}>
                       <div className={styles.collegeName}>{course.college?.name}</div>
                       <div className={styles.collegeMeta}>
-                        {course.course?.name}
-                        {course.fees ? ` · ${formatCurrency(course.fees)}` : ''}
+                        {course.course?.name}{course.fees ? ` · ${formatCurrency(course.fees)}` : ''}
                       </div>
                     </Link>
                   ))}
@@ -488,6 +457,28 @@ const ExamDetail = () => {
               </div>
             </div>
           )}
+
+          {/* SIMILAR EXAMS */}
+          {similarExams.length > 0 && (
+            <div className={styles.section}>
+              <div className={styles.card}>
+                <h2 className={styles.sectionTitle}>Similar Exams</h2>
+                <div className={styles.collegesGrid}>
+                  {similarExams.map(e => (
+                    <Link key={e._id} to={`/exams/${e.slug}`} className={styles.collegeCard}>
+                      <div className={styles.collegeName}>{e.name}</div>
+                      {e.conductingBody && <div className={styles.collegeMeta}>{e.conductingBody}</div>}
+                      <div className={styles.collegeMetas}>
+                        {e.examLevel && <span className={styles.collegeBadge}>{e.examLevel}</span>}
+                        {e.examMode && <span className={styles.collegeBadge}>{e.examMode}</span>}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     </div>

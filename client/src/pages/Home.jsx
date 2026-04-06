@@ -63,12 +63,12 @@ const popularExams = [
 ];
 
 const blogTopics = [
-  { icon: <FaTrophy />,         label: 'College Rankings',  count: '48 articles',  path: '/blogs?contentType=Ranking',             accent: '#8b5cf6' },
-  { icon: <FaBookOpen />,       label: 'Exam Guides',        count: '92 guides',    path: '/blogs?contentType=Guide',               accent: '#3b82f6' },
-  { icon: <FaBriefcase />,      label: 'Career Advice',      count: '64 articles',  path: '/blogs?contentType=Career%20Advice',     accent: '#0891b2' },
-  { icon: <FaNewspaper />,      label: 'Latest News',        count: '120+ posts',   path: '/blogs?contentType=News',                accent: '#f59e0b' },
-  { icon: <FaGraduationCap />,  label: 'Scholarship Info',   count: '35 articles',  path: '/blogs?contentType=Scholarship',         accent: '#f97316' },
-  { icon: <FaStar />,           label: 'College Reviews',    count: '80+ reviews',  path: '/blogs?contentType=College%20Review',    accent: '#10b981' },
+  { icon: <FaTrophy />,         label: 'College Rankings',  count: '48 articles',  path: '/news?contentType=Ranking',             accent: '#8b5cf6' },
+  { icon: <FaBookOpen />,       label: 'Exam Guides',        count: '92 guides',    path: '/news?contentType=Guide',               accent: '#3b82f6' },
+  { icon: <FaBriefcase />,      label: 'Career Advice',      count: '64 articles',  path: '/news?contentType=Career%20Advice',     accent: '#0891b2' },
+  { icon: <FaNewspaper />,      label: 'Latest News',        count: '120+ posts',   path: '/news?contentType=News',                accent: '#f59e0b' },
+  { icon: <FaGraduationCap />,  label: 'Scholarship Info',   count: '35 articles',  path: '/news?contentType=Scholarship',         accent: '#f97316' },
+  { icon: <FaStar />,           label: 'College Reviews',    count: '80+ reviews',  path: '/news?contentType=College%20Review',    accent: '#10b981' },
 ];
 
 const CATEGORY_COLORS = {
@@ -418,7 +418,7 @@ export default function Home() {
                 Expert articles on admissions, rankings, career paths, and everything in between.
               </p>
             </div>
-            <Link to="/blogs" className={styles.viewAll}>Read All Articles →</Link>
+            <Link to="/news" className={styles.viewAll}>Read All Articles →</Link>
           </motion.div>
 
           <motion.div
@@ -517,7 +517,7 @@ export default function Home() {
             </p>
             <div className={styles.ctaActions}>
               <Link to="/register" className={styles.btnPrimary}>Create Free Account</Link>
-              <Link to="/blogs"    className={styles.btnSecondary}>Read Our Blog</Link>
+              <Link to="/news"    className={styles.btnSecondary}>Read Our News & Articles</Link>
             </div>
           </motion.div>
         </div>

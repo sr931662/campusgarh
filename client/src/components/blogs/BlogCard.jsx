@@ -16,7 +16,7 @@ const BlogCard = ({ blog }) => {
   const coverImage = featuredImage?.url || featuredImageUrl || null;
 
   return (
-    <Link to={`/blogs/${slug}`} className={styles.link}>
+    <Link to={`/news/${slug}`} className={styles.link}>
       <Card hover className={styles.card}>
         {coverImage ? (
           <div className={styles.imageWrapper}>

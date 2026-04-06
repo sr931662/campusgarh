@@ -10,6 +10,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../../store/authStore';
 import { authService } from '../../services/authService';
 import { toast } from 'react-toastify';
+import logo from '../../assets/Campus white color logo png-01.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,9 +59,9 @@ const Login = () => {
       <div className={styles.leftPanel}>
         <div className={styles.leftInner}>
           <Link to="/" className={styles.brandLink}>
-            <span className={styles.brandDot} />
-            CampusGarh
+            <img src={logo} alt="CampusGarh" style={{ height: '52px', width: 'auto', objectFit: 'contain' }} />
           </Link>
+
           <div className={styles.leftBody}>
             <h2 className={styles.leftHeading}>
               Your dream college<br />starts here.

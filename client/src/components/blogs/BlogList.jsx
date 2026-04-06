@@ -18,7 +18,7 @@ const BlogList = () => {
 
   const { data: blogsData, isLoading: blogsLoading, error } = useBlogs({
     page,
-    limit: 9,
+    limit: 8,
     ...filters,
   });
   const { data: categoriesData, isLoading: categoriesLoading } = useBlogCategories();
@@ -62,9 +62,9 @@ const BlogList = () => {
 
       <div className={styles.content}>
         <div className={styles.header}>
-          <h1 className={styles.title}>Education Blog</h1>
+          <h1 className={styles.title}>News & Articles</h1>
           <p className={styles.subtitle}>
-            Latest insights, tips, and news for students
+            Expert insights, college news, and admission guidance for students
           </p>
         </div>
 

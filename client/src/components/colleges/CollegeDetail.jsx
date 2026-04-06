@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   FaTrophy, FaCalendarAlt, FaUsers, FaBriefcase, FaRupeeSign, FaGraduationCap, FaMapMarkerAlt,
   FaFacebook, FaInstagram, FaLinkedinIn, FaYoutube, FaEnvelope,
 } from 'react-icons/fa';
+import { useColleges } from '../../hooks/queries';
 
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -41,11 +42,15 @@ export default function CollegeDetail() {
   const { slug } = useParams();
   const [activeSection, setActiveSection] = useState('info');
   const [showEnquiryModal, setShowEnquiryModal] = useState(false);
-  const sectionRefs = useRef({});
-
   // ── Data fetching ────────────────────────────────────────────────────────────
   const { data: axiosRes, isLoading, error } = useCollegeBySlug(slug);
   const college = axiosRes?.data?.data;
+
+  const { data: similarData } = useColleges({
+    type: college?.collegeType,
+    limit: 5,
+  });
+  const similarColleges = (similarData?.data?.data?.data || []).filter(c => c._id !== college?._id).slice(0, 4);
 
   // Auto-open enquiry popup once college data is ready
   useEffect(() => {
@@ -516,6 +521,25 @@ function StatBox({ label, value }) {
         fontFamily: 'var(--font-display)',
         letterSpacing: '-0.02em',
       }}>{value}</span>
+      {similarColleges.length > 0 && (
+        <div style={{ padding: '3rem 0', borderTop: '1px solid #E8E3DB' }}>
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '1.5rem' }}>Similar Colleges</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem' }}>
+            {similarColleges.map(c => (
+              <Link key={c._id} to={`/colleges/${c.slug}`}
+                style={{ padding: '1.25rem', border: '1px solid #E8E3DB', borderRadius: '12px',
+                  textDecoration: 'none', color: '#1C1C1E', transition: 'box-shadow 0.2s',
+                  display: 'flex', flexDirection: 'column', gap: '0.3rem',
+                  background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                <span style={{ fontSize: '0.68rem', color: '#C9A84C', fontWeight: 700, textTransform: 'uppercase' }}>{c.collegeType}</span>
+                <strong style={{ fontSize: '0.9rem' }}>{c.name}</strong>
+                {c.contact?.city && <span style={{ fontSize: '0.78rem', color: '#9CA3AF' }}>{c.contact.city}, {c.contact?.state}</span>}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

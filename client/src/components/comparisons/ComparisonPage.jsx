@@ -149,16 +149,20 @@ const ComparisonPage = () => {
             </button>
           ))}
           {/* SEO Description */}
-          <p style={{
+          <div style={{
             textAlign: 'center',
-            color: '#6b7280',
-            fontSize: '0.92rem',
-            maxWidth: '700px',
-            margin: '0 auto 1.5rem',
-            lineHeight: '1.6'
+            margin: '0 auto 2rem',
+            maxWidth: '680px',
+            padding: '1rem 1.5rem',
+            background: 'linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02))',
+            border: '1px solid rgba(201,168,76,0.15)',
+            borderRadius: '12px',
           }}>
-            {activeType?.seoDesc}
-          </p>
+            <p style={{ color: '#6b7280', fontSize: '0.92rem', lineHeight: '1.7', margin: 0 }}>
+              {activeType?.seoDesc}
+            </p>
+          </div>
+
 
         </div>
 

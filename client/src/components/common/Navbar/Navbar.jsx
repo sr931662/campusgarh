@@ -103,7 +103,7 @@ const MEGA = {
         { label: 'All Exams',        to: '/exams'    },
       ]},
       { title: 'Resources', links: [
-        { label: 'Blogs & Articles',   to: '/blogs'   },
+        { label: 'News & Articles',   to: '/news'   },
         { label: 'Contact Counsellor', to: '/contact' },
       ]},
     ],
@@ -116,7 +116,7 @@ const BOTTOM_NAV = [
   { key: 'courses',  label: 'Courses',  mega: true },
   { key: 'exams',    label: 'Exams',    mega: true },
   { key: 'tools',    label: 'Tools',    mega: true },
-  { key: 'blog',     label: 'Blog',     mega: false, to: '/blogs'   },
+  { key: 'blog',     label: 'News & Articles',     mega: false, to: '/news'   },
   { key: 'compare',  label: 'Compare',  mega: false, to: '/compare' },
 ];
 
@@ -167,7 +167,7 @@ const Navbar = () => {
     if (key === 'colleges') return location.pathname.startsWith('/colleges');
     if (key === 'courses')  return location.pathname.startsWith('/courses');
     if (key === 'exams')    return location.pathname.startsWith('/exams');
-    if (key === 'blog')     return location.pathname.startsWith('/blogs');
+    if (key === 'blog')     return location.pathname.startsWith('/news') || location.pathname.startsWith('/blogs');
     if (key === 'compare')  return location.pathname === '/compare';
     return false;
   };
@@ -217,8 +217,8 @@ const Navbar = () => {
             </a>
           </div>
           <div className={styles.topStripRight}>
-            <Link to="/blogs" className={styles.topStripLink}>
-              <FiBookOpen size={11} /> Articles &amp; News
+            <Link to="/news" className={styles.topStripLink}>
+              <FiBookOpen size={11} /> News &amp; Articles
             </Link>
           </div>
         </div>

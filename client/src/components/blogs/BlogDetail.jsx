@@ -7,6 +7,8 @@ import Button from '../common/Button/Button';
 import styles from './BlogDetail.module.css';
 import { formatDate } from '../../utils/formatters';
 import { parseMarkdown } from '../../utils/parseMarkdown';
+import { useBlogs } from '../../hooks/queries';
+import BlogCard from './BlogCard';
 
 const CONTENT_TYPE_COLORS = {
   Guide: '#3b82f6', News: '#f59e0b', Ranking: '#8b5cf6',
@@ -62,6 +64,9 @@ const BlogDetail = () => {
   const [tocItems, setTocItems] = useState([]);
 
   const blog = data?.data?.data;
+  const contentType = blog?.contentType;
+  const { data: similarData } = useBlogs({ contentType, limit: 4 });
+  const similarBlogs = (similarData?.data?.data?.data || []).filter(b => b._id !== blog._id).slice(0, 4);
 
   useEffect(() => {
     if (!blog) return;
@@ -95,7 +100,7 @@ const BlogDetail = () => {
         <span className={styles.errorIcon}><FaNewspaper /></span>
         <h2>Article not found</h2>
         <p>We couldn't find this article.</p>
-        <Link to="/blogs"><Button variant="primary">Browse Blogs</Button></Link>
+        <Link to="/news"><Button variant="primary">Browse News & Articles</Button></Link>
       </div>
     );
   }
@@ -114,11 +119,11 @@ const BlogDetail = () => {
         <div className={styles.heroInner}>
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
-            <Link to="/blogs">Blogs</Link>
+            <Link to="/news">News & Articles</Link>
             {blog.categories?.[0] && (
               <>
                 <span>/</span>
-                <Link to={`/blogs?category=${blog.categories[0]._id}`}>
+                <Link to={`/news?category=${blog.categories[0]._id}`}>
                   {blog.categories[0].name}
                 </Link>
               </>
@@ -163,7 +168,7 @@ const BlogDetail = () => {
           {blog.categories?.length > 0 && (
             <div className={styles.categories}>
               {blog.categories.map((cat) => (
-                <Link key={cat._id} to={`/blogs?category=${cat._id}`} className={styles.category}>
+                <Link key={cat._id} to={`/news?category=${cat._id}`} className={styles.category}>
                   {cat.name}
                 </Link>
               ))}
@@ -174,7 +179,7 @@ const BlogDetail = () => {
           {blog.tags?.length > 0 && (
             <div className={styles.tags}>
               {blog.tags.map((tag) => (
-                <Link key={tag} to={`/blogs?tag=${tag}`} className={styles.tag}>#{tag}</Link>
+                <Link key={tag} to={`/news?tag=${tag}`} className={styles.tag}>#{tag}</Link>
               ))}
             </div>
           )}
@@ -201,7 +206,7 @@ const BlogDetail = () => {
                   <h3>Related Articles</h3>
                   <div className={styles.relatedGrid}>
                     {blog.relatedBlogs.map((related) => (
-                      <Link key={related._id} to={`/blogs/${related.slug}`} className={styles.relatedCard}>
+                      <Link key={related._id} to={`/news/${related.slug}`} className={styles.relatedCard}>
                         <h4>{related.title}</h4>
                         <span>{formatDate(related.publishedAt, 'dd MMM yyyy')}</span>
                       </Link>
@@ -253,6 +258,17 @@ const BlogDetail = () => {
           </div>
         </div>
       </div>
+      {similarBlogs.length > 0 && (
+      <div style={{ maxWidth: '1100px', margin: '3rem auto', padding: '0 2rem' }}>
+        <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '1.5rem', color: '#1C1C1E' }}>
+          You May Also Like
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1.25rem' }}>
+          {similarBlogs.map(b => <BlogCard key={b._id} blog={b} />)}
+        </div>
+      </div>
+    )}
+
     </div>
   );
 };

@@ -86,6 +86,8 @@ function App() {
           <Route path="/courses/:slug" element={<CourseDetail />} />
           <Route path="/exams" element={<ExamList />} />
           <Route path="/exams/:slug" element={<ExamDetail />} />
+          <Route path="/news" element={<BlogList />} />
+          <Route path="/news/:slug" element={<BlogDetail />} />
           <Route path="/blogs" element={<BlogList />} />
           <Route path="/blogs/:slug" element={<BlogDetail />} />
           <Route path="/compare" element={<ComparisonPage />} />

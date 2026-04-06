@@ -30,7 +30,7 @@ const ArticleCard = ({ blog }) => {
 
   return (
     <motion.div variants={fadeUp}>
-      <Link to={`/blogs/${blog.slug}`} className={styles.card}>
+      <Link to={`/news/${blog.slug}`} className={styles.card}>
         <div className={styles.imageWrap}>
           {(blog.featuredImage?.url || blog.featuredImageUrl) ? (
             <img src={blog.featuredImage?.url || blog.featuredImageUrl} alt={blog.title} className={styles.image} />
@@ -85,7 +85,7 @@ const LatestArticles = () => {
             <h2 className={styles.heading}>Latest Articles &amp; <span>Updates</span></h2>
             <p className={styles.sub}>Expert insights and admission guidance</p>
           </div>
-          <Link to="/blogs" className={styles.viewAll}>View All →</Link>
+          <Link to="/news" className={styles.viewAll}>View All →</Link>
         </motion.div>
 
         {isLoading ? (
