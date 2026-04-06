@@ -15,7 +15,8 @@ const CourseSearchInput = ({ selected, onChange, maxSelect = 10 }) => {
     timer.current = setTimeout(async () => {
       try {
         const res = await api.get('/courses', { params: { search: q, limit: 8 } });
-        const list = res.data?.data?.courses || [];
+        const raw = res.data?.data;
+        const list = Array.isArray(raw) ? raw : Array.isArray(raw?.data) ? raw.data : [];
         setResults(list);
         setOpen(list.length > 0);
       } catch { setResults([]); setOpen(false); }
