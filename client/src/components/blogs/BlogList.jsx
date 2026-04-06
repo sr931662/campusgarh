@@ -9,6 +9,7 @@ import styles from './BlogList.module.css';
 
 const BlogList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filterOpen, setFilterOpen] = useState(false);
   const [page, setPage] = useState(parseInt(searchParams.get('page')) || 1);
   const [filters, setFilters] = useState({
     category: searchParams.get('category') || '',
@@ -58,16 +59,26 @@ const BlogList = () => {
       </div>
 
       <div className={styles.container}>
-        <div className={styles.sidebar}>
+        {filterOpen && <div className={styles.backdrop} onClick={() => setFilterOpen(false)} />}
+        <div className={`${styles.sidebar} ${filterOpen ? styles.sidebarOpen : ''}`}>
           <BlogFilters
             filters={filters}
             onFilterChange={handleFilterChange}
             onReset={handleResetFilters}
             categories={categories}
+            onClose={() => setFilterOpen(false)}
           />
         </div>
 
         <div className={styles.content}>
+          <div className={styles.mobileFilterBar}>
+            <button className={styles.mobileFilterBtn} onClick={() => setFilterOpen(true)}>
+              Filters
+              {Object.values(filters).some(Boolean) && (
+                <span className={styles.mobileFilterBadge}>{Object.values(filters).filter(Boolean).length}</span>
+              )}
+            </button>
+          </div>
           <div className={styles.grid}>
             {blogs.map((blog) => (
               <BlogCard key={blog._id} blog={blog} />

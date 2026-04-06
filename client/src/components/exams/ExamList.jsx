@@ -11,6 +11,7 @@ import { FaSort } from 'react-icons/fa';
 
 const ExamList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filterOpen, setFilterOpen] = useState(false);
   const [filters, setFilters] = useState({
     category: searchParams.get('category') || '',
     examLevel: searchParams.get('examLevel') || '',
@@ -72,12 +73,14 @@ const ExamList = () => {
         <div className={styles.errorWrap}>Failed to load exams</div>
       ) : (
         <div className={styles.container}>
-          <aside className={styles.sidebar}>
+          {filterOpen && <div className={styles.backdrop} onClick={() => setFilterOpen(false)} />}
+          <aside className={`${styles.sidebar} ${filterOpen ? styles.sidebarOpen : ''}`}>
             <ExamFilters
               filters={filters}
               onChange={handleFilterChange}
               onReset={handleReset}
               activeCount={activeFilterCount}
+              onClose={() => setFilterOpen(false)}
             />
           </aside>
 
@@ -90,13 +93,21 @@ const ExamList = () => {
                     {isLoading ? 'Searching...' : 'Find details, dates, and colleges accepting each exam'}
                   </p>
                 </div>
-                <div className={styles.sortBar}>
-                  <FaSort className={styles.sortIcon} />
-                  <select value={filters.sort} onChange={handleSort} className={styles.sortSelect}>
-                    <option value="date_asc">Exam Date (Earliest)</option>
-                    <option value="date_desc">Exam Date (Latest)</option>
-                    <option value="name_asc">Name (A-Z)</option>
-                  </select>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                  <button className={styles.mobileFilterBtn} onClick={() => setFilterOpen(true)}>
+                    Filters
+                    {activeFilterCount > 0 && (
+                      <span className={styles.mobileFilterBadge}>{activeFilterCount}</span>
+                    )}
+                  </button>
+                  <div className={styles.sortBar}>
+                    <FaSort className={styles.sortIcon} />
+                    <select value={filters.sort} onChange={handleSort} className={styles.sortSelect}>
+                      <option value="date_asc">Exam Date (Earliest)</option>
+                      <option value="date_desc">Exam Date (Latest)</option>
+                      <option value="name_asc">Name (A-Z)</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               {activeFilterCount > 0 && (

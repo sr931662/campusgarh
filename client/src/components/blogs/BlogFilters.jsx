@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../common/Button/Button';
 import styles from './BlogFilters.module.css';
 
-const BlogFilters = ({ filters, onFilterChange, onReset, categories }) => {
+const BlogFilters = ({ filters, onFilterChange, onReset, categories, onClose }) => {
   const [localFilters, setLocalFilters] = useState(filters);
 
   const handleChange = (field, value) => {
@@ -18,6 +18,16 @@ const BlogFilters = ({ filters, onFilterChange, onReset, categories }) => {
 
   return (
     <div className={styles.filters}>
+      {onClose && (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '0.75rem 1rem 0' }}>
+          <button
+            onClick={onClose}
+            style={{ background: 'none', border: '1px solid #E5E7EB', borderRadius: '50px', padding: '0.3rem 0.9rem', fontSize: '0.78rem', fontWeight: 600, color: '#6B7280', cursor: 'pointer' }}
+          >
+            Done
+          </button>
+        </div>
+      )}
       <div className={styles.header}>
         <h3 className={styles.title}>Filters</h3>
         <button className={styles.resetBtn} onClick={handleReset}>

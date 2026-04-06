@@ -3,7 +3,7 @@ import styles from './ExamFilters.module.css';
 import { FaFilter, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { EXAM_LEVELS, EXAM_MODES } from '../../utils/constants';
 
-const ExamFilters = ({ filters, onChange, onReset, activeCount }) => {
+const ExamFilters = ({ filters, onChange, onReset, activeCount, onClose }) => {
   const [expanded, setExpanded] = useState({
     category: true,
     level: true,
@@ -27,6 +27,12 @@ const ExamFilters = ({ filters, onChange, onReset, activeCount }) => {
 
   return (
     <div className={styles.filters}>
+      <div className={styles.drawerHandle} />
+      {onClose && (
+        <div className={styles.mobileCloseRow}>
+          <button className={styles.mobileCloseBtn} onClick={onClose}>Done</button>
+        </div>
+      )}
       <div className={styles.header}>
         <div className={styles.title}>
           <FaFilter /> Filters

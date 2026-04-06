@@ -268,22 +268,41 @@
   transform: translateX(16px);
 }
 
+/* Mobile: handle + close button (inside drawer) */
+.drawerHandle { display: none; }
+.mobileCloseRow { display: none; }
+
 @media (max-width: 768px) {
   .filters {
     position: static;
-    max-height: none;
-    margin-bottom: 2rem;
-    top: auto;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 0;
+    border: none;
   }
-}
-
-
-@media (max-width: 640px) {
-  .formGroup input,
-  .formGroup textarea,
-  .formGroup select,
-  .input,
-  .select {
-    font-size: 16px;
+  .drawerHandle {
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: #D1D5DB;
+    border-radius: 4px;
+    margin: 0.75rem auto 0;
   }
+  .mobileCloseRow {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 1.25rem 0;
+  }
+  .mobileCloseBtn {
+    background: none;
+    border: 1px solid #E5E7EB;
+    border-radius: 50px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #6B7280;
+    cursor: pointer;
+    font-family: var(--font-body);
+  }
+  .input, .select { font-size: 16px; }
 }

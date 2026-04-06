@@ -38,7 +38,7 @@ const PillGroup = ({ options, value, onChange }) => (
   </div>
 );
 
-const CourseFilters = ({ filters, onFilterChange, onReset }) => {
+const CourseFilters = ({ filters, onFilterChange, onReset, onClose }) => {
   const [local, setLocal] = useState({ ...EMPTY, ...filters });
   const debounceRef = useRef(null);
 
@@ -71,6 +71,12 @@ const CourseFilters = ({ filters, onFilterChange, onReset }) => {
 
   return (
     <div className={styles.filters}>
+      <div className={styles.drawerHandle} />
+      {onClose && (
+        <div className={styles.mobileCloseRow}>
+          <button className={styles.mobileCloseBtn} onClick={onClose}>Done</button>
+        </div>
+      )}
       <div className={styles.header}>
         <h3 className={styles.title}>
           Filters {activeCount > 0 && <span className={styles.badge}>{activeCount}</span>}

@@ -9,6 +9,7 @@ import styles from './CourseList.module.css';
 
 const CourseList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filterOpen, setFilterOpen] = useState(false);
   const [page, setPage] = useState(parseInt(searchParams.get('page')) || 1);
   const [sort, setSort] = useState(searchParams.get('sort') || 'name');
   const [filters, setFilters] = useState({
@@ -63,11 +64,13 @@ const CourseList = () => {
         <div className={styles.errorWrap}>Error loading courses: {error.message}</div>
       ) : (
         <div className={styles.container}>
-          <div className={styles.sidebar}>
+          {filterOpen && <div className={styles.backdrop} onClick={() => setFilterOpen(false)} />}
+          <div className={`${styles.sidebar} ${filterOpen ? styles.sidebarOpen : ''}`}>
             <CourseFilters
               filters={filters}
               onFilterChange={handleFilterChange}
               onReset={handleResetFilters}
+              onClose={() => setFilterOpen(false)}
             />
           </div>
 
@@ -80,18 +83,26 @@ const CourseList = () => {
                     {isLoading ? 'Searching…' : total > 0 ? `${total} courses found` : 'No courses found'}
                   </p>
                 </div>
-                <div className={styles.sortBar}>
-                  <label className={styles.sortLabel}>Sort by</label>
-                  <select
-                    className={styles.sortSelect}
-                    value={sort}
-                    onChange={(e) => { setSort(e.target.value); setPage(1); }}
-                  >
-                    <option value="name">Name (A–Z)</option>
-                    <option value="fees_asc">Fees: Low to High</option>
-                    <option value="fees_desc">Fees: High to Low</option>
-                    <option value="salary">Avg Salary</option>
-                  </select>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                  <button className={styles.mobileFilterBtn} onClick={() => setFilterOpen(true)}>
+                    Filters
+                    {Object.values(filters).some(Boolean) && (
+                      <span className={styles.mobileFilterBadge}>{Object.values(filters).filter(Boolean).length}</span>
+                    )}
+                  </button>
+                  <div className={styles.sortBar}>
+                    <label className={styles.sortLabel}>Sort by</label>
+                    <select
+                      className={styles.sortSelect}
+                      value={sort}
+                      onChange={(e) => { setSort(e.target.value); setPage(1); }}
+                    >
+                      <option value="name">Name (A–Z)</option>
+                      <option value="fees_asc">Fees: Low to High</option>
+                      <option value="fees_desc">Fees: High to Low</option>
+                      <option value="salary">Avg Salary</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 

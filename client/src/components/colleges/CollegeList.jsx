@@ -9,6 +9,7 @@ import styles from './CollegeList.module.css';
 
 const CollegeList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filterOpen, setFilterOpen] = useState(false);
   const [page, setPage] = useState(parseInt(searchParams.get('page')) || 1);
   const [filters, setFilters] = useState({
     search: searchParams.get('search') || '',
@@ -75,11 +76,13 @@ const CollegeList = () => {
       <div className={styles.errorWrap}>Error loading colleges: {error.message}</div>
     ) : (
     <div className={styles.container}>
-      <div className={styles.sidebar}>
+      {filterOpen && <div className={styles.backdrop} onClick={() => setFilterOpen(false)} />}
+      <div className={`${styles.sidebar} ${filterOpen ? styles.sidebarOpen : ''}`}>
         <CollegeFilters
           filters={filters}
           onFilterChange={handleFilterChange}
           onReset={handleResetFilters}
+          onClose={() => setFilterOpen(false)}
         />
       </div>
 
@@ -92,6 +95,13 @@ const CollegeList = () => {
                 {total > 0 ? `${total} colleges found` : isLoading ? 'Searching...' : 'No colleges found'}
               </p>
             </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <button className={styles.mobileFilterBtn} onClick={() => setFilterOpen(true)}>
+                Filters
+                {Object.values(filters).filter(v => v && v !== 'ranking').length > 0 && (
+                  <span className={styles.mobileFilterBadge}>{Object.values(filters).filter(v => v && v !== 'ranking').length}</span>
+                )}
+              </button>
             <div className={styles.sortBar}>
               <label className={styles.sortLabel}>Sort by</label>
               <select
@@ -105,6 +115,7 @@ const CollegeList = () => {
                 <option value="fees_asc">Fees: Low to High</option>
                 <option value="fees_desc">Fees: High to Low</option>
               </select>
+            </div>
             </div>
           </div>
 
