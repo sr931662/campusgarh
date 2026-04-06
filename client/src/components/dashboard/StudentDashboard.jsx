@@ -37,7 +37,7 @@ const StudentDashboard = () => {
       </div>
       <div className={styles.sections}>
         <div className={styles.section}>
-          <SavedColleges colleges={user.savedColleges} />
+          <SavedColleges colleges={user.savedColleges || []} courses={user.savedCourses || []} />
         </div>
         <div className={styles.section}>
           <UserReviews />

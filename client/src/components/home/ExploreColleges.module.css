@@ -49,6 +49,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 1fr;
   gap: 1rem;
   margin-bottom: 2.5rem;
 }
@@ -70,9 +71,14 @@
 }
 
 
-.grid > * {
-  display: flex;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
 }
+
 .skeletonGrid > * {
   display: flex;
 }

@@ -4,6 +4,7 @@ import {
   FaGears, FaStethoscope, FaScaleBalanced, FaLaptopCode, FaBuilding,
   FaGraduationCap, FaTrophy, FaNewspaper, FaStar, FaBookOpen,
 } from 'react-icons/fa6';
+import { useAuth } from '../store/authStore';
 
 import { FaBriefcase, FaPalette, FaFlask, FaMapMarkerAlt, FaBullseye, FaHandshake, FaClipboardList } from 'react-icons/fa';
 // import HeroCanvas from '../components/home/HeroCanvas';
@@ -106,6 +107,7 @@ const getCollegeMeta = (college) => {
 export default function Home() {
   const { data: featuredData, isLoading: featuredLoading } = useFeaturedColleges({ limit: 3 });
   const featuredColleges = featuredData?.data?.data?.data || [];
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <div className={styles.homeWrapper}>
@@ -519,12 +521,15 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-        <div className={styles.partnerCta}>
-          Are you an educator, counsellor, or institution?{' '}
-          <Link to="/partner" className={styles.partnerCtaLink}>
-            Join our Partner Program →
-          </Link>
-        </div>
+        {(!isAuthenticated || user?.role !== 'student') && (
+          <div className={styles.partnerCta}>
+            Are you an educator, counsellor, or institution?{' '}
+            <Link to="/partner" className={styles.partnerCtaLink}>
+              Join our Partner Program →
+            </Link>
+          </div>
+        )}
+
 
 
       </section>
