@@ -363,7 +363,7 @@ const Predictor = () => {
 
   // Course tab modes
   const [courseMode, setCourseMode] = useState('recommend'); // 'recommend'|'specific'
-  const [cfForm,  setCfForm]  = useState({ courseId: '', courseName: '', percentile: '', rank: '', cgpa: '', category: 'General' });
+  const [cfForm,  setCfForm]  = useState({ courseId: '', courseName: '', percentile: '', rank: '', cgpa: '', percentage: '', category: 'General' });
 
   // Exam tab modes
   const [examMode, setExamMode] = useState('recommend'); // 'recommend'|'map'
@@ -459,9 +459,10 @@ const Predictor = () => {
     queryKey: ['predict-colleges-for-course', cfForm],
     queryFn: () => predictorService.predictCollegesForCourse({
       courseId:    cfForm.courseId,
-      ...(cfForm.cgpa        && { cgpa:       cfForm.cgpa }),
-      ...(cfForm.percentile  && { percentile: cfForm.percentile }),
-      ...(cfForm.rank        && { rank:       cfForm.rank }),
+      ...(cfForm.cgpa        && { cgpa:        cfForm.cgpa }),
+      ...(cfForm.percentile  && { percentile:  cfForm.percentile }),
+      ...(cfForm.rank        && { rank:        cfForm.rank }),
+      ...(cfForm.percentage  && { percentage:  cfForm.percentage }),
       category:    cfForm.category,
       limit: 30,
     }),
@@ -499,13 +500,27 @@ const Predictor = () => {
         analysisResults = sortedColleges;
         userProfile     = { rank: cForm.rank, percentile: cForm.percentile, stream: cForm.stream, state: cForm.state, maxFee: cForm.maxFee, category: cForm.category };
       } else if (type === 'course') {
-        analysisType    = 'courses';
-        analysisResults = courses.length ? courses : courseColleges;
-        userProfile     = { cgpa: crForm.cgpa, percentage: crForm.percentage, level: crForm.level, interests: crForm.interests.join(','), highestQualification: crForm.highestQualification };
+        if (courseMode === 'specific') {
+          analysisType    = 'colleges';
+          analysisResults = courseColleges.map(item => ({ ...item.college, chance: item.chance, bucket: item.bucket }));
+          userProfile     = { percentile: cfForm.percentile, rank: cfForm.rank, category: cfForm.category };
+        } else {
+          analysisType    = 'courses';
+          analysisResults = courses;
+          userProfile     = { cgpa: crForm.cgpa, percentage: crForm.percentage, level: crForm.level, interests: crForm.interests.join(','), highestQualification: crForm.highestQualification };
+        }
       } else {
-        analysisType    = 'exams';
-        analysisResults = exams;
-        userProfile     = { discipline: eForm.discipline, level: eForm.level };
+        if (examMode === 'map') {
+          analysisType    = 'exams';
+          analysisResults = examCollegeMap.map(e => ({
+            name: e.exam.name, examLevel: e.exam.examLevel, isRequired: false,
+            chance: Math.min(e.colleges.length * 25, 95), bucket: 'Relevant',
+          }));
+        } else {
+          analysisType    = 'exams';
+          analysisResults = exams;
+        }
+        userProfile = { discipline: eForm.discipline, level: eForm.level };
       }
       const res = await predictorService.analyzeResults({ type: analysisType, userProfile, results: analysisResults });
       if (res.data?.code === 'OLLAMA_UNAVAILABLE' || res.status === 503) {
@@ -753,9 +768,10 @@ const Predictor = () => {
                     placeholder={useRankOrPct === 'cgpa' ? 'e.g. 8.5' : useRankOrPct === 'rank' ? 'e.g. 15000' : 'e.g. 92.5'}
                     value={useRankOrPct === 'cgpa' ? cfForm.cgpa : useRankOrPct === 'rank' ? cfForm.rank : cfForm.percentile}
                     onChange={e => {
-                      if      (useRankOrPct === 'cgpa')       setCfForm(p => ({ ...p, cgpa: e.target.value }));
-                      else if (useRankOrPct === 'rank')       setCfForm(p => ({ ...p, rank: e.target.value }));
-                      else                                    setCfForm(p => ({ ...p, percentile: e.target.value }));
+                      if      (useRankOrPct === 'cgpa')       setCfForm(p => ({ ...p, cgpa: e.target.value,       percentile: '', rank: '', percentage: '' }));
+                      else if (useRankOrPct === 'rank')       setCfForm(p => ({ ...p, rank: e.target.value,       percentile: '', cgpa: '', percentage: '' }));
+                      else if (useRankOrPct === 'percentage') setCfForm(p => ({ ...p, percentage: e.target.value, percentile: '', cgpa: '', rank: '' }));
+                      else                                    setCfForm(p => ({ ...p, percentile: e.target.value, cgpa: '',       rank: '', percentage: '' }));
                     }} />
                 </div>
                 <div className={styles.field}>
@@ -888,7 +904,7 @@ const Predictor = () => {
             </>
       )}
 
-      {triggered && !isLoading && type === 'exam' && (
+      {triggered && !isLoading && type === 'exam' && examMode === 'recommend' && (
         exams.length === 0
           ? <p className={styles.empty}>No exams found. Try selecting a broader discipline or removing filters.</p>
           : <>
@@ -990,7 +1006,7 @@ const Predictor = () => {
             </>
       )}
       {/* ── AI Counsellor Panel ──────────────────────────────────────────── */}
-      {triggered && !isLoading && (colleges.length > 0 || detail || courses.length > 0 || exams.length > 0 || courseColleges.length > 0) && (
+      {triggered && !isLoading && (colleges.length > 0 || detail || courses.length > 0 || exams.length > 0 || courseColleges.length > 0 || examCollegeMap.length > 0) && (
         <div className={styles.aiPanel}>
           <div className={styles.aiPanelHeader}>
             <div className={styles.aiPanelInfo}>

@@ -19,6 +19,7 @@ const collegeCourseSchema = new mongoose.Schema(
       category: { type: String, enum: ['General', 'OBC', 'SC', 'ST', 'EWS', 'PwD'], default: 'General' },
       openingRank: Number,
       closingRank: Number,
+      cutoffScore: Number,
       round: String
     }],
     coursePlacementStats: {

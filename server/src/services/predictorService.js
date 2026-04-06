@@ -536,7 +536,7 @@ class PredictorService {
     COLLEGES FOR A SPECIFIC COURSE — student wants chances in ONE course
     Returns all colleges offering that course, ranked by admission chances.
   ══════════════════════════════════════════════════════════════════════════════*/
-  async predictCollegesForCourse({ courseId, rank, percentile, cgpa, category = 'General', examId, limit = 30 }) {
+  async predictCollegesForCourse({ courseId, rank, percentile, cgpa, percentage, category = 'General', examId, limit = 30 }) {
     if (!courseId) return [];
     const currentYear = new Date().getFullYear();
 
@@ -548,7 +548,9 @@ class PredictorService {
 
     const pct = cgpa
       ? Math.min(Number(cgpa) * 9.5, 100)
-      : percentile ? Number(percentile) : 70;
+      : percentile ? Number(percentile)
+      : percentage ? Number(percentage)
+      : 70;
     const candidateRank = rank ? Number(rank) : percentileToRank(pct);
 
     const results = ccRecords.map(cc => {
