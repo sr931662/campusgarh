@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   background: #fff;
-  border: 1px solid #EBEBEB;
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 14px;
   overflow: hidden;
   height: 100%;
@@ -30,7 +30,7 @@
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #F3F3F0;
+  background: rgba(255,255,255,0.05);
   flex-shrink: 0;
 }
 
@@ -51,7 +51,7 @@
   align-items: center;
   justify-content: center;
   font-size: 2.2rem;
-  color: #C8C5BE;
+  color: rgba(255,255,255,0.12);
   background: linear-gradient(135deg, #F7F6F3 0%, #EEECEA 100%);
 }
 
@@ -100,7 +100,7 @@
 .seriesLabel {
   font-size: 0.65rem;
   color: #92400E;
-  background: #FFFBEB;
+  background: rgba(255,255,255,0.03);
   border: 1px solid #FDE68A;
   padding: 0.1rem 0.4rem;
   border-radius: 4px;
@@ -113,7 +113,7 @@
   font-family: var(--font-display, 'Playfair Display', Georgia, serif);
   font-size: 0.97rem;
   font-weight: 700;
-  color: #1C1C1E;
+  color: var(--warm-white, #FFFEF9);
   line-height: 1.45;
   margin: 0 0 0.55rem;
   display: -webkit-box;
@@ -125,7 +125,7 @@
 
 .excerpt {
   font-size: 0.82rem;
-  color: #6B7280;
+  color: rgba(255,255,255,0.4);
   line-height: 1.6;
   flex: 1;
   margin: 0 0 0.85rem;
@@ -148,7 +148,7 @@
   align-items: center;
   gap: 0.3rem;
   font-size: 0.7rem;
-  color: #9CA3AF;
+  color: rgba(255,255,255,0.3);
   font-family: var(--font-mono, 'DM Mono', monospace);
 }
 
