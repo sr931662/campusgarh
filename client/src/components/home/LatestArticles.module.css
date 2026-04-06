@@ -80,6 +80,8 @@
   overflow: hidden;
   text-decoration: none;
   transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .card:hover {
