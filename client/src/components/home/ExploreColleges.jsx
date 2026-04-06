@@ -48,12 +48,12 @@ const CollegeLogoCard = ({ college }) => {
 };
 
 const ExploreColleges = () => {
-  const { data, isLoading } = useFeaturedColleges({ limit: 12 });
+  const { data, isLoading, error } = useFeaturedColleges({ limit: 12 });
 
   const raw = data?.data?.data;
   const colleges = Array.isArray(raw) ? raw : Array.isArray(raw?.data) ? raw.data : [];
 
-  if (!isLoading && colleges.length === 0) return null;
+  if (!isLoading && !error && colleges.length === 0) return null;
 
   return (
     <section className={styles.section}>

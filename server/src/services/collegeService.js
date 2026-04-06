@@ -217,7 +217,12 @@ class CollegeService extends BaseService {
 
   async getFeatured(pagination = {}) {
     const query = { featured: true, deletedAt: null };
-    return this.findAll(query, pagination, { views: -1 });
+    const result = await this.findAll(query, pagination, { views: -1 });
+    // Fallback: if no featured colleges exist, return top colleges by NIRF rank / views
+    if (!result.data || result.data.length === 0) {
+      return this.findAll({ deletedAt: null }, pagination, { 'accreditation.nirfRank': 1, views: -1, name: 1 });
+    }
+    return result;
   }
   
   async getOnline(pagination = {}) {
