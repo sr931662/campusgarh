@@ -183,7 +183,8 @@
 
 .userDropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
+  padding-top: 4px;
   right: 0;
   background: #fff;
   border-radius: 12px;
