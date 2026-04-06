@@ -6,43 +6,31 @@
   height: 100%;
 }
 
-/* ── Card shell (FIXED) ── */
+/* ── EXACT MATCH WITH LatestArticles CARD ── */
 .card {
   display: flex;
   flex-direction: column;
-  background: #0e0e0f; /* solid instead of translucent */
-  border: 1px solid rgba(255, 255, 255, 0.06); /* thinner visual */
-  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
   overflow: hidden;
   height: 100%;
   box-sizing: border-box;
-
-  /* subtle depth */
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
 }
 
 .link:hover .card {
+  border-color: rgba(201,168,76,0.35);
   transform: translateY(-4px);
-
-  /* controlled elevation (no balloon effect) */
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
-
-  /* premium accent instead of white glow */
-  border-color: rgba(201, 168, 76, 0.25);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
 }
 
-/* ── Image area ── */
+/* ── Image ── */
 .imageWrap {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #111;
-  flex-shrink: 0;
-
-  /* separation line */
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.05);
 }
 
 .image {
@@ -50,11 +38,10 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
-  display: block;
 }
 
-.link:hover .image { 
-  transform: scale(1.04); /* slightly reduced */
+.link:hover .image {
+  transform: scale(1.05);
 }
 
 .imagePlaceholder {
@@ -63,51 +50,46 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2rem;
-  color: rgba(255, 255, 255, 0.12);
-  background: #111;
+  font-size: 2.5rem;
+  color: rgba(255,255,255,0.12);
 }
 
 /* ── Badge ── */
 .badge {
   position: absolute;
-  top: 0.7rem;
-  left: 0.7rem;
-  padding: 0.22rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.68rem;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 0.03em;
-
-  /* subtle depth */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-
+  letter-spacing: 0.02em;
   font-family: var(--font-mono, 'DM Mono', monospace);
 }
 
 /* ── Body ── */
 .body {
-  padding: 1.1rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-/* ── Categories ── */
+/* ── Categories (keep but subtle like system) ── */
 .categories {
   display: flex;
   gap: 0.35rem;
   flex-wrap: wrap;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .category {
   font-size: 0.6rem;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.65);
-  padding: 0.15rem 0.45rem;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.7);
+  padding: 0.12rem 0.45rem;
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -116,25 +98,25 @@
 
 /* ── Series ── */
 .seriesLabel {
-  font-size: 0.62rem;
-  color: #C9A84C;
-  background: rgba(201, 168, 76, 0.08);
-  border: 1px solid rgba(201, 168, 76, 0.18);
-  padding: 0.12rem 0.4rem;
+  font-size: 0.65rem;
+  color: var(--gold, #C9A84C);
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 0.1rem 0.4rem;
   border-radius: 4px;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
   display: inline-block;
   font-family: var(--font-mono, 'DM Mono', monospace);
 }
 
-/* ── Typography ── */
+/* ── Typography (MATCHED) ── */
 .title {
   font-family: var(--font-display, 'Playfair Display', Georgia, serif);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  color: #FFFEF9;
-  line-height: 1.4;
-  margin: 0 0 0.5rem;
+  color: var(--warm-white, #FFFEF9);
+  line-height: 1.45;
+  margin: 0 0 0.6rem;
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -143,11 +125,11 @@
 }
 
 .excerpt {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.42);
-  line-height: 1.55;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
   flex: 1;
-  margin: 0 0 0.9rem;
+  margin: 0 0 1rem;
 
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -159,7 +141,7 @@
 .meta {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -167,11 +149,11 @@
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
   font-family: var(--font-mono, 'DM Mono', monospace);
 }
 
-.metaIcon { 
-  font-size: 0.68rem; 
+.metaIcon {
+  font-size: 0.7rem;
 }
