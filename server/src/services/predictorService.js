@@ -181,7 +181,7 @@ class PredictorService {
     const ccRecords  = await CollegeCourse.find({
       college:   { $in: collegeIds },
       deletedAt: null,
-      isActive:  true,
+      isActive:  { $ne: false },
     }).select('college examCutoffs fees cutoff').lean();
 
     // Build map: collegeId → best cutoff entry
@@ -476,7 +476,7 @@ class PredictorService {
     let requiredExamIds = new Set();
 
     if (targetCollegeIds || targetCourseIds) {
-      const ccFilter = { deletedAt: null, isActive: true };
+      const ccFilter = { deletedAt: null, isActive: { $ne: false } };
       if (targetCollegeIds) {
         const ids = targetCollegeIds.split(',').map(id => id.trim()).filter(Boolean);
         if (ids.length) ccFilter.college = { $in: ids };
@@ -540,7 +540,7 @@ class PredictorService {
     if (!courseId) return [];
     const currentYear = new Date().getFullYear();
 
-    const ccRecords = await CollegeCourse.find({ course: courseId, deletedAt: null, isActive: true })
+    const ccRecords = await CollegeCourse.find({ course: courseId, deletedAt: null, isActive: { $ne: false } })
       .populate('college', 'name slug collegeType fundingType accreditation fees contact placementStats cutoffs')
       .populate('course',  'name slug category discipline')
       .populate('entranceExamRequirement', 'name slug examLevel officialWebsite registrationLink')
@@ -595,7 +595,7 @@ class PredictorService {
   async getExamCollegeMap({ courseId, limit = 30 }) {
     if (!courseId) return [];
 
-    const ccRecords = await CollegeCourse.find({ course: courseId, deletedAt: null, isActive: true })
+    const ccRecords = await CollegeCourse.find({ course: courseId, deletedAt: null, isActive: { $ne: false } })
       .populate('college', 'name slug collegeType accreditation contact fees')
       .populate('entranceExamRequirement', 'name slug examLevel conductingBody officialWebsite registrationLink syllabus examMode frequency category')
       .lean();
