@@ -161,8 +161,11 @@
 /* ── TEAM ── */
 .teamGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
   gap: 1.25rem;
+  justify-content: center;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 .teamCard {
