@@ -2,8 +2,8 @@
 .card {
   display: flex;
   flex-direction: column;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.13);
   border-radius: 14px;
   overflow: hidden;
   text-decoration: none;
@@ -98,7 +98,7 @@
 
 .excerpt {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.58);
   line-height: 1.6;
   margin: 0 0 1rem;
   flex: 1;
@@ -121,7 +121,7 @@
   align-items: center;
   gap: 0.3rem;
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.45);
 }
 
 .metaIcon {
