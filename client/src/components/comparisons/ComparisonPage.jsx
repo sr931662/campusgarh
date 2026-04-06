@@ -8,10 +8,79 @@ import Button from '../common/Button/Button';
 import styles from './ComparisonPage.module.css';
 
 const TYPES = [
-  { key: 'college', label: 'Colleges', icon: <FaUniversity />, desc: 'Compare fees, placements, rankings & more' },
-  { key: 'course',  label: 'Courses',  icon: <FaGraduationCap />, desc: 'Compare duration, eligibility & fee ranges' },
-  { key: 'exam',    label: 'Exams',    icon: <FaFileAlt />, desc: 'Compare exam modes, frequency & fees' },
+  {
+    key: 'college',
+    label: 'Colleges',
+    icon: <FaUniversity />,
+    desc: 'Compare fees, placements, rankings & more',
+    seoDesc: 'Compare top colleges in India side by side — fees, NIRF rankings, placement records, facilities, and eligibility criteria — to make the right admission decision.',
+  },
+  {
+    key: 'course',
+    label: 'Courses',
+    icon: <FaGraduationCap />,
+    desc: 'Compare duration, eligibility & fee ranges',
+    seoDesc: 'Compare courses across Indian colleges — duration, eligibility, fee ranges, career prospects, and exam requirements — all in one place.',
+  },
+  {
+    key: 'exam',
+    label: 'Exams',
+    icon: <FaFileAlt />,
+    desc: 'Compare exam modes, frequency & fees',
+    seoDesc: 'Compare entrance exams like JEE, NEET, CAT, CLAT, and more — exam mode, frequency, application fees, eligibility, and accepted colleges — to plan your preparation.',
+  },
 ];
+
+const COMPARE_FAQS = {
+  college: [
+    { q: 'How many colleges can I compare at once?', a: 'You can compare up to 4 colleges side by side on CampusGarh — covering fees, NIRF rankings, placements, facilities, and more.' },
+    { q: 'What parameters are compared for colleges?', a: 'CampusGarh compares colleges on NIRF ranking, location, fees, average placement package, accreditation, facilities, and available courses.' },
+    { q: 'Can I save my college comparison?', a: 'Yes! Logged-in users can save any comparison for future reference from their profile dashboard.' },
+    { q: 'Is the college data verified?', a: 'Yes. All data is sourced from official NIRF reports, NAAC/NBA records, and verified institutional data.' },
+  ],
+  course: [
+    { q: 'What can I compare between courses?', a: 'You can compare courses on duration, eligibility criteria, fee ranges, career prospects, and the entrance exams required for admission.' },
+    { q: 'Can I compare courses across different colleges?', a: 'The course comparison tool compares course parameters. To see which colleges offer a specific course, use the College Predictor with your preferred discipline.' },
+    { q: 'How do I find the best course for me?', a: 'Use the AI Predictor\'s Course Recommender — enter your qualification, score, and interests to get personalized course recommendations.' },
+  ],
+  exam: [
+    { q: 'Which exams can I compare on CampusGarh?', a: 'You can compare national-level exams like JEE Main, NEET, CAT, CLAT, GATE, CUET, and many more across all major disciplines.' },
+    { q: 'What exam parameters are shown in the comparison?', a: 'Exam comparisons cover conducting body, exam mode (online/offline), frequency per year, application fee, eligibility criteria, and accepted colleges/courses.' },
+    { q: 'Can I track exam dates and registration deadlines?', a: 'Yes. Visit the individual exam detail pages on CampusGarh for current dates, registration schedules, and preparation resources.' },
+  ],
+};
+
+
+const FAQSection = ({ faqs }) => {
+  const [open, setOpen] = React.useState(null);
+  return (
+    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem 1rem' }}>
+      <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Frequently Asked Questions</h2>
+      {faqs.map((faq, i) => (
+        <div key={i} style={{ borderBottom: '1px solid #e5e7eb', marginBottom: '0.5rem' }}>
+          <button
+            onClick={() => setOpen(open === i ? null : i)}
+            style={{
+              width: '100%', textAlign: 'left', padding: '1rem 0',
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontWeight: 600, fontSize: '0.97rem', display: 'flex',
+              justifyContent: 'space-between', alignItems: 'center'
+            }}
+          >
+            {faq.q}
+            <span>{open === i ? '−' : '+'}</span>
+          </button>
+          {open === i && (
+            <p style={{ padding: '0 0 1rem', color: '#4b5563', fontSize: '0.92rem', lineHeight: '1.6' }}>
+              {faq.a}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 
 const ComparisonPage = () => {
   const { isAuthenticated } = useAuth();
@@ -79,6 +148,18 @@ const ComparisonPage = () => {
               <span>{t.label}</span>
             </button>
           ))}
+          {/* SEO Description */}
+          <p style={{
+            textAlign: 'center',
+            color: '#6b7280',
+            fontSize: '0.92rem',
+            maxWidth: '700px',
+            margin: '0 auto 1.5rem',
+            lineHeight: '1.6'
+          }}>
+            {activeType?.seoDesc}
+          </p>
+
         </div>
 
         {/* ── Selector ── */}
@@ -147,6 +228,8 @@ const ComparisonPage = () => {
           </div>
         )}
       </div>
+
+      <FAQSection faqs={COMPARE_FAQS[type]} />
     </div>
   );
 };

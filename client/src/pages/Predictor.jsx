@@ -33,6 +33,17 @@ const fmt    = (n) => n != null ? `₹${Number(n).toLocaleString('en-IN')}` : nu
 const fmtLPA = (n) => { if (n == null) return '—'; const v = Number(n); return `₹${v % 1 === 0 ? v.toFixed(0) : v.toFixed(1)} LPA`; };
 const fmtNum = (n) => n != null ? Number(n).toLocaleString('en-IN') : '—';
 
+
+const PREDICTOR_FAQS = [
+  { q: 'How accurate are the college predictions?', a: 'Predictions are based on actual cutoff data (rank/score) from previous years where available, and NIRF ranking estimates as fallback. Actual admission depends on seat availability, reservation policies, and exam authority cutoffs.' },
+  { q: 'Which entrance exams are supported in the predictor?', a: 'The predictor supports major exams including JEE Main, NEET UG, CAT, CLAT, GATE, CUET, and more across engineering, medical, management, law, and other disciplines.' },
+  { q: 'Can I predict chances for multiple courses at once?', a: 'Currently you can analyze one course-college combination at a time. Use the "Browse All Colleges" mode to get a wider list of colleges matching your score and preferences.' },
+  { q: 'What is the AI Counsellor?', a: 'The AI Counsellor is a Groq-powered AI that gives you personalized advice based on your predictor results — helping you understand your chances, options, and next steps.' },
+  { q: 'Does CampusGarh guarantee admission based on predictions?', a: 'No. Predictions are data-driven estimates to help you shortlist colleges. Actual admission depends on many factors including the institution\'s official cutoffs, reservation categories, and seat availability.' },
+  { q: 'Is the Predictor free to use?', a: 'Yes, the Admission Predictor is completely free for all students on CampusGarh.' },
+];
+
+
 // ─── Shared UI ────────────────────────────────────────────────────────────────
 
 const ChanceMeter = ({ chance, color, bucket }) => (
@@ -75,6 +86,36 @@ const CollegeCard = ({ item }) => (
     <Link to={`/colleges/${item.slug}`} className={styles.cardLink}>View College →</Link>
   </div>
 );
+
+const FAQSection = ({ faqs }) => {
+  const [open, setOpen] = React.useState(null);
+  return (
+    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem 1rem' }}>
+      <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Frequently Asked Questions</h2>
+      {faqs.map((faq, i) => (
+        <div key={i} style={{ borderBottom: '1px solid #e5e7eb', marginBottom: '0.5rem' }}>
+          <button
+            onClick={() => setOpen(open === i ? null : i)}
+            style={{
+              width: '100%', textAlign: 'left', padding: '1rem 0',
+              background: 'none', border: 'none', cursor: 'pointer',
+              fontWeight: 600, fontSize: '0.97rem', display: 'flex',
+              justifyContent: 'space-between', alignItems: 'center'
+            }}
+          >
+            {faq.q}
+            <span>{open === i ? '−' : '+'}</span>
+          </button>
+          {open === i && (
+            <p style={{ padding: '0 0 1rem', color: '#4b5563', fontSize: '0.92rem', lineHeight: '1.6' }}>
+              {faq.a}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 // ─── Detailed Analysis Card ───────────────────────────────────────────────────
 
@@ -1007,6 +1048,7 @@ const Predictor = () => {
         * Predictions use actual cutoff data (rank/score) where available, falling back to NIRF ranking estimates.<br />
         Actual admission depends on seat availability, reservation policies, and exam authority cutoffs.
       </p>
+    <FAQSection faqs={PREDICTOR_FAQS} />
     </div>
   );
 };
