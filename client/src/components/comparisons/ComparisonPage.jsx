@@ -136,7 +136,7 @@ const ComparisonPage = () => {
       </div>
 
       <div className={styles.container}>
-        {/* ── Type Tabs ── */}
+                {/* ── Type Tabs ── */}
         <div className={styles.typeGroup}>
           {TYPES.map(t => (
             <button
@@ -148,23 +148,24 @@ const ComparisonPage = () => {
               <span>{t.label}</span>
             </button>
           ))}
-          {/* SEO Description */}
-          <div style={{
-            textAlign: 'center',
-            margin: '0 auto 2rem',
-            maxWidth: '680px',
-            padding: '1rem 1.5rem',
-            background: 'linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02))',
-            border: '1px solid rgba(201,168,76,0.15)',
-            borderRadius: '12px',
-          }}>
-            <p style={{ color: '#6b7280', fontSize: '0.92rem', lineHeight: '1.7', margin: 0 }}>
-              {activeType?.seoDesc}
-            </p>
-          </div>
-
-
         </div>
+
+        {/* SEO Description */}
+        <div style={{
+          textAlign: 'center',
+          margin: '1.5rem auto 2rem',
+          maxWidth: '680px',
+          padding: '1rem 1.5rem',
+          background: 'linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02))',
+          border: '1px solid rgba(201,168,76,0.15)',
+          borderRadius: '12px',
+        }}>
+          <p style={{ color: '#6b7280', fontSize: '0.92rem', lineHeight: '1.7', margin: 0 }}>
+            {activeType?.seoDesc}
+          </p>
+        </div>
+
+        {/* </div> */}
 
         {/* ── Selector ── */}
         <div className={styles.selectorWrap}>

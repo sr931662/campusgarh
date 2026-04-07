@@ -184,8 +184,11 @@ const Footer = () => {
               <li><Link to="/predictor">College Predictor</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
               <li><Link to="/partner">Partner with Us</Link></li>
+              <li><Link to="/careers">Careers</Link></li>
+              <li><Link to="/advertise">Advertise with Us</Link></li>
             </ul>
           </div>
+
 
         </div>
 
@@ -213,13 +216,13 @@ const Footer = () => {
         </div>
 
         {/* ── Copyright ── */}
-        <div className={styles.copyright}>
-          <p>&copy; {currentYear} CampusGarh. All rights reserved.</p>
           <div className={styles.legalLinks}>
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/terms-and-conditions">Terms</Link>
             <Link to="/contact">Contact</Link>
             <Link to="/about">About</Link>
           </div>
-        </div>
+
 
       </div>
     </footer>

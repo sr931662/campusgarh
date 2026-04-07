@@ -11,6 +11,7 @@ const BlogList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filterOpen, setFilterOpen] = useState(false);
   const [page, setPage] = useState(parseInt(searchParams.get('page')) || 1);
+  const [sort, setSort] = useState(searchParams.get('sort') || 'newest');
   const [filters, setFilters] = useState({
     category: searchParams.get('category') || '',
     tag: searchParams.get('tag') || '',
@@ -20,6 +21,7 @@ const BlogList = () => {
   const { data: blogsData, isLoading: blogsLoading, error } = useBlogs({
     page,
     limit: 8,
+    sort,
     ...filters,
   });
   const { data: categoriesData, isLoading: categoriesLoading } = useBlogCategories();
@@ -27,11 +29,12 @@ const BlogList = () => {
   useEffect(() => {
     const params = {};
     if (page !== 1) params.page = page;
+    if (sort !== 'newest') params.sort = sort;
     Object.entries(filters).forEach(([key, value]) => {
       if (value) params[key] = value;
     });
     setSearchParams(params);
-  }, [page, filters, setSearchParams]);
+  }, [page, sort, filters, setSearchParams]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
@@ -78,7 +81,20 @@ const BlogList = () => {
                 <span className={styles.mobileFilterBadge}>{Object.values(filters).filter(Boolean).length}</span>
               )}
             </button>
+            <div className={styles.sortBar}>
+              <label className={styles.sortLabel}>Sort by</label>
+              <select
+                className={styles.sortSelect}
+                value={sort}
+                onChange={(e) => { setSort(e.target.value); setPage(1); }}
+              >
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="popular">Most Popular</option>
+              </select>
+            </div>
           </div>
+
           <div className={styles.grid}>
             {blogs.map((blog) => (
               <BlogCard key={blog._id} blog={blog} />

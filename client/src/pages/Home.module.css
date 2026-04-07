@@ -312,6 +312,12 @@
   font-family: var(--font-body);
 }
 
+.institutionsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
 /* ══════════════════════════════════════
    FEATURED INSTITUTIONS
    ══════════════════════════════════════ */
@@ -360,7 +366,7 @@
 
 .institutionsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
 }
 
@@ -969,6 +975,10 @@
    RESPONSIVE
    ══════════════════════════════════════ */
 @media (max-width: 1024px) {
+  .institutionsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .categoryGrid {
     grid-template-columns: repeat(3, 1fr);
   }

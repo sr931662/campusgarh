@@ -54,6 +54,10 @@ import PartnerImport from './pages/partner/PartnerImport';
 import ManageUsers from './pages/admin/ManageUsers';
 import AdminUserDetail from './pages/admin/AdminUserDetail';
 import CreateUser from './pages/admin/CreateUser';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
+import Career from './pages/Career';
+import AdvertiseWithUs from './pages/AdvertiseWithUs';
 import ManageFeaturedLinks from './pages/admin/ManageFeaturedLinks';
 
 import { ROLES } from './utils/constants';
@@ -98,6 +102,11 @@ function App() {
           <Route path="/verify-email/:token" element={<VerifyEmail />} />
           <Route path="/colleges/:courseSlug/:location" element={<ProgrammaticSEO />} />
           <Route path="/partner" element={<PartnershipProgram />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/careers" element={<Career />} />
+          <Route path="/advertise" element={<AdvertiseWithUs />} />
+
 
           {/* Any authenticated user */}
           <Route element={<PrivateRoute />}>

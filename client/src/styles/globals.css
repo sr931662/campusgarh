@@ -31,12 +31,21 @@
   --radius-sm: 8px;
   --transition: cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+button, input, select, textarea {
+  font-family: inherit;
+}
+
 
 /* Prevent horizontal scroll at document level.
    overflow-x: hidden on body alone does NOT clip position:fixed elements

@@ -105,7 +105,7 @@ const getCollegeMeta = (college) => {
 };
 
 export default function Home() {
-  const { data: featuredData, isLoading: featuredLoading } = useFeaturedColleges({ limit: 3 });
+  const { data: featuredData, isLoading: featuredLoading } = useFeaturedColleges({ limit: 4 });
   const featuredColleges = featuredData?.data?.data?.data || [];
   const { user, isAuthenticated } = useAuth();
 
@@ -211,7 +211,7 @@ export default function Home() {
             viewport={{ once: true, amount: 0.1 }} variants={stagger}
           >
             {featuredLoading ? (
-              [1, 2, 3].map((i) => (
+              [1, 2, 3, 4].map((i) => (
                 <div key={i} className={styles.instSkeletonCard}>
                   <div className={styles.instSkeletonImg} />
                   <div className={styles.instSkeletonBody}>
