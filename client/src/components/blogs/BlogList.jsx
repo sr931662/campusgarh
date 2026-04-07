@@ -81,12 +81,12 @@ const BlogList = () => {
                 <span className={styles.mobileFilterBadge}>{Object.values(filters).filter(Boolean).length}</span>
               )}
             </button>
-            <div className={styles.sortBar}>
-              <label className={styles.sortLabel}>Sort by</label>
+                        <div className={styles.sortBar}>
+              <label className={styles.sortLabel}>Content Type</label>
               <select
                 className={styles.sortSelect}
                 value={filters.contentType || ''}
-                onChange={(e) => handleFilterChange({ ...filters, contentType: e.target.value })}
+                onChange={(e) => { handleFilterChange({ ...filters, contentType: e.target.value }); setPage(1); }}
               >
                 <option value="">All Types</option>
                 <option value="Guide">Guide</option>
@@ -98,6 +98,7 @@ const BlogList = () => {
                 <option value="Scholarship">Scholarship</option>
               </select>
             </div>
+
           </div>
 
 
