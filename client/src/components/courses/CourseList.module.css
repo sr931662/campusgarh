@@ -170,8 +170,43 @@
 }
 
 /* ── Mobile filter drawer ─────────────────────────── */
-.mobileFilterBtn { display: none; }
+.mobileFilterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--charcoal, #1C1C1E);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  flex-shrink: 0;
+}
+
+.mobileFilterBadge {
+  background: var(--gold, #C9A84C);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 50px;
+  font-family: var(--font-mono, 'DM Mono', monospace);
+}
+
 .backdrop { display: none; }
+.backdropOpen {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 999;
+  backdrop-filter: blur(2px);
+}
+
+
 
 @media (max-width: 768px) {
   .container {

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './CollegeInfo.module.css';
 import { formatDate } from '../../utils/formatters';
 import { FaGlobe, FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
 
 const CollegeInfo = ({ college }) => {
   const contact = college.contact || {};
@@ -12,7 +13,11 @@ const CollegeInfo = ({ college }) => {
     <div className={styles.section}>
       <h2 className={styles.title}>About {college.name}</h2>
       <div className={styles.description}>
-        <p>{college.description || 'No description available.'}</p>
+        {college.description
+          ? <ReactMarkdown>{college.description}</ReactMarkdown>
+          : <p>No description available.</p>
+        }
+
         {college.establishmentYear && <p><strong>Established:</strong> {college.establishmentYear}</p>}
         {college.affiliation && <p><strong>Affiliation:</strong> {college.affiliation}</p>}
       </div>

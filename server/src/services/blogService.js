@@ -59,6 +59,18 @@ class BlogService extends BaseService {
       { publishedAt: -1 }
     );
   }
+  async getFilteredBlogs({ page, limit, category, contentType, tag, sort } = {}) {
+    const query = { status: 'published', deletedAt: null };
+    if (category) query.categories = category;
+    if (contentType) query.contentType = contentType;
+    if (tag) query.tags = tag;
+
+    let sortOrder = { publishedAt: -1 };
+    if (sort === 'oldest') sortOrder = { publishedAt: 1 };
+    if (sort === 'popular') sortOrder = { views: -1 };
+
+    return this.findAll(query, { page, limit }, sortOrder);
+  }
 
 }
 

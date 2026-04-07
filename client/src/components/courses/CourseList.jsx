@@ -64,7 +64,9 @@ const CourseList = () => {
         <div className={styles.errorWrap}>Error loading courses: {error.message}</div>
       ) : (
         <div className={styles.container}>
-          {filterOpen && <div className={styles.backdrop} onClick={() => setFilterOpen(false)} />}
+          {/* {filterOpen && <div className={styles.backdrop} onClick={() => setFilterOpen(false)} />} */}
+          {filterOpen && <div className={`${styles.backdrop} ${styles.backdropOpen}`} onClick={() => setFilterOpen(false)} />}
+
           <div className={`${styles.sidebar} ${filterOpen ? styles.sidebarOpen : ''}`}>
             <CourseFilters
               filters={filters}

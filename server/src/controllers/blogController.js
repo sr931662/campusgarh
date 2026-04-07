@@ -9,21 +9,22 @@ class BlogController {
   });
 
   getAllBlogs = catchAsync(async (req, res) => {
-    const { page, limit, status, category } = req.query;
+    const { page, limit, status, category, contentType, tag, sort } = req.query;
     const isAdminOrMod = req.user && ['admin', 'moderator'].includes(req.user.role);
-    let result;
 
-    if (category) {
-      result = await blogService.getBlogsByCategory(category, { page, limit });
-    } else if (isAdminOrMod && status && status !== 'published') {
-      // Admins/moderators can filter by any status, but never return soft-deleted
-      result = await blogService.findAll({ status, deletedAt: null }, { page, limit }, { publishedAt: -1 });
-    } else {
-      // Public users always get only published, non-deleted blogs
-      result = await blogService.getPublishedBlogs({ page, limit });
+    // Admin/mod: filter by status (non-published)
+    if (isAdminOrMod && status && status !== 'published') {
+      const filter = { deletedAt: null };
+      if (status !== 'all') filter.status = status;
+      const result = await blogService.findAll(filter, { page, limit }, { publishedAt: -1 });
+      return ResponseHandler.success(res, result);
     }
+
+    // All public requests go through the filtered method
+    const result = await blogService.getFilteredBlogs({ page, limit, category, contentType, tag, sort });
     ResponseHandler.success(res, result);
   });
+
 
   getBlogById = catchAsync(async (req, res) => {
     const blog = await blogService.findById(req.params.id);
