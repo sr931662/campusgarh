@@ -62,7 +62,7 @@ const BlogList = () => {
       </div>
 
       <div className={styles.container}>
-        {filterOpen && <div className={styles.backdrop} onClick={() => setFilterOpen(false)} />}
+        {filterOpen && <div className={`${styles.backdrop} ${styles.backdropOpen}`} onClick={() => setFilterOpen(false)} />}
         <div className={`${styles.sidebar} ${filterOpen ? styles.sidebarOpen : ''}`}>
           <BlogFilters
             filters={filters}

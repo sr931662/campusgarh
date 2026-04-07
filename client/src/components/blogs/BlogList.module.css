@@ -49,14 +49,26 @@
   max-width: 1320px;
   margin: 0 auto;
   padding: 3rem 2.5rem;
-  display: flex;
-  gap: 2.5rem;
 }
 
 .sidebar {
-  width: 260px;
-  flex-shrink: 0;
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 90vw;
+  z-index: 1000;
+  overflow-y: auto;
+  background: var(--warm-white, #FFFEF9);
+  box-shadow: -4px 0 32px rgba(0,0,0,0.15);
 }
+
+.sidebarOpen {
+  display: block !important;
+}
+
 
 .content {
   flex: 1;
@@ -150,6 +162,16 @@
 
 .backdrop { display: none; }
 
+.backdrop.backdropOpen {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 999;
+  backdrop-filter: blur(2px);
+}
+
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -157,16 +179,18 @@
     gap: 1.5rem;
   }
 
-  .sidebar {
-    display: none;
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
+    .sidebar {
+    top: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
     width: 100%;
+    max-width: 100%;
     max-height: 85vh;
-    z-index: 1000;
     border-radius: 20px 20px 0 0;
-    overflow: hidden;
+    box-shadow: 0 -4px 32px rgba(0,0,0,0.15);
   }
+
   .sidebarOpen { display: block !important; }
 
   .backdrop {
