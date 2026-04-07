@@ -30,15 +30,18 @@ api.interceptors.request.use(
 // Response interceptor to handle 401
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+    (error) => {
     if (error.response?.status === 401) {
-      // Unauthorized, logout
+      const wasAuthenticated = useAuthStore.getState().isAuthenticated;
       removeToken();
       useAuthStore.getState().logout();
-      window.location.href = '/login';
+      if (wasAuthenticated) {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
+
 );
 
 export default api;

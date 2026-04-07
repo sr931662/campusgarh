@@ -322,45 +322,42 @@ export default function Home() {
       <section className={styles.examsSection}>
         <div className={styles.container}>
           <motion.div
-            className={styles.examsSplit}
+            className={styles.sectionHeader}
             initial="hidden" whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }} variants={stagger}
+            viewport={{ once: true }} variants={fadeUp}
           >
-            {/* Left — heading */}
-            <motion.div className={styles.examsLeft} variants={fadeUp}>
+            <div>
               <p className={styles.sectionLabel}>80+ Exams Tracked</p>
               <h2 className={styles.sectionTitle}>
                 Ace Your <span>Entrance Exams</span>
               </h2>
               <p className={styles.examsDesc}>
-                Stay updated on exam dates, eligibility, syllabus, cutoffs, and preparation tips
-                — all in one place.
+                Stay updated on exam dates, eligibility, syllabus, cutoffs, and preparation tips — all in one place.
               </p>
-              <Link to="/exams" className={styles.btnGold}>
-                Explore All Exams →
-              </Link>
-            </motion.div>
+            </div>
+            <Link to="/exams" className={styles.viewAll}>Explore All Exams →</Link>
+          </motion.div>
 
-            {/* Right — exam cards */}
-            <motion.div className={styles.examsRight} variants={stagger}>
-              {popularExams.map((exam) => (
-                <motion.div key={exam.name} variants={fadeUp}>
-                  <Link to={exam.path} className={styles.examRow}>
-                    <div className={styles.examRowLeft}>
-                      <span
-                        className={styles.examCatBadge}
-                        style={{ background: CATEGORY_COLORS[exam.category] || 'rgba(201,168,76,0.12)' }}
-                      >
-                        {exam.category}
-                      </span>
-                      <span className={styles.examRowName}>{exam.name}</span>
-                      <span className={styles.examRowDesc}>{exam.desc}</span>
-                    </div>
-                    <span className={styles.examRowDates}>{exam.dates}</span>
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
+          <motion.div
+            className={styles.examsGrid}
+            initial="hidden" whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }} variants={stagger}
+          >
+            {popularExams.map((exam) => (
+              <motion.div key={exam.name} variants={fadeUp}>
+                <Link to={exam.path} className={styles.examCard}>
+                  <span
+                    className={styles.examCatBadge}
+                    style={{ background: CATEGORY_COLORS[exam.category] || 'rgba(201,168,76,0.12)' }}
+                  >
+                    {exam.category}
+                  </span>
+                  <span className={styles.examCardName}>{exam.name}</span>
+                  <span className={styles.examCardDesc}>{exam.desc}</span>
+                  <span className={styles.examCardDates}>{exam.dates}</span>
+                </Link>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>

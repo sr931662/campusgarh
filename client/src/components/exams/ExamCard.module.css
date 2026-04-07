@@ -16,7 +16,7 @@
   background: var(--warm-white, #FFFEF9);
   border: 1.5px solid var(--border, #E8E3DB);
   border-radius: var(--radius, 16px);
-  padding: 1.5rem;
+  padding: 1.1rem;
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
 }
 

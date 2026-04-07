@@ -744,6 +744,54 @@
   align-items: start;
 }
 
+.examsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.examCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: var(--warm-white, #FFFEF9);
+  border: 1.5px solid var(--border, #E8E3DB);
+  border-radius: 16px;
+  text-decoration: none;
+  min-height: 140px;
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.examCard:hover {
+  border-color: var(--gold, #C9A84C);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(201,168,76,0.1);
+}
+
+.examCardName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--charcoal, #1C1C1E);
+  letter-spacing: -0.015em;
+}
+
+.examCardDesc {
+  font-size: 0.78rem;
+  color: var(--muted, #8A8A8E);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.examCardDates {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold, #C9A84C);
+  letter-spacing: 0.05em;
+  margin-top: auto;
+}
+
 .examsDesc {
   font-size: 0.95rem;
   color: var(--muted);
@@ -1247,4 +1295,11 @@
 
 .partnerCtaLink:hover {
   border-color: var(--gold, #C9A84C);
+}
+
+@media (max-width: 768px) {
+  .examsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .examsGrid { grid-template-columns: 1fr; }
 }

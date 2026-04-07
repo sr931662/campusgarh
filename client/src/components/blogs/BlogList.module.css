@@ -83,6 +83,15 @@
   font-size: 0.875rem;
 }
 
+.mobileFilterBar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -122,8 +131,23 @@
 }
 
 /* ── Mobile filter drawer ─────────────────────────── */
-.mobileFilterBar { display: none; }
-.mobileFilterBtn { display: none; }
+/* .mobileFilterBar { display: none; } */
+.mobileFilterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--charcoal, #1C1C1E);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  flex-shrink: 0;
+}
+
 .backdrop { display: none; }
 
 @media (max-width: 768px) {
@@ -213,3 +237,5 @@
 .sortSelect:focus {
   border-color: var(--gold, #C9A84C);
 }
+
+

@@ -85,15 +85,21 @@ const BlogList = () => {
               <label className={styles.sortLabel}>Sort by</label>
               <select
                 className={styles.sortSelect}
-                value={sort}
-                onChange={(e) => { setSort(e.target.value); setPage(1); }}
+                value={filters.contentType || ''}
+                onChange={(e) => handleFilterChange({ ...filters, contentType: e.target.value })}
               >
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
-                <option value="popular">Most Popular</option>
+                <option value="">All Types</option>
+                <option value="Guide">Guide</option>
+                <option value="News">News</option>
+                <option value="Ranking">Ranking</option>
+                <option value="College Review">College Review</option>
+                <option value="Exam Update">Exam Update</option>
+                <option value="Career Advice">Career Advice</option>
+                <option value="Scholarship">Scholarship</option>
               </select>
             </div>
           </div>
+
 
           <div className={styles.grid}>
             {blogs.map((blog) => (
