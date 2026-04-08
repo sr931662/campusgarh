@@ -20,19 +20,26 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
-  justify-content: space-between; /* KEY CHANGE */
+  justify-content: space-between;
   gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* NEW: logo + tagline stacked column on the left */
+.socialStripBrand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .socialStripTagline {
   font-size: 0.78rem;
   color: rgba(255, 255, 255, 0.32);
   margin: 0;
-  flex: 1;
-  min-width: 180px;
+  max-width: 300px;
   line-height: 1.5;
 }
+
 
 .socialStripLinks {
   display: flex;

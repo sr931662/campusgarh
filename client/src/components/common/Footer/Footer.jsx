@@ -52,10 +52,16 @@ const Footer = () => {
       {/* ── Social Strip ── */}
       <div className={styles.socialStrip}>
         <div className={styles.socialStripInner}>
-          <Link to="/" className={styles.logoLink}>
-            <img src={logo} alt="CampusGarh" className={styles.logo} />
-          </Link>
-          <p className={styles.socialStripTagline}>Your trusted partner in education discovery and admission guidance across India.</p>
+
+          {/* Left: logo stacked above tagline */}
+          <div className={styles.socialStripBrand}>
+            <Link to="/" className={styles.logoLink}>
+              <img src={logo} alt="CampusGarh" className={styles.logo} />
+            </Link>
+            <p className={styles.socialStripTagline}>
+              Your trusted partner in education discovery and admission guidance across India.
+            </p>
+          </div>
           <div className={styles.socialStripLinks}>
             <a href="https://www.facebook.com/campusgarh" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebook /><span>Facebook</span></a>
             <a href="https://www.instagram.com/campusgarh/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /><span>Instagram</span></a>
