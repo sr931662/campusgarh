@@ -10,9 +10,91 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet" />
 
+    <style>
+      #app-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: #0A0A0F;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+
+      #app-loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      #app-loader img {
+        height: 150px;
+        width: auto;
+        animation: loaderPulse 1.8s ease-in-out infinite;
+      }
+
+      #app-loader .loader-bar-track {
+        width: 180px;
+        height: 2px;
+        background: rgba(201, 168, 76, 0.15);
+        border-radius: 99px;
+        overflow: hidden;
+      }
+
+      #app-loader .loader-bar-fill {
+        height: 100%;
+        width: 0%;
+        background: #C9A84C;
+        border-radius: 99px;
+        animation: loaderFill 4.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      #app-loader .loader-text {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        margin-top: -1rem;
+      }
+
+      @keyframes loaderPulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(0.97); }
+      }
+
+      @keyframes loaderFill {
+        0%   { width: 0%; }
+        60%  { width: 75%; }
+        85%  { width: 90%; }
+        100% { width: 100%; }
+      }
+    </style>
   </head>
   <body>
+
+    <!-- Loading Screen -->
+    <div id="app-loader">
+      <img src="./src/assets/Campus white color logo png-01.png" alt="CampusGarh" />
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill"></div>
+      </div>
+      <p class="loader-text">Loading your campus journey…</p>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      setTimeout(function () {
+        var loader = document.getElementById('app-loader');
+        if (loader) loader.classList.add('hidden');
+      }, 5000);
+    </script>
+
   </body>
 </html>
