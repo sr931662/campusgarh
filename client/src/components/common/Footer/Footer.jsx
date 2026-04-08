@@ -216,12 +216,17 @@ const Footer = () => {
         </div>
 
         {/* ── Copyright ── */}
-          <div className={styles.legalLinks}>
-            <Link to="/privacy-policy">Privacy Policy</Link>
-            <Link to="/terms-and-conditions">Terms</Link>
-            <Link to="/contact">Contact</Link>
-            <Link to="/about">About</Link>
+          <div className={styles.copyright}>
+            <p>© {currentYear} CampusGarh Pvt. Ltd. All rights reserved.</p>
+            <p>Made with love by <strong>Pinaqtech</strong></p>
+            <div className={styles.legalLinks}>
+              <Link to="/privacy-policy">Privacy Policy</Link>
+              <Link to="/terms-and-conditions">Terms</Link>
+              <Link to="/contact">Contact</Link>
+              <Link to="/about">About</Link>
+            </div>
           </div>
+
 
 
       </div>

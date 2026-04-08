@@ -125,7 +125,8 @@
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 3.5rem 2.5rem 0;
+  padding: 1.5rem 2.5rem 0;
+
 }
 
 /* ── Grid ───────────────────────────────────── */
@@ -280,7 +281,7 @@
   justify-content: center;
   padding: 1.25rem 0 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.2);
   letter-spacing: 0.03em;
   gap: 0.6rem;
