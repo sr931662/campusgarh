@@ -201,18 +201,23 @@ const About = () => (
         <div className={styles.teamGrid}>
           {TEAM.map((m) => (
             <div key={m.name} className={styles.teamCard}>
-              {m.img
-                ? <img src={m.img} alt={m.name} className={styles.teamPhoto} />
-                : <div className={styles.avatar}>{m.initials}</div>
-              }
-              <div className={styles.teamName}>{m.name}</div>
-              <div className={styles.teamRole}>{m.role}</div>
-              <p className={styles.teamDesc}>{m.desc}</p>
-              <div className={styles.teamSocials}>
-                {m.socials.linkedin && <a href={m.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>}
-                {m.socials.twitter && <a href={m.socials.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter"><FaXTwitter /></a>}
+              <div className={styles.teamPhotoWrap}>
+                {m.img
+                  ? <img src={m.img} alt={m.name} className={styles.teamPhoto} />
+                  : <div className={styles.avatar}>{m.initials}</div>
+                }
+              </div>
+              <div className={styles.teamCardBody}>
+                <div className={styles.teamName}>{m.name}</div>
+                <div className={styles.teamRole}>{m.role}</div>
+                <p className={styles.teamDesc}>{m.desc}</p>
+                <div className={styles.teamSocials}>
+                  {m.socials.linkedin && <a href={m.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>}
+                  {m.socials.twitter && <a href={m.socials.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter"><FaXTwitter /></a>}
+                </div>
               </div>
             </div>
+
           ))}
         </div>
         <p className={styles.teamNote}>

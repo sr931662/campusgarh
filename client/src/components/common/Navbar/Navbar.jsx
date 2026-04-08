@@ -203,7 +203,7 @@ const Navbar = () => {
   return (
     <nav
       ref={navRef}
-      className={`${styles.navbar} ${isOpaque ? styles.opaque : styles.transparent}`}
+      className={`${styles.navbar} ${isOpaque ? styles.opaque : styles.transparent} ${isScrolled ? styles.scrolled : ''}`}
     >
       {/* ── TOP STRIP ── */}
       <div className={styles.topStrip}>

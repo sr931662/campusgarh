@@ -338,6 +338,59 @@
 }
 
 .teamCard {
+  background: #fff;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 0;               /* remove padding — image goes edge-to-edge at top */
+  text-align: center;
+  width: 220px;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.teamCard:hover {
+  border-color: var(--gold, #C9A84C);
+  box-shadow: 0 16px 48px rgba(201,168,76,0.2);
+  transform: translateY(-6px);
+}
+
+/* 3:4 portrait image container */
+.teamPhotoWrap {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--gold, #C9A84C);
+}
+
+.teamPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* initials avatar — fills the same 3:4 space */
+.avatar {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 0;
+  background: var(--gold, #C9A84C);
+  color: var(--deep, #0A0A0F);
+  font-size: 3rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  box-shadow: none;
+}
+
+/* text content below image */
+.teamCardBody {
+  padding: 1.25rem 1rem 1.5rem;
+}
+
+/* .teamCard {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 24px;
@@ -367,7 +420,7 @@
   justify-content: center;
   margin: 0 auto 1.25rem;
   box-shadow: 0 0 0 4px rgba(201,168,76,0.2), 0 0 0 8px rgba(201,168,76,0.08);
-}
+} */
 
 .teamPhoto {
   width: 80px;
