@@ -81,9 +81,9 @@
   .socialStrip {
     padding: 1rem 1.25rem;
   }
-  .socialStripTagline {
-    display: none;
-  }
+  /* .socialStripTagline { */
+    /* display: none; */
+  /* } */
 }
 
 /* ── Newsletter Strip ───────────────────────── */
