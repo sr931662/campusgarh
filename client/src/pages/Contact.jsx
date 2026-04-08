@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import styles from './Contact.module.css';
 
 const CONTACT_INFO = [
-  { icon: <FaPhone />,        label: 'Phone',           value: '1800-123-4567' },
+  { icon: <FaPhone />,        label: 'Phone',           value: '+91 9811-257-505' },
   { icon: <FaEnvelope />,     label: 'Email',           value: 'support@campusgarh.com' },
   { icon: <FaClock />,        label: 'Response Time',   value: 'Within 24–48 hours' },
   { icon: <FaGraduationCap />, label: 'Free Counselling', value: 'Talk to an expert — no charges' },

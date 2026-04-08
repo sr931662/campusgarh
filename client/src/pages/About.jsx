@@ -6,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import styles from './About.module.css';
+import CEO from '../assets/CEO.png'
 
 const STATS = [
   { value: '5,000+', label: 'Colleges Listed' },
@@ -26,7 +27,7 @@ const TEAM = [
     initials: 'PS',
     name: 'Priyanshu Saraswat',
     role: 'Founder & CEO',
-    img: null,
+    img: CEO,
     desc: 'Visionary behind CampusGarh — building India\'s most trusted student-first platform.',
     socials: { linkedin: '#', twitter: '#' },
   },

@@ -25,6 +25,7 @@
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  text-align: center;
 }
 
 .bannerEyebrow {
@@ -34,17 +35,7 @@
   color: var(--gold, #C9A84C);
   text-transform: uppercase;
   margin: 0 0 0.875rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.bannerEyebrow::before {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--gold, #C9A84C);
-  flex-shrink: 0;
+  justify-content: center;
 }
 
 .bannerTitle {
@@ -67,7 +58,7 @@
   color: rgba(255, 255, 255, 0.42);
   max-width: 520px;
   line-height: 1.7;
-  margin: 0;
+  margin: 0 auto;
 }
 
 /* ── Main layout ── */

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { FaXTwitter, FaYoutube } from 'react-icons/fa6';
+import { FaXTwitter, FaYoutube, FaThreads } from 'react-icons/fa6';
 import { MdEmail } from 'react-icons/md';
 import styles from './Footer.module.css';
 import logo from "../../../assets/Campus white color logo png-01.png";
@@ -49,6 +49,24 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
 
+      {/* ── Social Strip ── */}
+      <div className={styles.socialStrip}>
+        <div className={styles.socialStripInner}>
+          <Link to="/" className={styles.logoLink}>
+            <img src={logo} alt="CampusGarh" className={styles.logo} />
+          </Link>
+          <p className={styles.socialStripTagline}>Your trusted partner in education discovery and admission guidance across India.</p>
+          <div className={styles.socialStripLinks}>
+            <a href="https://www.facebook.com/campusgarh" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebook /><span>Facebook</span></a>
+            <a href="https://www.instagram.com/campusgarh/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /><span>Instagram</span></a>
+            <a href="https://www.linkedin.com/company/campusgarh/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /><span>LinkedIn</span></a>
+            <a href="https://x.com/campusgarh" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><FaXTwitter /><span>X (Twitter)</span></a>
+            <a href="https://www.youtube.com/channel/UCWXPo6OYZGfXJEfhKsmgdQQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaYoutube /><span>YouTube</span></a>
+            <a href="https://www.threads.com/@campusgarh" target="_blank" rel="noopener noreferrer" aria-label="Threads"><FaThreads /><span>Threads</span></a>
+          </div>
+        </div>
+      </div>
+
       {/* ── Newsletter Strip ── */}
       <div className={styles.newsletter}>
         <div className={styles.newsletterInner}>
@@ -95,11 +113,11 @@ const Footer = () => {
               Your trusted partner in education discovery and admission guidance across India.
             </p>
             <div className={styles.social}>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebook /></a>
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><FaXTwitter /></a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaYoutube /></a>
+              <a href="https://www.facebook.com/campusgarh" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebook /></a>
+              <a href="https://x.com/campusgarh" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><FaXTwitter /></a>
+              <a href="https://www.linkedin.com/company/campusgarh/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+              <a href="https://www.instagram.com/campusgarh/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
+              <a href="https://www.youtube.com/channel/UCWXPo6OYZGfXJEfhKsmgdQQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaYoutube /></a>
             </div>
           </div>
 

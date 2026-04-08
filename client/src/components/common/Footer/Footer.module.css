@@ -8,6 +8,68 @@
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* ── Social Strip ───────────────────────────── */
+.socialStrip {
+  background: #111116;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.1rem 2.5rem;
+}
+
+.socialStripInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.socialStripTagline {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.32);
+  margin: 0;
+  flex: 1;
+  min-width: 180px;
+  line-height: 1.5;
+}
+
+.socialStripLinks {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.socialStripLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  padding: 0.38rem 0.85rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+  white-space: nowrap;
+}
+
+.socialStripLinks a:hover {
+  border-color: rgba(201, 168, 76, 0.5);
+  color: var(--gold, #C9A84C);
+  background: rgba(201, 168, 76, 0.06);
+}
+
+@media (max-width: 768px) {
+  .socialStrip {
+    padding: 1rem 1.25rem;
+  }
+  .socialStripTagline {
+    display: none;
+  }
+}
+
 /* ── Newsletter Strip ───────────────────────── */
 .newsletter {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);

@@ -209,8 +209,8 @@ const Navbar = () => {
       <div className={styles.topStrip}>
         <div className={styles.topStripInner}>
           <div className={styles.topStripLeft}>
-            <a href="tel:18001234567" className={styles.topStripLink}>
-              <FiPhone size={11} /> 1800-123-4567
+            <a href="tel:+919811257505" className={styles.topStripLink}>
+              <FiPhone size={11} /> +91 9811-257-505
             </a>
             <a href="mailto:support@campusgarh.com" className={styles.topStripLink}>
               <FiMail size={11} /> support@campusgarh.com
