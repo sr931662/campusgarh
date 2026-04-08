@@ -39,7 +39,33 @@ const TEAM = [
     desc: 'Driving the technology that powers seamless discovery for millions of students.',
     socials: { linkedin: '#' },
   },
+  // ── NEW DUMMIES ──
+  {
+    initials: 'RV',
+    name: 'Rahul Verma',
+    role: 'Lead Counselor — Engineering',
+    img: null,
+    desc: 'Specialist in JEE guidance and B.Tech seat allocation across IITs, NITs, and top private colleges.',
+    socials: { linkedin: '#' },
+  },
+  {
+    initials: 'AS',
+    name: 'Anjali Singh',
+    role: 'Head of Management Admissions',
+    img: null,
+    desc: 'Expert in CAT, GMAT, and MBA admissions counselling for IIMs and top B-schools across India.',
+    socials: { linkedin: '#' },
+  },
+  {
+    initials: 'KM',
+    name: 'Karan Mehta',
+    role: 'Legal Studies Head',
+    img: null,
+    desc: 'Guiding students through CLAT, CUET-Law, and admissions to top NLUs and DU Law faculty.',
+    socials: { linkedin: '#' },
+  },
 ];
+
 
 const ABOUT_FAQS = [
   { q: 'What is CampusGarh?', a: 'CampusGarh is a student-first college discovery platform providing genuine reviews, verified data, and unbiased guidance to help students make informed education decisions across India.' },
