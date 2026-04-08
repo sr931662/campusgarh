@@ -22,8 +22,6 @@ const VALUES = [
   { icon: <FaLightbulb />,    title: 'Innovation',             desc: 'Technology-driven guidance that helps students make smarter academic decisions.' },
 ];
 
-// Only TEAM section updated as per instructions
-
 const TEAM = [
   {
     initials: 'PS',
@@ -38,59 +36,35 @@ const TEAM = [
     name: 'Shashwat Kashyap',
     role: 'CTO',
     img: null,
-    desc: 'Leading the technology and product architecture powering CampusGarh.',
+    desc: 'Driving the technology that powers seamless discovery for millions of students.',
+    socials: { linkedin: '#' },
+  },
+  // ── NEW DUMMIES ──
+  {
+    initials: 'RV',
+    name: 'Rahul Verma',
+    role: 'Lead Counselor — Engineering',
+    img: null,
+    desc: 'Specialist in JEE guidance and B.Tech seat allocation across IITs, NITs, and top private colleges.',
     socials: { linkedin: '#' },
   },
   {
-    initials: 'RS',
-    name: 'Ritu Singh',
-    role: 'Counselling Head',
+    initials: 'AS',
+    name: 'Anjali Singh',
+    role: 'Head of Management Admissions',
     img: null,
-    desc: 'Heads the counselling division ensuring students receive accurate and ethical guidance.',
+    desc: 'Expert in CAT, GMAT, and MBA admissions counselling for IIMs and top B-schools across India.',
     socials: { linkedin: '#' },
   },
   {
-    initials: 'MS',
-    name: 'Mona Sharma',
-    role: 'Business Development Executive (BDE)',
+    initials: 'KM',
+    name: 'Karan Mehta',
+    role: 'Legal Studies Head',
     img: null,
-    desc: 'Managing partnerships and institutional collaborations to expand CampusGarh\'s reach.',
-    socials: { linkedin: '#' },
-  },
-  {
-    initials: 'TS',
-    name: 'Twinkle Singh',
-    role: 'Creative Head',
-    img: null,
-    desc: 'Driving brand identity, design systems, and creative direction across platforms.',
-    socials: { linkedin: '#' },
-  },
-  {
-    initials: 'SS',
-    name: 'Shweta Sharma',
-    role: 'Operations Executive',
-    img: null,
-    desc: 'Supporting daily operations and ensuring smooth execution of internal workflows.',
-    socials: { linkedin: '#' },
-  },
-  {
-    initials: 'TM1',
-    name: 'Team Member 1',
-    role: 'Student Support Executive',
-    img: null,
-    desc: 'Assisting students with queries, onboarding, and platform navigation.',
-    socials: { linkedin: '#' },
-  },
-  {
-    initials: 'TM2',
-    name: 'Team Member 2',
-    role: 'Content & Research Associate',
-    img: null,
-    desc: 'Working on verified data, college insights, and content accuracy.',
+    desc: 'Guiding students through CLAT, CUET-Law, and admissions to top NLUs and DU Law faculty.',
     socials: { linkedin: '#' },
   },
 ];
-
 
 
 const ABOUT_FAQS = [

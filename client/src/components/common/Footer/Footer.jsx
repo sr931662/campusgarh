@@ -105,7 +105,7 @@ const Footer = () => {
         <div className={`${styles.grid} ${featuredLinks.length > 0 ? styles.gridWithFeatured : ''}`}>
 
           {/* Brand Column */}
-          <div className={styles.brand}>
+          {/* <div className={styles.brand}>
             <Link to="/" className={styles.logoLink}>
               <img src={logo} alt="CampusGarh" className={styles.logo} />
             </Link>
@@ -119,7 +119,7 @@ const Footer = () => {
               <a href="https://www.instagram.com/campusgarh/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
               <a href="https://www.youtube.com/channel/UCWXPo6OYZGfXJEfhKsmgdQQ" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaYoutube /></a>
             </div>
-          </div>
+          </div> */}
 
           {/* Top Colleges */}
           <div className={styles.col}>

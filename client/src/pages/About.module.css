@@ -336,9 +336,8 @@
   position: relative;
   z-index: 1;
 }
-
 .teamCard {
-  background: #fff;
+  background: #000;
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px;
   padding: 0;               /* remove padding — image goes edge-to-edge at top */
@@ -359,7 +358,7 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: var(--gold, #C9A84C);
+  background: black;
 }
 
 .teamPhoto {
@@ -420,7 +419,7 @@
   justify-content: center;
   margin: 0 auto 1.25rem;
   box-shadow: 0 0 0 4px rgba(201,168,76,0.2), 0 0 0 8px rgba(201,168,76,0.08);
-} */
+}
 
 .teamPhoto {
   width: 80px;
@@ -430,7 +429,7 @@
   margin: 0 auto 1.25rem;
   display: block;
   box-shadow: 0 0 0 4px rgba(201,168,76,0.3), 0 0 0 8px rgba(201,168,76,0.1);
-}
+} */
 
 .teamName {
   font-size: 1.05rem;

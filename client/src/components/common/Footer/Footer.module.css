@@ -20,8 +20,9 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
+  justify-content: space-between; /* KEY CHANGE */
   gap: 2rem;
-  flex-wrap: wrap;
 }
 
 .socialStripTagline {
@@ -43,22 +44,30 @@
 .socialStripLinks a {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 50px;
-  padding: 0.38rem 0.85rem;
+  gap: 0.4rem;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 6px; /* less rounded like screenshot */
+  padding: 0.4rem 0.75rem;
+
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.45);
-  text-decoration: none;
-  transition: border-color 0.18s, color 0.18s, background 0.18s;
-  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.6);
+
+  transition: all 0.2s ease;
 }
 
 .socialStripLinks a:hover {
-  border-color: rgba(201, 168, 76, 0.5);
-  color: var(--gold, #C9A84C);
-  background: rgba(201, 168, 76, 0.06);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.socialStripLinks {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 @media (max-width: 768px) {
@@ -194,7 +203,7 @@
 /* ── Grid ───────────────────────────────────── */
 .grid {
   display: grid;
-  grid-template-columns: 200px repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* all equal now */
   gap: 2rem 3rem;
   padding-bottom: 3rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);

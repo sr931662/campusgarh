@@ -91,7 +91,7 @@
 /* Logo */
 .logo { flex-shrink: 0; display: flex; align-items: center; }
 /* was 52px */
-.logoImg { height: 150px; width: auto; object-fit: contain; transition: height 0.3s ease; }
+.logoImg { height: 200px; width: auto; object-fit: contain; transition: height 0.3s ease; }
 
 /* ── Scrolled / Shrunk state ── */
 .scrolled .topStrip {
@@ -105,7 +105,7 @@
 }
 
 .scrolled .logoImg {
-  height: 48px;
+  height: 100px;
 }
 
 .scrolled .bottomNav {
