@@ -31,9 +31,17 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Create necessary directories if they don't exist
+// const directories = ['logs', 'uploads'];
+// directories.forEach(dir => {
+//   if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+// });
+
 const directories = ['logs', 'uploads'];
 directories.forEach(dir => {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+  const fullPath = path.join(__dirname, dir);
+  if (!fs.existsSync(fullPath)) {
+    fs.mkdirSync(fullPath, { recursive: true });
+  }
 });
 
 // Database connection
@@ -56,6 +64,10 @@ app.use('/api', routes);
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date() });
+});
+
+app.get('/', (req, res) => {
+  res.send('API is running 🚀');
 });
 
 // robots.txt
@@ -143,7 +155,11 @@ app.use((req, res, next) => {
 app.use(errorHandler);
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV}`);
