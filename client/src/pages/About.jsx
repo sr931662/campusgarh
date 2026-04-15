@@ -173,13 +173,14 @@ const About = () => {
               <p className={styles.eyebrow}>Who We Are</p>
               <h2 className={styles.sectionTitle}>Not a consultancy. <span>A student ally.</span></h2>
               <div className={styles.body} dangerouslySetInnerHTML={{ __html: parseMarkdown(whoWeAre) }} />
-              <p className={styles.body} style={{ fontStyle: 'italic', color: 'var(--muted)' }}>
+              {/* <p className={styles.body} style={{ fontStyle: 'italic', color: 'var(--muted)' }}>
                 We do not sell admissions. We provide factual insights that help students make confident, well-informed decisions — without pressure or bias.
-              </p>
+              </p> */}
             </div>
             <div className={styles.missionCard}>
               <h3>Our Mission</h3>
-              <p>{missionText}</p>
+              <p dangerouslySetInnerHTML={{ __html: parseMarkdown(missionText) }} />
+
             </div>
           </div>
         </div>

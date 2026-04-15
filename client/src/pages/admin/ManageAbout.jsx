@@ -61,6 +61,9 @@ export default function ManageAbout() {
     const fd = new FormData();
     fd.append('file', file);
     fd.append('type', 'image');
+    fd.append('parentModel', 'User');
+    fd.append('parentId', '000000000000000000000000');
+
     try {
       const res = await api.post('/media/upload', fd, {
         headers: { 'Content-Type': undefined },
