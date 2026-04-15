@@ -62,7 +62,9 @@ export default function ManageAbout() {
     fd.append('file', file);
     fd.append('type', 'image');
     try {
-      const res = await api.post('/media/upload', fd);
+      const res = await api.post('/media/upload', fd, {
+        headers: { 'Content-Type': undefined },
+      });
       const url = res.data?.data?.url;
       if (url) set('team', updateItem(form.team, idx, 'imgUrl', url));
     } catch {
