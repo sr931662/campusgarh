@@ -4,17 +4,18 @@ const crypto = require('crypto');
 const AppError = require('../utils/AppError');
 
 // Configure storage (temporary disk storage)
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const dir = 'uploads/';
-    if (!require('fs').existsSync(dir)) require('fs').mkdirSync(dir, { recursive: true });
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = crypto.randomBytes(16).toString('hex');
-    cb(null, `${Date.now()}-${uniqueSuffix}${path.extname(file.originalname)}`);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     const dir = 'uploads/';
+//     if (!require('fs').existsSync(dir)) require('fs').mkdirSync(dir, { recursive: true });
+//     cb(null, dir);
+//   },
+//   filename: (req, file, cb) => {
+//     const uniqueSuffix = crypto.randomBytes(16).toString('hex');
+//     cb(null, `${Date.now()}-${uniqueSuffix}${path.extname(file.originalname)}`);
+//   },
+// });
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = /jpeg|jpg|png|gif|mp4|mov|pdf/;
