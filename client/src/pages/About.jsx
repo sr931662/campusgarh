@@ -68,6 +68,13 @@ const TEAM = [
   },
 ];
 
+const WHAT_WE_DO = [
+  { icon: '🤝', title: 'Genuine College Reviews & Ground Reports', desc: 'Transparent, real-campus insights.' },
+  { icon: '🔍', title: 'College Discovery & Comparison',           desc: 'Fees, placements, facilities — all verified.' },
+  { icon: '💡', title: 'Career Guidance',                          desc: 'Strength-based, personality-aligned counselling.' },
+  { icon: '🛡️', title: 'Trusted Counsellor Access',               desc: 'Ethical guidance with no false promises.' },
+  { icon: '🎓', title: 'Digital Resources',                        desc: 'Verified lists, insights, and helpful content.' },
+];
 
 const ABOUT_FAQS = [
   { q: 'What is CampusGarh?', a: 'CampusGarh is a student-first college discovery platform providing genuine reviews, verified data, and unbiased guidance to help students make informed education decisions across India.' },
@@ -119,6 +126,8 @@ const About = () => {
   const ceo   = team[0];
   const staff = team.slice(1, 5);
   const faqs        = d?.faqs?.length   ? d.faqs   : ABOUT_FAQS;
+  const whatWeDo    = d?.whatWeDo?.length ? d.whatWeDo : WHAT_WE_DO;
+
   const heroTitle   = d?.heroTitle      || "India's Most <span>Trusted</span> Student Platform";
   const heroSub     = d?.heroSubtitle   || 'CampusGarh was built with a single belief — every student deserves correct information at the right time, free of bias and free of charge.';
   const missionText = d?.missionText    || 'To empower every student with clarity, confidence, and fact-based guidance — enabling them to choose the right college and career path aligned with their potential and goals.';
@@ -200,12 +209,14 @@ const About = () => {
               <h2 className={styles.sectionTitle}>Everything a student <span>needs</span></h2>
             </div>
             <ul className={styles.whatList}>
-              <li><FaHandshake className={styles.whatIcon} /><div><strong>Genuine College Reviews & Ground Reports</strong><span>Transparent, real-campus insights.</span></div></li>
-              <li><FaSearch className={styles.whatIcon} /><div><strong>College Discovery & Comparison</strong><span>Fees, placements, facilities — all verified.</span></div></li>
-              <li><FaLightbulb className={styles.whatIcon} /><div><strong>Career Guidance</strong><span>Strength-based, personality-aligned counselling.</span></div></li>
-              <li><FaShieldAlt className={styles.whatIcon} /><div><strong>Trusted Counsellor Access</strong><span>Ethical guidance with no false promises.</span></div></li>
-              <li><FaGraduationCap className={styles.whatIcon} /><div><strong>Digital Resources</strong><span>Verified lists, insights, and helpful content.</span></div></li>
+              {whatWeDo.map((item, i) => (
+                <li key={i}>
+                  <span className={styles.whatIcon}>{item.icon}</span>
+                  <div><strong>{item.title}</strong><span>{item.desc}</span></div>
+                </li>
+              ))}
             </ul>
+
           </div>
         </div>
       </section>

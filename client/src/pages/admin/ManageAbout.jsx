@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../services/api';
 import styles from './AdminForm.module.css';
 
+import MarkdownField from '../../components/common/MarkdownField/MarkdownField';
 const fetchAbout = () => api.get('/about');
 const saveAbout  = (data) => api.put('/about', data);
 
@@ -12,10 +13,11 @@ const EMPTY = {
   heroSubtitle: '',
   missionText:  '',
   whoWeAreText: '',
-  stats:  [{ value: '', label: '' }],
-  values: [{ title: '', desc: '', icon: '' }],
-  team:   [{ name: '', role: '', desc: '', imgUrl: '', initials: '', linkedin: '', twitter: '', instagram: '' }],
-  faqs:   [{ q: '', a: '' }],
+  stats:    [{ value: '', label: '' }],
+  values:   [{ title: '', desc: '', icon: '' }],
+  team:     [{ name: '', role: '', desc: '', imgUrl: '', initials: '', linkedin: '', twitter: '', instagram: '' }],
+  faqs:     [{ q: '', a: '' }],
+  whatWeDo: [{ icon: '', title: '', desc: '' }],
 };
 
 /* ── tiny helpers ── */
@@ -41,7 +43,8 @@ export default function ManageAbout() {
       stats:  d.stats?.length  ? d.stats  : EMPTY.stats,
       values: d.values?.length ? d.values : EMPTY.values,
       team:   d.team?.length   ? d.team   : EMPTY.team,
-      faqs:   d.faqs?.length   ? d.faqs   : EMPTY.faqs,
+      faqs:     d.faqs?.length     ? d.faqs     : EMPTY.faqs,
+      whatWeDo: d.whatWeDo?.length ? d.whatWeDo : EMPTY.whatWeDo,
     });
   }, [data]);
 
@@ -62,68 +65,7 @@ export default function ManageAbout() {
         <p>Edit all content on the public About page</p>
       </div>
 
-      {/* ── LIVE PREVIEW ── */}
-      <div style={{ background: '#F9F7F3', borderRadius: 16, border: '1.5px solid #E8E3DB', padding: '1.5rem 2rem', marginBottom: '2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#C9A84C' }}>Live Preview</span>
-          <a href="/about" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.8rem', color: '#6B7280', textDecoration: 'none' }}>Open About Page ↗</a>
-        </div>
-
-        {/* Hero */}
-        {(form.heroTitle || form.heroSubtitle) && (
-          <div style={{ marginBottom: '1.25rem', padding: '1rem 1.25rem', background: '#1C1C1E', borderRadius: 10 }}>
-            {form.heroTitle && <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#FFFEF9', marginBottom: '0.3rem' }} dangerouslySetInnerHTML={{ __html: form.heroTitle }} />}
-            {form.heroSubtitle && <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>{form.heroSubtitle}</div>}
-          </div>
-        )}
-
-        {/* Stats */}
-        {form.stats?.length > 0 && (
-          <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
-            {form.stats.map((s, i) => (
-              <div key={i} style={{ background: '#fff', border: '1px solid #E8E3DB', borderRadius: 8, padding: '0.45rem 0.85rem', textAlign: 'center', minWidth: 80 }}>
-                <div style={{ fontSize: '0.9rem', fontWeight: 800, color: '#C9A84C' }}>{s.value || '—'}</div>
-                <div style={{ fontSize: '0.62rem', color: '#8A8A8E', marginTop: 2 }}>{s.label || '—'}</div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* CEO card */}
-        {form.team?.[0]?.name && (() => {
-          const ceo = form.team[0];
-          return (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', background: 'linear-gradient(135deg,#C9A84C,#E8C97A)', borderRadius: 12, padding: '1rem 1.5rem', marginBottom: '1rem' }}>
-              <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#2D2D2D', border: '2px solid rgba(255,255,255,0.3)', overflow: 'hidden', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem', fontWeight: 800, color: '#fff' }}>
-                {ceo.imgUrl ? <img src={ceo.imgUrl} alt={ceo.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : (ceo.initials || ceo.name?.[0])}
-              </div>
-              <div>
-                <div style={{ fontSize: '0.62rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(10,10,15,0.55)', marginBottom: 2 }}>{ceo.role}</div>
-                <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0A0A0F' }}>{ceo.name}</div>
-                {ceo.desc && <div style={{ fontSize: '0.75rem', fontStyle: 'italic', color: 'rgba(10,10,15,0.6)', marginTop: 3 }}>"{ceo.desc}"</div>}
-                <div style={{ fontSize: '0.68rem', color: 'rgba(10,10,15,0.45)', marginTop: 5 }}>
-                  {[ceo.instagram && 'Instagram', ceo.linkedin && 'LinkedIn', ceo.twitter && 'X/Twitter'].filter(Boolean).join(' · ') || 'No social links'}
-                </div>
-              </div>
-            </div>
-          );
-        })()}
-
-        {/* Staff cards */}
-        {form.team?.slice(1, 5).some(m => m.name) && (
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {form.team.slice(1, 5).filter(m => m.name).map((m, i) => (
-              <div key={i} style={{ background: '#fff', border: '1px solid #E8E3DB', borderRadius: 8, padding: '0.65rem 0.9rem', minWidth: 110 }}>
-                <div style={{ width: 30, height: 30, borderRadius: '50%', background: '#2D2D2D', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800, color: '#fff', marginBottom: 6 }}>
-                  {m.initials || m.name?.[0]}
-                </div>
-                <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#1C1C1E' }}>{m.name}</div>
-                <div style={{ fontSize: '0.66rem', color: '#8A8A8E' }}>{m.role}</div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      
 
       <form className={styles.form} onSubmit={e => { e.preventDefault(); mutation.mutate(form); }}>
 
@@ -146,16 +88,24 @@ export default function ManageAbout() {
         {/* ── WHO WE ARE + MISSION ── */}
         <div className={styles.section}>
           <div className={styles.sectionTitle}>Who We Are / Mission</div>
-          <div className={styles.field}>
-            <label>Who We Are (supports markdown)</label>
-            <textarea rows={4} value={form.whoWeAreText} onChange={e => set('whoWeAreText', e.target.value)}
-              placeholder="CampusGarh is a modern student-support platform..." style={{ fontFamily: 'monospace', fontSize: '0.85rem' }} />
-          </div>
-          <div className={styles.field}>
-            <label>Mission Text (supports markdown)</label>
-            <textarea rows={3} value={form.missionText} onChange={e => set('missionText', e.target.value)}
-              placeholder="To empower every student with clarity..." style={{ fontFamily: 'monospace', fontSize: '0.85rem' }} />
-          </div>
+          <MarkdownField
+            label="Who We Are"
+            name="whoWeAreText"
+            value={form.whoWeAreText}
+            onChange={e => set('whoWeAreText', e.target.value)}
+            placeholder="CampusGarh is a modern student-support platform..."
+            rows={4}
+          />
+
+          <MarkdownField
+            label="Mission Text"
+            name="missionText"
+            value={form.missionText}
+            onChange={e => set('missionText', e.target.value)}
+            placeholder="To empower every student with clarity..."
+            rows={3}
+          />
+
         </div>
 
         {/* ── STATS ── */}
@@ -267,8 +217,40 @@ export default function ManageAbout() {
             + Add Team Member
           </button>
         </div>
+        
+        {/* ── WHAT WE DO ── */}
+        <div className={styles.section}>
+          <div className={styles.sectionTitle} style={{ marginBottom: '1rem' }}>What We Do</div>
+          {form.whatWeDo.map((w, i) => (
+            <div key={i} style={{ background: '#F9F7F3', borderRadius: 10, padding: '1rem', marginBottom: '0.75rem' }}>
+              <div className={styles.row}>
+                <div className={styles.field} style={{ maxWidth: 80 }}>
+                  <label>Icon (emoji)</label>
+                  <input value={w.icon} onChange={e => set('whatWeDo', updateItem(form.whatWeDo, i, 'icon', e.target.value))} placeholder="🤝" />
+                </div>
+                <div className={styles.field}>
+                  <label>Title</label>
+                  <input value={w.title} onChange={e => set('whatWeDo', updateItem(form.whatWeDo, i, 'title', e.target.value))} placeholder="Genuine College Reviews" />
+                </div>
+                <button type="button" onClick={() => set('whatWeDo', removeItem(form.whatWeDo, i))}
+                  style={{ marginTop: '1.5rem', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#ef4444', borderRadius: 8, padding: '0.4rem 0.75rem', cursor: 'pointer', flexShrink: 0 }}>
+                  Remove
+                </button>
+              </div>
+              <div className={styles.field}>
+                <label>Description</label>
+                <input value={w.desc} onChange={e => set('whatWeDo', updateItem(form.whatWeDo, i, 'desc', e.target.value))} placeholder="Transparent, real-campus insights." />
+              </div>
+            </div>
+          ))}
+          <button type="button" onClick={() => set('whatWeDo', addItem(form.whatWeDo, { icon: '', title: '', desc: '' }))}
+            style={{ background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.3)', color: '#C9A84C', borderRadius: 8, padding: '0.4rem 1rem', cursor: 'pointer', fontSize: '0.83rem' }}>
+            + Add Item
+          </button>
+        </div>
 
         {/* ── FAQs ── */}
+
         <div className={styles.section}>
           <div className={styles.sectionTitle} style={{ marginBottom: '1rem' }}>FAQs</div>
           {form.faqs.map((f, i) => (
@@ -277,10 +259,15 @@ export default function ManageAbout() {
                 <label>Question</label>
                 <input value={f.q} onChange={e => set('faqs', updateItem(form.faqs, i, 'q', e.target.value))} placeholder="What is CampusGarh?" />
               </div>
-              <div className={styles.field}>
-                <label>Answer</label>
-                <textarea rows={2} value={f.a} onChange={e => set('faqs', updateItem(form.faqs, i, 'a', e.target.value))} placeholder="CampusGarh is a student-first..." />
-              </div>
+              <MarkdownField
+                label="Answer"
+                name={`faq-a-${i}`}
+                value={f.a}
+                onChange={e => set('faqs', updateItem(form.faqs, i, 'a', e.target.value))}
+                placeholder="CampusGarh is a student-first..."
+                rows={2}
+              />
+
               <button type="button" onClick={() => set('faqs', removeItem(form.faqs, i))}
                 style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#ef4444', borderRadius: 8, padding: '0.35rem 0.75rem', cursor: 'pointer', fontSize: '0.8rem' }}>
                 Remove FAQ

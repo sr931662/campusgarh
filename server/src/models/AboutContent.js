@@ -15,15 +15,23 @@ const aboutContentSchema = new mongoose.Schema({
     icon:  String,
     _id:   false,
   }],
-  team: [{
-    name:    String,
-    role:    String,
-    desc:    String,
-    imgUrl:  String,
-    initials:String,
-    linkedin:String,
-    twitter: String,
+    team: [{
+    name:     String,
+    role:     String,
+    desc:     String,
+    imgUrl:   String,
+    initials: String,
+    linkedin: String,
+    twitter:  String,
+    instagram:String,
   }],
+  whatWeDo: [{
+    icon:  { type: String, default: '' },
+    title: { type: String, default: '' },
+    desc:  { type: String, default: '' },
+    _id:   false,
+  }],
+
   faqs: [{
     q: String,
     a: String,
