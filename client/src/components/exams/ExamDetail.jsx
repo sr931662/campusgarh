@@ -6,6 +6,7 @@ import Loader from '../common/Loader/Loader';
 import Button from '../common/Button/Button';
 import styles from './ExamDetail.module.css';
 import { FaBook, FaExternalLinkAlt, FaFileAlt, FaUniversity, FaLaptop, FaCalendarAlt, FaMapPin } from 'react-icons/fa';
+import SEOHead from '../common/SEOHead';
 
 const SECTIONS = [
   { id: 'overview',   label: 'Overview' },
@@ -79,6 +80,12 @@ const ExamDetail = () => {
 
   return (
     <div className={styles.page}>
+      <SEOHead
+        title={exam?.name}
+        description={exam?.description || `${exam?.name} — exam dates, eligibility, pattern, syllabus and cutoffs for 2025.`}
+        keywords={`${exam?.name}, ${exam?.category} exam, ${exam?.name} 2025, entrance exam India`}
+        canonical={`https://campusgarh.com/exams/${exam?.slug}`}
+      />
       {/* ── HERO ──────────────────────────────────────────────────────────────── */}
       <section className={styles.hero}>
         <div className={styles.heroNoise} />

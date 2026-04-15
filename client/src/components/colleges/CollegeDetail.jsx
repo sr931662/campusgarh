@@ -38,7 +38,21 @@ const SECTIONS = [
   { id: 'gallery',    label: 'Gallery' },
   { id: 'reviews',    label: 'Reviews' },
 ];
-
+const collegeSchema = college ? {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": college.name,
+  "url": `https://campusgarh.com/colleges/${college.slug}`,
+  "description": college.description,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": college.contact?.city,
+    "addressRegion": college.contact?.state,
+    "addressCountry": "IN"
+  },
+  "telephone": college.contact?.phone,
+  "image": college.logoUrl,
+} : null;
 export default function CollegeDetail() {
   const { slug } = useParams();
   const [activeSection, setActiveSection] = useState('info');
@@ -143,10 +157,14 @@ export default function CollegeDetail() {
   return (
     <div className={styles.page}>
       <SEOHead
-        title={college.name}
-        description={college.description || `Explore ${college.name} — admissions, fees, placements, and more.`}
-        image={college.logoUrl}
-        canonical={`${window.location.origin}/colleges/${college.slug}`}
+        title={college?.name}
+        description={`${college?.name} — fees, placements, reviews, and admission details. ${college?.contact?.city}, ${college?.contact?.state}.`}
+        keywords={`${college?.name}, ${college?.contact?.city} colleges, ${college?.collegeType}, admission 2025`}
+        canonical={`https://campusgarh.com/colleges/${college?.slug}`}
+        image={college?.logoUrl}
+        favicon={college?.logoUrl}
+        type="article"
+        schema={collegeSchema}
       />
       {/* ── HERO ── */}
 

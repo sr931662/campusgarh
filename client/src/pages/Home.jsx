@@ -21,6 +21,7 @@ import LeadCapturePopup from '../components/home/LeadCapturePopup';
 import AccreditationBar from '../components/home/AccreditationBar';
 import MeetCounselors from '../components/home/MeetCounselors';
 import TopOnlineUniversities from '../components/home/TopOnlineUniversities';
+import SEOHead from '../components/common/SEOHead';
 
 const stats = [
   { num: '500+', label: 'Colleges' },
@@ -28,6 +29,30 @@ const stats = [
   { num: '80+', label: 'Entrance Exams' },
   { num: '25K+', label: 'Students Helped' },
 ];
+// Schema
+const homeSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "CampusGarh",
+      "url": "https://campusgarh.com",
+      "logo": "https://campusgarh.com/Campus%20png%20transparent-01.png",
+      "sameAs": ["https://www.instagram.com/campusgarh", "https://www.linkedin.com/company/campusgarh"]
+    },
+    {
+      "@type": "WebSite",
+      "url": "https://campusgarh.com",
+      "name": "CampusGarh",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://campusgarh.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+};
+
 
 // URL param: `type` — must match COLLEGE_TYPES constants exactly (URL-encoded)
 const streamCategories = [
@@ -111,6 +136,14 @@ export default function Home() {
 
   return (
     <div className={styles.homeWrapper}>
+      // JSX mein return ke andar sabse upar:
+      <SEOHead
+        title="India's Most Trusted Student Platform"
+        description="Discover 5,000+ colleges, compare courses, and get free unbiased admission guidance. Genuine student reviews and verified data across India."
+        keywords="colleges in india, top colleges, engineering colleges, medical colleges, MBA colleges, entrance exams, college admission 2025"
+        canonical="https://campusgarh.com"
+        schema={homeSchema}
+      />
 
       {/* ── HERO ────────────────────────────────────────────────────────────── */}
       <section className={styles.heroSection}>

@@ -16,7 +16,22 @@ const CONTENT_TYPE_COLORS = {
   'College Review': '#10b981', 'Exam Update': '#ef4444',
   'Career Advice': '#0891b2', Scholarship: '#f97316', Comparison: '#64748b',
 };
-
+const blogSchema = blog ? {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": blog.title,
+  "description": blog.excerpt,
+  "image": blog.featuredImageUrl,
+  "author": { "@type": "Organization", "name": "CampusGarh" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CampusGarh",
+    "logo": { "@type": "ImageObject", "url": "https://campusgarh.com/Campus%20png%20transparent-01.png" }
+  },
+  "datePublished": blog.publishedAt,
+  "dateModified": blog.updatedAt,
+  "url": `https://campusgarh.com/blogs/${blog.slug}`
+} : null;
 const TableOfContents = ({ items, bodyRef }) => {
   const [active, setActive] = useState(items[0]?.id || '');
 
@@ -115,10 +130,13 @@ const BlogDetail = () => {
   return (
     <div className={styles.page}>
       <SEOHead
-        title={blog.title}
-        description={blog.excerpt || blog.summary || blog.title}
-        image={blog.featuredImage?.url || blog.featuredImageUrl}
-        canonical={`${window.location.origin}/blogs/${blog.slug}`}
+        title={blog?.title}
+        description={blog?.excerpt}
+        keywords={blog?.tags?.join(', ')}
+        canonical={`https://campusgarh.com/blogs/${blog?.slug}`}
+        image={blog?.featuredImageUrl}
+        type="article"
+        schema={blogSchema}
       />
       {/* ── HERO ── */}
 

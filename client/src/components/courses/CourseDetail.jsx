@@ -8,6 +8,7 @@ import CourseSyllabus from './CourseSyllabus';
 import CourseCareerProspects from './CourseCareerProspects';
 import styles from './CourseDetail.module.css';
 import { formatCurrency } from '../../utils/formatters';
+import SEOHead from '../common/SEOHead';
 
 const SECTIONS = [
   { id: 'overview',       label: 'Overview' },
@@ -80,6 +81,12 @@ const CourseDetail = () => {
 
   return (
     <div className={styles.page}>
+      <SEOHead
+        title={course?.name}
+        description={course?.description || `${course?.name} — eligibility, fees, syllabus, career prospects and top colleges offering this course.`}
+        keywords={`${course?.name}, ${course?.category} courses, ${course?.discipline}, admission 2025`}
+        canonical={`https://campusgarh.com/courses/${course?.slug}`}
+      />
       {/* ── HERO ──────────────────────────────────────────────────────────────── */}
       <section className={styles.hero}>
         <div className={styles.heroNoise} />

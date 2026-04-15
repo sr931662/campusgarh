@@ -1,0 +1,28 @@
+# CampusGarh — India's Most Trusted Student Platform
+> CampusGarh helps students discover colleges, compare courses, and get unbiased admission guidance across India.
+
+## What we offer
+- College discovery with verified data, fees, placements, and NAAC ratings
+- Course listings: UG, PG, Diploma, Doctorate across all disciplines
+- Entrance exam guides: JEE, NEET, CAT, CLAT and 50+ more
+- Genuine student reviews and ground-level campus reports
+- Free counselling and college comparison tools
+
+## Key pages
+- https://campusgarh.com/ — Home
+- https://campusgarh.com/colleges — Browse all colleges
+- https://campusgarh.com/courses — Browse all courses
+- https://campusgarh.com/exams — Entrance exams
+- https://campusgarh.com/blogs — News & articles
+- https://campusgarh.com/about — About CampusGarh
+- https://campusgarh.com/engineering-colleges — Engineering colleges
+- https://campusgarh.com/medical-colleges — Medical colleges
+- https://campusgarh.com/management-colleges — Management colleges
+- https://campusgarh.com/law-colleges — Law colleges
+
+## Data freshness
+College data is updated regularly from official sources and verified student reports.
+
+## Contact
+- Website: https://campusgarh.com
+- Contact: https://campusgarh.com/contact
