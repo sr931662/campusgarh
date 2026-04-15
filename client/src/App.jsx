@@ -61,6 +61,7 @@ import AdvertiseWithUs from './pages/AdvertiseWithUs';
 import ManageFeaturedLinks from './pages/admin/ManageFeaturedLinks';
 import ManageAbout from './pages/admin/ManageAbout';
 import NotFound from './pages/NotFound';
+import ManageCounselors from './pages/admin/ManageCounselors';
 
 import { ROLES } from './utils/constants';
 export const getDashboardPath = (role) => {
@@ -176,6 +177,7 @@ function App() {
             <Route path="/admin/users/create" element={<CreateUser />} />
             <Route path="/admin/featured-links" element={<ManageFeaturedLinks />} />
             <Route path="/admin/about" element={<ManageAbout />} />
+            <Route path="/admin/counselors" element={<ManageCounselors />} />
 
           </Route>
 

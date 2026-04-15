@@ -10,7 +10,8 @@
   /* Pull the entire wrapper up by 76px so the dark bg covers the
      main element's padding-top area that sits behind the fixed navbar */
   /* was -76px (old navbar height) */
-  margin-top: -156px;
+  /* margin-top: -156px; */
+  margin-top: calc(-1 * var(--nav-h, 144px));
 
 }
 
@@ -25,10 +26,11 @@
    ══════════════════════════════════════ */
 .heroSection {
   position: relative;
-  height: calc(100vh);
+  height: 100vh;
+  height: 100svh;
   display: flex;
-  align-items: center;
-  overflow: hidden;
+  align-items: flex-start;
+  overflow: clip;
   background: var(--deep);
 
   /* College campus background image */
@@ -64,7 +66,8 @@
   max-width: 1320px;
   margin: 0 auto;
   /* was padding: 9rem 2.5rem 5rem */
-  padding: 8.5rem 2.5rem 2rem;
+  /* padding: 8.5rem 2.5rem 2rem; */
+  padding: calc(var(--nav-h, 144px) + 2rem) 2.5rem clamp(2rem, 4vh, 4rem);
 
   width: 100%;
 }
@@ -92,7 +95,7 @@
 
 .heroTitle {
   font-family: var(--font-display);
-  font-size: clamp(2.9rem, 5.8vw, 5.8rem);
+  font-size: clamp(2.2rem, 5.8vw, 5.8rem);
   font-weight: 700;
   line-height: 1.05;
   color: var(--warm-white);
@@ -178,7 +181,7 @@
 
 .heroStatNum {
   font-family: var(--font-display);
-  font-size: 2.2rem;
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
   font-weight: 700;
   color: var(--gold);
   letter-spacing: -0.03em;
@@ -1302,4 +1305,26 @@
 }
 @media (max-width: 480px) {
   .examsGrid { grid-template-columns: 1fr; }
+}
+
+/* ── Fit hero in one viewport at high zoom / short screens ── */
+@media (max-height: 750px) {
+  .heroContent {
+    padding-top: calc(var(--nav-h, 144px) + 0.5rem);
+    padding-bottom: 1rem;
+  }
+  .heroTitle {
+    font-size: clamp(1.6rem, 4vw, 3.5rem);
+    margin-bottom: 0.4rem;
+  }
+  .heroSubtitle {
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+  }
+  .heroActions {
+    margin-bottom: 0.8rem;
+  }
+  .heroStats {
+    padding-top: 0.75rem;
+  }
 }

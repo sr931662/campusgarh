@@ -19,6 +19,7 @@ const videoTestimonialRoutes = require('./videoTestimonialRoutes')
 const accreditationRoutes = require('./accreditationRoutes');
 const featuredLinkRoutes  = require('./featuredLinkRoutes');
 const aboutRoutes = require('./aboutRoutes');
+const counselorRoutes = require('./counselorRoutes');
 
 const router = express.Router();
 
@@ -41,6 +42,7 @@ router.use('/video-testimonials', videoTestimonialRoutes);
 router.use('/accreditation', accreditationRoutes);
 router.use('/featured-links', featuredLinkRoutes);
 router.use('/about', aboutRoutes);
+router.use('/counselors', counselorRoutes);
 
 
 module.exports = router;

@@ -123,3 +123,15 @@ p {
 .mb-3 { margin-bottom: 1rem; }
 .mb-4 { margin-bottom: 1.5rem; }
 .mb-5 { margin-bottom: 2rem; }
+
+/* ── Navbar height token — must match actual 3-tier height ── */
+:root {
+  --nav-h:       144px;   /* topStrip(32) + mainBar(68) + bottomNav(44) */
+  --nav-h-scroll: 102px;  /* scrolled: topStrip hidden(0) + mainBar(58) + bottomNav(44) */
+}
+@media (max-width: 768px) {
+  :root { --nav-h: 60px; --nav-h-scroll: 60px; }
+}
+@media (max-width: 480px) {
+  :root { --nav-h: 54px; --nav-h-scroll: 54px; }
+}

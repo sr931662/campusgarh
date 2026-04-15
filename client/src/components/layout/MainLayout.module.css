@@ -4,18 +4,17 @@
   min-height: 100vh;
 }
 
-/* Push page content below the fixed navbar (76px tall).
-   The Home page hero overrides this with a negative margin-top
-   so it bleeds behind the transparent navbar. */
+/* Push page content below the fixed navbar.
+   var(--nav-h) is defined in globals.css and matches
+   topStrip (32px) + mainBarInner (68px) + bottomNav (44px) = 144px */
 .main {
   flex: 1;
-  padding-top: 156px;   /* was 140px → 32 topstrip + 80 mainbar + 44 bottomnav */
+  padding-top: var(--nav-h, 144px);
 }
 
 @media (max-width: 768px) {
-  .main { padding-top: 64px; }
+  .main { padding-top: 60px; }
 }
 @media (max-width: 480px) {
-  .main { padding-top: 52px; }
+  .main { padding-top: 54px; }
 }
-
