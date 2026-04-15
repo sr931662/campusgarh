@@ -60,7 +60,7 @@ class AuthService extends BaseService {
     await user.save({ validateBeforeSave: false });
 
     // Send verification email (fire-and-forget — don't block the response)
-    const clientUrl = process.env.CLIENT_URL || 'https://campusgarh.onrender.com';
+    const clientUrl = (process.env.CLIENT_URL || 'https://campusgarh.com').split(',')[0].trim();
     const verificationUrl = `${clientUrl}/verify-email/${verificationToken}`;
     console.log(`[AUTH] ✉ Verification URL for ${user.email}: ${verificationUrl}`);
 
