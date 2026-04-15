@@ -7,6 +7,7 @@ import Button from '../common/Button/Button';
 import styles from './BlogDetail.module.css';
 import { formatDate } from '../../utils/formatters';
 import { parseMarkdown } from '../../utils/parseMarkdown';
+import SEOHead from '../common/SEOHead';
 import { useBlogs } from '../../hooks/queries';
 import BlogCard from './BlogCard';
 
@@ -113,7 +114,14 @@ const BlogDetail = () => {
 
   return (
     <div className={styles.page}>
-      {/* ── HERO ──────────────────────────────────────────────────────────────── */}
+      <SEOHead
+        title={blog.title}
+        description={blog.excerpt || blog.summary || blog.title}
+        image={blog.featuredImage?.url || blog.featuredImageUrl}
+        canonical={`${window.location.origin}/blogs/${blog.slug}`}
+      />
+      {/* ── HERO ── */}
+
       <section className={styles.hero}>
         <div className={styles.heroNoise} />
         <div className={styles.heroInner}>

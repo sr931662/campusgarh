@@ -31,7 +31,7 @@ const TEAM = [
     role: 'Founder & CEO',
     img: CEO,
     desc: 'Visionary behind CampusGarh — building India\'s most trusted student-first platform.',
-    socials: { linkedin: '#', twitter: '#' },
+    socials: { linkedin: '#', twitter: '#', instagram: '#' },
   },
   {
     initials: 'SK',
@@ -114,8 +114,10 @@ const About = () => {
   const team   = d?.team?.length   ? d.team.map(m => ({
     ...m,
     img:     m.imgUrl || null,
-    socials: { linkedin: m.linkedin || null, twitter: m.twitter || null },
+    socials: { linkedin: m.linkedin || null, twitter: m.twitter || null, instagram: m.instagram || null },
   })) : TEAM;
+  const ceo   = team[0];
+  const staff = team.slice(1, 5);
   const faqs        = d?.faqs?.length   ? d.faqs   : ABOUT_FAQS;
   const heroTitle   = d?.heroTitle      || "India's Most <span>Trusted</span> Student Platform";
   const heroSub     = d?.heroSubtitle   || 'CampusGarh was built with a single belief — every student deserves correct information at the right time, free of bias and free of charge.';
@@ -208,37 +210,59 @@ const About = () => {
         </div>
       </section>
 
-      {/* ── TEAM ── */}
+            {/* ── TEAM ── */}
       <section className={styles.teamSection}>
         <div className={styles.container}>
           <p className={styles.eyebrow} style={{ textAlign: 'center' }}>The People Behind It</p>
           <h2 className={styles.sectionTitle} style={{ textAlign: 'center', marginBottom: '2.5rem' }}>Meet the <span>Team</span></h2>
-          <div className={styles.teamGrid}>
-            {team.map((m) => (
-              <div key={m.name} className={styles.teamCard}>
-                <div className={styles.teamPhotoWrap}>
-                  {m.img
-                    ? <img src={m.img} alt={m.name} className={styles.teamPhoto} />
-                    : <div className={styles.avatar}>{m.initials}</div>
-                  }
-                </div>
-                <div className={styles.teamCardBody}>
-                  <div className={styles.teamName}>{m.name}</div>
-                  <div className={styles.teamRole}>{m.role}</div>
-                  <p className={styles.teamDesc}>{m.desc}</p>
-                  <div className={styles.teamSocials}>
-                    {m.socials?.linkedin && <a href={m.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>}
-                    {m.socials?.twitter  && <a href={m.socials.twitter}  target="_blank" rel="noopener noreferrer" aria-label="Twitter"><FaXTwitter /></a>}
-                  </div>
+
+          {ceo && (
+            <div className={styles.ceoCard}>
+              <div className={styles.ceoPhotoWrap}>
+                {ceo.img
+                  ? <img src={ceo.img} alt={ceo.name} className={styles.ceoPhoto} />
+                  : <div className={styles.ceoAvatar}>{ceo.initials}</div>
+                }
+              </div>
+              <div className={styles.ceoBody}>
+                <div className={styles.ceoRole}>{ceo.role}</div>
+                <div className={styles.ceoName}>{ceo.name}</div>
+                {ceo.desc && <p className={styles.ceoThought}>"{ceo.desc}"</p>}
+                <div className={styles.ceoSocials}>
+                  {ceo.socials?.instagram && <a href={ceo.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>}
+                  {ceo.socials?.linkedin  && <a href={ceo.socials.linkedin}  target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>}
+                  {ceo.socials?.twitter   && <a href={ceo.socials.twitter}   target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><FaXTwitter /></a>}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          )}
+
+          {staff.length > 0 && (
+            <div className={styles.teamGrid}>
+              {staff.map((m) => (
+                <div key={m.name} className={styles.teamCard}>
+                  <div className={styles.teamPhotoWrap}>
+                    {m.img
+                      ? <img src={m.img} alt={m.name} className={styles.teamPhoto} />
+                      : <div className={styles.avatar}>{m.initials}</div>
+                    }
+                  </div>
+                  <div className={styles.teamCardBody}>
+                    <div className={styles.teamName}>{m.name}</div>
+                    <div className={styles.teamRole}>{m.role}</div>
+                    <p className={styles.teamDesc}>{m.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <p className={styles.teamNote}>
             CampusGarh was created with the belief that every student deserves correct information at the right time.
           </p>
         </div>
       </section>
+
 
       {/* ── CTA ── */}
       <section className={styles.ctaSection}>

@@ -29,13 +29,14 @@
   box-shadow: 0 1px 0 #E8E3DB, 0 4px 20px rgba(0,0,0,0.07);
 }
 
-/* ══ TOP STRIP ══ */
 .topStrip {
   height: 32px;
   border-bottom: 1px solid rgba(255,255,255,0.12);
   transition: height 0.3s ease, opacity 0.3s ease, border 0.35s;
-  
+  position: relative;
+  z-index: 2;
 }
+
 .opaque .topStrip {
   background: #F5F0E8;
   border-bottom-color: #EDE8E0;
@@ -93,7 +94,7 @@
 /* Logo */
 .logo { flex-shrink: 0; display: flex; align-items: center; }
 /* was 52px */
-.logoImg { height: clamp(170px, 4vw, 46px); width: auto; object-fit: contain; transition: height 0.3s ease; }
+.logoImg { height: clamp(170px, 4vw, 0px); width: auto; object-fit: contain; transition: height 0.3s ease; }
 
 
 /* ── Scrolled / Shrunk state ── */

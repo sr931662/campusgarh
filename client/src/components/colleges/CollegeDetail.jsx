@@ -26,6 +26,7 @@ import Modal from '../common/Modal/Modal';
 import CollegeGallery from './CollegeGallery';
 
 import styles from './CollegeDetail.module.css';
+import SEOHead from '../common/SEOHead';
 
 const SECTIONS = [
   { id: 'info',       label: 'Info' },
@@ -141,7 +142,14 @@ export default function CollegeDetail() {
 
   return (
     <div className={styles.page}>
-      {/* ── HERO ──────────────────────────────────────────────────────────────── */}
+      <SEOHead
+        title={college.name}
+        description={college.description || `Explore ${college.name} — admissions, fees, placements, and more.`}
+        image={college.logoUrl}
+        canonical={`${window.location.origin}/colleges/${college.slug}`}
+      />
+      {/* ── HERO ── */}
+
       <section
         className={styles.hero}
         style={college.coverImageUrl ? {
