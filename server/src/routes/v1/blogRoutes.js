@@ -114,13 +114,15 @@ router.get('/featured', blogController.getFeaturedBlogs);
  *       200:
  *         description: Blog details
  */
+// Admin-only route MUST come before /:id and MUST be protected
+router.get('/admin/all', protect, restrictTo('admin', 'moderator'), blogController.getAllBlogsAdmin);
+
+// /:id must come last among GET routes
 router.get('/:id', blogController.getBlogById);
 
-// Authenticated routes (admin, author)
+// Protect all remaining write routes
 router.use(protect, restrictTo('admin', 'moderator'));
 
-// Admin-only: returns ALL blogs regardless of status
-router.get('/admin/all', blogController.getAllBlogsAdmin);
 
 
 router.patch('/:id/featured', blogController.toggleFeatured);

@@ -84,6 +84,7 @@
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--charcoal, #1C1C1E);
+  margin-top: 10px;
 }
 
 .field label span {

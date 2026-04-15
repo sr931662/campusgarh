@@ -6,6 +6,9 @@ import styles from './MainLayout.module.css';
 
 const MainLayout = () => {
   return (
+    <>
+    <meta name="robots" content="noindex, nofollow" />
+
     <div className={styles.layout}>
       <Navbar />
       <main className={styles.main}>
@@ -13,6 +16,7 @@ const MainLayout = () => {
       </main>
       <Footer />
     </div>
+    </>
   );
 };
 

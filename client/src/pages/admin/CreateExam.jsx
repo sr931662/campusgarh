@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { examService } from '../../services/examService';
 import styles from './AdminForm.module.css';
+import MarkdownField from '../../components/common/MarkdownField/MarkdownField';
 
 
 // Matches Exam model enum exactly
@@ -184,8 +185,16 @@ const CreateExam = () => {
             </div>
           </div>
           <div className={styles.field}>
-            <label>Overview</label>
-            <textarea name="overview" value={form.overview} onChange={handleChange} placeholder="About the exam, scope, accepted colleges..." rows={4} />
+            {/* <label>Overview</label> */}
+            <MarkdownField
+              label="Overview / Description"
+              name="overview"
+              value={form.overview}
+              onChange={handleChange}
+              placeholder="Full overview of the exam, its purpose, conducting body, eligibility..."
+              rows={6}
+            />
+
           </div>
         </div>
 
@@ -305,8 +314,15 @@ const CreateExam = () => {
             </div>
           </div>
           <div className={styles.field}>
-            <label>Counselling Overview</label>
-            <textarea name="counsellingOverview" value={form.counsellingOverview} onChange={handleChange} placeholder="Brief description of the counselling process..." rows={3} />
+            <MarkdownField
+              label="Counselling Overview"
+              name="counsellingOverview"
+              value={form.counsellingOverview}
+              onChange={handleChange}
+              placeholder="How the counselling process works..."
+              rows={4}
+            />
+
           </div>
         </div>
 

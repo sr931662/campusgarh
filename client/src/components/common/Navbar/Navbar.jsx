@@ -163,6 +163,22 @@ const Navbar = () => {
   }, [location.pathname]);
 
 
+  const SUGGESTIONS = [
+    { label: 'Engineering Colleges', to: '/colleges?type=Engineering+%26+Technology' },
+    { label: 'Medical Colleges',     to: '/colleges?type=Medical+%26+Health+Sciences' },
+    { label: 'Law Colleges',         to: '/colleges?type=Law' },
+    { label: 'Top Ranked Colleges',  to: '/colleges?sort=ranking' },
+    { label: 'MBA / Management',     to: '/colleges?type=Management+%26+Business' },
+    { label: 'Neighbouring Colleges',to: '/colleges' },
+    { label: 'B.Tech Colleges',      to: '/courses?search=btech' },
+    { label: 'JEE Main',             to: '/exams?search=jee+main' },
+    { label: 'NEET',                 to: '/exams?search=neet' },
+    { label: 'CAT',                  to: '/exams?search=cat' },
+  ];
+
+  // inside the component, add this state:
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
   const isPathActive = (key) => {
     if (key === 'colleges') return location.pathname.startsWith('/colleges');
     if (key === 'courses')  return location.pathname.startsWith('/courses');
@@ -235,7 +251,11 @@ const Navbar = () => {
             />
           </Link>
 
-          <form onSubmit={handleSearch} className={styles.searchForm}>
+          {/* // Replace the searchForm JSX with: */}
+          <form onSubmit={handleSearch} className={styles.searchForm}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+          >
             <FiSearch className={styles.searchIcon} size={16} />
             <input
               type="search"
@@ -244,6 +264,17 @@ const Navbar = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className={styles.searchInput}
             />
+            {showSuggestions && !searchQuery && (
+              <div className={styles.suggestions}>
+                {SUGGESTIONS.map((s) => (
+                  <Link key={s.label} to={s.to} className={styles.suggestionItem}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => setShowSuggestions(false)}>
+                    <FiSearch size={12} style={{ opacity: 0.4 }} /> {s.label}
+                  </Link>
+                ))}
+              </div>
+            )}
           </form>
 
           <div className={styles.mainActions}>

@@ -59,6 +59,8 @@ import TermsAndConditions from './pages/TermsAndConditions';
 import Career from './pages/Career';
 import AdvertiseWithUs from './pages/AdvertiseWithUs';
 import ManageFeaturedLinks from './pages/admin/ManageFeaturedLinks';
+import ManageAbout from './pages/admin/ManageAbout';
+import NotFound from './pages/NotFound';
 
 import { ROLES } from './utils/constants';
 export const getDashboardPath = (role) => {
@@ -106,7 +108,6 @@ function App() {
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/careers" element={<Career />} />
           <Route path="/advertise" element={<AdvertiseWithUs />} />
-
 
           {/* Any authenticated user */}
           <Route element={<PrivateRoute />}>
@@ -174,9 +175,12 @@ function App() {
             <Route path="/admin/users/:userId" element={<AdminUserDetail />} />
             <Route path="/admin/users/create" element={<CreateUser />} />
             <Route path="/admin/featured-links" element={<ManageFeaturedLinks />} />
+            <Route path="/admin/about" element={<ManageAbout />} />
+
           </Route>
 
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

@@ -45,6 +45,8 @@ const AdminDashboard = () => {
         <div className={styles.headerActions}>
           <Link to="/admin/analytics" className={styles.headerBtn}><FaChartBar /> Analytics</Link>
           <Link to="/admin/leads"     className={styles.headerBtn}><FaInbox /> All Leads</Link>
+          <Link to="/admin/about" className={styles.headerBtn}>About Page</Link>
+
         </div>
       </div>
 

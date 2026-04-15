@@ -622,3 +622,28 @@
   /* Drawer top = phone bar height */
   .mobileDrawer { top: 68px; }
 }
+
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: #fff;
+  border: 1px solid #E8E3DB;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+  z-index: 500;
+  overflow: hidden;
+  animation: megaIn 0.15s ease;
+}
+.suggestionItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.83rem;
+  color: #374151;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.suggestionItem:hover { background: #FBF8F2; color: #C9A84C; }

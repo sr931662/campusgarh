@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { collegeService } from '../../services/collegeService';
 import styles from './AdminForm.module.css';
+import MarkdownField from '../../components/common/MarkdownField/MarkdownField';
 
 
 const COLLEGE_TYPES = [
@@ -359,8 +360,14 @@ useEffect(() => {
             <input name="affiliation" value={form.affiliation} onChange={handleChange} placeholder="e.g. Autonomous / University of Delhi" />
           </div>
           <div className={styles.field}>
-            <label>Description</label>
-            <textarea name="description" value={form.description} onChange={handleChange} placeholder="Brief overview of the college..." rows={4} />
+            <MarkdownField
+            label="Description"
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            placeholder="Brief overview of the college, its strengths, campus, programs..."
+            rows={6}
+          />
           </div>
           <div className={styles.checkboxField}>
             <input type="checkbox" id="featured" name="featured" checked={form.featured} onChange={handleChange} />

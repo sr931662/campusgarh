@@ -47,7 +47,20 @@ const BlogList = () => {
   };
 
   if (blogsLoading || categoriesLoading) return <Loader fullScreen />;
-  if (error) return <div className={styles.error}>Error loading blogs</div>;
+  if (error) return (
+    <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem', padding: '3rem' }}>
+      <span style={{ fontSize: '2.5rem' }}>📰</span>
+      <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1C1C1E' }}>Could not load articles</h2>
+      <p style={{ color: '#6B7280', fontSize: '0.9rem' }}>Please check your connection and try again.</p>
+      <button
+        onClick={() => window.location.reload()}
+        style={{ padding: '0.6rem 1.4rem', background: '#C9A84C', color: '#fff', border: 'none', borderRadius: '999px', fontWeight: 600, cursor: 'pointer', fontSize: '0.875rem' }}
+      >
+        Retry
+      </button>
+    </div>
+  );
+
 
   const { data: blogs, pagination } = blogsData?.data?.data || { data: [], pagination: {} };
   const categories = categoriesData?.data?.data || [];

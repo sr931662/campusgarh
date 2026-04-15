@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { courseService } from '../../services/courseService';
 import styles from './AdminForm.module.css';
+import MarkdownField from '../../components/common/MarkdownField/MarkdownField';
 
 
 // Matches Course model enum exactly
@@ -175,7 +176,14 @@ const CreateCourse = () => {
           <div className={styles.sectionTitle}>Eligibility & Specializations</div>
           <div className={styles.field}>
             <label>Eligibility Criteria</label>
-            <textarea name="eligibility" value={form.eligibility} onChange={handleChange} placeholder="e.g. 10+2 with PCM, minimum 75% aggregate..." rows={3} />
+            <MarkdownField
+              name="eligibility"
+              value={form.eligibility}
+              onChange={handleChange}
+              placeholder="- 10+2 with PCM&#10;- Minimum 75% aggregate&#10;- JEE Main qualified"
+              rows={4}
+            />
+
           </div>
           <div className={styles.field}>
             <label>Specializations</label>

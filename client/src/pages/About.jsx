@@ -7,6 +7,8 @@ import {
 import { FaXTwitter } from 'react-icons/fa6';
 import styles from './About.module.css';
 import CEO from '../assets/CEO.png'
+import { useQuery } from '@tanstack/react-query';
+import api from '../services/api';
 
 const STATS = [
   { value: '5,000+', label: 'Colleges Listed' },
@@ -97,152 +99,165 @@ const FAQSection = ({ faqs }) => {
   );
 };
 
-const About = () => (
-  <div className={styles.page}>
+const About = () => {
+  const { data } = useQuery({
+    queryKey: ['about-public'],
+    queryFn: () => api.get('/about'),
+    staleTime: 5 * 60 * 1000,
+  });
 
-    {/* ── HERO ── */}
-    <section className={styles.hero}>
-      <div className={styles.heroInner}>
-        <p className={styles.eyebrow}>Our Story</p>
-        <h1 className={styles.heroTitle}>
-          India's Most <span>Trusted</span> Student Platform
-        </h1>
-        <p className={styles.heroSub}>
-          CampusGarh was built with a single belief — every student deserves correct information at the right time, free of bias and free of charge.
-        </p>
-        <div className={styles.heroActions}>
-          <Link to="/colleges" className={styles.heroCta}>Explore Colleges</Link>
-          <Link to="/contact" className={styles.heroCtaOutline}>Talk to Us</Link>
-        </div>
-      </div>
-    </section>
+  const d = data?.data?.data;
 
-    {/* ── STATS ── */}
-    <section className={styles.statsSection}>
-      <div className={styles.container}>
-        <div className={styles.statsGrid}>
-          {STATS.map((s) => (
-            <div key={s.label} className={styles.statBox}>
-              <div className={styles.statValue}>{s.value}</div>
-              <div className={styles.statLabel}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+  // Use API data if available, fallback to hardcoded
+  const stats  = d?.stats?.length  ? d.stats  : STATS;
+  const values = d?.values?.length ? d.values : VALUES;
+  const team   = d?.team?.length   ? d.team.map(m => ({
+    ...m,
+    img:     m.imgUrl || null,
+    socials: { linkedin: m.linkedin || null, twitter: m.twitter || null },
+  })) : TEAM;
+  const faqs        = d?.faqs?.length   ? d.faqs   : ABOUT_FAQS;
+  const heroTitle   = d?.heroTitle      || "India's Most <span>Trusted</span> Student Platform";
+  const heroSub     = d?.heroSubtitle   || 'CampusGarh was built with a single belief — every student deserves correct information at the right time, free of bias and free of charge.';
+  const missionText = d?.missionText    || 'To empower every student with clarity, confidence, and fact-based guidance — enabling them to choose the right college and career path aligned with their potential and goals.';
+  const whoWeAre    = d?.whoWeAreText   || 'CampusGarh is a modern student-support and college-discovery platform built to help learners access authentic information, genuine reviews, and ground-level reports from campuses across India.';
 
-    {/* ── WHO WE ARE ── */}
-    <section className={styles.introSection}>
-      <div className={styles.container}>
-        <div className={styles.introGrid}>
-          <div className={styles.introText}>
-            <p className={styles.eyebrow}>Who We Are</p>
-            <h2 className={styles.sectionTitle}>Not a consultancy. <span>A student ally.</span></h2>
-            <p className={styles.body}>
-              CampusGarh is a modern student-support and college-discovery platform built to help learners
-              access authentic information, genuine reviews, and ground-level reports from campuses across India.
-            </p>
-            <p className={styles.body} style={{ fontStyle: 'italic', color: 'var(--muted)' }}>
-              We do not sell admissions. We provide factual insights that help students make confident, well-informed decisions — without pressure or bias.
-            </p>
-          </div>
-          <div className={styles.missionCard}>
-            <h3>Our Mission</h3>
-            <p>
-              To empower every student with clarity, confidence, and fact-based guidance — enabling them
-              to choose the right college and career path aligned with their potential and goals.
-            </p>
+  return (
+    <div className={styles.page}>
+
+      {/* ── HERO ── */}
+      <section className={styles.hero}>
+        <div className={styles.heroInner}>
+          <p className={styles.eyebrow}>Our Story</p>
+          <h1 className={styles.heroTitle} dangerouslySetInnerHTML={{ __html: heroTitle }} />
+          <p className={styles.heroSub}>{heroSub}</p>
+          <div className={styles.heroActions}>
+            <Link to="/colleges" className={styles.heroCta}>Explore Colleges</Link>
+            <Link to="/contact" className={styles.heroCtaOutline}>Talk to Us</Link>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* ── VALUES ── */}
-    <section className={styles.valuesSection}>
-      <div className={styles.container}>
-        <p className={styles.eyebrow} style={{ textAlign: 'center' }}>What We Stand For</p>
-        <h2 className={styles.sectionTitle} style={{ textAlign: 'center', marginBottom: '2.5rem' }}>Our <span>Core Values</span></h2>
-        <div className={styles.valuesGrid}>
-          {VALUES.map((v) => (
-            <div key={v.title} className={styles.valueCard}>
-              <span className={styles.valueIcon}>{v.icon}</span>
-              <h3 className={styles.valueTitle}>{v.title}</h3>
-              <p className={styles.valueDesc}>{v.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* ── WHAT WE DO ── */}
-    <section className={styles.whatSection}>
-      <div className={styles.container}>
-        <div className={styles.whatGrid}>
-          <div>
-            <p className={styles.eyebrow}>What We Do</p>
-            <h2 className={styles.sectionTitle}>Everything a student <span>needs</span></h2>
-          </div>
-          <ul className={styles.whatList}>
-            <li><FaHandshake className={styles.whatIcon} /><div><strong>Genuine College Reviews & Ground Reports</strong><span>Transparent, real-campus insights.</span></div></li>
-            <li><FaSearch className={styles.whatIcon} /><div><strong>College Discovery & Comparison</strong><span>Fees, placements, facilities — all verified.</span></div></li>
-            <li><FaLightbulb className={styles.whatIcon} /><div><strong>Career Guidance</strong><span>Strength-based, personality-aligned counselling.</span></div></li>
-            <li><FaShieldAlt className={styles.whatIcon} /><div><strong>Trusted Counsellor Access</strong><span>Ethical guidance with no false promises.</span></div></li>
-            <li><FaGraduationCap className={styles.whatIcon} /><div><strong>Digital Resources</strong><span>Verified lists, insights, and helpful content.</span></div></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    {/* ── TEAM ── */}
-    <section className={styles.teamSection}>
-      <div className={styles.container}>
-        <p className={styles.eyebrow} style={{ textAlign: 'center' }}>The People Behind It</p>
-        <h2 className={styles.sectionTitle} style={{ textAlign: 'center', marginBottom: '2.5rem' }}>Meet the <span>Team</span></h2>
-        <div className={styles.teamGrid}>
-          {TEAM.map((m) => (
-            <div key={m.name} className={styles.teamCard}>
-              <div className={styles.teamPhotoWrap}>
-                {m.img
-                  ? <img src={m.img} alt={m.name} className={styles.teamPhoto} />
-                  : <div className={styles.avatar}>{m.initials}</div>
-                }
+      {/* ── STATS ── */}
+      <section className={styles.statsSection}>
+        <div className={styles.container}>
+          <div className={styles.statsGrid}>
+            {stats.map((s) => (
+              <div key={s.label} className={styles.statBox}>
+                <div className={styles.statValue}>{s.value}</div>
+                <div className={styles.statLabel}>{s.label}</div>
               </div>
-              <div className={styles.teamCardBody}>
-                <div className={styles.teamName}>{m.name}</div>
-                <div className={styles.teamRole}>{m.role}</div>
-                <p className={styles.teamDesc}>{m.desc}</p>
-                <div className={styles.teamSocials}>
-                  {m.socials.linkedin && <a href={m.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>}
-                  {m.socials.twitter && <a href={m.socials.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter"><FaXTwitter /></a>}
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHO WE ARE ── */}
+      <section className={styles.introSection}>
+        <div className={styles.container}>
+          <div className={styles.introGrid}>
+            <div className={styles.introText}>
+              <p className={styles.eyebrow}>Who We Are</p>
+              <h2 className={styles.sectionTitle}>Not a consultancy. <span>A student ally.</span></h2>
+              <p className={styles.body}>{whoWeAre}</p>
+              <p className={styles.body} style={{ fontStyle: 'italic', color: 'var(--muted)' }}>
+                We do not sell admissions. We provide factual insights that help students make confident, well-informed decisions — without pressure or bias.
+              </p>
+            </div>
+            <div className={styles.missionCard}>
+              <h3>Our Mission</h3>
+              <p>{missionText}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VALUES ── */}
+      <section className={styles.valuesSection}>
+        <div className={styles.container}>
+          <p className={styles.eyebrow} style={{ textAlign: 'center' }}>What We Stand For</p>
+          <h2 className={styles.sectionTitle} style={{ textAlign: 'center', marginBottom: '2.5rem' }}>Our <span>Core Values</span></h2>
+          <div className={styles.valuesGrid}>
+            {values.map((v) => (
+              <div key={v.title} className={styles.valueCard}>
+                <span className={styles.valueIcon}>{v.icon}</span>
+                <h3 className={styles.valueTitle}>{v.title}</h3>
+                <p className={styles.valueDesc}>{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHAT WE DO ── */}
+      <section className={styles.whatSection}>
+        <div className={styles.container}>
+          <div className={styles.whatGrid}>
+            <div>
+              <p className={styles.eyebrow}>What We Do</p>
+              <h2 className={styles.sectionTitle}>Everything a student <span>needs</span></h2>
+            </div>
+            <ul className={styles.whatList}>
+              <li><FaHandshake className={styles.whatIcon} /><div><strong>Genuine College Reviews & Ground Reports</strong><span>Transparent, real-campus insights.</span></div></li>
+              <li><FaSearch className={styles.whatIcon} /><div><strong>College Discovery & Comparison</strong><span>Fees, placements, facilities — all verified.</span></div></li>
+              <li><FaLightbulb className={styles.whatIcon} /><div><strong>Career Guidance</strong><span>Strength-based, personality-aligned counselling.</span></div></li>
+              <li><FaShieldAlt className={styles.whatIcon} /><div><strong>Trusted Counsellor Access</strong><span>Ethical guidance with no false promises.</span></div></li>
+              <li><FaGraduationCap className={styles.whatIcon} /><div><strong>Digital Resources</strong><span>Verified lists, insights, and helpful content.</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TEAM ── */}
+      <section className={styles.teamSection}>
+        <div className={styles.container}>
+          <p className={styles.eyebrow} style={{ textAlign: 'center' }}>The People Behind It</p>
+          <h2 className={styles.sectionTitle} style={{ textAlign: 'center', marginBottom: '2.5rem' }}>Meet the <span>Team</span></h2>
+          <div className={styles.teamGrid}>
+            {team.map((m) => (
+              <div key={m.name} className={styles.teamCard}>
+                <div className={styles.teamPhotoWrap}>
+                  {m.img
+                    ? <img src={m.img} alt={m.name} className={styles.teamPhoto} />
+                    : <div className={styles.avatar}>{m.initials}</div>
+                  }
+                </div>
+                <div className={styles.teamCardBody}>
+                  <div className={styles.teamName}>{m.name}</div>
+                  <div className={styles.teamRole}>{m.role}</div>
+                  <p className={styles.teamDesc}>{m.desc}</p>
+                  <div className={styles.teamSocials}>
+                    {m.socials?.linkedin && <a href={m.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>}
+                    {m.socials?.twitter  && <a href={m.socials.twitter}  target="_blank" rel="noopener noreferrer" aria-label="Twitter"><FaXTwitter /></a>}
+                  </div>
                 </div>
               </div>
-            </div>
-
-          ))}
+            ))}
+          </div>
+          <p className={styles.teamNote}>
+            CampusGarh was created with the belief that every student deserves correct information at the right time.
+          </p>
         </div>
-        <p className={styles.teamNote}>
-          CampusGarh was created with the belief that every student deserves correct information at the right time.
-        </p>
-      </div>
-    </section>
+      </section>
 
-    {/* ── CTA ── */}
-    <section className={styles.ctaSection}>
-      <div className={styles.container}>
-        <div className={styles.ctaCard}>
-          <p className={styles.eyebrow}>Start Today — It's Free</p>
-          <h2 className={styles.ctaTitle}>Ready to find your college?</h2>
-          <p className={styles.ctaBody}>Explore thousands of colleges, compare options, and get free counselling — all in one place.</p>
-          <div className={styles.ctaActions}>
-            <Link to="/colleges" className={styles.heroCta}>Explore Colleges →</Link>
-            <Link to="/contact" className={styles.heroCtaOutline}>Contact Us</Link>
+      {/* ── CTA ── */}
+      <section className={styles.ctaSection}>
+        <div className={styles.container}>
+          <div className={styles.ctaCard}>
+            <p className={styles.eyebrow}>Start Today — It's Free</p>
+            <h2 className={styles.ctaTitle}>Ready to find your college?</h2>
+            <p className={styles.ctaBody}>Explore thousands of colleges, compare options, and get free counselling — all in one place.</p>
+            <div className={styles.ctaActions}>
+              <Link to="/colleges" className={styles.heroCta}>Explore Colleges →</Link>
+              <Link to="/contact" className={styles.heroCtaOutline}>Contact Us</Link>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <FAQSection faqs={ABOUT_FAQS} />
-  </div>
-);
+      <FAQSection faqs={faqs} />
+    </div>
+  );
+};
 
 export default About;

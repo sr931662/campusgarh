@@ -18,6 +18,7 @@ const videoTestimonialRoutes = require('./videoTestimonialRoutes')
 // import videoTestimonialRoutes from './videoTestimonialRoutes.js';
 const accreditationRoutes = require('./accreditationRoutes');
 const featuredLinkRoutes  = require('./featuredLinkRoutes');
+const aboutRoutes = require('./aboutRoutes');
 
 const router = express.Router();
 
@@ -39,5 +40,7 @@ router.use('/newsletter', newsletterRoutes);
 router.use('/video-testimonials', videoTestimonialRoutes);
 router.use('/accreditation', accreditationRoutes);
 router.use('/featured-links', featuredLinkRoutes);
+router.use('/about', aboutRoutes);
+
 
 module.exports = router;
