@@ -10,7 +10,7 @@ const mediaSchema = new mongoose.Schema(
     mimeType: String,
     // Reference to entity (polymorphic)
     parent: {
-      id: { type: mongoose.Schema.Types.ObjectId, required: true, index: true },
+      id: { type: mongoose.Schema.Types.ObjectId, index: true },
       model: { type: String, enum: ['College', 'Blog', 'User'] },
     },
     // Optional ordering

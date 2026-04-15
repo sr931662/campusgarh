@@ -86,6 +86,9 @@ const CreateBlog = () => {
       const fd = new FormData();
       fd.append('file', file);
       fd.append('type', 'image');
+      fd.append('parentModel', 'Blog');
+      fd.append('parentId', '000000000000000000000000');
+
       const res = await mediaService.uploadFile(fd);
       const url = res?.data?.data?.url || res?.data?.url || '';
       setForm(p => ({ ...p, featuredImageUrl: url }));
