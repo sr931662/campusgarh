@@ -7,7 +7,7 @@ import CollegeFilters from './CollegeFilters';
 import Loader from '../common/Loader/Loader';
 import styles from './CollegeList.module.css';
 
-const CollegeList = () => {
+const CollegeList = ({ defaultType = '', pageTitle = 'Colleges in India', pageH1 = null }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filterOpen, setFilterOpen] = useState(false);
   const [page, setPage] = useState(parseInt(searchParams.get('page')) || 1);
@@ -15,7 +15,7 @@ const CollegeList = () => {
     search: searchParams.get('search') || '',
     city: searchParams.get('city') || '',
     state: searchParams.get('state') || '',
-    type: searchParams.get('type') || '',
+    type: searchParams.get('type') || defaultType,
     fundingType: searchParams.get('fundingType') || '',
     ranking: searchParams.get('ranking') || '',
     feesMin: searchParams.get('feesMin') || '',
@@ -67,7 +67,7 @@ const CollegeList = () => {
       <section className={styles.pageBanner}>
         <div className={styles.bannerInner}>
           <p className={styles.bannerEyebrow}>Discover &amp; Compare</p>
-          <h1 className={styles.bannerTitle}>Colleges <em>in India</em></h1>
+          <h1 className={styles.bannerTitle}>{pageH1 || 'Colleges'} <em>in India</em></h1>
           <p className={styles.bannerSubtitle}>Explore 500+ verified institutions — ranked by placement, fees, and real student reviews.</p>
         </div>
       </section>
@@ -90,7 +90,7 @@ const CollegeList = () => {
         <div className={styles.header}>
           <div className={styles.headerTop}>
             <div>
-              <h1 className={styles.title}>Colleges in India</h1>
+              <h1 className={styles.title}>{pageTitle}</h1>
               <p className={styles.subtitle}>
                 {total > 0 ? `${total} colleges found` : isLoading ? 'Searching...' : 'No colleges found'}
               </p>
