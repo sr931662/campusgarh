@@ -9,6 +9,8 @@ import styles from './About.module.css';
 import CEO from '../assets/CEO.png'
 import { useQuery } from '@tanstack/react-query';
 import api from '../services/api';
+import { parseMarkdown } from '../utils/parseMarkdown';
+
 
 const STATS = [
   { value: '5,000+', label: 'Colleges Listed' },
@@ -97,7 +99,7 @@ const FAQSection = ({ faqs }) => {
                 {faq.q}
                 <span className={styles.faqToggle}>{open === i ? '−' : '+'}</span>
               </button>
-              {open === i && <p className={styles.faqA}>{faq.a}</p>}
+              {open === i && <div className={styles.faqA} dangerouslySetInnerHTML={{ __html: parseMarkdown(faq.a) }} />}
             </div>
           ))}
         </div>
@@ -170,7 +172,7 @@ const About = () => {
             <div className={styles.introText}>
               <p className={styles.eyebrow}>Who We Are</p>
               <h2 className={styles.sectionTitle}>Not a consultancy. <span>A student ally.</span></h2>
-              <p className={styles.body}>{whoWeAre}</p>
+              <div className={styles.body} dangerouslySetInnerHTML={{ __html: parseMarkdown(whoWeAre) }} />
               <p className={styles.body} style={{ fontStyle: 'italic', color: 'var(--muted)' }}>
                 We do not sell admissions. We provide factual insights that help students make confident, well-informed decisions — without pressure or bias.
               </p>

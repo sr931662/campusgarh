@@ -29,6 +29,7 @@ export default function ManageAbout() {
   const qc = useQueryClient();
   const [form, setForm]   = useState(EMPTY);
   const [saved, setSaved] = useState(false);
+  const [uploadingIdx, setUploadingIdx] = useState(null);
 
   const { data, isLoading } = useQuery({ queryKey: ['about-admin'], queryFn: fetchAbout });
 
@@ -54,6 +55,22 @@ export default function ManageAbout() {
   });
 
   const set = (key, val) => setForm(f => ({ ...f, [key]: val }));
+
+  const uploadPhoto = async (file, idx) => {
+    setUploadingIdx(idx);
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('type', 'image');
+    try {
+      const res = await api.post('/media/upload', fd);
+      const url = res.data?.data?.url;
+      if (url) set('team', updateItem(form.team, idx, 'imgUrl', url));
+    } catch {
+      alert('Upload failed. Please try again.');
+    } finally {
+      setUploadingIdx(null);
+    }
+  };
 
   if (isLoading) return <div className={styles.container}><p style={{ color: '#6b7280', padding: '2rem' }}>Loading…</p></div>;
 
@@ -189,8 +206,33 @@ export default function ManageAbout() {
               </div>
               <div className={styles.row}>
                 <div className={styles.field}>
-                  <label>Photo URL (optional)</label>
-                  <input value={m.imgUrl} onChange={e => set('team', updateItem(form.team, i, 'imgUrl', e.target.value))} placeholder="https://..." />
+                  <label>Photo (URL or Upload)</label>
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                    <input
+                      value={m.imgUrl}
+                      onChange={e => set('team', updateItem(form.team, i, 'imgUrl', e.target.value))}
+                      placeholder="https://..."
+                      style={{ flex: 1 }}
+                    />
+                    <label style={{ flexShrink: 0, background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.3)', color: '#C9A84C', borderRadius: 8, padding: '0.45rem 0.8rem', cursor: uploadingIdx === i ? 'wait' : 'pointer', fontSize: '0.78rem', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                      {uploadingIdx === i ? 'Uploading…' : '📁 Upload'}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        disabled={uploadingIdx !== null}
+                        onChange={e => { if (e.target.files[0]) uploadPhoto(e.target.files[0], i); }}
+                      />
+                    </label>
+                    {m.imgUrl && (
+                      <img
+                        src={m.imgUrl}
+                        alt="preview"
+                        style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', border: '2px solid #E8E3DB', flexShrink: 0 }}
+                        onError={e => { e.target.style.display = 'none'; }}
+                      />
+                    )}
+                  </div>
                 </div>
                 <div className={styles.field}>
                   <label>LinkedIn URL</label>
