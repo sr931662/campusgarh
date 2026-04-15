@@ -132,7 +132,7 @@ class AuthService extends BaseService {
     await user.save({ validateBeforeSave: false });
 
     // Send email (fire-and-forget — don't block the response)
-    const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
+    const resetUrl = `${(process.env.CLIENT_URL || 'https://campusgarh.com').split(',')[0].trim()}/reset-password/${resetToken}`;
     if (process.env.NODE_ENV !== 'production') {
       console.log(`\n[DEV] 🔑 Password reset for ${user.email}:\n  ${resetUrl}\n`);
     }
