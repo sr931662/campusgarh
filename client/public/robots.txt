@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Private / auth pages
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password/
+Disallow: /verify-email/
+
+# User dashboards
+Disallow: /profile
+Disallow: /predictor
+Disallow: /dashboard/
+
+# Admin & internal
+Disallow: /admin/
+Disallow: /partner/dashboard
+Disallow: /partner/leads
+Disallow: /partner/import
+
+Sitemap: https://campusgarh.com/sitemap.xml

@@ -70,78 +70,152 @@ app.get('/', (req, res) => {
   res.send('API is running 🚀');
 });
 
+// // robots.txt
+// app.get('/robots.txt', (req, res) => {
+//   res.type('text/plain');
+//   res.send(
+//     `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /dashboard\nDisallow: /api\n\nSitemap: ${process.env.CLIENT_URL || 'https://campusgarh.com'}/sitemap.xml`
+//   );
+// });
+
+// Helper — always returns single canonical domain
+const SITE_URL = () => (process.env.CLIENT_URL || 'https://campusgarh.com').split(',')[0].trim();
+
+
 // robots.txt
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain');
-  res.send(
-    `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /dashboard\nDisallow: /api\n\nSitemap: ${process.env.CLIENT_URL || 'https://campusgarh.com'}/sitemap.xml`
-  );
+  res.send([
+    'User-agent: *',
+    'Allow: /',
+    '',
+    '# Private / auth pages',
+    'Disallow: /login',
+    'Disallow: /register',
+    'Disallow: /forgot-password',
+    'Disallow: /reset-password',
+    'Disallow: /verify-email',
+    '',
+    '# User dashboards',
+    'Disallow: /profile',
+    'Disallow: /predictor',
+    'Disallow: /dashboard/',
+    '',
+    '# Admin & internal',
+    'Disallow: /admin/',
+    'Disallow: /partner/dashboard',
+    'Disallow: /partner/leads',
+    'Disallow: /partner/import',
+    '',
+    '# API',
+    'Disallow: /api/',
+    '',
+    `Sitemap: ${SITE_URL()}/sitemap.xml`,
+  ].join('\n'));
 });
 
-// Sitemap.xml - dynamically generated
-app.get('/sitemap.xml', async (req, res) => {
+// ── Sitemap helpers ──────────────────────────────────────────
+const urlTag = (loc, lastmod, changefreq, priority) =>
+  `\n  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+
+const wrapUrlset = (urls) =>
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join('')}\n</urlset>`;
+
+// Master sitemap index
+app.get('/sitemap.xml', (req, res) => {
+  const BASE = SITE_URL();
+  const now = new Date().toISOString();
+  const sitemaps = ['static', 'colleges', 'courses', 'exams', 'blogs'];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemaps.map(s => `  <sitemap>\n    <loc>${BASE}/sitemap-${s}.xml</loc>\n    <lastmod>${now}</lastmod>\n  </sitemap>`).join('\n')}
+</sitemapindex>`;
+  res.header('Content-Type', 'application/xml');
+  res.send(xml);
+});
+
+// Static pages sitemap
+app.get('/sitemap-static.xml', (req, res) => {
+  const BASE = SITE_URL();
+  const now = new Date().toISOString();
+  const pages = [
+    { path: '',                      changefreq: 'daily',   priority: '1.0' },
+    { path: '/colleges',             changefreq: 'daily',   priority: '0.9' },
+    { path: '/courses',              changefreq: 'weekly',  priority: '0.8' },
+    { path: '/exams',                changefreq: 'weekly',  priority: '0.8' },
+    { path: '/blogs',                changefreq: 'daily',   priority: '0.8' },
+    { path: '/compare',              changefreq: 'monthly', priority: '0.6' },
+    { path: '/about',                changefreq: 'monthly', priority: '0.7' },
+    { path: '/contact',              changefreq: 'monthly', priority: '0.6' },
+    { path: '/partner',              changefreq: 'monthly', priority: '0.6' },
+    { path: '/careers',              changefreq: 'monthly', priority: '0.5' },
+    { path: '/advertise',            changefreq: 'monthly', priority: '0.5' },
+    { path: '/privacy-policy',       changefreq: 'yearly',  priority: '0.3' },
+    { path: '/terms-and-conditions', changefreq: 'yearly',  priority: '0.3' },
+    { path: '/engineering-colleges',  changefreq: 'weekly', priority: '0.8' },
+    { path: '/management-colleges',   changefreq: 'weekly', priority: '0.8' },
+    { path: '/medical-colleges',      changefreq: 'weekly', priority: '0.8' },
+    { path: '/law-colleges',          changefreq: 'weekly', priority: '0.8' },
+    { path: '/commerce-colleges',     changefreq: 'weekly', priority: '0.8' },
+    { path: '/arts-colleges',         changefreq: 'weekly', priority: '0.7' },
+    { path: '/science-colleges',      changefreq: 'weekly', priority: '0.7' },
+    { path: '/architecture-colleges', changefreq: 'weekly', priority: '0.7' },
+    { path: '/pharmacy-colleges',     changefreq: 'weekly', priority: '0.7' },
+    { path: '/ug-courses',            changefreq: 'weekly', priority: '0.8' },
+    { path: '/pg-courses',            changefreq: 'weekly', priority: '0.8' },
+    { path: '/diploma-courses',       changefreq: 'weekly', priority: '0.7' },
+    { path: '/doctorate-courses',     changefreq: 'weekly', priority: '0.6' },
+    { path: '/certificate-courses',   changefreq: 'weekly', priority: '0.6' },
+
+  ];
+  res.header('Content-Type', 'application/xml');
+  res.send(wrapUrlset(pages.map(p => urlTag(`${BASE}${p.path}`, now, p.changefreq, p.priority))));
+});
+
+// Colleges sitemap
+app.get('/sitemap-colleges.xml', async (req, res) => {
   try {
-    const BASE_URL = process.env.CLIENT_URL || 'https://campusgarh.com';
+    const BASE = SITE_URL();
     const now = new Date().toISOString();
-
-    const [colleges, courses, exams, blogs] = await Promise.all([
-      College.find({ isActive: true }, 'slug updatedAt').lean(),
-      Course.find({ isActive: true }, 'slug updatedAt').lean(),
-      Exam.find({ isActive: true }, 'slug updatedAt').lean(),
-      Blog.find({ status: 'published' }, 'slug updatedAt').lean(),
-    ]);
-
-    const staticPages = ['', '/colleges', '/courses', '/exams', '/blogs', '/compare', '/about', '/contact'];
-
-    const urls = [
-      ...staticPages.map((page) => `
-  <url>
-    <loc>${BASE_URL}${page}</loc>
-    <lastmod>${now}</lastmod>
-    <changefreq>${page === '' ? 'daily' : 'weekly'}</changefreq>
-    <priority>${page === '' ? '1.0' : '0.8'}</priority>
-  </url>`),
-      ...colleges.map((c) => `
-  <url>
-    <loc>${BASE_URL}/colleges/${c.slug}</loc>
-    <lastmod>${c.updatedAt ? new Date(c.updatedAt).toISOString() : now}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>`),
-      ...courses.map((c) => `
-  <url>
-    <loc>${BASE_URL}/courses/${c.slug}</loc>
-    <lastmod>${c.updatedAt ? new Date(c.updatedAt).toISOString() : now}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>`),
-      ...exams.map((e) => `
-  <url>
-    <loc>${BASE_URL}/exams/${e.slug}</loc>
-    <lastmod>${e.updatedAt ? new Date(e.updatedAt).toISOString() : now}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>`),
-      ...blogs.map((b) => `
-  <url>
-    <loc>${BASE_URL}/blogs/${b.slug}</loc>
-    <lastmod>${b.updatedAt ? new Date(b.updatedAt).toISOString() : now}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>`),
-    ];
-
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.join('')}
-</urlset>`;
-
+    const colleges = await College.find({ isActive: true }, 'slug updatedAt').lean();
     res.header('Content-Type', 'application/xml');
-    res.send(xml);
-  } catch (err) {
-    res.status(500).json({ message: 'Sitemap generation failed' });
-  }
+    res.send(wrapUrlset(colleges.map(c => urlTag(`${BASE}/colleges/${c.slug}`, c.updatedAt ? new Date(c.updatedAt).toISOString() : now, 'weekly', '0.8'))));
+  } catch { res.status(500).json({ message: 'Failed' }); }
 });
+
+// Courses sitemap
+app.get('/sitemap-courses.xml', async (req, res) => {
+  try {
+    const BASE = SITE_URL();
+    const now = new Date().toISOString();
+    const courses = await Course.find({ isActive: true }, 'slug updatedAt').lean();
+    res.header('Content-Type', 'application/xml');
+    res.send(wrapUrlset(courses.map(c => urlTag(`${BASE}/courses/${c.slug}`, c.updatedAt ? new Date(c.updatedAt).toISOString() : now, 'monthly', '0.6'))));
+  } catch { res.status(500).json({ message: 'Failed' }); }
+});
+
+// Exams sitemap
+app.get('/sitemap-exams.xml', async (req, res) => {
+  try {
+    const BASE = SITE_URL();
+    const now = new Date().toISOString();
+    const exams = await Exam.find({ isActive: true }, 'slug updatedAt').lean();
+    res.header('Content-Type', 'application/xml');
+    res.send(wrapUrlset(exams.map(e => urlTag(`${BASE}/exams/${e.slug}`, e.updatedAt ? new Date(e.updatedAt).toISOString() : now, 'weekly', '0.7'))));
+  } catch { res.status(500).json({ message: 'Failed' }); }
+});
+
+// Blogs sitemap
+app.get('/sitemap-blogs.xml', async (req, res) => {
+  try {
+    const BASE = SITE_URL();
+    const now = new Date().toISOString();
+    const blogs = await Blog.find({ status: 'published' }, 'slug updatedAt').lean();
+    res.header('Content-Type', 'application/xml');
+    res.send(wrapUrlset(blogs.map(b => urlTag(`${BASE}/blogs/${b.slug}`, b.updatedAt ? new Date(b.updatedAt).toISOString() : now, 'weekly', '0.6'))));
+  } catch { res.status(500).json({ message: 'Failed' }); }
+});
+
 
 // 404 handler
 app.use((req, res, next) => {

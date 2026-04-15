@@ -7,14 +7,14 @@ import CourseFilters from './CourseFilters';
 import Loader from '../common/Loader/Loader';
 import styles from './CourseList.module.css';
 
-const CourseList = () => {
+const CourseList = ({ defaultCategory = '', pageTitle = 'Courses in India', pageH1 = null }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [filterOpen, setFilterOpen] = useState(false);
   const [page, setPage] = useState(parseInt(searchParams.get('page')) || 1);
   const [sort, setSort] = useState(searchParams.get('sort') || 'name');
   const [filters, setFilters] = useState({
     search:        searchParams.get('search')        || '',
-    category:      searchParams.get('category')      || '',
+    category: searchParams.get('category') || defaultCategory,
     mode:          searchParams.get('mode')          || '',
     discipline:    searchParams.get('discipline')    || '',
     admissionType: searchParams.get('admissionType') || '',

@@ -62,6 +62,8 @@ import ManageFeaturedLinks from './pages/admin/ManageFeaturedLinks';
 import ManageAbout from './pages/admin/ManageAbout';
 import NotFound from './pages/NotFound';
 import ManageCounselors from './pages/admin/ManageCounselors';
+import CollegesByType from './pages/CollegesByType';
+import CoursesByLevel from './pages/CoursesByLevel';
 
 import { ROLES } from './utils/constants';
 export const getDashboardPath = (role) => {
@@ -90,6 +92,12 @@ function App() {
           <Route path="/colleges" element={<CollegeList />} />
           <Route path="/colleges/:slug" element={<CollegeDetail />} />
           <Route path="/courses" element={<CourseList />} />
+          <Route path="/ug-courses"          element={<CoursesByLevel />} />
+          <Route path="/pg-courses"          element={<CoursesByLevel />} />
+          <Route path="/diploma-courses"     element={<CoursesByLevel />} />
+          <Route path="/doctorate-courses"   element={<CoursesByLevel />} />
+          <Route path="/certificate-courses" element={<CoursesByLevel />} />
+
           <Route path="/courses/:slug" element={<CourseDetail />} />
           <Route path="/exams" element={<ExamList />} />
           <Route path="/exams/:slug" element={<ExamDetail />} />
@@ -109,6 +117,9 @@ function App() {
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/careers" element={<Career />} />
           <Route path="/advertise" element={<AdvertiseWithUs />} />
+          {/* SEO slug routes — colleges by type */}
+          <Route path="/:slug" element={<CollegesByType />} />
+
 
           {/* Any authenticated user */}
           <Route element={<PrivateRoute />}>
