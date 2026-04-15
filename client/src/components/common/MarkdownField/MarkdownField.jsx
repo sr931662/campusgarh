@@ -22,7 +22,7 @@ export default function MarkdownField({ label, name, value, onChange, placeholde
   const [tab, setTab] = useState('write'); // 'write' | 'preview'
   const [showGuide, setShowGuide] = useState(false);
 
-  const cs = { background: 'rgba(201,168,76,0.12)', color: '#C9A84C', padding: '0.1rem 0.4rem', borderRadius: '4px', fontFamily: 'monospace', fontSize: '0.75rem' };
+  const cs = { background: 'rgba(201,168,76,0.12)', color: '#C9A84C', padding: '0.8rem 0.4rem', borderRadius: '4px', fontFamily: 'monospace', fontSize: '0.75rem' };
 
   // Insert markdown syntax at cursor position
   const wrap = (before, after = '') => {

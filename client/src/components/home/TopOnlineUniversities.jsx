@@ -53,7 +53,7 @@ const TopOnlineUniversities = () => {
         ) : (
           <motion.div className={styles.grid} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.05 }} variants={stagger}>
             {colleges.map(c => (
-              <motion.div key={c._id} variants={fadeUp}>
+              <motion.div key={c._id} variants={fadeUp} style={{ height: '100%' }}>
                 <OnlineCard college={c} />
               </motion.div>
             ))}
