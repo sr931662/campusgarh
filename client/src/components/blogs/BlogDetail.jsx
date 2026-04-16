@@ -16,22 +16,6 @@ const CONTENT_TYPE_COLORS = {
   'College Review': '#10b981', 'Exam Update': '#ef4444',
   'Career Advice': '#0891b2', Scholarship: '#f97316', Comparison: '#64748b',
 };
-const blogSchema = blog ? {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": blog.title,
-  "description": blog.excerpt,
-  "image": blog.featuredImageUrl,
-  "author": { "@type": "Organization", "name": "CampusGarh" },
-  "publisher": {
-    "@type": "Organization",
-    "name": "CampusGarh",
-    "logo": { "@type": "ImageObject", "url": "https://campusgarh.com/Campus%20png%20transparent-01.png" }
-  },
-  "datePublished": blog.publishedAt,
-  "dateModified": blog.updatedAt,
-  "url": `https://campusgarh.com/blogs/${blog.slug}`
-} : null;
 const TableOfContents = ({ items, bodyRef }) => {
   const [active, setActive] = useState(items[0]?.id || '');
 
@@ -81,6 +65,23 @@ const BlogDetail = () => {
 
   const blog = data?.data?.data;
   const contentType = blog?.contentType;
+
+  const blogSchema = blog ? {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": blog.title,
+    "description": blog.excerpt,
+    "image": blog.featuredImageUrl,
+    "author": { "@type": "Organization", "name": "CampusGarh" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CampusGarh",
+      "logo": { "@type": "ImageObject", "url": "https://campusgarh.com/Campus%20png%20transparent-01.png" }
+    },
+    "datePublished": blog.publishedAt,
+    "dateModified": blog.updatedAt,
+    "url": `https://campusgarh.com/blogs/${blog.slug}`
+  } : null;
   const { data: similarData } = useBlogs({ contentType, limit: 4 });
   const similarBlogs = (similarData?.data?.data?.data || []).filter(b => b?._id && b._id !== blog?._id).slice(0, 4);
 

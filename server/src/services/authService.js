@@ -158,7 +158,8 @@ class AuthService extends BaseService {
     user.password = newPassword;
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
-    await user.save();
+    await user.save({ validateBeforeSave: false });
+
 
     return { message: 'Password reset successful' };
   }

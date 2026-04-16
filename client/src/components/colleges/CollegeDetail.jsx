@@ -38,21 +38,6 @@ const SECTIONS = [
   { id: 'gallery',    label: 'Gallery' },
   { id: 'reviews',    label: 'Reviews' },
 ];
-const collegeSchema = college ? {
-  "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  "name": college.name,
-  "url": `https://campusgarh.com/colleges/${college.slug}`,
-  "description": college.description,
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": college.contact?.city,
-    "addressRegion": college.contact?.state,
-    "addressCountry": "IN"
-  },
-  "telephone": college.contact?.phone,
-  "image": college.logoUrl,
-} : null;
 export default function CollegeDetail() {
   const { slug } = useParams();
   const [activeSection, setActiveSection] = useState('info');
@@ -60,6 +45,22 @@ export default function CollegeDetail() {
   // ── Data fetching ────────────────────────────────────────────────────────────
   const { data: axiosRes, isLoading, error } = useCollegeBySlug(slug);
   const college = axiosRes?.data?.data;
+
+  const collegeSchema = college ? {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": college.name,
+    "url": `https://campusgarh.com/colleges/${college.slug}`,
+    "description": college.description,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": college.contact?.city,
+      "addressRegion": college.contact?.state,
+      "addressCountry": "IN"
+    },
+    "telephone": college.contact?.phone,
+    "image": college.logoUrl,
+  } : null;
 
   const { data: similarData } = useColleges({
     type: college?.collegeType,

@@ -21,8 +21,8 @@ const forgotPasswordValidator = [
 
 const resetPasswordValidator = [
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
-  body('confirmPassword').custom((value, { req }) => value === req.body.password)
-    .withMessage('Passwords do not match'),
+  // body('confirmPassword').custom((value, { req }) => value === req.body.password)
+  //   .withMessage('Passwords do not match'),
 ];
 
 const changePasswordValidator = [

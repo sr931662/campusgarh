@@ -136,7 +136,6 @@ export default function Home() {
 
   return (
     <div className={styles.homeWrapper}>
-      // JSX mein return ke andar sabse upar:
       <SEOHead
         title="India's Most Trusted Student Platform"
         description="Discover 5,000+ colleges, compare courses, and get free unbiased admission guidance. Genuine student reviews and verified data across India."

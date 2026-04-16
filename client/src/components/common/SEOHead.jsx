@@ -1,11 +1,26 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const DEFAULT_FAVICON = '/favicon.svg';
-const DEFAULT_IMAGE = 'https://campusgarh.com/Campus%20png%20transparent-01.png';
+const DEFAULT_FAVICON = '/ms-icon-150x150.png';
+const DEFAULT_IMAGE = 'https://campusgarh.com/ms-icon-150x150.png';
 
 const SEOHead = ({ title, description, keywords, canonical, image, favicon, schema, type = 'website' }) => {
   const fullTitle = title ? `${title} | CampusGarh` : "CampusGarh — India's Most Trusted Student Platform";
   const url = canonical || (typeof window !== 'undefined' ? window.location.href : 'https://campusgarh.com');
+  const faviconUrl = favicon || DEFAULT_FAVICON;
+
+  // Direct DOM update — Helmet alone nahi kar pata dynamic favicon
+  useEffect(() => {
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = faviconUrl;
+    // Reset to default on unmount
+    return () => { link.href = DEFAULT_FAVICON; };
+  }, [faviconUrl]);
 
   return (
     <Helmet>
@@ -13,7 +28,6 @@ const SEOHead = ({ title, description, keywords, canonical, image, favicon, sche
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={url} />
-      <link rel="icon" href={favicon || DEFAULT_FAVICON} />
 
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
