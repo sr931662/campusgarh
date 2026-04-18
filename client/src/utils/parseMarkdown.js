@@ -20,12 +20,13 @@ export function parseMarkdown(md) {
   html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
 
   // Headings
-  html = html.replace(/^###### (.+)$/gm, '<h6>$1</h6>');
-  html = html.replace(/^##### (.+)$/gm, '<h5>$1</h5>');
-  html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
-  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+  const slugify = (t) => t.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-');
+  html = html.replace(/^###### (.+)$/gm, (_, t) => `<h6 id="${slugify(t)}">${t}</h6>`);
+  html = html.replace(/^##### (.+)$/gm, (_, t) => `<h5 id="${slugify(t)}">${t}</h5>`);
+  html = html.replace(/^#### (.+)$/gm,  (_, t) => `<h4 id="${slugify(t)}">${t}</h4>`);
+  html = html.replace(/^### (.+)$/gm,   (_, t) => `<h3 id="${slugify(t)}">${t}</h3>`);
+  html = html.replace(/^## (.+)$/gm,    (_, t) => `<h2 id="${slugify(t)}">${t}</h2>`);
+  html = html.replace(/^# (.+)$/gm,     (_, t) => `<h1 id="${slugify(t)}">${t}</h1>`);
 
   // Horizontal rule
   html = html.replace(/^---+$/gm, '<hr>');

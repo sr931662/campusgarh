@@ -21,21 +21,41 @@ const TableOfContents = ({ items, bodyRef }) => {
   const [active, setActive] = useState(items[0]?.id || '');
 
   useEffect(() => {
-    if (!bodyRef.current) return;
+    if (!bodyRef.current || !items.length) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
+        // Pick the topmost visible heading
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) setActive(visible[0].target.id);
       },
-      { rootMargin: '-20% 0% -70% 0%' }
+      {
+        rootMargin: `-${parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '80')}px 0px -60% 0px`,
+        threshold: 0,
+      }
     );
+
     items.forEach(({ id }) => {
-      const el = bodyRef.current?.querySelector(`#${id}`);
+      const el = bodyRef.current?.querySelector(`#${CSS.escape(id)}`);
       if (el) observer.observe(el);
     });
+
     return () => observer.disconnect();
   }, [items, bodyRef]);
+
+  const handleClick = (e, id) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+    const navH = parseInt(
+      getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '80'
+    );
+    const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+    setActive(id);
+  };
 
   if (!items.length) return null;
 
@@ -47,6 +67,7 @@ const TableOfContents = ({ items, bodyRef }) => {
           <li key={item.id} className={item.level === 3 ? styles.tocSubItem : styles.tocItem}>
             <a
               href={`#${item.id}`}
+              onClick={(e) => handleClick(e, item.id)}
               className={`${styles.tocLink} ${active === item.id ? styles.tocLinkActive : ''}`}
             >
               {item.title}
@@ -57,6 +78,7 @@ const TableOfContents = ({ items, bodyRef }) => {
     </nav>
   );
 };
+
 
 const BlogDetail = () => {
   const { slug } = useParams();
@@ -92,16 +114,19 @@ const BlogDetail = () => {
       setTocItems(blog.tableOfContents);
       return;
     }
-    // Auto-generate TOC from rendered headings
-    if (bodyRef.current) {
+    // Wait one tick for dangerouslySetInnerHTML to flush to the DOM
+    const timer = setTimeout(() => {
+      if (!bodyRef.current) return;
       const headings = bodyRef.current.querySelectorAll('h2, h3');
       const items = Array.from(headings).map((h, idx) => {
         if (!h.id) h.id = `heading-${idx}`;
-        return { id: h.id, title: h.textContent, level: parseInt(h.tagName[1]) };
+        return { id: h.id, title: h.textContent.trim(), level: parseInt(h.tagName[1]) };
       });
       setTocItems(items);
-    }
+    }, 50);
+    return () => clearTimeout(timer);
   }, [blog]);
+
 
   if (isLoading) {
     return (

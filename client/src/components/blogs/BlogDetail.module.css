@@ -483,3 +483,20 @@
   .heroImage { padding: 0 1.25rem; }
   .body { padding: 1.5rem; }
 }
+/* ── TOC active transition ──────────────────────────────────────────────── */
+.tocLink {
+  transition: color 0.2s, background 0.2s, border-left-color 0.2s, padding-left 0.2s;
+}
+.tocLinkActive {
+  padding-left: 0.75rem;
+}
+
+/* ── TOC sticky scroll with smooth top ──────────────────────────────────── */
+.sidebar {
+  scroll-margin-top: 8rem;
+}
+
+/* ── Mobile: TOC collapses below article ────────────────────────────────── */
+@media (max-width: 480px) {
+  .toc { display: none; }
+}

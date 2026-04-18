@@ -9,6 +9,8 @@ import './styles/globals.css';
 import App from './App';
 import { HelmetProvider } from 'react-helmet-async';
 // wrap <App /> with <HelmetProvider>
+import './styles/globals.css'
+import './styles/responsive.css'   // ← add this line
 
 
 const queryClient = new QueryClient({

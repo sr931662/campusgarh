@@ -1,0 +1,127 @@
+/* ══════════════════════════════════════
+   CAMPUSGARH — GLOBAL RESPONSIVE LAYER
+   Applied on top of all component CSS
+   ══════════════════════════════════════ */
+
+/* ── 1. Containers & max-widths ───────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .container { padding: 0 1.5rem; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 1rem; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 0.875rem; }
+}
+
+/* ── 2. Typography scale ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  h1 { font-size: clamp(1.5rem, 6vw, 2rem); }
+  h2 { font-size: clamp(1.1rem, 4vw, 1.5rem); }
+  h3 { font-size: clamp(1rem, 3.5vw, 1.25rem); }
+}
+@media (max-width: 480px) {
+  h1 { font-size: clamp(1.3rem, 5.5vw, 1.75rem); }
+  h2 { font-size: clamp(1rem, 4vw, 1.3rem); }
+  p  { font-size: 0.92rem; }
+}
+
+/* ── 3. Navigation token fix ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root { --nav-h: 80px; --nav-h-scroll: 80px; }
+}
+@media (max-width: 768px) {
+  :root { --nav-h: 60px; --nav-h-scroll: 60px; }
+}
+@media (max-width: 480px) {
+  :root { --nav-h: 54px; --nav-h-scroll: 54px; }
+}
+
+/* ── 4. Auto-responsive grids ────────────────────────────────────────────── */
+/* "You May Also Like" hardcoded 4-col section in BlogDetail — handled via JSX change (Step 3 below) */
+
+/* ── 5. Forms universally usable on mobile ───────────────────────────────── */
+@media (max-width: 768px) {
+  form { width: 100%; }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="number"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* ── 6. Tables — scrollable on small screens ─────────────────────────────── */
+@media (max-width: 768px) {
+  table { font-size: 0.8rem; }
+  th, td { padding: 0.5rem 0.6rem; }
+}
+
+/* ── 7. Print styles (cross-browser) ─────────────────────────────────────── */
+@media print {
+  [class*="sidebar"], [class*="Sidebar"],
+  [class*="navbar"], [class*="Navbar"],
+  [class*="footer"], [class*="Footer"],
+  [class*="share"], [class*="Share"],
+  [class*="btn"], button { display: none !important; }
+  body { background: white; color: black; font-size: 12pt; }
+  a { color: black; text-decoration: underline; }
+  h1, h2, h3 { page-break-after: avoid; }
+  table { page-break-inside: avoid; }
+}
+
+/* ── 8. High-DPI / Retina screens ────────────────────────────────────────── */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Images rendered via CSS backgrounds will use sharper versions if srcset provided */
+  img { image-rendering: -webkit-optimize-contrast; }
+}
+
+/* ── 9. Landscape phone fixes ────────────────────────────────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root { --nav-h: 50px; --nav-h-scroll: 50px; }
+  [class*="hero"] { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+}
+
+/* ── 10. Wide screens (TV / ultrawide) ───────────────────────────────────── */
+@media (min-width: 1600px) {
+  .container { max-width: 1400px; }
+}
+@media (min-width: 2000px) {
+  html { font-size: 18px; }
+}
+
+/* ── 11. Reduced motion (accessibility) ──────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── 12. Dark mode (system preference) ───────────────────────────────────── */
+/* CampusGarh has a custom dark theme — add system-level dark overrides here if needed */
+@media (prefers-color-scheme: dark) {
+  /* Currently left to the site's own dark sections — no override needed */
+}
+
+/* ── 13. Firefox-specific fixes ──────────────────────────────────────────── */
+@-moz-document url-prefix() {
+  select { padding-right: 0.5rem; }
+}
+
+/* ── 14. Safari-specific fixes ───────────────────────────────────────────── */
+_::-webkit-full-page-media, _:future, :root [class*="btn"] {
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+/* Safari gap-in-flex bug fallback (Safari < 14.1) */
+@supports not (gap: 1rem) {
+  [class*="wrap"] > * + * { margin-left: 0.5rem; }
+  [class*="grid"] > * + * { margin-bottom: 1rem; }
+}
