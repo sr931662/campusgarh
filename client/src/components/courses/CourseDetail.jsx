@@ -8,6 +8,7 @@ import CourseSyllabus from './CourseSyllabus';
 import CourseCareerProspects from './CourseCareerProspects';
 import styles from './CourseDetail.module.css';
 import { formatCurrency } from '../../utils/formatters';
+import { parseMarkdown } from '../../utils/parseMarkdown';
 import SEOHead from '../common/SEOHead';
 
 const SECTIONS = [
@@ -204,9 +205,10 @@ const CourseDetail = () => {
             {course.description && (
               <div className={styles.card}>
                 <h2 className={styles.sectionTitle}>About This Course</h2>
-                <div className={styles.descBox}>
-                  <p style={{ margin: 0, lineHeight: '1.8' }}>{course.description}</p>
-                </div>
+                <div
+                  className={styles.descBox}
+                  dangerouslySetInnerHTML={{ __html: parseMarkdown(course.description) }}
+                />
               </div>
             )}
 

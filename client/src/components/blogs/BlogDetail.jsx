@@ -209,9 +209,10 @@ const BlogDetail = () => {
 
           {/* Meta info */}
           <div className={styles.meta}>
-            <span className={styles.date}>{formatDate(blog.publishedAt, 'dd MMM yyyy')}</span>
+            <span className={styles.date}>{formatDate(blog.publishedAt || blog.createdAt, 'dd MMM yyyy')}</span>
             {blog.readingTime && <span className={styles.readTime}>· {blog.readingTime} min read</span>}
-            <span className={styles.author}>· By {blog.author?.name || 'Admin'}</span>
+            <span className={styles.author}>· By {blog.author?.name || 'Team CampusGarh'}</span>
+
             {blog.lastReviewedAt && (
               <span className={styles.reviewed}>
                 · Reviewed {formatDate(blog.lastReviewedAt, 'dd MMM yyyy')}

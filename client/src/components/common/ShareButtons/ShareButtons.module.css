@@ -11,6 +11,7 @@
 .gmail   { background: #ea4335; }
 .outlook { background: #0078d4; }
 .copy    { background: #6c757d; }
+.copied  { background: #16a34a; }
 
 /* Modal */
 .overlay {

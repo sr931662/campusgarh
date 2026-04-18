@@ -303,6 +303,16 @@
   color: var(--muted);
   font-size: 0.95rem;
 }
+.descBox p { margin: 0 0 0.75rem; }
+.descBox p:last-child { margin-bottom: 0; }
+.descBox h1, .descBox h2, .descBox h3, .descBox h4 {
+  color: var(--charcoal); margin: 1rem 0 0.5rem; font-family: var(--font-display);
+}
+.descBox ul, .descBox ol { padding-left: 1.5rem; margin: 0 0 0.75rem; }
+.descBox li { margin-bottom: 0.25rem; }
+.descBox strong { color: var(--charcoal); font-weight: 700; }
+.descBox a { color: var(--gold); text-decoration: none; }
+.descBox a:hover { text-decoration: underline; }
 
 /* ── Fee Card ───────────────────────────────────────────────────────────── */
 .feeCard {

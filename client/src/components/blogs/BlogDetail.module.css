@@ -205,13 +205,12 @@
   max-width: 780px;
   margin: 2rem auto 0;
   padding: 0 2.5rem;
+  background-size: cover;
 }
 
 .heroImage img {
   width: 100%;
   height: auto;
-  max-height: 380px;
-  object-fit: cover;
   border-radius: var(--radius, 16px);
   display: block;
 }
