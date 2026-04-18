@@ -134,7 +134,7 @@ p {
   :root { --nav-h: 60px; --nav-h-scroll: 60px; }
 }
 @media (max-width: 480px) {
-  :root { --nav-h: 54px; --nav-h-scroll: 54px; }
+  :root { --nav-h: 68px; --nav-h-scroll: 68px; }
 }
 /* ── Cross-browser compatibility (safe) ──────────────────────────────────── */
 html {
