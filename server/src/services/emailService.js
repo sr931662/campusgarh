@@ -90,6 +90,14 @@ class EmailService {
       },
     });
   }
+  async sendShareEmail({ to, title, url, image, excerpt }) {
+    await this.sendEmail({
+      to,
+      subject: `Someone shared this with you: ${title} – CampusGarh`,
+      template: 'shareEmail',
+      context: { title, url, image: image || '', excerpt: excerpt || '' },
+    });
+  }
 
 }
 

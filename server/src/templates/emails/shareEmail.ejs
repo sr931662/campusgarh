@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title><%= title %> – CampusGarh</title>
+</head>
+<body style="margin:0;padding:0;background:#F2EFE9;font-family:'Arial',sans-serif;">
+  <div style="max-width:580px;margin:36px auto;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.13);">
+
+    <div style="background:#C9A84C;height:5px;"></div>
+
+    <div style="background:#0A0A0F;padding:36px 48px;text-align:center;">
+      <img src="https://campusgarh.com/favicon/ms-icon-150x150.png" alt="CampusGarh" width="56" height="56" style="display:block;margin:0 auto 14px;border-radius:12px;border:2px solid #C9A84C;padding:2px;">
+      <h1 style="margin:0;color:#C9A84C;font-size:26px;font-weight:900;letter-spacing:-0.03em;">CAMPUS<span style="color:#fff;">GARH</span></h1>
+      <p style="margin:6px 0 0;color:rgba(201,168,76,0.6);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;">India's Premier Education Portal</p>
+    </div>
+
+    <div style="background:#ffffff;padding:40px 48px;">
+      <p style="margin:0 0 20px;color:#555;font-size:14px;line-height:1.8;">Someone thought you'd find this interesting on <strong>CampusGarh</strong>:</p>
+
+      <% if (image) { %>
+      <div style="margin:0 0 24px;border-radius:10px;overflow:hidden;">
+        <img src="<%= image %>" alt="<%= title %>" style="width:100%;display:block;max-height:280px;object-fit:cover;">
+      </div>
+      <% } %>
+
+      <h2 style="margin:0 0 12px;color:#0A0A0F;font-size:20px;font-weight:800;line-height:1.3;"><%= title %></h2>
+
+      <% if (excerpt) { %>
+      <p style="margin:0 0 24px;color:#555;font-size:14px;line-height:1.8;"><%= excerpt %></p>
+      <% } %>
+
+      <div style="text-align:center;margin:32px 0;">
+        <a href="<%= url %>" style="display:inline-block;background:#C9A84C;color:#0A0A0F;text-decoration:none;font-size:15px;font-weight:800;padding:15px 42px;border-radius:50px;letter-spacing:0.02em;">View on CampusGarh →</a>
+      </div>
+
+      <p style="margin:20px 0 0;color:#999;font-size:12px;line-height:1.7;">Or copy this link: <a href="<%= url %>" style="color:#C9A84C;word-break:break-all;"><%= url %></a></p>
+    </div>
+
+    <div style="background:#FFF8EC;padding:16px 48px;border-top:1px solid #F0DEB0;">
+      <p style="margin:0;color:#8A6D2F;font-size:12px;line-height:1.7;">This email was shared with you from CampusGarh. If you did not expect this, you can safely ignore it.</p>
+    </div>
+
+    <div style="background:#0A0A0F;padding:24px 48px;text-align:center;">
+      <p style="margin:0 0 8px;color:rgba(255,255,255,0.3);font-size:11px;letter-spacing:0.05em;">© 2025 CampusGarh Pvt. Ltd. All rights reserved</p>
+      <p style="margin:0;">
+        <a href="https://campusgarh.com" style="color:#C9A84C;font-size:11px;text-decoration:none;margin:0 8px;">campusgarh.com</a>
+        <span style="color:rgba(255,255,255,0.15);">|</span>
+        <a href="https://campusgarh.com/privacy-policy" style="color:rgba(255,255,255,0.3);font-size:11px;text-decoration:none;margin:0 8px;">Privacy Policy</a>
+      </p>
+    </div>
+    <div style="background:#C9A84C;height:4px;"></div>
+  </div>
+</body>
+</html>

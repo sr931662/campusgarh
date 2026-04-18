@@ -23,6 +23,7 @@ const College = require('./src/models/College');
 const Course = require('./src/models/Course');
 const Exam = require('./src/models/Exam');
 const Blog = require('./src/models/Blog');
+const emailService = require('./src/services/emailService');
 
 // Initialize express
 const app = express();
@@ -276,6 +277,18 @@ app.get('/og/news/:slug', async (req, res) => {
   } catch { res.redirect(process.env.CLIENT_URL); }
 });
 
+app.post('/api/v1/share/email', async (req, res) => {
+  try {
+    const { to, title, url, image, excerpt } = req.body;
+    if (!to || !title || !url) return res.status(400).json({ message: 'Missing required fields' });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) return res.status(400).json({ message: 'Invalid email address' });
+    await emailService.sendShareEmail({ to, title, url, image, excerpt });
+    res.json({ success: true });
+  } catch (e) {
+    console.error('Share email error:', e);
+    res.status(500).json({ message: 'Failed to send email' });
+  }
+});
 
 // 404 handler
 app.use((req, res, next) => {
