@@ -17,33 +17,30 @@ const CONTENT_TYPE_COLORS = {
   'College Review': '#10b981', 'Exam Update': '#ef4444',
   'Career Advice': '#0891b2', Scholarship: '#f97316', Comparison: '#64748b',
 };
-const TableOfContents = ({ items, bodyRef }) => {
+const TableOfContents = ({ items }) => {
   const [active, setActive] = useState(items[0]?.id || '');
 
   useEffect(() => {
-    if (!bodyRef.current || !items.length) return;
+    if (!items.length) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Pick the topmost visible heading
-        const visible = entries
-          .filter(e => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible.length > 0) setActive(visible[0].target.id);
-      },
-      {
-        rootMargin: `-${parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '80')}px 0px -60% 0px`,
-        threshold: 0,
+    const getNavH = () =>
+      parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '80');
+
+    const onScroll = () => {
+      const offset = getNavH() + 32;
+      let current = items[0]?.id || '';
+      for (const { id } of items) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= offset) current = id;
       }
-    );
+      setActive(current);
+    };
 
-    items.forEach(({ id }) => {
-      const el = bodyRef.current?.querySelector(`#${CSS.escape(id)}`);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [items, bodyRef]);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // set correct active on mount
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [items]);
 
   const handleClick = (e, id) => {
     e.preventDefault();
@@ -52,8 +49,7 @@ const TableOfContents = ({ items, bodyRef }) => {
     const navH = parseInt(
       getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '80'
     );
-    const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
-    window.scrollTo({ top, behavior: 'smooth' });
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - navH - 16, behavior: 'smooth' });
     setActive(id);
   };
 
@@ -278,7 +274,7 @@ const BlogDetail = () => {
             {/* Sidebar */}
             {hasSidebar && (
               <aside className={styles.sidebar}>
-                {tocItems.length > 0 && <TableOfContents items={tocItems} bodyRef={bodyRef} />}
+                {tocItems.length > 0 && <TableOfContents items={tocItems} />}
 
                 {blog.relatedColleges?.length > 0 && (
                   <div className={styles.sideSection}>

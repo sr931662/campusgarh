@@ -238,6 +238,8 @@
   grid-template-columns: 1fr 280px;
   gap: 2.5rem;
   align-items: start;
+  /* Both columns start at top — required for sticky to work */
+  align-content: start;
 }
 
 /* ── Article / Main ─────────────────────────────────────────────────────── */
@@ -370,11 +372,19 @@
 /* ── Sidebar ────────────────────────────────────────────────────────────── */
 .sidebar {
   position: sticky;
-  top: 96px;
+  top: calc(var(--nav-h, 80px) + 1rem);
+  max-height: calc(100vh - var(--nav-h, 80px) - 2rem);
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  /* Hide scrollbar visually but keep it functional */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
 }
+.sidebar::-webkit-scrollbar { display: none; }
 
 /* Table of Contents */
 .toc {

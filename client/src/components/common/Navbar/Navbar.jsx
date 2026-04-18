@@ -138,6 +138,7 @@ const Navbar = () => {
   const navigate  = useNavigate();
   const location  = useLocation();
   const navRef    = useRef(null);
+  const menuTimeout = useRef(null);
 
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isScrolled,   setIsScrolled]   = useState(false);
@@ -336,8 +337,9 @@ const Navbar = () => {
               <div
                 key={item.key}
                 className={`${styles.bottomNavItem} ${activeMenu === item.key ? styles.bottomNavItemActive : ''}`}
-                onMouseEnter={() => setActiveMenu(item.key)}
-                onMouseLeave={() => setActiveMenu(null)}
+                onMouseEnter={() => { clearTimeout(menuTimeout.current); setActiveMenu(item.key); }}
+                onMouseLeave={() => { menuTimeout.current = setTimeout(() => setActiveMenu(null), 300); }}
+
               >
                 <button className={`${styles.bottomNavBtn} ${isPathActive(item.key) ? styles.bottomNavLinkActive : ''}`}>
                   {item.label}
@@ -348,7 +350,11 @@ const Navbar = () => {
                 </button>
 
                 {activeMenu === item.key && (
-                  <div className={styles.megaMenu}>
+                  <div
+                    className={styles.megaMenu}
+                    onMouseEnter={() => clearTimeout(menuTimeout.current)}
+                    onMouseLeave={() => { menuTimeout.current = setTimeout(() => setActiveMenu(null), 300); }}
+                  >
                     <div className={`${styles.megaMenuInner} ${styles[`megaCols${MEGA[item.key].sections.length}`]}`}>
                       {MEGA[item.key].sections.map((sec, i) => (
                         <div key={i} className={styles.megaSection}>
