@@ -174,6 +174,7 @@ const ManageColleges = () => {
                       <div className={styles.actionCell}>
                         <Link to={`/colleges/${c.slug}`} className={styles.viewBtn} target="_blank" rel="noopener noreferrer">View</Link>
                         <Link to={`/admin/colleges/edit/${c._id}`} className={styles.editBtn}>Edit</Link>
+                        <Link to={`/admin/colleges/${c._id}/courses`} className={styles.editBtn}>Courses</Link>
                         <button
                           className={styles.deleteBtn}
                           disabled={deleteMutation.isPending}

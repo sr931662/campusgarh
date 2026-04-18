@@ -238,6 +238,38 @@ export const useCoursesForExam = (examId) => {
   });
 };
 
+export const useCollegesForExam = (examId) => {
+  return useQuery({
+    queryKey: ['collegesForExam', examId],
+    queryFn: () => collegeCourseService.getCollegesForExam(examId),
+    enabled: !!examId,
+  });
+};
+
+export const useCreateCollegeCourse = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: collegeCourseService.createMapping,
+    onSuccess: (_, vars) => {
+      queryClient.invalidateQueries({ queryKey: ['collegeCourses', vars?.college] });
+      toast.success('Course mapping added');
+    },
+    onError: (err) => toast.error(err.response?.data?.message || 'Failed to add mapping'),
+  });
+};
+
+export const useDeleteCollegeCourse = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ mappingId }) => collegeCourseService.deleteMapping(mappingId),
+    onSuccess: (_, vars) => {
+      queryClient.invalidateQueries({ queryKey: ['collegeCourses', vars?.collegeId] });
+      toast.success('Course mapping removed');
+    },
+    onError: (err) => toast.error(err.response?.data?.message || 'Failed to remove mapping'),
+  });
+};
+
 // ========== Course Hooks ==========
 export const useCourses = (params) => {
   return useQuery({

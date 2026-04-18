@@ -16,10 +16,26 @@ class CollegeCourseController {
     ResponseHandler.success(res, colleges);
   });
 
+  getCollegesForExam = catchAsync(async (req, res) => {
+    const { examId } = req.params;
+    const mappings = await collegeCourseService.getCollegesForExam(examId);
+    ResponseHandler.success(res, mappings);
+  });
+
+  createMapping = catchAsync(async (req, res) => {
+    const mapping = await collegeCourseService.createMapping(req.body);
+    ResponseHandler.success(res, mapping, 'Mapping created', 201);
+  });
+
   updateMapping = catchAsync(async (req, res) => {
     const { mappingId } = req.params;
     const mapping = await collegeCourseService.updateMapping(mappingId, req.body);
     ResponseHandler.success(res, mapping);
+  });
+
+  deleteMapping = catchAsync(async (req, res) => {
+    await collegeCourseService.deleteMapping(req.params.mappingId);
+    ResponseHandler.success(res, null, 'Mapping deleted');
   });
 }
 

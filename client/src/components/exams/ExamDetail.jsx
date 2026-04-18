@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useExamBySlug, useCoursesForExam, useExams } from '../../hooks/queries';
+import { useExamBySlug, useCoursesForExam, useCollegesForExam, useExams } from '../../hooks/queries';
 import { formatDate, formatCurrency } from '../../utils/formatters';
 import Loader from '../common/Loader/Loader';
 import Button from '../common/Button/Button';
@@ -23,13 +23,15 @@ const ExamDetail = () => {
   const exam = examRes?.data?.data;
 
   const { data: coursesRes } = useCoursesForExam(exam?._id);
+  const { data: collegeMappingsRes } = useCollegesForExam(exam?._id);
   const { data: similarExamsData } = useExams({ category: exam?.category, limit: 5 });
 
   const [activeSection, setActiveSection] = useState('overview');
   const [showFullSyllabus, setShowFullSyllabus] = useState(false);
   const sectionRefs = useRef({});
 
-  const courses = coursesRes?.data?.data || [];
+  const courses = coursesRes?.data?.data?.data || coursesRes?.data?.data || [];
+  const collegeMappings = collegeMappingsRes?.data?.data || [];
   const similarExams = (similarExamsData?.data?.data?.data || []).filter(e => e._id !== exam?._id).slice(0, 4);
 
   useEffect(() => {
@@ -446,17 +448,41 @@ const ExamDetail = () => {
             </div>
           </div>
 
-          {/* COLLEGES ACCEPTING THIS EXAM */}
+          {/* COURSES THAT USE THIS EXAM */}
           {courses.length > 0 && (
+            <div className={styles.section}>
+              <div className={styles.card}>
+                <h2 className={styles.sectionTitle}>Courses Using {exam.name}</h2>
+                <div className={styles.collegesGrid}>
+                  {courses.map(course => (
+                    <Link to={`/courses/${course.slug}`} key={course._id} className={styles.collegeCard}>
+                      <div className={styles.collegeName}>{course.name}</div>
+                      <div className={styles.collegeMetas}>
+                        {course.category && <span className={styles.collegeBadge}>{course.category}</span>}
+                        {course.discipline && <span className={styles.collegeBadge}>{course.discipline}</span>}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* COLLEGES ACCEPTING THIS EXAM */}
+          {collegeMappings.length > 0 && (
             <div className={styles.section}>
               <div className={styles.card}>
                 <h2 className={styles.sectionTitle}>Colleges Accepting {exam.name}</h2>
                 <div className={styles.collegesGrid}>
-                  {courses.map(course => (
-                    <Link to={`/colleges/${course.college?.slug}`} key={course._id} className={styles.collegeCard}>
-                      <div className={styles.collegeName}>{course.college?.name}</div>
+                  {collegeMappings.map(mapping => (
+                    <Link to={`/colleges/${mapping.college?.slug}`} key={mapping._id} className={styles.collegeCard}>
+                      <div className={styles.collegeName}>{mapping.college?.name}</div>
                       <div className={styles.collegeMeta}>
-                        {course.course?.name}{course.fees ? ` · ${formatCurrency(course.fees)}` : ''}
+                        {mapping.course?.name}{mapping.fees ? ` · ${formatCurrency(mapping.fees)}` : ''}
+                      </div>
+                      <div className={styles.collegeMetas}>
+                        {mapping.college?.collegeType && <span className={styles.collegeBadge}>{mapping.college.collegeType}</span>}
+                        {mapping.college?.accreditation?.naacGrade && <span className={styles.collegeBadge}>NAAC {mapping.college.accreditation.naacGrade}</span>}
                       </div>
                     </Link>
                   ))}

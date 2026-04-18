@@ -39,6 +39,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import RoleBasedRoute from './routes/RoleBasedRoute';
 import AdminRoleRequests from './pages/admin/AdminRoleRequests';
 import ManageColleges from './pages/admin/ManageColleges';
+import AdminCollegeCourses from './pages/admin/AdminCollegeCourses';
 import ManageCourses from './pages/admin/ManageCourses';
 import ManageExams from './pages/admin/ManageExams';
 import ManageBlogs from './pages/admin/ManageBlogs';
@@ -180,6 +181,7 @@ function App() {
             <Route path="/admin/guide" element={<AdminGuide />} />
             <Route path="/admin/video-testimonials" element={<AdminVideoTestimonials />} />
             <Route path="/admin/colleges/edit/:id" element={<CreateCollege />} />
+            <Route path="/admin/colleges/:collegeId/courses" element={<AdminCollegeCourses />} />
             <Route path="/admin/courses/edit/:id" element={<CreateCourse />} />
             <Route path="/admin/exams/edit/:id" element={<CreateExam />} />
             <Route path="/admin/accreditation" element={<ManageAccreditation />} />
