@@ -192,7 +192,7 @@ export default function CollegeDetail() {
           </nav>
 
       <ShareButtons
-        url={`https://campusgarh.com/colleges/${college.slug}`}
+        url={`${import.meta.env.VITE_API_URL}/og/college/${college.slug}`}
         title={college.name}
       />
           {/* College logo */}
