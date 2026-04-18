@@ -310,8 +310,11 @@ const server = app.listen(PORT, '0.0.0.0', () => {
 
 // Handle unhandled rejections
 process.on('unhandledRejection', (err) => {
-  console.error('UNHANDLED REJECTION! 💥 Shutting down...');
-  console.error(err.name, err.message);
+  console.error('UNHANDLED REJECTION! 💥', err.name, err.message);
+  if (process.env.NODE_ENV === 'production') {
+    // Log but don't crash — Cloud Run restarts are expensive and lose in-flight requests
+    return;
+  }
   server.close(() => {
     process.exit(1);
   });
