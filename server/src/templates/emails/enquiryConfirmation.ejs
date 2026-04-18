@@ -1,43 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Enquiry Received – CampusGarh</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #FAF7F2; margin: 0; padding: 0; }
-    .wrap { max-width: 560px; margin: 40px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-    .header { background: #0A0A0F; padding: 32px 40px; text-align: center; }
-    .header h1 { color: #C9A84C; font-size: 22px; margin: 0; letter-spacing: -0.02em; }
-    .body { padding: 32px 40px; }
-    .body h2 { color: #1C1C1E; font-size: 18px; margin: 0 0 12px; }
-    .body p { color: #555; font-size: 14px; line-height: 1.7; margin: 0 0 12px; }
-    .info-box { background: #FAF7F2; border: 1px solid #E8E3DB; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
-    .info-box p { margin: 4px 0; font-size: 13px; color: #333; }
-    .info-box strong { color: #1C1C1E; }
-    .footer { background: #F5F2ED; padding: 20px 40px; text-align: center; }
-    .footer p { color: #999; font-size: 12px; margin: 0; }
-  </style>
 </head>
-<body>
-  <div class="wrap">
-    <div class="header">
-      <h1>CampusGarh</h1>
+<body style="margin:0;padding:0;background:#F2EFE9;font-family:'Arial',sans-serif;">
+  <div style="max-width:580px;margin:36px auto;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.13);">
+
+    <div style="background:#C9A84C;height:5px;"></div>
+
+    <!-- Header -->
+    <div style="background:#0A0A0F;padding:36px 48px;text-align:center;">
+      <img src="https://campusgarh.com/ms-icon-150x150.png" alt="CampusGarh" width="52" height="52" style="display:block;margin:0 auto 14px;border-radius:10px;">
+      <h1 style="margin:0;color:#C9A84C;font-size:26px;font-weight:900;letter-spacing:-0.03em;">CAMPUS<span style="color:#fff;">GARH</span></h1>
+      <p style="margin:6px 0 0;color:rgba(201,168,76,0.6);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;">India's Premier Education Portal</p>
     </div>
-    <div class="body">
-      <h2>Hi <%= name %>, we got your enquiry!</h2>
-      <p>Thank you for reaching out. One of our counsellors will contact you within <strong>24 hours</strong> to help you find the right college.</p>
-      <div class="info-box">
-        <p><strong>Name:</strong> <%= name %></p>
-        <p><strong>Phone:</strong> <%= phone %></p>
+
+    <!-- Body -->
+    <div style="background:#ffffff;padding:40px 48px;">
+      <h2 style="margin:0 0 10px;color:#0A0A0F;font-size:22px;font-weight:800;">We got your enquiry, <%= name %>! ✅</h2>
+      <p style="margin:0 0 20px;color:#555;font-size:14px;line-height:1.8;">Thank you for reaching out to <strong>CampusGarh</strong>. One of our expert counsellors will contact you within <strong>24 hours</strong> to help you find the right college.</p>
+
+      <!-- Details box -->
+      <div style="background:#FAF7F2;border:1px solid #E8E3DB;border-left:4px solid #C9A84C;border-radius:8px;padding:20px 24px;margin:24px 0;">
+        <p style="margin:0 0 4px;color:#999;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;">Your Enquiry Details</p>
+        <p style="margin:10px 0 4px;color:#333;font-size:14px;"><strong style="color:#0A0A0F;">Name:</strong> &nbsp;<%= name %></p>
+        <p style="margin:4px 0;color:#333;font-size:14px;"><strong style="color:#0A0A0F;">Phone:</strong> &nbsp;<%= phone %></p>
         <% if (message) { %>
-        <p><strong>Your message:</strong> <%= message %></p>
+        <p style="margin:4px 0;color:#333;font-size:14px;"><strong style="color:#0A0A0F;">Message:</strong> &nbsp;<%= message %></p>
         <% } %>
       </div>
-      <p>While you wait, explore more colleges at <a href="<%= process.env.CLIENT_URL || 'https://campusgarh.com' %>" style="color:#C9A84C;">CampusGarh</a>.</p>
+
+      <p style="margin:0 0 24px;color:#555;font-size:14px;line-height:1.8;">While you wait, explore colleges, courses and entrance exams on our platform:</p>
+
+      <div style="text-align:center;margin:28px 0;">
+        <a href="<%= process.env.CLIENT_URL || 'https://campusgarh.com' %>" style="display:inline-block;background:#C9A84C;color:#0A0A0F;text-decoration:none;font-size:15px;font-weight:800;padding:15px 42px;border-radius:50px;letter-spacing:0.02em;">Explore CampusGarh →</a>
+      </div>
     </div>
-    <div class="footer">
-      <p>© CampusGarh · India's student-first college discovery platform</p>
+
+    <!-- No-reply notice -->
+    <div style="background:#FFF8EC;padding:16px 48px;border-top:1px solid #F0DEB0;">
+      <p style="margin:0;color:#8A6D2F;font-size:12px;line-height:1.7;">⚠️ This is an automated message from <strong>no_reply@campusgarh.com</strong>. Please do not reply here. For queries, write to <a href="mailto:support@campusgarh.com" style="color:#C9A84C;">support@campusgarh.com</a>.</p>
     </div>
+
+    <!-- Footer -->
+    <div style="background:#0A0A0F;padding:24px 48px;text-align:center;">
+      <p style="margin:0 0 8px;color:rgba(255,255,255,0.3);font-size:11px;letter-spacing:0.05em;">© 2025 CampusGarh Pvt. Ltd. · All rights reserved</p>
+      <p style="margin:0;">
+        <a href="https://campusgarh.com" style="color:#C9A84C;font-size:11px;text-decoration:none;margin:0 8px;">campusgarh.com</a>
+        <span style="color:rgba(255,255,255,0.15);">|</span>
+        <a href="https://campusgarh.com/privacy-policy" style="color:rgba(255,255,255,0.3);font-size:11px;text-decoration:none;margin:0 8px;">Privacy Policy</a>
+        <span style="color:rgba(255,255,255,0.15);">|</span>
+        <a href="https://campusgarh.com/contact" style="color:rgba(255,255,255,0.3);font-size:11px;text-decoration:none;margin:0 8px;">Contact</a>
+      </p>
+    </div>
+    <div style="background:#C9A84C;height:4px;"></div>
   </div>
 </body>
 </html>
