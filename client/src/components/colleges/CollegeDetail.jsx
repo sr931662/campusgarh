@@ -7,6 +7,7 @@ import {
 import { useColleges } from '../../hooks/queries';
 import { parseMarkdown } from '../../utils/parseMarkdown';
 import ShareButtons from '../common/ShareButtons/ShareButtons';
+import { useCoursesForCollege } from '../../hooks/queries';
 
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -47,6 +48,8 @@ export default function CollegeDetail() {
   // ── Data fetching ────────────────────────────────────────────────────────────
   const { data: axiosRes, isLoading, error } = useCollegeBySlug(slug);
   const college = axiosRes?.data?.data;
+  const { data: courseMappingsRes } = useCoursesForCollege(college?._id);
+  const collegeCourses = courseMappingsRes?.data?.data || [];
 
   const collegeSchema = college ? {
     "@context": "https://schema.org",
@@ -412,17 +415,21 @@ export default function CollegeDetail() {
               )}
 
               {/* Courses offered */}
-              {college.courses?.length > 0 && (
+              {collegeCourses.length > 0 && (
                 <div className={styles.card}>
                   <h3 className={styles.cardSubTitle}>Courses Offered</h3>
                   <div className={styles.coursesGrid}>
-                    {college.courses.map(course => (
-                      <Link key={course._id} to={`/courses/${course.slug}`} className={styles.courseChip}>
-                        <span className={styles.courseCategory}>{course.category}</span>
-                        <span className={styles.courseName}>{course.name}</span>
-                        {course.duration && <span className={styles.courseDuration}>{course.duration}</span>}
+                    {collegeCourses.map(mapping => {
+                      const course = mapping.course;
+                      return (
+                      <Link key={mapping._id} to={`/courses/${course?.slug}`} className={styles.courseChip}>
+                        <span className={styles.courseCategory}>{course?.category}</span>
+                        <span className={styles.courseName}>{course?.name}</span>
+                        {course?.duration && <span className={styles.courseDuration}>{course.duration}</span>}
+                        {mapping.fees && <span className={styles.courseDuration}>₹{mapping.fees.toLocaleString('en-IN')}/yr</span>}
+
                       </Link>
-                    ))}
+                    );})}
                   </div>
                 </div>
               )}
