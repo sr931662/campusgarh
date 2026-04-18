@@ -34,7 +34,7 @@ class EmailService {
     const html = await ejs.renderFile(templatePath, context);
     const from = process.env.RESEND_API_KEY
       ? `"CampusGarh" <${process.env.RESEND_FROM || 'onboarding@resend.dev'}>`
-      : `"CampusGarh" <${process.env.SMTP_USER}>`;
+      : `"CampusGarh" <${process.env.EMAIL_FROM || process.env.SMTP_USER}>`;
     await this.transporter.sendMail({ from, to, subject, html });
   }
 

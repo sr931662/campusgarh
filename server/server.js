@@ -217,6 +217,62 @@ app.get('/sitemap-blogs.xml', async (req, res) => {
 });
 
 
+// Bot OG preview routes
+const BOT_UA = /facebookexternalhit|Twitterbot|WhatsApp|TelegramBot|Slackbot|LinkedInBot|Googlebot|bingbot|Discordbot/i;
+
+app.get('/og/college/:slug', async (req, res) => {
+  if (!BOT_UA.test(req.headers['user-agent'] || '')) {
+    return res.redirect(`${process.env.CLIENT_URL}/colleges/${req.params.slug}`);
+  }
+  try {
+    const college = await College.findOne({ slug: req.params.slug }).select('name description logoUrl coverImageUrl slug');
+    if (!college) return res.redirect(process.env.CLIENT_URL);
+    const title = college.name;
+    const desc = (college.description || '').substring(0, 200).replace(/[#*_`]/g, '');
+    const image = college.coverImageUrl || college.logoUrl || '';
+    const url = `${process.env.CLIENT_URL}/colleges/${college.slug}`;
+    res.setHeader('Cache-Control', 's-maxage=3600');
+    return res.send(`<!DOCTYPE html><html><head>
+      <title>${title} | CampusGarh</title>
+      <meta property="og:title" content="${title} | CampusGarh">
+      <meta property="og:description" content="${desc}">
+      <meta property="og:image" content="${image}">
+      <meta property="og:url" content="${url}">
+      <meta property="og:type" content="website">
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:image" content="${image}">
+      <meta http-equiv="refresh" content="0;url=${url}">
+    </head><body><a href="${url}">${title}</a></body></html>`);
+  } catch { res.redirect(process.env.CLIENT_URL); }
+});
+
+app.get('/og/news/:slug', async (req, res) => {
+  if (!BOT_UA.test(req.headers['user-agent'] || '')) {
+    return res.redirect(`${process.env.CLIENT_URL}/news/${req.params.slug}`);
+  }
+  try {
+    const blog = await Blog.findOne({ slug: req.params.slug }).select('title excerpt featuredImageUrl slug');
+    if (!blog) return res.redirect(process.env.CLIENT_URL);
+    const title = blog.title;
+    const desc = blog.excerpt || '';
+    const image = blog.featuredImageUrl || '';
+    const url = `${process.env.CLIENT_URL}/news/${blog.slug}`;
+    res.setHeader('Cache-Control', 's-maxage=3600');
+    return res.send(`<!DOCTYPE html><html><head>
+      <title>${title} | CampusGarh</title>
+      <meta property="og:title" content="${title} | CampusGarh">
+      <meta property="og:description" content="${desc}">
+      <meta property="og:image" content="${image}">
+      <meta property="og:url" content="${url}">
+      <meta property="og:type" content="article">
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:image" content="${image}">
+      <meta http-equiv="refresh" content="0;url=${url}">
+    </head><body><a href="${url}">${title}</a></body></html>`);
+  } catch { res.redirect(process.env.CLIENT_URL); }
+});
+
+
 // 404 handler
 app.use((req, res, next) => {
   res.status(404).json({
