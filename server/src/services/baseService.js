@@ -1,5 +1,39 @@
 const AppError = require('../utils/AppError');
 
+// Converts raw MongoDB/Mongoose errors into friendly, user-readable messages
+function toFriendlyError(modelName, action, error) {
+  if (error instanceof AppError) return error;
+
+  // Duplicate key (e.g. duplicate slug, email, title)
+  if (error.code === 11000) {
+    const field = Object.keys(error.keyValue || {})[0] || 'field';
+    const labelMap = { slug: 'title', email: 'email address', name: 'name', phone: 'phone number' };
+    const label = labelMap[field] || field;
+    return new AppError(
+      `A ${modelName.toLowerCase()} with this ${label} already exists. Please use a different ${label}.`,
+      400
+    );
+  }
+
+  // Mongoose validation errors (required fields, min/max, etc.)
+  if (error.name === 'ValidationError') {
+    const messages = Object.values(error.errors)
+      .map(e => e.message.replace(/^Path `(\w+)`/, (_, f) => {
+        const labelMap = { slug: 'Title', featuredImageUrl: 'Featured image', author: 'Author' };
+        return labelMap[f] || f.charAt(0).toUpperCase() + f.slice(1);
+      }))
+      .join('. ');
+    return new AppError(messages || 'Please fill in all required fields.', 400);
+  }
+
+  // Invalid ID or value type
+  if (error.name === 'CastError') {
+    return new AppError(`Invalid ${error.path} value. Please check your input.`, 400);
+  }
+
+  return new AppError(`Failed to ${action} ${modelName.toLowerCase()}. Please try again.`, 500);
+}
+
 class BaseService {
   constructor(model) {
     this.model = model;
@@ -11,7 +45,7 @@ class BaseService {
       const doc = await this.model.create(data);
       return doc;
     } catch (error) {
-      throw new AppError(`Error creating ${this.model.modelName}: ${error.message}`, 400);
+      throw toFriendlyError(this.model.modelName, 'create', error);
     }
   }
 
@@ -23,7 +57,7 @@ class BaseService {
       return doc;
     } catch (error) {
       if (error instanceof AppError) throw error;
-      throw new AppError(`Error finding ${this.model.modelName}: ${error.message}`, 400);
+      throw toFriendlyError(this.model.modelName, 'find', error);
     }
   }
 
@@ -35,7 +69,7 @@ class BaseService {
       return doc;
     } catch (error) {
       if (error instanceof AppError) throw error;
-      throw new AppError(`Error finding ${this.model.modelName}: ${error.message}`, 400);
+      throw toFriendlyError(this.model.modelName, 'find', error);
     }
   }
 
@@ -61,7 +95,7 @@ class BaseService {
         },
       };
     } catch (error) {
-      throw new AppError(`Error fetching ${this.model.modelName}: ${error.message}`, 400);
+      throw toFriendlyError(this.model.modelName, 'fetch', error);
     }
   }
 
@@ -77,7 +111,7 @@ class BaseService {
       return doc;
     } catch (error) {
       if (error instanceof AppError) throw error;
-      throw new AppError(`Error updating ${this.model.modelName}: ${error.message}`, 400);
+      throw toFriendlyError(this.model.modelName, 'update', error);
     }
   }
 
@@ -103,7 +137,7 @@ class BaseService {
       return doc;
     } catch (error) {
       if (error instanceof AppError) throw error;
-      throw new AppError(`Error deleting ${this.model.modelName}: ${error.message}`, 400);
+      throw toFriendlyError(this.model.modelName, 'delete', error);
     }
   }
 
@@ -118,7 +152,7 @@ class BaseService {
       const docs = await this.model.insertMany(dataArray, options);
       return docs;
     } catch (error) {
-      throw new AppError(`Error bulk creating ${this.model.modelName}: ${error.message}`, 400);
+      throw toFriendlyError(this.model.modelName, 'import', error);
     }
   }
 
@@ -128,7 +162,7 @@ class BaseService {
       const result = await this.model.bulkWrite(operations);
       return result;
     } catch (error) {
-      throw new AppError(`Error bulk updating ${this.model.modelName}: ${error.message}`, 400);
+      throw toFriendlyError(this.model.modelName, 'update', error);
     }
   }
 }

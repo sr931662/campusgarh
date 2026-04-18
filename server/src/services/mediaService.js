@@ -23,6 +23,7 @@ class MediaService extends BaseService {
             else resolve(result);
           }
         );
+        uploadStream.on('error', reject);
         uploadStream.end(fileBuffer);
       });
 
