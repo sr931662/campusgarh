@@ -218,57 +218,61 @@ app.get('/sitemap-blogs.xml', async (req, res) => {
 
 
 // Bot OG preview routes
-const BOT_UA = /facebookexternalhit|Twitterbot|WhatsApp|TelegramBot|Slackbot|LinkedInBot|Googlebot|bingbot|Discordbot/i;
+const FALLBACK_OG_IMAGE = 'https://campusgarh.com/favicon/ms-icon-150x150.png';
+
+function buildOgHtml({ title, desc, image, url, type }) {
+  const safeTitle = title.replace(/"/g, '&quot;');
+  const safeDesc = desc.replace(/"/g, '&quot;');
+  const img = image || FALLBACK_OG_IMAGE;
+  return `<!DOCTYPE html><html prefix="og: https://ogp.me/ns#"><head>
+  <meta charset="UTF-8">
+  <title>${safeTitle} | CampusGarh</title>
+  <meta property="og:site_name" content="CampusGarh">
+  <meta property="og:title" content="${safeTitle} | CampusGarh">
+  <meta property="og:description" content="${safeDesc}">
+  <meta property="og:image" content="${img}">
+  <meta property="og:image:secure_url" content="${img}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="${safeTitle}">
+  <meta property="og:url" content="${url}">
+  <meta property="og:type" content="${type}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@campusgarh">
+  <meta name="twitter:title" content="${safeTitle} | CampusGarh">
+  <meta name="twitter:description" content="${safeDesc}">
+  <meta name="twitter:image" content="${img}">
+  <meta name="twitter:image:alt" content="${safeTitle}">
+  <link rel="canonical" href="${url}">
+  <meta http-equiv="refresh" content="0;url=${url}">
+</head><body><a href="${url}">${safeTitle}</a></body></html>`;
+}
 
 app.get('/og/college/:slug', async (req, res) => {
-  if (!BOT_UA.test(req.headers['user-agent'] || '')) {
-    return res.redirect(`${process.env.CLIENT_URL}/colleges/${req.params.slug}`);
-  }
   try {
-    const college = await College.findOne({ slug: req.params.slug }).select('name description logoUrl coverImageUrl slug');
+    const college = await College.findOne({ slug: req.params.slug }).select('name description logoUrl coverImageUrl slug shortName');
     if (!college) return res.redirect(process.env.CLIENT_URL);
     const title = college.name;
-    const desc = (college.description || '').substring(0, 200).replace(/[#*_`]/g, '');
+    const desc = (college.description || '').substring(0, 200).replace(/[#*_`[\]]/g, '').trim();
     const image = college.coverImageUrl || college.logoUrl || '';
     const url = `${process.env.CLIENT_URL}/colleges/${college.slug}`;
-    res.setHeader('Cache-Control', 's-maxage=3600');
-    return res.send(`<!DOCTYPE html><html><head>
-      <title>${title} | CampusGarh</title>
-      <meta property="og:title" content="${title} | CampusGarh">
-      <meta property="og:description" content="${desc}">
-      <meta property="og:image" content="${image}">
-      <meta property="og:url" content="${url}">
-      <meta property="og:type" content="website">
-      <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:image" content="${image}">
-      <meta http-equiv="refresh" content="0;url=${url}">
-    </head><body><a href="${url}">${title}</a></body></html>`);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, s-maxage=3600, max-age=3600');
+    return res.send(buildOgHtml({ title, desc, image, url, type: 'website' }));
   } catch { res.redirect(process.env.CLIENT_URL); }
 });
 
 app.get('/og/news/:slug', async (req, res) => {
-  if (!BOT_UA.test(req.headers['user-agent'] || '')) {
-    return res.redirect(`${process.env.CLIENT_URL}/news/${req.params.slug}`);
-  }
   try {
     const blog = await Blog.findOne({ slug: req.params.slug }).select('title excerpt featuredImageUrl slug');
     if (!blog) return res.redirect(process.env.CLIENT_URL);
     const title = blog.title;
-    const desc = blog.excerpt || '';
+    const desc = (blog.excerpt || '').substring(0, 200).trim();
     const image = blog.featuredImageUrl || '';
     const url = `${process.env.CLIENT_URL}/news/${blog.slug}`;
-    res.setHeader('Cache-Control', 's-maxage=3600');
-    return res.send(`<!DOCTYPE html><html><head>
-      <title>${title} | CampusGarh</title>
-      <meta property="og:title" content="${title} | CampusGarh">
-      <meta property="og:description" content="${desc}">
-      <meta property="og:image" content="${image}">
-      <meta property="og:url" content="${url}">
-      <meta property="og:type" content="article">
-      <meta name="twitter:card" content="summary_large_image">
-      <meta name="twitter:image" content="${image}">
-      <meta http-equiv="refresh" content="0;url=${url}">
-    </head><body><a href="${url}">${title}</a></body></html>`);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, s-maxage=3600, max-age=3600');
+    return res.send(buildOgHtml({ title, desc, image, url, type: 'article' }));
   } catch { res.redirect(process.env.CLIENT_URL); }
 });
 

@@ -147,8 +147,9 @@ const BlogDetail = () => {
         <div className={styles.heroInner}>
           
         <ShareButtons
-          url={`${import.meta.env.VITE_API_URL}/og/news/${blog.slug}`}
+          url={`https://campusgarh.com/news/${blog.slug}`}
           title={blog.title}
+          image={blog.featuredImageUrl}
         />
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
