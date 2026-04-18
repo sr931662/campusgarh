@@ -10,6 +10,7 @@ import { parseMarkdown } from '../../utils/parseMarkdown';
 import SEOHead from '../common/SEOHead';
 import { useBlogs } from '../../hooks/queries';
 import BlogCard from './BlogCard';
+import ShareButtons from '../common/ShareButtons/ShareButtons';
 
 const CONTENT_TYPE_COLORS = {
   Guide: '#3b82f6', News: '#f59e0b', Ranking: '#8b5cf6',
@@ -144,6 +145,11 @@ const BlogDetail = () => {
       <section className={styles.hero}>
         <div className={styles.heroNoise} />
         <div className={styles.heroInner}>
+          
+        <ShareButtons
+          url={`https://campusgarh.com/news/${blog.slug}`}
+          title={blog.title}
+        />
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
             <Link to="/news">News & Articles</Link>

@@ -5,6 +5,8 @@ import {
   FaFacebook, FaInstagram, FaLinkedinIn, FaYoutube, FaEnvelope,
 } from 'react-icons/fa';
 import { useColleges } from '../../hooks/queries';
+import { parseMarkdown } from '../../utils/parseMarkdown';
+import ShareButtons from '../common/ShareButtons/ShareButtons';
 
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -178,6 +180,7 @@ export default function CollegeDetail() {
           backgroundRepeat: 'no-repeat',
         } : undefined}
       >
+        
         <div className={styles.heroNoise} />
 
         <div className={styles.heroInner}>
@@ -188,6 +191,10 @@ export default function CollegeDetail() {
             <span>{college.name}</span>
           </nav>
 
+      <ShareButtons
+        url={`https://campusgarh.com/colleges/${college.slug}`}
+        title={college.name}
+      />
           {/* College logo */}
           <div className={styles.collegeLogo}>
             {college.logoUrl ? (
@@ -308,6 +315,7 @@ export default function CollegeDetail() {
 
       {/* ── ALL SECTIONS (single page, scroll-based) ──────────────────────────── */}
       <div className={styles.contentWrap}>
+        
         <div className={styles.contentLayout}>
           <div className={styles.content}>
 
@@ -317,9 +325,10 @@ export default function CollegeDetail() {
               <div className={styles.card}>
                 <h2 className={styles.cardTitle}>About {college.name}</h2>
                 {college.description
-                  ? <p className={styles.desc}>{college.description}</p>
+                  ? <div className={styles.desc} dangerouslySetInnerHTML={{ __html: parseMarkdown(college.description) }} />
                   : <p className={styles.empty}>No description available.</p>
                 }
+
               </div>
 
               {/* Two-column grid */}

@@ -29,6 +29,21 @@ export function parseMarkdown(md) {
 
   // Horizontal rule
   html = html.replace(/^---+$/gm, '<hr>');
+    // Tables
+  html = html.replace(/((?:^\|.+\|\s*\n?)+)/gm, (block) => {
+    const rows = block.trim().split('\n').filter(r => r.trim());
+    if (rows.length < 2) return block;
+    const isSep = (r) => /^\|[\s|:\-]+\|$/.test(r.trim());
+    const parseCells = (r) => r.split('|').filter((_, j, a) => j > 0 && j < a.length - 1).map(c => c.trim());
+    let out = '<table><thead><tr>';
+    out += parseCells(rows[0]).map(c => `<th>${c}</th>`).join('');
+    out += '</tr></thead><tbody>';
+    rows.filter((r, i) => i > 0 && !isSep(r)).forEach(r => {
+      out += '<tr>' + parseCells(r).map(c => `<td>${c}</td>`).join('') + '</tr>';
+    });
+    return out + '</tbody></table>';
+  });
+
 
   // Unordered lists (groups)
   html = html.replace(/((?:^[-*] .+\n?)+)/gm, (block) => {

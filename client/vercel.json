@@ -3,14 +3,21 @@
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "Cross-Origin-Opener-Policy",
-          "value": "unsafe-none"
-        }
+        { "key": "Cross-Origin-Opener-Policy", "value": "unsafe-none" }
       ]
     }
   ],
   "rewrites": [
+    {
+      "source": "/colleges/:slug",
+      "has": [{ "type": "header", "key": "user-agent", "value": ".*(facebookexternalhit|Facebot|Twitterbot|WhatsApp|TelegramBot|Slackbot|LinkedInBot|Googlebot|bingbot|Applebot|Discordbot|Pinterestbot).*" }],
+      "destination": "/api/og?type=college&slug=:slug"
+    },
+    {
+      "source": "/news/:slug",
+      "has": [{ "type": "header", "key": "user-agent", "value": ".*(facebookexternalhit|Facebot|Twitterbot|WhatsApp|TelegramBot|Slackbot|LinkedInBot|Googlebot|bingbot|Applebot|Discordbot|Pinterestbot).*" }],
+      "destination": "/api/og?type=blog&slug=:slug"
+    },
     {
       "source": "/(.*)",
       "destination": "/"
