@@ -1,4 +1,4 @@
-.wrap { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+.wrap { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 16px 0; max-width: 100%; overflow: hidden; }
 .label { font-size: 14px; font-weight: 600; color: #555; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center;

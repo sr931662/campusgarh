@@ -4,8 +4,11 @@ const ejs = require('ejs');
 
 class EmailService {
   constructor() {
-    // Use Resend SMTP if RESEND_API_KEY is set, else fall back to generic SMTP
     if (process.env.RESEND_API_KEY) {
+      const fromDomain = process.env.RESEND_FROM;
+      if (!fromDomain) {
+        console.warn('[EmailService] RESEND_API_KEY is set but RESEND_FROM is missing — emails will likely be dropped by Resend. Set RESEND_FROM to a verified domain email.');
+      }
       this.transporter = nodemailer.createTransport({
         host: 'smtp.resend.com',
         port: 465,
@@ -16,6 +19,9 @@ class EmailService {
         },
       });
     } else {
+      if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+        console.warn('[EmailService] SMTP env vars (SMTP_HOST, SMTP_USER, SMTP_PASS) are not fully configured. Email sending will fail.');
+      }
       this.transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT) || 587,
@@ -26,19 +32,26 @@ class EmailService {
         },
       });
     }
+
+    // Verify SMTP connection on startup (non-blocking)
+    this.transporter.verify().then(() => {
+      console.log('[EmailService] SMTP transporter ready');
+    }).catch((err) => {
+      console.error('[EmailService] SMTP transporter verification failed:', err.message);
+    });
   }
 
-  // Send email using EJS template
   async sendEmail({ to, subject, template, context }) {
     const templatePath = path.join(__dirname, '../templates/emails', `${template}.ejs`);
     const html = await ejs.renderFile(templatePath, context);
     const from = process.env.RESEND_API_KEY
       ? `"CampusGarh" <${process.env.RESEND_FROM || 'onboarding@resend.dev'}>`
       : `"CampusGarh" <${process.env.SMTP_USER}>`;
-    await this.transporter.sendMail({ from, to, subject, html });
+    const info = await this.transporter.sendMail({ from, to, subject, html });
+    console.log(`[EmailService] Email sent to ${to} | messageId: ${info.messageId}`);
+    return info;
   }
 
-  // Send verification email
   async sendVerificationEmail(user, token) {
     const url = `${process.env.CLIENT_URL}/verify-email/${token}`;
     await this.sendEmail({
@@ -49,7 +62,6 @@ class EmailService {
     });
   }
 
-  // Send password reset email
   async sendPasswordResetEmail(user, token) {
     const url = `${process.env.CLIENT_URL}/reset-password/${token}`;
     await this.sendEmail({
@@ -59,7 +71,7 @@ class EmailService {
       context: { name: user.name, url },
     });
   }
-    // Send enquiry confirmation to student
+
   async sendEnquiryConfirmation(enquiry) {
     await this.sendEmail({
       to: enquiry.email,
@@ -73,7 +85,6 @@ class EmailService {
     });
   }
 
-  // Notify assigned counsellor of new lead
   async sendCounsellorNotification(enquiry, counsellor) {
     await this.sendEmail({
       to: counsellor.email,
@@ -90,15 +101,15 @@ class EmailService {
       },
     });
   }
+
   async sendShareEmail({ to, title, url, image, excerpt }) {
     await this.sendEmail({
       to,
-      subject: `Someone shared this with you: ${title} – CampusGarh`,
+      subject: `Check this out on CampusGarh: ${title}`,
       template: 'shareEmail',
       context: { title, url, image: image || '', excerpt: excerpt || '' },
     });
   }
-
 }
 
 module.exports = new EmailService();
