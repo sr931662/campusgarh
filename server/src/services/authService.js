@@ -122,8 +122,14 @@ class AuthService extends BaseService {
 
   // Forgot password
   async forgotPassword(email) {
-    const user = await User.findOne({ email });
+    const normalizedEmail = (email || '').toLowerCase().trim();
+    const user = await User.findOne({ email: normalizedEmail });
     if (!user) throw new AppError('No user with that email', 404);
+
+    if (user.oauthProvider === 'google') {
+      throw new AppError('This account uses Google Sign-In. Please log in with Google instead.', 400);
+    }
+
 
     // Generate reset token
     const resetToken = crypto.randomBytes(32).toString('hex');

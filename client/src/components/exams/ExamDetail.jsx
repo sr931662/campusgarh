@@ -7,6 +7,7 @@ import Button from '../common/Button/Button';
 import styles from './ExamDetail.module.css';
 import { FaBook, FaExternalLinkAlt, FaFileAlt, FaUniversity, FaLaptop, FaCalendarAlt, FaMapPin } from 'react-icons/fa';
 import SEOHead from '../common/SEOHead';
+import { parseMarkdown } from '../../utils/parseMarkdown';
 
 const SECTIONS = [
   { id: 'overview',   label: 'Overview' },
@@ -161,7 +162,10 @@ const ExamDetail = () => {
           <div id="overview" ref={el => sectionRefs.current['overview'] = el} className={styles.section}>
             <div className={styles.card}>
               <h2 className={styles.sectionTitle}>About {exam.name}</h2>
-              <div className={styles.overviewBox}>{exam.overview || 'No overview provided.'}</div>
+              <div
+  className={styles.overviewBox}
+  dangerouslySetInnerHTML={{ __html: exam.overview ? parseMarkdown(exam.overview) : 'No overview provided.' }}
+/>
               <div className={styles.keyInfoGrid}>
                 {exam.conductingBody && (
                   <div className={styles.keyInfoCard}>
