@@ -11,7 +11,7 @@ export const collegeService = {
     const form = new FormData();
     form.append('logo', file);
     return api.patch(`/colleges/${id}/logo`, form, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: { 'Content-Type': undefined },
     });
   },
 

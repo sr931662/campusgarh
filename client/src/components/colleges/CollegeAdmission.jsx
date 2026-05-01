@@ -104,11 +104,18 @@ export default function CollegeAdmission({ college }) {
       {ap.documentsRequired?.length > 0 && (
         <div className={styles.section}>
           <h3 className={styles.subTitle}>Documents Required</h3>
-          <div className={styles.docList}>
-            {ap.documentsRequired.map(doc => (
-              <span key={doc} className={styles.docTag}>{doc}</span>
+          <p className={styles.docNote}>
+            Prepare the following {ap.documentsRequired.length} document{ap.documentsRequired.length !== 1 ? 's' : ''} before applying:
+          </p>
+          <ol className={styles.docTable}>
+            {ap.documentsRequired.map((doc, i) => (
+              <li key={doc} className={styles.docRow}>
+                <span className={styles.docIndex}>{String(i + 1).padStart(2, '0')}</span>
+                <span className={styles.docName}>{doc}</span>
+                <span className={styles.docCheck} title="Required">✓</span>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       )}
     </div>

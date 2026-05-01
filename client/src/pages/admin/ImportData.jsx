@@ -9,7 +9,7 @@ const COLUMN_GUIDE = {
   College: {
     required: ['College Name'],
     optional: [
-      'Short Name', 'Logo URL', 'Description', 'Established Year',
+      'Short Name', 'Logo URL', 'Cover Image URL', 'Description', 'Established Year',
       'College Type', 'Institute Type (Funding Type)', 'Affiliation',
       'NAAC Grade', 'NIRF Rank', 'NBA Status (Yes/No)',
       'Phone', 'Email', 'Website', 'Address', 'City', 'State', 'Pincode',

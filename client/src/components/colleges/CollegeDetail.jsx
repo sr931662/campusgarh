@@ -19,7 +19,6 @@ import Button from '../common/Button/Button';
 import Loader from '../common/Loader/Loader';
 import CollegeReviews from './CollegeReviews';
 import CollegePlacements from './CollegePlacements';
-import CollegeFacilities from './CollegeFacilities';
 import CollegeAdmission from './CollegeAdmission';
 import CollegeCutoffs from './CollegeCutoffs';
 
@@ -37,7 +36,6 @@ const SECTIONS = [
   { id: 'placements', label: 'Placements' },
   { id: 'cutoffs',    label: 'Cutoffs' },
   { id: 'hostel',     label: 'Hostel & Campus' },
-  { id: 'facilities', label: 'Facilities' },
   { id: 'gallery',    label: 'Gallery' },
   { id: 'reviews',    label: 'Reviews' },
 ];
@@ -485,11 +483,6 @@ export default function CollegeDetail() {
               <CollegeHostelCampus college={college} />
             </div>
 
-            {/* FACILITIES ─────────────────────────────────────────────── */}
-            <div id="facilities" className={styles.section}>
-              <CollegeFacilities college={college} />
-            </div>
-
             {/* GALLERY ───────────────────────────────────────────── */}
             <div id="gallery" className={styles.section}>
               <CollegeGallery collegeId={college._id} directImages={college.galleryImages || []} coverImageUrl={college.coverImageUrl} />
@@ -521,7 +514,7 @@ export default function CollegeDetail() {
 
       {/* ── SIMILAR COLLEGES ──────────────────────────────────────────────────── */}
       {similarColleges.length > 0 && (
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '3rem 2rem', borderTop: '1px solid #E8E3DB' }}>
+        <div style={{ maxWidth: '1320px', margin: '0 auto', padding: '3rem 2rem', borderTop: '1px solid #E8E3DB' }}>
           <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '1.5rem' }}>Similar Colleges</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem' }}>
             {similarColleges.map(c => (

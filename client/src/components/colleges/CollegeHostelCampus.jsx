@@ -7,7 +7,6 @@ export default function CollegeHostelCampus({ college }) {
 
   const hostel = college.hostel || {};
   const campus = college.campusInfo || {};
-  const infra  = college.infrastructure || {};
 
   return (
     <div className={styles.wrapper}>
@@ -79,34 +78,8 @@ export default function CollegeHostelCampus({ college }) {
         </>
       )}
 
-      {/* ── INFRASTRUCTURE ── */}
-      {Object.values(infra).some(v => v) && (
-        <>
-          <h2 className={styles.sectionTitleSpaced}>Infrastructure</h2>
-          <div className={styles.statsGrid}>
-            {infra.totalBuildings    && <Stat label="Buildings"      value={infra.totalBuildings} />}
-            {infra.classroomCount    && <Stat label="Classrooms"     value={infra.classroomCount} />}
-            {infra.laboratoryCount   && <Stat label="Laboratories"   value={infra.laboratoryCount} />}
-            {infra.libraryBooks      && <Stat label="Library Books"  value={infra.libraryBooks.toLocaleString('en-IN')} />}
-            {infra.computerCount     && <Stat label="Computers"      value={infra.computerCount} />}
-            {infra.auditoriumCapacity && <Stat label="Auditorium"    value={`${infra.auditoriumCapacity} seats`} />}
-            {infra.cafeteriaCount    && <Stat label="Cafeterias"     value={infra.cafeteriaCount} />}
-            {infra.hasOwnHospital    && <Stat label="Hospital"       value="On Campus" />}
-          </div>
-          {infra.sportsGrounds?.length > 0 && (
-            <div className={styles.facilityRow}>
-              <h3 className={styles.subTitle}>Sports Grounds</h3>
-              <div className={styles.tagList}>
-                {infra.sportsGrounds.map(s => <span key={s} className={styles.tagGreen}>{s}</span>)}
-              </div>
-            </div>
-          )}
-        </>
-      )}
-
       {!Object.values(hostel).some(v => v) &&
-       !Object.values(campus).some(v => v) &&
-       !Object.values(infra).some(v => v) && (
+       !Object.values(campus).some(v => v) && (
         <p className={styles.emptyMsg}>No hostel or campus information available yet.</p>
       )}
     </div>
